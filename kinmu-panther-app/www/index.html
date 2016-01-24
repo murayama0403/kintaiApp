@@ -34,7 +34,7 @@
             
             <ons-list>
                 <ons-list-item ng-repeat="day in days">
-                    {{day | date: 'd(EEE)'}}
+                    <span ng-class="day.dayType">{{day.date | date: 'd(EEE)'}}</span>
                 </ons-list-item>
             </ons-list>
         </ons-page>

@@ -29,5 +29,12 @@
         <ons-toolbar fixed-style="true">
             <div class="center">{{currentMonth | date: 'yyyy年M月'}}</div>
         </ons-toolbar>
+        <ons-scroller>
+            <ons-list>
+                <ons-list-item ons-lazy-repeat="dateList">
+                  {{item.name}}
+                  ({{item.day}})
+                </ons-list-item>
+        </ons-scroller>
     </body>
 </html>

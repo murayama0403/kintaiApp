@@ -27,14 +27,14 @@
         
         <title>勤務パンサー</title>
     </head>
-    <body ng-controller="AppController">
+    <body ng-controller="AppController as app">
         <ons-page>
             <ons-toolbar fixed-style="true">
-                <div class="center">{{now | date: 'yyyy年M月'}}</div>
+                <div class="center">{{app.now | date: 'yyyy年M月'}}</div>
             </ons-toolbar>
             
             <ons-list>
-                <ons-list-item ng-repeat="day in days">
+                <ons-list-item ng-repeat="day in app.days">
                     <span ng-class="day.dayType">{{day.date | date: 'd(EEE)'}}</span>
                 </ons-list-item>
             </ons-list>

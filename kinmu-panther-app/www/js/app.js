@@ -2,7 +2,7 @@
   'use strict';
   
   var module = ons.bootstrap('app', ['onsen']);
-  module.controller('AppController', function($scope){
+  module.controller('AppController', function(){
 
     var SUNDAY = 0;
     var SATURDAY = 6;
@@ -44,8 +44,8 @@
       date.setDate(date.getDate() + 1);
     }
     
-    $scope.now = now;
-    $scope.days = days;
+    this.now = now;
+    this.days = days;
   });
   
   ons.ready(function() {

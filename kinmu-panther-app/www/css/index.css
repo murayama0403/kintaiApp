@@ -1,6 +1,6 @@
 span.sat {
   color: #0033cc;
 }
-span.sun {
+span.sun,span.hol {
   color: #cc0033;
 }

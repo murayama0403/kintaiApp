@@ -1,9 +1,19 @@
+.date {
+  width : 25px;
+  text-align : center;
+  float : left;
+}
+.day {
+  width : 25px;
+  text-align : center;
+  float : left;
+}
 .weekday {
-  color: #000000;
+  color : #000000;
 }
 .saturday{
-  color: #0000FF;
+  color : #0000FF;
 }
 .sunday {
-  color: #FF0000;
+  color : #FF0000;
 }

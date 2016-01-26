@@ -31,10 +31,14 @@
         </ons-toolbar>
         <ons-scroller>
             <ons-list>
+            <ons-list-item ons-lazy-repeat="dateLista"></ons-list-item>
                 <ons-list-item ons-lazy-repeat="dateList">
-                  {{item.name}}
-                  ({{item.day}})
+                    <ons-row class="{{item.color}}">
+                        <ons-col class="date">{{item.name}}</ons-col>
+                        <ons-col class="day">({{item.day}})</ons-col>
+                    </ons-row>
                 </ons-list-item>
+            </ons-list>
         </ons-scroller>
     </body>
 </html>

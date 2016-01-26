@@ -2,8 +2,7 @@
   'use strict';
   
   var module = ons.bootstrap('app', ['onsen']);
-  module.controller('AppController', function(){
-
+  module.service('kinmuService', [function(){
     var SUNDAY = 0;
     var SATURDAY = 6;
     // 就業規則で12/30-1/3は休み(1/1は元日なので設定不要)
@@ -30,23 +29,32 @@
       return '';
     }
     
-    var now = new Date();
-    
-    var days = [];
-    var date = new Date(now.getFullYear(), now.getMonth(), 1);
-    while (date.getMonth() == now.getMonth()) {
-      var currentDate = new Date(date.getTime());
-      var dayData = {
-        date: currentDate,
-        dayType: calcDayType(currentDate)
+    this.getMonthData = function(year, month) {
+      var days = [];
+      var month0Origin = month - 1;
+      var date = new Date(year, month0Origin, 1);
+      while (date.getMonth() == month0Origin) {
+        var currentDate = new Date(date.getTime());
+        var dayData = {
+          date: currentDate,
+          dayType: calcDayType(currentDate)
+        };
+        days.push(dayData);
+        date.setDate(date.getDate() + 1);
+      }
+      
+      return {
+        year: year,
+        month: month,
+        days: days
       };
-      days.push(dayData);
-      date.setDate(date.getDate() + 1);
-    }
-    
-    this.now = now;
-    this.days = days;
-  });
+    };
+  }]);
+  
+  module.controller('AppController', ['kinmuService', function(kinmuService){
+    var now = new Date();
+    this.data = kinmuService.getMonthData(now.getFullYear(), now.getMonth() + 1);
+  }]);
   
   ons.ready(function() {
     // Init code here

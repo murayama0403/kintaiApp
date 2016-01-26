@@ -30,11 +30,11 @@
     <body ng-controller="AppController as app">
         <ons-page>
             <ons-toolbar fixed-style="true">
-                <div class="center">{{app.now | date: 'yyyy年M月'}}</div>
+                <div class="center">{{app.data.year}}年{{app.data.month}}月</div>
             </ons-toolbar>
             
             <ons-list>
-                <ons-list-item ng-repeat="day in app.days">
+                <ons-list-item ng-repeat="day in app.data.days">
                     <span ng-class="day.dayType">{{day.date | date: 'd(EEE)'}}</span>
                 </ons-list-item>
             </ons-list>

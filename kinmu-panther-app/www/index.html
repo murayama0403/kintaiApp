@@ -26,8 +26,21 @@
         <title>勤務パンサー</title>
     </head>
     <body ng-controller="AppController">
+    
+     <ons-page>
         <ons-toolbar fixed-style="true">
             <div class="center">{{currentMonth | date: 'yyyy年M月'}}</div>
         </ons-toolbar>
+ 
+        <ons-scroller>
+        	<ons-list>
+        		<ons-list-item ons-lazy-repeat="daysScope">
+			 		{{item.date}}
+                    <!--{{item.day}}-->
+        		<ons-list-item>
+        	</ons-list>
+        </ons-scroller>
+    </ons-page>    
+                
     </body>
 </html>

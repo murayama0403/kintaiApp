@@ -1,6 +1,6 @@
-span.sat {
+span.saturday {
   color: #0033cc;
 }
-span.sun,span.hol {
+span.sunday,span.holiday {
   color: #cc0033;
 }

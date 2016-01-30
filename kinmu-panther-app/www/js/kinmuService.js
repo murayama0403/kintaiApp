@@ -7,9 +7,9 @@ angular.module('app')
   
   this.getMonthData = function(year, month) {
     var days = [];
-    var month0Origin = month - 1;
-    var date = new Date(year, month0Origin, 1);
-    while (date.getMonth() == month0Origin) {
+    var monthIndex = month - 1;
+    var date = new Date(year, monthIndex, 1);
+    while (date.getMonth() == monthIndex) {
       var currentDate = new Date(date.getTime());
       var dayData = {
         date: currentDate,
@@ -29,22 +29,22 @@ angular.module('app')
   function calcDayType(date) {
     var holiday = calcHoliday(date);
     if (holiday != '') {
-      return 'hol';
+      return 'holiday';
     }
     
     // Dateのmonthは0始まりなので1を足して人間にわかりやすい文字列で判定
     var monthDay = (date.getMonth() + 1) + '/' + date.getDate();
     if (COMPANY_HOLIDAYS.indexOf(monthDay) != -1) {
-      return 'hol';
+      return 'holiday';
     }
     
     if (date.getDay() == SUNDAY) {
-      return 'sun';
+      return 'sunday';
     }
     if (date.getDay() == SATURDAY) {
-      return 'sat';
+      return 'saturday';
     }
-    return '';
+    return 'weekday';
   }
   
 }]);

@@ -36,8 +36,11 @@
             </ons-toolbar>
             
             <ons-list>
-                <ons-list-item ng-repeat="day in list.data.days">
-                    <span ng-class="day.dayType">{{day.date | date: 'd(EEE)'}}</span>
+                <ons-list-item ng-class="day.dayType" ng-repeat="day in list.data.days">
+                    <span class="date">{{day.date | date: 'd'}}</span>
+                    <span class="day">{{day.date | date: '(EEE)'}}</span>
+                    <input type="text" class="text-input text-input--underbar time" ng-value="day.inTime"></input>
+                    <input type="text" class="text-input text-input--underbar time" ng-value="day.outTime"></input>
                 </ons-list-item>
             </ons-list>
         </ons-page>

@@ -1,6 +1,26 @@
-span.saturday {
-  color: #0033cc;
+span.date {
+	width: 24px;
+	text-align: center;
+	display: inline-block;
 }
-span.sunday,span.holiday {
-  color: #cc0033;
+
+span.day {
+	width: 32px;
+	text-align: center;
+	display: inline-block;
+}
+
+.saturday span {
+	color: #0033cc;
+}
+
+.sunday span, .holiday span {
+	color: #cc0033;
+}
+
+input.time {
+	width: 64px;
+	height: 38px;
+	text-align: center;
+	cursor: pointer;
 }

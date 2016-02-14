@@ -18,9 +18,11 @@ span.day {
 	color: #cc0033;
 }
 
-input.time {
+.time {
 	width: 64px;
 	height: 38px;
 	text-align: center;
 	cursor: pointer;
+	display: inline-block;
+	border-bottom: 1px solid #ddd;
 }

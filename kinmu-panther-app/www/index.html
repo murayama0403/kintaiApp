@@ -39,8 +39,9 @@
                 <ons-list-item ng-class="day.dayType" ng-repeat="day in list.data.days">
                     <span class="date">{{day.date | date: 'd'}}</span>
                     <span class="day">{{day.date | date: '(EEE)'}}</span>
-                    <input type="text" class="text-input text-input--underbar time" ng-value="day.inTime"></input>
-                    <input type="text" class="text-input text-input--underbar time" ng-value="day.outTime"></input>
+                    <!-- 未入力時のレイアウト崩れを防ぐため&nbsp;を入れている -->
+                    <span class="time" ng-click="list.inputIn(day)">&nbsp;{{day.inTime}}&nbsp;</span>
+                    <span class="time" ng-click="list.inputOut(day)">&nbsp;{{day.outTime}}&nbsp;</span>
                 </ons-list-item>
             </ons-list>
         </ons-page>

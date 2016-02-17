@@ -56,13 +56,11 @@
                             {{dialog.data.dayData.date | date: 'M/d(EEE)'}} {{dialog.typeString()}}
                         </div>
                     </ons-toolbar>
-                    <ons-scroller>
-                        <ons-list>
-                            <ons-list-item modifier="tappable" ng-repeat="time in dialog.createTimeSelectList()" class="item" id="time-{{time}}">
-                                {{time}}
-                            </ons-list-item>
-                        </ons-list>
-                    </ons-scroller>
+                    <ons-list>
+                        <ons-list-item modifier="tappable" ng-repeat="time in dialog.createTimeSelectList()" class="item" id="time-{{time}}">
+                            {{time}}
+                        </ons-list-item>
+                    </ons-list>
                 </ons-page>
             </ons-dialog>
         </ons-template>

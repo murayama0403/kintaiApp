@@ -16,5 +16,15 @@ angular.module('app')
 	data.dayData = dayData;
 	timeDialog.show();
   };
-  
+
+  this.selectTime = function(time) {
+    if (data.type == 'in') {
+      data.dayData.inTime = time;
+    }
+    else {
+      data.dayData.outTime = time;
+    }
+    timeDialog.hide();
+  };
+
 }]);

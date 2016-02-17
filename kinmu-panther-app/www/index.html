@@ -57,7 +57,7 @@
                         </div>
                     </ons-toolbar>
                     <ons-list>
-                        <ons-list-item modifier="tappable" ng-repeat="time in dialog.createTimeSelectList()" class="item" id="time-{{time}}">
+                        <ons-list-item modifier="tappable" ng-repeat="time in dialog.createTimeSelectList()" class="item" id="time-{{time}}" ng-click="dialog.selectTime(time)">
                             {{time}}
                         </ons-list-item>
                     </ons-list>

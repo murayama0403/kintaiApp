@@ -12,6 +12,10 @@ angular.module('app')
 	}
   }
   
+  this.selectTime = function(time) {
+	timeDialogService.selectTime(time);
+  };
+  
   this.createTimeSelectList = function() {
     var list = [];
     for (var h = 0; h < 24; h++) {

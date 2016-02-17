@@ -25,7 +25,9 @@
         <link rel="stylesheet" href="css/index.css" />
         <script src="js/app.js"></script>
         <script src="js/listController.js"></script>
+        <script src="js/timeDialogController.js"></script>
         <script src="js/kinmuService.js"></script>
+        <script src="js/timeDialogService.js"></script>
         
         <title>勤務パンサー</title>
     </head>
@@ -40,10 +42,30 @@
                     <span class="date">{{day.date | date: 'd'}}</span>
                     <span class="day">{{day.date | date: '(EEE)'}}</span>
                     <!-- 未入力時のレイアウト崩れを防ぐため&nbsp;を入れている -->
-                    <span class="time" ng-click="list.inputIn(day)">&nbsp;{{day.inTime}}&nbsp;</span>
-                    <span class="time" ng-click="list.inputOut(day)">&nbsp;{{day.outTime}}&nbsp;</span>
+                    <span class="time" ng-click="list.inputTime('in', day)">&nbsp;{{day.inTime}}&nbsp;</span>
+                    <span class="time" ng-click="list.inputTime('out', day)">&nbsp;{{day.outTime}}&nbsp;</span>
                 </ons-list-item>
             </ons-list>
         </ons-page>
+        
+        <ons-template id="timeDialog.html">
+            <ons-dialog cancelable ng-controller="TimeDialogController as dialog" class="timeDialog" ons-postshow="dialog.scrollToDefault()">
+                <ons-page>
+                    <ons-toolbar fixed-style="true">
+                        <div class="center">
+                            {{dialog.data.dayData.date | date: 'M/d(EEE)'}} {{dialog.typeString()}}
+                        </div>
+                    </ons-toolbar>
+                    <ons-scroller>
+                        <ons-list>
+                            <ons-list-item modifier="tappable" ng-repeat="time in dialog.createTimeSelectList()" class="item" id="time-{{time}}">
+                                {{time}}
+                            </ons-list-item>
+                        </ons-list>
+                    </ons-scroller>
+                </ons-page>
+            </ons-dialog>
+        </ons-template>
+        
     </body>
 </html>

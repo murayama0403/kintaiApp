@@ -26,3 +26,12 @@ span.day {
 	display: inline-block;
 	border-bottom: 1px solid #ddd;
 }
+
+.timeDialog .dialog {
+	height: 80%;
+	min-width: 160px;
+}
+
+.timeDialog .item {
+	text-align: center;
+}

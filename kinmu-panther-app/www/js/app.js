@@ -40,14 +40,14 @@
       countItems: function() {
         var year = $scope.currentMonth.getFullYear();
         var month = $scope.currentMonth.getMonth() + 1;
-        var leapYearFlag = new Boolean();
+        var isLeapYear = false;
         if (!(year % 4) && (year % 100) || !(year % 400) ) {
-          leapYearFlag = true;
+          isLeapYear = true;
         }
-        if (month == 2 && leapYearFlag) {
+        if (month == 2 && isLeapYear) {
           return 29;
         }
-        else if (month == 2 && !leapYearFlag) {
+        else if (month == 2 && !isLeapYear) {
           return 30;
         }
         else if (month == 4 || month == 6 || month == 9 || month == 11) {

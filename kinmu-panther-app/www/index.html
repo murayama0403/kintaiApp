@@ -34,9 +34,9 @@
             
             <ons-list>
                 <ons-list-item ons-lazy-repeat="dateList">
-                    <ons-row class="{{item.color}}">
-                        <ons-col class="date">{{item.name}}</ons-col>
-                        <ons-col class="day">({{item.day}})</ons-col>
+                    <ons-row class="{{item.dayDivision}}">
+                        <ons-col class="date">{{item.day}}</ons-col>
+                        <ons-col class="day">({{item.dayOfWeek}})</ons-col>
                     </ons-row>
                 </ons-list-item>
             </ons-list>

@@ -10,24 +10,33 @@
     
       // itemScopeの設定
       configureItemScope: function(index, itemScope) {
+        
+        // 定数の初期化
+        var WEEK_TABLE = ['日','月','火','水','木','金','土'];
+        var SUNDAY = '0';
+        var SATURDAY = '6';
+        
+        // 変数の初期化
         var indexDay = index + 1;
         var indexYear = $scope.currentMonth.getFullYear();
         var indexMonth = $scope.currentMonth.getMonth();
         var indexDate = new Date( indexYear, indexMonth, indexDay );
-        var weekTbl = new Array('日','月','火','水','木','金','土');
         var indexDayOfWeek = indexDate.getDay();
-        var indexDayKanji = weekTbl[indexDayOfWeek];
-        var color = 'weekDay';
+        var indexDayKanji = WEEK_TABLE[indexDayOfWeek];
+        var dayDivision = 'weekDay';
+        
+        // 曜日分類の判定
         if (indexDayOfWeek == 0) {
-          color = 'sunday';
+          dayDivision = 'sunday';
         } else if (indexDayOfWeek == 6) {
-          color = 'saturday';
+          dayDivision = 'saturday';
         }
-        // アイテムを入れる
+        
+        // アイテムを追加
         itemScope.item = {
-          name: indexDay,
-          day: indexDayKanji,
-          color: color
+          day: indexDay,
+          dayOfWeek: indexDayKanji,
+          dayDivision: dayDivision
         };
       },
       

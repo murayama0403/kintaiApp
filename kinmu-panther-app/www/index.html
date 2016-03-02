@@ -1,46 +1,109 @@
 <!DOCTYPE html>
 <!-- CSP support mode (required for Windows Universal apps): https://docs.angularjs.org/api/ng/directive/ngCsp -->
 <html lang="ja" ng-csp>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    
+    <link rel="stylesheet" href="lib/onsen/css/onsenui.css"/>
+    <link rel="stylesheet" href="lib/onsen/css/onsen-css-components.css"/>
+    <!-- CSP support mode (required for Windows Universal apps) -->
+    <link rel="stylesheet" href="lib/angular/angular-csp.css" />
+    
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/onsen/js/onsenui.js"></script>
+    <script src="cordova.js"></script>
+    
+    <!-- このアプリ固有のファイル -->
+    <link rel="stylesheet" href="css/index.css" />
+    <script src="js/app.js"></script>
+    
+    <title>勤務パンサー</title>
+  </head>
+  <body ng-controller="AppController">
+  
+    <ons-navigator var="myNavigator">
+      <ons-page>
+    
+        <ons-toolbar fixed-style="true">
+          <div class="center">{{currentMonth | date: 'yyyy年M月'}}</div>
+        </ons-toolbar>
         
-        <link rel="stylesheet" href="lib/onsen/css/onsenui.css"/>
-        <link rel="stylesheet" href="lib/onsen/css/onsen-css-components.css"/>
-        <!-- CSP support mode (required for Windows Universal apps) -->
-        <link rel="stylesheet" href="lib/angular/angular-csp.css" />
+        <ons-list>
+          <ons-list-item ons-lazy-repeat="dateList" onclick="myNavigator.pushPage('input.html', { animation : 'slide' } )">
+            <ons-row class="{{item.dayDivision}}">
+              <ons-col class="date">{{item.day}}</ons-col>
+              <ons-col class="day">({{item.dayOfWeek}})</ons-col>
+            </ons-row>
+          </ons-list-item>
+        </ons-list>
         
-        <script src="lib/angular/angular.js"></script>
-        <script src="lib/onsen/js/onsenui.js"></script>
-        <script src="cordova.js"></script>
+      </ons-page>
+    </ons-navigator>
+    
+    <ons-template id="input.html">
+      <ons-page>
+  
+        <ons-toolbar>
+          <div class="left"><ons-toolbar-button>Cancel</ons-toolbar-button></div>
+          <div class="center">日付</div>
+          <div class="right"><ons-toolbar-button>OK</ons-toolbar-button></div>
+        </ons-toolbar>
         
-        <!-- このアプリ固有のファイル -->
-        <link rel="stylesheet" href="css/index.css" />
-        <script src="js/app.js"></script>
+        <div>
+          <ons-row>
+            <ons-col width="20">シフト</ons-col>
+            <ons-col><input class="text-input" id="my-input"></ons-col>
+          </ons-row>
+          <ons-row>
+            <ons-col width="20">時刻</ons-col>
+            <ons-col><input class="text-input" id="my-input"></ons-col>
+          </ons-row>
+          <ons-row>
+            <ons-col width="20">PRJ</ons-col>
+            <ons-col><input class="text-input" id="my-input"></ons-col>
+          </ons-row>
+          <ons-row>
+            <ons-col width="20">作業</ons-col>
+            <ons-col><input class="text-input" id="my-input"></ons-col>
+          </ons-row>
+          <ons-row>
+            <ons-col width="20">休暇</ons-col>
+            <ons-col><input class="text-input" id="my-input"></ons-col>
+          </ons-row>
+          <ons-row>
+            <ons-col width="20">特記</ons-col>
+            <ons-col><input class="text-input" id="my-input"></ons-col>
+          </ons-row>
+          <ons-row>
+            <ons-col width="20">休憩未</ons-col>
+          </ons-row>
+          <ons-row>
+            <ons-col>
+              <ons-button modifier="outline">17:45-18:00</ons-button>
+              <ons-button modifier="outline">19:30-20:00</ons-button>
+              <ons-button modifier="outline">22:00-22:15</ons-button>
+              <ons-button modifier="outline">2:30-3:00</ons-button>
+              <ons-button modifier="outline">8:30-9:00</ons-button>
+            </ons-col>
+          </ons-row>
+          <ons-row>
+            <ons-col width="20">短時間</ons-col>
+            <ons-col><ons-switch checked></ons-switch></ons-col>
+          </ons-row>
+          <ons-row>
+            <ons-col width="20">外出</ons-col>
+            <ons-col><input class="text-input" id="my-input"></ons-col>
+          </ons-row>
+        </div>
         
-        <title>勤務パンサー</title>
-    </head>
-    <body ng-controller="AppController">
-        <ons-page>
-        
-            <ons-toolbar fixed-style="true">
-                <div class="center">{{currentMonth | date: 'yyyy年M月'}}</div>
-            </ons-toolbar>
-            
-            <ons-list>
-                <ons-list-item ons-lazy-repeat="dateList">
-                    <ons-row class="{{item.dayDivision}}">
-                        <ons-col class="date">{{item.day}}</ons-col>
-                        <ons-col class="day">({{item.dayOfWeek}})</ons-col>
-                    </ons-row>
-                </ons-list-item>
-            </ons-list>
-            
-        </ons-page>
-    </body>
+      </ons-page>
+    </ons-template>
+    
+  </body>
 </html>

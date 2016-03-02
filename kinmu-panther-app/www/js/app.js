@@ -40,15 +40,14 @@
       countItems: function() {
         var year = $scope.currentMonth.getFullYear();
         var month = $scope.currentMonth.getMonth() + 1;
-        var isLeapYear = false;
-        if (!(year % 4) && (year % 100) || !(year % 400) ) {
-          isLeapYear = true;
-        }
-        if (month == 2 && isLeapYear) {
-          return 29;
-        }
-        else if (month == 2 && !isLeapYear) {
-          return 30;
+        if (month == 2) {
+          if (!(year % 4) && (year % 100) || !(year % 400) ) {
+            // 閏年の2月
+            return 30;
+          } else {
+            // 平年の2月
+            return 29;
+          }
         }
         else if (month == 4 || month == 6 || month == 9 || month == 11) {
           return 31;

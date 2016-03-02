@@ -26,12 +26,13 @@
         <title>勤務パンサー</title>
     </head>
     <body ng-controller="AppController">
-        <ons-toolbar fixed-style="true">
-            <div class="center">{{currentMonth | date: 'yyyy年M月'}}</div>
-        </ons-toolbar>
-        <ons-scroller>
+        <ons-page>
+        
+            <ons-toolbar fixed-style="true">
+                <div class="center">{{currentMonth | date: 'yyyy年M月'}}</div>
+            </ons-toolbar>
+            
             <ons-list>
-            <ons-list-item ons-lazy-repeat="dateLista"></ons-list-item>
                 <ons-list-item ons-lazy-repeat="dateList">
                     <ons-row class="{{item.color}}">
                         <ons-col class="date">{{item.name}}</ons-col>
@@ -39,6 +40,7 @@
                     </ons-row>
                 </ons-list-item>
             </ons-list>
-        </ons-scroller>
+            
+        </ons-page>
     </body>
 </html>

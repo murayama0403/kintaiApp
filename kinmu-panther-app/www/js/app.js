@@ -10,7 +10,7 @@
     
       // itemScopeの設定
       configureItemScope: function(index, itemScope) {
-        var indexDay = index; // 本来は+1 TODO:なおす
+        var indexDay = index + 1;
         var indexYear = $scope.currentMonth.getFullYear();
         var indexMonth = $scope.currentMonth.getMonth();
         var indexDate = new Date( indexYear, indexMonth, indexDay );
@@ -43,17 +43,19 @@
         if (month == 2) {
           if (!(year % 4) && (year % 100) || !(year % 400) ) {
             // 閏年の2月
-            return 30;
+            return 29;
           } else {
             // 平年の2月
-            return 29;
+            return 28;
           }
         }
         else if (month == 4 || month == 6 || month == 9 || month == 11) {
-          return 31;
+          // 30日までの月
+          return 30;
         }
         else {
-          return 32;
+          // 31日までの月
+          return 31;
         }
       },
       

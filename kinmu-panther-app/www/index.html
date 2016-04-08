@@ -16,7 +16,6 @@
         <link rel="stylesheet" href="lib/angular/angular-csp.css" />
         
         <script src="lib/angular/angular.js"></script>
-        <script src="lib/angular/angular-locale_ja-jp.js"></script>
         <script src="lib/onsen/js/onsenui.js"></script>
         <script src="lib/HolidayChk.js"></script>
         <script src="cordova.js"></script>
@@ -37,7 +36,7 @@
             
             <ons-list>
                 <ons-list-item ng-repeat="day in list.data.days">
-                    <span ng-class="day.dayType">{{day.date | date: 'd(EEE)'}}</span>
+                    <span ng-class="day.dayType">{{day.date.getDate()}}({{day.youbiKanji}})</span>
                 </ons-list-item>
             </ons-list>
         </ons-page>

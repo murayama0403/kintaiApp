@@ -13,7 +13,8 @@ angular.module('app')
       var currentDate = new Date(date.getTime());
       var dayData = {
         date: currentDate,
-        dayType: calcDayType(currentDate)
+        dayType: calcDayType(currentDate),
+        youbiKanji: calcYoubiKanji(currentDate)
       };
       days.push(dayData);
       date.setDate(date.getDate() + 1);
@@ -45,6 +46,11 @@ angular.module('app')
       return 'saturday';
     }
     return 'weekday';
+  }
+  
+  var WEEK_KANJI_TABLE = ['日', '月', '火', '水', '木', '金', '土'];
+  function calcYoubiKanji(date) {
+    return WEEK_KANJI_TABLE[date.getDay()];
   }
   
 }]);

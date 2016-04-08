@@ -1,6 +1,16 @@
-span.saturday {
+span.date {
+  width: 24px;
+  text-align: center;
+  display: inline-block;
+}
+span.youbi {
+  width: 32px;
+  text-align: center;
+  display: inline-block;
+}
+.saturday span {
   color: #0033cc;
 }
-span.sunday,span.holiday {
+.sunday span, .holiday span {
   color: #cc0033;
 }

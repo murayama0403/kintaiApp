@@ -16,18 +16,30 @@
         <link rel="stylesheet" href="lib/angular/angular-csp.css" />
         
         <script src="lib/angular/angular.js"></script>
+        <script src="lib/angular/angular-locale_ja-jp.js"></script>
         <script src="lib/onsen/js/onsenui.js"></script>
+        <script src="lib/HolidayChk.js"></script>
         <script src="cordova.js"></script>
         
         <!-- このアプリ固有のファイル -->
         <link rel="stylesheet" href="css/index.css" />
         <script src="js/app.js"></script>
+        <script src="js/listController.js"></script>
+        <script src="js/kinmuService.js"></script>
         
         <title>勤務パンサー</title>
     </head>
-    <body ng-controller="AppController">
-        <ons-toolbar fixed-style="true">
-            <div class="center">{{currentMonth | date: 'yyyy年M月'}}</div>
-        </ons-toolbar>
+    <body>
+        <ons-page ng-controller="ListController as list">
+            <ons-toolbar fixed-style="true">
+                <div class="center">{{list.data.year}}年{{list.data.month}}月</div>
+            </ons-toolbar>
+            
+            <ons-list>
+                <ons-list-item ng-repeat="day in list.data.days">
+                    <span ng-class="day.dayType">{{day.date | date: 'd(EEE)'}}</span>
+                </ons-list-item>
+            </ons-list>
+        </ons-page>
     </body>
 </html>

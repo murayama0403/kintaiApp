@@ -1,0 +1,6 @@
+span.saturday {
+  color: #0033cc;
+}
+span.sunday,span.holiday {
+  color: #cc0033;
+}

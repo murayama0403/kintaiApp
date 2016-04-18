@@ -5,6 +5,12 @@ angular.module('app')
   // 就業規則で12/30-1/3は休み(1/1は元日なので設定不要)
   var COMPANY_HOLIDAYS = ['12/30', '12/31', '1/2', '1/3'];
   
+  var currentDate = new Date();
+  
+  this.getCurrentMonthData = function() {
+    return this.getMonthData(currentDate.getFullYear(), currentDate.getMonth() + 1);
+  }
+  
   this.getMonthData = function(year, month) {
     var days = [];
     var monthIndex = month - 1;
@@ -25,6 +31,11 @@ angular.module('app')
       days: days
     };
   };
+  
+  this.getCurrentDateData = function() {
+    var monthData = this.getCurrentMonthData();
+    return monthData.days[currentDate.getDate() - 1];
+  }
   
   function calcDayType(date) {
     var holiday = calcHoliday(date);

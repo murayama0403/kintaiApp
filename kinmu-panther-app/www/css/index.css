@@ -35,3 +35,8 @@ span.day {
 .timeDialog .item {
 	text-align: center;
 }
+
+.tab-bar {
+	background-color: #fff;
+	border-top: 1px solid #bbb;
+}

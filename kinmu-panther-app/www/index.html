@@ -32,21 +32,46 @@
         <title>勤務パンサー</title>
     </head>
     <body>
-        <ons-page ng-controller="ListController as list">
-            <ons-toolbar fixed-style="true">
-                <div class="center">{{list.data.year}}年{{list.data.month}}月</div>
-            </ons-toolbar>
+        <ons-tabbar>
+            <ons-tab page="input.html" active="true" icon="ion-ios-compose-outline" label="入力">
+            </ons-tab>
+            <ons-tab page="list.html" icon="ion-ios-list-outline" label="一覧">
+            </ons-tab>
+            <ons-tab page="common.html" icon="ion-ios-person" label="共通項目">
+            </ons-tab>
+            <ons-tab page="settings.html" icon="ion-ios-gear-outline" label="設定">
+            </ons-tab>
+        </ons-tabbar>
+
+        <ons-template id="input.html" ng-controller="InputController as input">
+            <div>入力</div>
+        </ons-template>
+        
+        <ons-template id="list.html">
+            <ons-page ng-controller="ListController as list">
+                <ons-toolbar fixed-style="true">
+                    <div class="center">{{list.data.year}}年{{list.data.month}}月</div>
+                </ons-toolbar>
             
-            <ons-list>
-                <ons-list-item ng-class="day.dayType" ng-repeat="day in list.data.days">
-                    <span class="date">{{day.date | date: 'd'}}</span>
-                    <span class="day">{{day.date | date: '(EEE)'}}</span>
-                    <!-- 未入力時のレイアウト崩れを防ぐため&nbsp;を入れている -->
-                    <span class="time" ng-click="list.inputTime('in', day)">&nbsp;{{day.inTime}}&nbsp;</span>
-                    <span class="time" ng-click="list.inputTime('out', day)">&nbsp;{{day.outTime}}&nbsp;</span>
-                </ons-list-item>
-            </ons-list>
-        </ons-page>
+                <ons-list>
+                    <ons-list-item ng-class="day.dayType" ng-repeat="day in list.data.days">
+                        <span class="date">{{day.date | date: 'd'}}</span>
+                        <span class="day">{{day.date | date: '(EEE)'}}</span>
+                        <!-- 未入力時のレイアウト崩れを防ぐため&nbsp;を入れている -->
+                        <span class="time" ng-click="list.inputTime('in', day)">&nbsp;{{day.inTime}}&nbsp;</span>
+                        <span class="time" ng-click="list.inputTime('out', day)">&nbsp;{{day.outTime}}&nbsp;</span>
+                    </ons-list-item>
+                </ons-list>
+            </ons-page>
+        </ons-template>
+        
+        <ons-template id="common.html" ng-controller="InputController as input">
+            <div>共通項目</div>
+        </ons-template>
+        
+        <ons-template id="settings.html" ng-controller="SettingsController as settings">
+            <div>設定</div>
+        </ons-template>
         
         <ons-template id="timeDialog.html">
             <ons-dialog cancelable ng-controller="TimeDialogController as dialog" class="timeDialog" ons-postshow="dialog.scrollToDefault()">

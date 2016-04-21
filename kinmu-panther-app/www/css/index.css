@@ -59,3 +59,13 @@ span.day {
 	width: 96%;
 }
 
+#norest .label {
+	padding-top: 20px;
+}
+#norest button {
+	height: 32px;
+	line-height: 26px;
+	font-size: small;
+	padding-left: 4px;
+	padding-right: 4px;
+}

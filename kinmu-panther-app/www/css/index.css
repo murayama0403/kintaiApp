@@ -40,3 +40,22 @@ span.day {
 	background-color: #fff;
 	border-top: 1px solid #bbb;
 }
+
+.input ons-row {
+	background-color: #fff;
+	min-height: 42px;
+}
+
+.input ons-col.label {
+	padding-left: 8px;
+}
+
+.input ons-col ons-icon {
+	width: 20px;
+	text-align: center;
+}
+
+.input .text-input--underbar {
+	width: 96%;
+}
+

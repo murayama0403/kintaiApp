@@ -45,15 +45,58 @@
         </ons-tabbar>
 
         <ons-template id="input.html">
-            <ons-page ng-controller="InputController as input">
+            <ons-page ng-controller="InputController as input" class="input">
                 <ons-toolbar fixed-style="true">
                     <div class="center">{{input.data.date | date: 'M月d日(EEE)'}}</div>
                 </ons-toolbar>
-            
-                <ons-list>
-                    <ons-list-item>
-                    </ons-list-item>
-                </ons-list>
+                
+                <ons-row>
+                    <ons-col width="78px" align="bottom" class="label">
+                        <ons-icon icon="ion-ios-timer-outline"></ons-icon> シフト
+                    </ons-col>
+                    <ons-col align="bottom">
+                        <input type="text" class="text-input text-input--underbar" placeholder="" value="所定">
+                    </ons-col>
+                </ons-row>
+                <ons-row>
+                    <ons-col width="78px" align="bottom" class="label">
+                        <ons-icon icon="ion-ios-clock-outline"></ons-icon> 出勤
+                    </ons-col>
+                    <ons-col align="bottom">
+                        <input type="text" class="text-input text-input--underbar" placeholder="出勤時刻" value="09:00">
+                    </ons-col>
+                    <ons-col width="64px" align="bottom">
+                        <button class="button">Now</button>
+                    </ons-col>
+                </ons-row>
+                <ons-row>
+                    <ons-col width="78px" align="bottom" class="label">
+                        <ons-icon icon="ion-ios-clock"></ons-icon> 退勤
+                    </ons-col>
+                    <ons-col align="bottom">
+                        <input type="text" class="text-input text-input--underbar" placeholder=退勤時刻" value="17:45">
+                    </ons-col>
+                    <ons-col width="64px" align="bottom">
+                        <button class="button">Now</button>
+                    </ons-col>
+                </ons-row>
+                <ons-row>
+                    <ons-col width="78px" align="bottom" class="label">
+                        <ons-icon icon="ion-ios-people"></ons-icon> PRJ
+                    </ons-col>
+                    <ons-col align="bottom">
+                        <input type="text" class="text-input text-input--underbar" placeholder="" value="">
+                    </ons-col>
+                </ons-row>
+                <ons-row>
+                    <ons-col width="78px" align="bottom" class="label">
+                        <ons-icon icon="ion-ios-flag-outline"></ons-icon> 作業
+                    </ons-col>
+                    <ons-col align="bottom">
+                        <input type="text" class="text-input text-input--underbar" placeholder="" value="">
+                    </ons-col>
+                </ons-row>
+                
             </ons-page>
         </ons-template>
         

@@ -31,15 +31,24 @@
     <body>
         <ons-page ng-controller="ListController as list">
             <ons-toolbar fixed-style="true">
-                <div class="center">{{list.data.year}}年{{list.data.month}}月</div>
+                <div class="center">{{list.calendarData.year}}年{{list.calendarData.month}}月</div>
             </ons-toolbar>
             
+            <ons-row ng-repeat="week in list.calendarData.weeks">
+	            <ons-col ng-repeat="day in week">
+	                {{day.date.getDate()}}
+            	</ons-col>
+            </ons-row>
+                
+            <!--
             <ons-list>
+            
                 <ons-list-item ng-repeat="day in list.data.days" ng-class="day.dayType">
                     <span class="date">{{day.date.getDate()}}</span>
                     <span class="youbi">({{day.youbiKanji}})</span>
                 </ons-list-item>
             </ons-list>
+            -->
         </ons-page>
     </body>
 </html>

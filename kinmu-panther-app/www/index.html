@@ -36,8 +36,11 @@
             
             <ons-row ng-repeat="week in list.calendarData.weeks">
 	            <ons-col ng-repeat="day in week">
-	                {{day.date.getDate()}}
-            	</ons-col>
+                        <ons-col align="right">
+                    
+			  {{day.date.getDate()}}
+                 	</ons-col>
+                    </ons-col>
             </ons-row>
                 
             <!--

@@ -1,208 +1,551 @@
 <!DOCTYPE html>
 <!-- CSP support mode (required for Windows Universal apps): https://docs.angularjs.org/api/ng/directive/ngCsp -->
 <html lang="ja" ng-csp>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        
-        <link rel="stylesheet" href="lib/onsen/css/onsenui.css"/>
-        <link rel="stylesheet" href="lib/onsen/css/onsen-css-components.css"/>
-        <!-- CSP support mode (required for Windows Universal apps) -->
-        <link rel="stylesheet" href="lib/angular/angular-csp.css" />
-        
-        <script src="lib/angular/angular.js"></script>
-        <script src="lib/angular/angular-locale_ja-jp.js"></script>
-        <script src="lib/onsen/js/onsenui.js"></script>
-        <script src="lib/HolidayChk.js"></script>
-        <script src="cordova.js"></script>
-        
-        <!-- このアプリ固有のファイル -->
-        <link rel="stylesheet" href="css/index.css" />
-        <script src="js/app.js"></script>
-        <script src="js/listController.js"></script>
-        <script src="js/inputController.js"></script>
-        <script src="js/timeDialogController.js"></script>
-        <script src="js/kinmuService.js"></script>
-        <script src="js/timeDialogService.js"></script>
-        
-        <title>勤務パンサー</title>
-    </head>
-    <body>
-        <ons-tabbar>
-            <ons-tab page="input.html" active="true" icon="ion-ios-compose-outline" label="入力">
-            </ons-tab>
-            <ons-tab page="list.html" icon="ion-ios-list-outline" label="一覧">
-            </ons-tab>
-            <ons-tab page="common.html" icon="ion-ios-person" label="共通項目">
-            </ons-tab>
-            <ons-tab page="settings.html" icon="ion-ios-gear-outline" label="設定">
-            </ons-tab>
-        </ons-tabbar>
 
-        <ons-template id="input.html">
-            <ons-page ng-controller="InputController as input" class="input">
-                <ons-toolbar fixed-style="true">
-                    <div class="center">{{input.data.date | date: 'M月d日(EEE)'}}</div>
-                </ons-toolbar>
-                
-                <ons-row>
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-timer-outline"></ons-icon> シフト
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <input type="text" class="text-input text-input--underbar" placeholder="" value="所定">
-                    </ons-col>
-                </ons-row>
-                <ons-row>
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-clock-outline"></ons-icon> 出勤
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <input type="text" class="time-input text-input text-input--underbar" placeholder="出勤時刻" value="9:00">
-                    </ons-col>
-                    <ons-col width="64px" align="bottom">
-                        <button class="button">Now</button>
-                    </ons-col>
-                </ons-row>
-                <ons-row>
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-clock"></ons-icon> 退勤
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <input type="text" class="time-input text-input text-input--underbar" placeholder="退勤時刻" value="17:45">
-                    </ons-col>
-                    <ons-col width="64px" align="bottom">
-                        <button class="button">Now</button>
-                    </ons-col>
-                </ons-row>
-                <ons-row id="norest">
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-medical-outline"></ons-icon> 休未
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <button class="button button--outline">17:45<br>18:00</button>
-                        <button class="button button--outline">19:30<br>20:00</button>
-                        <button class="button button--outline">22:00<br>22:15</button>
-                        <button class="button button--outline">2:30<br>3:00</button>
-                        <button class="button button--outline">8:30<br>9:00</button>
-                    </ons-col>
-                </ons-row>
-                <ons-row>
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-people"></ons-icon> PRJ
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <input type="text" class="text-input text-input--underbar" placeholder="" value="">
-                    </ons-col>
-                </ons-row>
-                <ons-row>
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-flag"></ons-icon> 作業
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <input type="text" class="text-input text-input--underbar" placeholder="" value="">
-                    </ons-col>
-                </ons-row>
-                <ons-row>
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-paperplane-outline"></ons-icon> 休暇
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <input type="text" class="text-input text-input--underbar" placeholder="" value="">
-                    </ons-col>
-                </ons-row>
-                <ons-row>
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-pricetag-outline"></ons-icon> 特記
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <input type="text" class="text-input text-input--underbar" placeholder="" value="">
-                    </ons-col>
-                </ons-row>
-                <ons-row>
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-heart-outline"></ons-icon> 短時
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <label class="switch">
-                            <input type="checkbox" class="switch__input">
-                            <div class="switch__toggle"></div>
-                        </label>
-                    </ons-col>
-                </ons-row>
-                <ons-row>
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-time-outline"></ons-icon> 外出
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <input type="text" class="time-input text-input text-input--underbar" placeholder="" value="">
-                    </ons-col>
-                    <ons-col width="64px" align="bottom">
-                        <button class="button">Now</button>
-                    </ons-col>
-                </ons-row>
-                <ons-row>
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-time"></ons-icon> 外戻
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <input type="text" class="time-input text-input text-input--underbar" placeholder="" value="">
-                    </ons-col>
-                    <ons-col width="64px" align="bottom">
-                        <button class="button">Now</button>
-                    </ons-col>
-                </ons-row>
-                
-            </ons-page>
-        </ons-template>
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <link rel="stylesheet" href="lib/onsen/css/onsenui.css" />
+    <link rel="stylesheet" href="lib/onsen/css/onsen-css-components.css" />
+    <!-- CSP support mode (required for Windows Universal apps) -->
+    <link rel="stylesheet" href="lib/angular/angular-csp.css" />
+    <script src="lib/angular/angular.js"></script>
+    <script src="lib/angular/angular-locale_ja-jp.js"></script>
+    <script src="lib/onsen/js/onsenui.js"></script>
+    <script src="lib/HolidayChk.js"></script>
+    <script src="cordova.js"></script>
+    <!-- このアプリ固有のファイル -->
+    <link rel="stylesheet" href="css/index.css" />
+    <script src="js/app.js"></script>
+    <script src="js/listController.js"></script>
+    <script src="js/inputController.js"></script>
+    <script src="js/timeDialogController.js"></script>
+    <script src="js/kinmuService.js"></script>
+    <script src="js/timeDialogService.js"></script>
+    <title>勤務パンサー</title>
+</head>
+
+<body>
+    <ons-tabbar>
+        <ons-tab page="input.html" active="true" icon="ion-ios-compose-outline" label="入力"> </ons-tab>
+        <ons-tab page="list.html" icon="ion-ios-list-outline" label="一覧"> </ons-tab>
+        <ons-tab page="common.html" icon="ion-ios-person" label="共通項目"> </ons-tab>
+        <ons-tab page="settings.html" icon="ion-ios-gear-outline" label="設定"> </ons-tab>
+    </ons-tabbar>
+    <ons-template id="input.html">
+        <ons-page ng-controller="InputController as input" class="input">
+            <ons-toolbar fixed-style="true">
+                <div class="center">{{input.data.date | date: 'M月d日(EEE)'}}</div>
+            </ons-toolbar>
+            <ons-row>
+                <ons-col width="78px" align="bottom" class="label">
+                    <ons-icon icon="ion-ios-timer-outline"></ons-icon> シフト </ons-col>
+                <ons-col align="bottom">
+                    <input type="text" class="text-input text-input--underbar" placeholder="" value="所定"> </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col width="78px" align="bottom" class="label">
+                    <ons-icon icon="ion-ios-clock-outline"></ons-icon> 出勤 </ons-col>
+                <ons-col align="bottom">
+                    <select name="selectedate-h" id="selectedate-h">
+                        <option value="00">00</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                    </select>時
+                    <select name="selectedate-m" id="selectedate-m">
+                        <option value="00">00</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                        <option value="32">32</option>
+                        <option value="33">33</option>
+                        <option value="34">34</option>
+                        <option value="35">35</option>
+                        <option value="36">36</option>
+                        <option value="37">37</option>
+                        <option value="38">38</option>
+                        <option value="39">39</option>
+                        <option value="40">40</option>
+                        <option value="41">41</option>
+                        <option value="42">42</option>
+                        <option value="43">43</option>
+                        <option value="44">44</option>
+                        <option value="45">45</option>
+                        <option value="46">46</option>
+                        <option value="47">47</option>
+                        <option value="48">48</option>
+                        <option value="49">49</option>
+                        <option value="50">50</option>
+                        <option value="51">51</option>
+                        <option value="52">52</option>
+                        <option value="53">53</option>
+                        <option value="54">54</option>
+                        <option value="55">55</option>
+                        <option value="56">56</option>
+                        <option value="57">57</option>
+                        <option value="58">58</option>
+                        <option value="59">59</option>
+                    </select>分 </ons-col>
+                <ons-col width="64px" align="bottom">
+                    <button class="button">Now</button>
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col width="78px" align="bottom" class="label">
+                    <ons-icon icon="ion-ios-clock"></ons-icon> 退勤 </ons-col>
+                <ons-col align="bottom">
+                    <select name="selectedate-h" id="selectedate-h">
+                        <option value="00">00</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                    </select>時
+                    <select name="selectedate-m" id="selectedate-m">
+                        <option value="00">00</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                        <option value="32">32</option>
+                        <option value="33">33</option>
+                        <option value="34">34</option>
+                        <option value="35">35</option>
+                        <option value="36">36</option>
+                        <option value="37">37</option>
+                        <option value="38">38</option>
+                        <option value="39">39</option>
+                        <option value="40">40</option>
+                        <option value="41">41</option>
+                        <option value="42">42</option>
+                        <option value="43">43</option>
+                        <option value="44">44</option>
+                        <option value="45">45</option>
+                        <option value="46">46</option>
+                        <option value="47">47</option>
+                        <option value="48">48</option>
+                        <option value="49">49</option>
+                        <option value="50">50</option>
+                        <option value="51">51</option>
+                        <option value="52">52</option>
+                        <option value="53">53</option>
+                        <option value="54">54</option>
+                        <option value="55">55</option>
+                        <option value="56">56</option>
+                        <option value="57">57</option>
+                        <option value="58">58</option>
+                        <option value="59">59</option>
+                    </select>分 </ons-col>
+                <ons-col width="64px" align="bottom">
+                    <button class="button">Now</button>
+                </ons-col>
+            </ons-row>
+            <ons-row id="norest">
+                <ons-col width="78px" align="bottom" class="label">
+                    <ons-icon icon="ion-ios-medical-outline"></ons-icon> 休未 </ons-col>
+                <ons-col align="bottom">
+                    <button class="button button--outline">17:45
+                        <br>18:00</button>
+                    <button class="button button--outline">19:30
+                        <br>20:00</button>
+                    <button class="button button--outline">22:00
+                        <br>22:15</button>
+                    <button class="button button--outline">2:30
+                        <br>3:00</button>
+                    <button class="button button--outline">8:30
+                        <br>9:00</button>
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col width="78px" align="bottom" class="label">
+                    <ons-icon icon="ion-ios-people"></ons-icon> PRJ </ons-col>
+                <ons-col align="bottom">
+                    <input type="text" class="text-input text-input--underbar" placeholder="" value=""> </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col width="78px" align="bottom" class="label">
+                    <ons-icon icon="ion-ios-flag"></ons-icon> 作業 </ons-col>
+                <ons-col align="bottom">
+                    <input type="text" class="text-input text-input--underbar" placeholder="" value=""> </ons-col>
+            </ons-row>
+            <ons-row id="rest">
+                <ons-col width="78px" align="bottom" class="label">
+                    <ons-icon icon="ion-ios-paperplane-outline"></ons-icon> 休暇 </ons-col>
+                <ons-col align="bottom">
+                   <button class="button button--outline">有給
+                        <br>全日</button>
+                    <button class="button button--outline">有給
+                        <br>午前</button>
+                    <button class="button button--outline">有給
+                        <br>午後</button>
+                    <button class="button button--outline">SP
+                        <br>5</button>
+                    <button class="button button--outline">振休
+                        <br>代休</button>                    
+                    <button class="button button--outline">結忌
+                        <br>配出</button>
+                    <button class="button button--outline">積立
+                        <br>休暇</button>
+                    <button class="button button--outline">無給
+                        <br>休暇</button>
+                    <button class="button button--outline">其他
+                        <br>特休</button>
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col width="78px" align="bottom" class="label">
+                    <ons-icon icon="ion-ios-pricetag-outline"></ons-icon> 特記 </ons-col>
+                <ons-col align="bottom">
+                    <input type="text" class="text-input text-input--underbar" placeholder="" value=""> </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col width="78px" align="bottom" class="label">
+                    <ons-icon icon="ion-ios-heart-outline"></ons-icon> 短時 </ons-col>
+                <ons-col align="bottom">
+                    <label class="switch">
+                        <input type="checkbox" class="switch__input">
+                        <div class="switch__toggle"></div>
+                    </label>
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col width="78px" align="bottom" class="label">
+                    <ons-icon icon="ion-ios-time-outline"></ons-icon> 外出 </ons-col>
+                <ons-col align="bottom">
+                    <select name="selectedate-h" id="selectedate-h">
+                        <option value="00">00</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                    </select>時
+                    <select name="selectedate-m" id="selectedate-m">
+                        <option value="00">00</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                        <option value="32">32</option>
+                        <option value="33">33</option>
+                        <option value="34">34</option>
+                        <option value="35">35</option>
+                        <option value="36">36</option>
+                        <option value="37">37</option>
+                        <option value="38">38</option>
+                        <option value="39">39</option>
+                        <option value="40">40</option>
+                        <option value="41">41</option>
+                        <option value="42">42</option>
+                        <option value="43">43</option>
+                        <option value="44">44</option>
+                        <option value="45">45</option>
+                        <option value="46">46</option>
+                        <option value="47">47</option>
+                        <option value="48">48</option>
+                        <option value="49">49</option>
+                        <option value="50">50</option>
+                        <option value="51">51</option>
+                        <option value="52">52</option>
+                        <option value="53">53</option>
+                        <option value="54">54</option>
+                        <option value="55">55</option>
+                        <option value="56">56</option>
+                        <option value="57">57</option>
+                        <option value="58">58</option>
+                        <option value="59">59</option>
+                    </select>分 </ons-col>
+                <ons-col width="64px" align="bottom">
+                    <button class="button">Now</button>
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col width="78px" align="bottom" class="label">
+                    <ons-icon icon="ion-ios-time"></ons-icon> 外戻 </ons-col>
+                <ons-col align="bottom">
+                    <select name="selectedate-h" id="selectedate-h">
+                        <option value="00">00</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                    </select>時
+                    <select name="selectedate-m" id="selectedate-m">
+                        <option value="00">00</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                        <option value="32">32</option>
+                        <option value="33">33</option>
+                        <option value="34">34</option>
+                        <option value="35">35</option>
+                        <option value="36">36</option>
+                        <option value="37">37</option>
+                        <option value="38">38</option>
+                        <option value="39">39</option>
+                        <option value="40">40</option>
+                        <option value="41">41</option>
+                        <option value="42">42</option>
+                        <option value="43">43</option>
+                        <option value="44">44</option>
+                        <option value="45">45</option>
+                        <option value="46">46</option>
+                        <option value="47">47</option>
+                        <option value="48">48</option>
+                        <option value="49">49</option>
+                        <option value="50">50</option>
+                        <option value="51">51</option>
+                        <option value="52">52</option>
+                        <option value="53">53</option>
+                        <option value="54">54</option>
+                        <option value="55">55</option>
+                        <option value="56">56</option>
+                        <option value="57">57</option>
+                        <option value="58">58</option>
+                        <option value="59">59</option>
+                    </select>分 </ons-col>
+                <ons-col width="64px" align="bottom">
+                    <button class="button">Now</button>
+                </ons-col>
+            </ons-row>
+        </ons-page>
         
-        <ons-template id="list.html">
-            <ons-page ng-controller="ListController as list">
-                <ons-toolbar fixed-style="true">
-                    <div class="center">{{list.data.year}}年{{list.data.month}}月</div>
-                </ons-toolbar>
+        
+    </ons-template>
+    <ons-template id="list.html">
+      <ons-page ng-controller="ListController as list">
+            <ons-toolbar fixed-style="true">
+               <div width="180" height="360">
+<div width="180" height="30" style="font-size:12pt;line-height: 160%;background-color:#cc0000;color:#ffffff;text-align: center;
+font-weight: bold;">
+営業日カレンダー
+</div>
+<center>
+<style type="text/css">table.calbase_rakuten     {    background-color: #FFFFFF;    border:1px solid #CECECE;    width: 175px;    border-collapse: collapse;    padding: 0px 0px 10px 0px;    }table.calbase_rakuten *   {    font-size: 97%;    color: #3F3F3F;    border-collapse: collapse;    padding: 0px;    margin: 0px;    }table.calbase_rakuten th  {    text-align: center;    }th.caltitle_rakuten       {    font-size: 75%;    padding: 10px 0px 0px 0px;    }table.calframe_rakuten    {    border-collapse: collapse;    margin: 10px 10px 0px 10px;    table-layout: fixed;    width: 155px;    }table.calframe_rakuten th {    text-align: center;    padding: 0px 0px 3px 0px;    }table.calframe_rakuten td {    border:1px solid #FFFFFF;    background-color: #F6F6F6;    width:21px;    height:21px;    text-align: center;    }tr.weektitle_rakuten td   {    background-color: #C7C7C7;    }td.event1day_rakuten      {    background-color: #FFBDBD !important;    }font.event1day_rakuten    {    color: #FFBDBD;    }td.event2day_rakuten      {    background-color: #9EC2FF !important;    }font.event2day_rakuten    {    color: #9EC2FF;    }td.event3day_rakuten      {    background-color: #FFCC33 !important;    }font.event3day_rakuten    {    color: #FFCC33;    }table.event_rakuten       {    text-align: left;    word-break: break-all;    margin: 7px 10px 7px 10px;    border-collapse: collapse;    line-height:120%;    table-layout: fixed;    width: 155px;    }table.event_rakuten td   {    padding: 0px 0px 0px 0px;    }table.text_rakuten       {    text-align: left;    word-break: break-all;    margin: 0px 10px 10px 10px;    border-collapse: collapse;    line-height:120%;    table-layout: fixed;    width: 155px;    }</style><table class="calbase_rakuten">  <tr>    <th class="caltitle_rakuten">営業日カレンダー</th>  </tr>  <tr>    <td>      <table>        <tr>          <td align="center">            <table class="calframe_rakuten">              <tr>                <th colspan="7">2016年7月</th>              </tr>              <tr class="weektitle_rakuten">                <td style="color:#CC0000">日</td>                <td style="color:#3F3F3F">月</td>                <td style="color:#3F3F3F">火</td>                <td style="color:#3F3F3F">水</td>                <td style="color:#3F3F3F">木</td>                <td style="color:#3F3F3F">金</td>                <td style="color:#3F3F3F">土</td>              </tr>              <tr>                <td style="color:#CECECE">26</td>                <td style="color:#CECECE">27</td>                <td style="color:#CECECE">28</td>                <td style="color:#CECECE">29</td>                <td style="color:#CECECE">30</td>                <td style="color:#3F3F3F">1</td>                <td style="color:#3F3F3F" class="event1day_rakuten">2</td>              </tr>              <tr>                <td style="color:#CC0000" class="event1day_rakuten">3</td>                <td style="color:#3F3F3F">4</td>                <td style="color:#3F3F3F">5</td>                <td style="color:#3F3F3F">6</td>                <td style="color:#3F3F3F">7</td>                <td style="color:#3F3F3F">8</td>                <td style="color:#3F3F3F" class="event1day_rakuten">9</td>              </tr>              <tr>                <td style="color:#CC0000" class="event1day_rakuten">10</td>                <td style="color:#3F3F3F">11</td>                <td style="color:#3F3F3F">12</td>                <td style="color:#3F3F3F">13</td>                <td style="color:#3F3F3F">14</td>                <td style="color:#3F3F3F">15</td>                <td style="color:#3F3F3F" class="event1day_rakuten">16</td>              </tr>              <tr>                <td style="color:#CC0000" class="event1day_rakuten">17</td>                <td style="color:#CC0000" class="event1day_rakuten">18</td>                <td style="color:#3F3F3F">19</td>                <td style="color:#3F3F3F">20</td>                <td style="color:#3F3F3F">21</td>                <td style="color:#3F3F3F">22</td>                <td style="color:#3F3F3F" class="event1day_rakuten">23</td>              </tr>              <tr>                <td style="color:#CC0000" class="event1day_rakuten">24</td>                <td style="color:#3F3F3F">25</td>                <td style="color:#3F3F3F">26</td>                <td style="color:#3F3F3F">27</td>                <td style="color:#3F3F3F">28</td>                <td style="color:#3F3F3F">29</td>                <td style="color:#3F3F3F" class="event1day_rakuten">30</td>              </tr>              <tr>                <td style="color:#CC0000" class="event1day_rakuten">31</td>                <td style="color:#CECECE">1</td>                <td style="color:#CECECE">2</td>                <td style="color:#CECECE">3</td>                <td style="color:#CECECE">4</td>                <td style="color:#CECECE">5</td>                <td style="color:#CECECE">6</td>              </tr>            </table>            <table class="calframe_rakuten">              <tr>                <th colspan="7">2016年8月</th>              </tr>              <tr class="weektitle_rakuten">                <td style="color:#CC0000">日</td>                <td style="color:#3F3F3F">月</td>                <td style="color:#3F3F3F">火</td>                <td style="color:#3F3F3F">水</td>                <td style="color:#3F3F3F">木</td>                <td style="color:#3F3F3F">金</td>                <td style="color:#3F3F3F">土</td>              </tr>              <tr>                <td style="color:#CECECE">31</td>                <td style="color:#3F3F3F">1</td>                <td style="color:#3F3F3F">2</td>                <td style="color:#3F3F3F">3</td>                <td style="color:#3F3F3F">4</td>                <td style="color:#3F3F3F">5</td>                <td style="color:#3F3F3F" class="event1day_rakuten">6</td>              </tr>              <tr>                <td style="color:#CC0000" class="event1day_rakuten">7</td>                <td style="color:#3F3F3F">8</td>                <td style="color:#3F3F3F">9</td>                <td style="color:#3F3F3F">10</td>                <td style="color:#CC0000" class="event1day_rakuten">11</td>                <td style="color:#3F3F3F">12</td>                <td style="color:#3F3F3F" class="event1day_rakuten">13</td>              </tr>              <tr>                <td style="color:#CC0000" class="event1day_rakuten">14</td>                <td style="color:#3F3F3F">15</td>                <td style="color:#3F3F3F">16</td>                <td style="color:#3F3F3F">17</td>                <td style="color:#3F3F3F">18</td>                <td style="color:#3F3F3F">19</td>                <td style="color:#3F3F3F" class="event1day_rakuten">20</td>              </tr>              <tr>                <td style="color:#CC0000" class="event1day_rakuten">21</td>                <td style="color:#3F3F3F">22</td>                <td style="color:#3F3F3F">23</td>                <td style="color:#3F3F3F">24</td>                <td style="color:#3F3F3F">25</td>                <td style="color:#3F3F3F">26</td>                <td style="color:#3F3F3F" class="event1day_rakuten">27</td>              </tr>              <tr>                <td style="color:#CC0000" class="event1day_rakuten">28</td>                <td style="color:#3F3F3F">29</td>                <td style="color:#3F3F3F">30</td>                <td style="color:#3F3F3F">31</td>                <td style="color:#CECECE">1</td>                <td style="color:#CECECE">2</td>                <td style="color:#CECECE">3</td>              </tr>            </table>          </td>        </tr>        <tr>          <td colspan="2">            <table class="event_rakuten">              <tr><td><font class="event1day_rakuten">■</font> 休業日</td></tr>              <tr><td><font class="event2day_rakuten">■</font> 配送休業日</td></tr>              <tr><td><font class="event3day_rakuten">■</font> 配送のみ</td></tr>            </table>          </td>        </tr>      </table>    </td>  </tr></table>
+</center>
+</div>
+                <div class="center">{{list.data.year}}年{{list.data.month}}月</div>
+                <div class="center">{{list.data.year}}年{{list.data.month}}月</div>
+            </ons-toolbar>
+            <ons-list>
+                <ons-list-item ng-class="day.dayType" ng-repeat="day in list.data.days"> <span class="date">{{day.date | date: 'd'}}</span> <span class="day">{{day.date | date: '(EEE)'}}</span>
+                    <!-- 未入力時のレイアウト崩れを防ぐため&nbsp;を入れている --><span class="time" ng-click="list.inputTime('in', day)">&nbsp;{{day.inTime}}&nbsp;</span> <span class="time" ng-click="list.inputTime('out', day)">&nbsp;{{day.outTime}}&nbsp;</span> </ons-list-item>
             
+          </ons-list>
+          
+        </ons-page>
+        
+    </ons-template>
+    <ons-template id="common.html">
+        <div>共通項目</div>
+    </ons-template>
+    <ons-template id="settings.html">
+        <div>設定</div>
+    </ons-template>
+    <ons-template id="timeDialog.html">
+        <ons-dialog cancelable ng-controller="TimeDialogController as dialog" class="timeDialog" ons-postshow="dialog.scrollToDefault()">
+            <ons-page>
+                <ons-toolbar fixed-style="true">
+                    <div class="center"> {{dialog.data.dayData.date | date: 'M/d(EEE)'}} {{dialog.typeString()}} </div>
+                </ons-toolbar>
                 <ons-list>
-                    <ons-list-item ng-class="day.dayType" ng-repeat="day in list.data.days">
-                        <span class="date">{{day.date | date: 'd'}}</span>
-                        <span class="day">{{day.date | date: '(EEE)'}}</span>
-                        <!-- 未入力時のレイアウト崩れを防ぐため&nbsp;を入れている -->
-                        <span class="time" ng-click="list.inputTime('in', day)">&nbsp;{{day.inTime}}&nbsp;</span>
-                        <span class="time" ng-click="list.inputTime('out', day)">&nbsp;{{day.outTime}}&nbsp;</span>
-                    </ons-list-item>
+                    <ons-list-item modifier="tappable" ng-repeat="time in dialog.createTimeSelectList()" class="item" id="time-{{time}}" ng-click="dialog.selectTime(time)"> {{time}} </ons-list-item>
                 </ons-list>
             </ons-page>
-        </ons-template>
-        
-        <ons-template id="common.html">
-            <div>共通項目</div>
-        </ons-template>
-        
-        <ons-template id="settings.html">
-            <div>設定</div>
-        </ons-template>
-        
-        <ons-template id="timeDialog.html">
-            <ons-dialog cancelable ng-controller="TimeDialogController as dialog" class="timeDialog" ons-postshow="dialog.scrollToDefault()">
-                <ons-page>
-                    <ons-toolbar fixed-style="true">
-                        <div class="center">
-                            {{dialog.data.dayData.date | date: 'M/d(EEE)'}} {{dialog.typeString()}}
-                        </div>
-                    </ons-toolbar>
-                    <ons-list>
-                        <ons-list-item modifier="tappable" ng-repeat="time in dialog.createTimeSelectList()" class="item" id="time-{{time}}" ng-click="dialog.selectTime(time)">
-                            {{time}}
-                        </ons-list-item>
-                    </ons-list>
-                </ons-page>
-            </ons-dialog>
-        </ons-template>
-        
-    </body>
+        </ons-dialog>
+    </ons-template>
+</body>
+
 </html>

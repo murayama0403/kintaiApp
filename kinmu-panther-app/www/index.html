@@ -40,7 +40,7 @@
                     <ons-icon icon="ion-ios-clock-outline"></ons-icon> 出勤
                 </ons-col>
                 <ons-col align="bottom">
-                    <input type="text" class="time-input text-input text-input--underbar" placeholder="出勤時刻" value="9:00">
+                    <input type="text" class="time-input text-input text-input--underbar" ng-model="input.inTime">
                 </ons-col>
             </ons-row>
             <ons-row>
@@ -48,20 +48,20 @@
                     <ons-icon icon="ion-ios-clock"></ons-icon> 退勤
                 </ons-col>
                 <ons-col align="bottom">
-                    <input type="text" class="time-input text-input text-input--underbar" placeholder="退勤時刻" value="17:45">
+                    <input type="text" class="time-input text-input text-input--underbar" ng-model="input.outTime">
                 </ons-col>
             </ons-row>
             
 			<ons-bottom-toolbar>
 	            <ons-row>
 	                <ons-col align="bottom" class="in-button-col">
-	                    <button class="button">出</button>
+	                    <button class="button" ng-click="input.quickIn()">出</button>
 	                </ons-col>
 	                <ons-col align="bottom" class="quick-time-col">
-	                    <input type="text" class="time-input text-input text-input--underbar quick-time-input" placeholder="時刻" value="17:45">
+	                    <input type="text" class="time-input text-input text-input--underbar quick-time-input" ng-model="input.quickTime">
 	                </ons-col>
 	                <ons-col align="bottom" class="out-button-col">
-	                    <button class="button">退</button>
+	                    <button class="button" ng-click="input.quickOut()">退</button>
 	                </ons-col>
 	            </ons-row>
 			</ons-bottom-toolbar>
@@ -70,11 +70,6 @@
         <ons-template id="timeDialog.html">
             <ons-dialog cancelable ng-controller="TimeDialogController as dialog" class="timeDialog" ons-postshow="dialog.scrollToDefault()">
                 <ons-page>
-                    <ons-toolbar fixed-style="true">
-                        <div class="center">
-                            {{dialog.data.dayData.date | date: 'M/d(EEE)'}} {{dialog.typeString()}}
-                        </div>
-                    </ons-toolbar>
                     <ons-list>
                         <ons-list-item modifier="tappable" ng-repeat="time in dialog.createTimeSelectList()" class="item" id="time-{{time}}" ng-click="dialog.selectTime(time)">
                             {{time}}

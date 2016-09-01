@@ -34,7 +34,7 @@
 }
 
 .time-input {
-	font-size: x-large;
+	font-size: large;
 }
 
 .quick-time-col {
@@ -42,7 +42,6 @@
 }
 
 .quick-time-input {
-	font-size: xx-large;
 	padding-top: 0;
 	text-align: center;
 }

@@ -18,174 +18,54 @@
         <script src="lib/angular/angular.js"></script>
         <script src="lib/angular/angular-locale_ja-jp.js"></script>
         <script src="lib/onsen/js/onsenui.js"></script>
-        <script src="lib/HolidayChk.js"></script>
         <script src="cordova.js"></script>
         
         <!-- このアプリ固有のファイル -->
         <link rel="stylesheet" href="css/index.css" />
         <script src="js/app.js"></script>
-        <script src="js/listController.js"></script>
         <script src="js/inputController.js"></script>
         <script src="js/timeDialogController.js"></script>
-        <script src="js/kinmuService.js"></script>
         <script src="js/timeDialogService.js"></script>
         
         <title>勤務パンサー</title>
     </head>
     <body>
-        <ons-tabbar>
-            <ons-tab page="input.html" active="true" icon="ion-ios-compose-outline" label="入力">
-            </ons-tab>
-            <ons-tab page="list.html" icon="ion-ios-list-outline" label="一覧">
-            </ons-tab>
-            <ons-tab page="common.html" icon="ion-ios-person" label="共通項目">
-            </ons-tab>
-            <ons-tab page="settings.html" icon="ion-ios-gear-outline" label="設定">
-            </ons-tab>
-        </ons-tabbar>
-
-        <ons-template id="input.html">
-            <ons-page ng-controller="InputController as input" class="input">
-                <ons-toolbar fixed-style="true">
-                    <div class="center">{{input.data.date | date: 'M月d日(EEE)'}}</div>
-                </ons-toolbar>
-                
-                <ons-row>
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-timer-outline"></ons-icon> シフト
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <input type="text" class="text-input text-input--underbar" placeholder="" value="所定">
-                    </ons-col>
-                </ons-row>
-                <ons-row>
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-clock-outline"></ons-icon> 出勤
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <input type="text" class="time-input text-input text-input--underbar" placeholder="出勤時刻" value="9:00">
-                    </ons-col>
-                    <ons-col width="64px" align="bottom">
-                        <button class="button">Now</button>
-                    </ons-col>
-                </ons-row>
-                <ons-row>
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-clock"></ons-icon> 退勤
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <input type="text" class="time-input text-input text-input--underbar" placeholder="退勤時刻" value="17:45">
-                    </ons-col>
-                    <ons-col width="64px" align="bottom">
-                        <button class="button">Now</button>
-                    </ons-col>
-                </ons-row>
-                <ons-row id="norest">
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-medical-outline"></ons-icon> 休未
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <button class="button button--outline">17:45<br>18:00</button>
-                        <button class="button button--outline">19:30<br>20:00</button>
-                        <button class="button button--outline">22:00<br>22:15</button>
-                        <button class="button button--outline">2:30<br>3:00</button>
-                        <button class="button button--outline">8:30<br>9:00</button>
-                    </ons-col>
-                </ons-row>
-                <ons-row>
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-people"></ons-icon> PRJ
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <input type="text" class="text-input text-input--underbar" placeholder="" value="">
-                    </ons-col>
-                </ons-row>
-                <ons-row>
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-flag"></ons-icon> 作業
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <input type="text" class="text-input text-input--underbar" placeholder="" value="">
-                    </ons-col>
-                </ons-row>
-                <ons-row>
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-paperplane-outline"></ons-icon> 休暇
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <input type="text" class="text-input text-input--underbar" placeholder="" value="">
-                    </ons-col>
-                </ons-row>
-                <ons-row>
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-pricetag-outline"></ons-icon> 特記
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <input type="text" class="text-input text-input--underbar" placeholder="" value="">
-                    </ons-col>
-                </ons-row>
-                <ons-row>
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-heart-outline"></ons-icon> 短時
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <label class="switch">
-                            <input type="checkbox" class="switch__input">
-                            <div class="switch__toggle"></div>
-                        </label>
-                    </ons-col>
-                </ons-row>
-                <ons-row>
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-time-outline"></ons-icon> 外出
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <input type="text" class="time-input text-input text-input--underbar" placeholder="" value="">
-                    </ons-col>
-                    <ons-col width="64px" align="bottom">
-                        <button class="button">Now</button>
-                    </ons-col>
-                </ons-row>
-                <ons-row>
-                    <ons-col width="78px" align="bottom" class="label">
-                        <ons-icon icon="ion-ios-time"></ons-icon> 外戻
-                    </ons-col>
-                    <ons-col align="bottom">
-                        <input type="text" class="time-input text-input text-input--underbar" placeholder="" value="">
-                    </ons-col>
-                    <ons-col width="64px" align="bottom">
-                        <button class="button">Now</button>
-                    </ons-col>
-                </ons-row>
-                
-            </ons-page>
-        </ons-template>
-        
-        <ons-template id="list.html">
-            <ons-page ng-controller="ListController as list">
-                <ons-toolbar fixed-style="true">
-                    <div class="center">{{list.data.year}}年{{list.data.month}}月</div>
-                </ons-toolbar>
+        <ons-page ng-controller="InputController as input" class="input">
+            <ons-toolbar fixed-style="true">
+                <div class="center">{{input.currentDate | date: 'M月d日(EEE)'}}</div>
+            </ons-toolbar>
             
-                <ons-list>
-                    <ons-list-item ng-class="day.dayType" ng-repeat="day in list.data.days">
-                        <span class="date">{{day.date | date: 'd'}}</span>
-                        <span class="day">{{day.date | date: '(EEE)'}}</span>
-                        <!-- 未入力時のレイアウト崩れを防ぐため&nbsp;を入れている -->
-                        <span class="time" ng-click="list.inputTime('in', day)">&nbsp;{{day.inTime}}&nbsp;</span>
-                        <span class="time" ng-click="list.inputTime('out', day)">&nbsp;{{day.outTime}}&nbsp;</span>
-                    </ons-list-item>
-                </ons-list>
-            </ons-page>
-        </ons-template>
-        
-        <ons-template id="common.html">
-            <div>共通項目</div>
-        </ons-template>
-        
-        <ons-template id="settings.html">
-            <div>設定</div>
-        </ons-template>
+            <ons-row>
+                <ons-col width="78px" align="bottom" class="label">
+                    <ons-icon icon="ion-ios-clock-outline"></ons-icon> 出勤
+                </ons-col>
+                <ons-col align="bottom">
+                    <input type="text" class="time-input text-input text-input--underbar" placeholder="出勤時刻" value="9:00">
+                </ons-col>
+            </ons-row>
+            <ons-row>
+                <ons-col width="78px" align="bottom" class="label">
+                    <ons-icon icon="ion-ios-clock"></ons-icon> 退勤
+                </ons-col>
+                <ons-col align="bottom">
+                    <input type="text" class="time-input text-input text-input--underbar" placeholder="退勤時刻" value="17:45">
+                </ons-col>
+            </ons-row>
+            
+			<ons-bottom-toolbar>
+	            <ons-row>
+	                <ons-col align="bottom" class="in-button-col">
+	                    <button class="button">出</button>
+	                </ons-col>
+	                <ons-col align="bottom" class="quick-time-col">
+	                    <input type="text" class="time-input text-input text-input--underbar quick-time-input" placeholder="時刻" value="17:45">
+	                </ons-col>
+	                <ons-col align="bottom" class="out-button-col">
+	                    <button class="button">退</button>
+	                </ons-col>
+	            </ons-row>
+			</ons-bottom-toolbar>
+		</ons-page>
         
         <ons-template id="timeDialog.html">
             <ons-dialog cancelable ng-controller="TimeDialogController as dialog" class="timeDialog" ons-postshow="dialog.scrollToDefault()">

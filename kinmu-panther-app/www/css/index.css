@@ -1,30 +1,9 @@
-span.date {
-	width: 24px;
-	text-align: center;
-	display: inline-block;
+.in-button-col {
+	text-align: right;
 }
 
-span.day {
-	width: 32px;
-	text-align: center;
-	display: inline-block;
-}
-
-.saturday span {
-	color: #0033cc;
-}
-
-.sunday span, .holiday span {
-	color: #cc0033;
-}
-
-.time {
-	width: 64px;
-	height: 38px;
-	text-align: center;
-	cursor: pointer;
-	display: inline-block;
-	border-bottom: 1px solid #ddd;
+.out-button-col {
+	text-align: left;
 }
 
 .timeDialog .dialog {
@@ -36,17 +15,12 @@ span.day {
 	text-align: center;
 }
 
-.tab-bar {
-	background-color: #fff;
-	border-top: 1px solid #bbb;
-}
-
 .input ons-row {
 	background-color: #fff;
 	min-height: 42px;
 }
 
-.input ons-col.label {
+.label {
 	padding-left: 8px;
 }
 
@@ -58,19 +32,17 @@ span.day {
 .input .text-input--underbar {
 	width: 96%;
 }
-.time-input {
-	font-size: large;
-} 
 
-#norest .label {
-	padding-top: 20px;
+.time-input {
+	font-size: x-large;
 }
-#norest button {
-	width: 42px;
-	line-height: 17px;
-	font-size: small;
-	padding-left: 4px;
-	padding-right: 4px;
-	padding-top: 2px;
-	padding-bottom: 2px;
+
+.quick-time-col {
+	text-align: center;
+}
+
+.quick-time-input {
+	font-size: xx-large;
+	padding-top: 0;
+	text-align: center;
 }

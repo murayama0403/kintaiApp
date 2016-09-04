@@ -9,19 +9,18 @@ angular.module('app')
 	this.quickTime = QUICK_NOW;
 	
 	this.quickIn = function() {
-		if (this.quickTime == QUICK_NOW) {
-			this.inTime = calcQuickNow(true);
-			return;
-		}
-		this.inTime = this.quickTime;
+		this.inTime = this.calcQuickTime(true);
 	}
 	
 	this.quickOut = function() {
-		if (this.quickTime == QUICK_NOW) {
-			this.outTime = calcQuickNow(false);
-			return;
+		this.outTime = this.calcQuickTime(false);
+	}
+	
+	this.calcQuickTime = function(isIn) {
+		if (this.quickTime != QUICK_NOW) {
+			return this.quickTime;
 		}
-		this.outTime = this.quickTime;
+		return calcQuickNow(isIn);
 	}
 	
 	function calcQuickNow(isIn) {

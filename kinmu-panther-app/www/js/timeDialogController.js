@@ -1,46 +1,40 @@
 angular.module('app')
-.controller('TimeDialogController', ['timeDialogService', '$location', '$anchorScroll', function(timeDialogService, $location, $anchorScroll){
+.controller('TimeDialogController', ['timeDialogService', '$location', '$anchorScroll', 'util', function(timeDialogService, $location, $anchorScroll, util){
 
-  this.data = timeDialogService.data;
-  
-  this.typeString = function() {
-	if (this.data.type == 'in') {
-	  return '出勤';
-	}
-	else {
-	  return '退勤';
-	}
-  }
-  
-  this.selectTime = function(time) {
-	timeDialogService.selectTime(time);
-  };
-  
-  this.createTimeSelectList = function() {
-    var list = [];
-    for (var h = 0; h < 24; h++) {
-      for (var t = 0; t < 60; t += 15) {
-    	if ((this.data.type == 'in' && (h == 9 && t == 0))
-    			|| (this.data.type == 'out' && (h == 17 && t == 45))) {
-    		list.push('');
-    		list.push('---');
-    	}
-    	list.push(padLeft(h) + ':' + padLeft(t));
-      }
-    }
-    return list;
-  };
-  
-  this.scrollToDefault = function() {
-    $location.hash('time-');
-    $anchorScroll();
-  };
-  
-  function padLeft(i) {
-	if (i < 10) {
-	  return '0' + i;
-	}
-	return i;
-  }
-	  
+	this.selectTime = function(time) {
+		timeDialogService.selectTime(time);
+	};
+
+	this.createTimeSelectList = function() {
+		var list = [];
+		var index = 0;
+		for (var h = 0; h < 24; h++) {
+			for (var t = 0; t < 60; t += 15) {
+				if ((h == 9 && t == 0)
+						|| (h == 17 && t == 45)) {
+					list.push('');
+					index++;
+					list.push('---');
+					index++;
+				}
+				var value = util.padZero(h) + ':' + util.padZero(t);
+				if (value == timeDialogService.time) {
+					this.defaultIndex = index;
+				}
+				list.push(value);
+				index++;
+			}
+		}
+		return list;
+	};
+
+	this.scrollToDefault = function() {
+		var scrollTo = this.defaultIndex - 2;
+		if (scrollTo <= 0) {
+			return;
+		}
+		$location.hash('time' + scrollTo);
+		$anchorScroll();
+	};
+
 }]);

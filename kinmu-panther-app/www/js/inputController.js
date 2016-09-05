@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('InputController', ['timeDialogService', function(timeDialogService){
+.controller('InputController', ['timeDialogService', 'util', function(timeDialogService, util){
 
 	var QUICK_NOW = '現在時刻';
 	
@@ -7,6 +7,9 @@ angular.module('app')
 	this.inTime = '';
 	this.outTime = '';
 	this.quickTime = QUICK_NOW;
+
+	////////////////////
+	// quick
 	
 	this.quickIn = function() {
 		this.inTime = this.calcQuickTime(true);
@@ -30,11 +33,36 @@ angular.module('app')
 		}
 		now.setMinutes(Math.floor(now.getMinutes() / 15) * 15);
 		
-		return padZero(now.getHours()) + ':' + padZero(now.getMinutes())
+		return util.padZero(now.getHours()) + ':' + util.padZero(now.getMinutes())
 	}
 	
-	function padZero(value) {
-		return ('0' + value).slice(-2);
+	////////////////////
+	// selectTime
+	
+	this.selectInTime = function() {
+		var time = this.inTime;
+		// TODO kinmuServiceから取得？
+		if (time == '' || time == '---') {
+			time = '09:00';
+		}
+		var _this = this;
+		timeDialogService.showDialog(time, function(selected) {
+			_this.inTime = selected;
+		});
+		return false;
+	}
+	
+	this.selectOutTime = function() {
+		var time = this.outTime;
+		// TODO kinmuServiceから取得？
+		if (time == '' || time == '---') {
+			time = '17:45';
+		}
+		var _this = this;
+		timeDialogService.showDialog(time, function(selected) {
+			_this.outTime = selected;
+		});
+		return false;
 	}
 	
 //	this.inputTime = function(type, dayData) {

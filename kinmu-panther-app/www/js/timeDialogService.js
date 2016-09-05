@@ -2,29 +2,22 @@ angular.module('app')
 .service('timeDialogService', [function(){
 
   var timeDialog;
+  var time;
   ons.ready(function() {
     ons.createDialog('timeDialog.html').then(function(dialog) {
       timeDialog = dialog;
 	});
   });
 
-  var data = {};
-  this.data = data;
-  
-  this.showDialog = function(type, dayData) {
-	data.type = type;
-	data.dayData = dayData;
+  this.showDialog = function(time, onSuccess) {
+	this.time = time;
+	this.onSuccess = onSuccess;
 	timeDialog.show();
   };
 
   this.selectTime = function(time) {
-    if (data.type == 'in') {
-      data.dayData.inTime = time;
-    }
-    else {
-      data.dayData.outTime = time;
-    }
-    timeDialog.hide();
+	  this.onSuccess(time);
+	  timeDialog.hide();
   };
 
 }]);

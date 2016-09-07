@@ -1,5 +1,5 @@
 angular.module('app')
-.controller('TimeDialogController', ['timeDialogService', '$location', '$anchorScroll', 'util', function(timeDialogService, $location, $anchorScroll, util){
+.controller('TimeDialogController', ['timeDialogService', 'kinmuService', '$location', '$anchorScroll', 'util', function(timeDialogService, kinmuService, $location, $anchorScroll, util){
 
 	this.selectTime = function(time) {
 		timeDialogService.selectTime(time);
@@ -12,9 +12,9 @@ angular.module('app')
 			for (var t = 0; t < 60; t += 15) {
 				if ((h == 9 && t == 0)
 						|| (h == 17 && t == 45)) {
-					list.push('');
+					list.push(kinmuService.TIME_EMPTY);
 					index++;
-					list.push('---');
+					list.push(kinmuService.TIME_OFF);
 					index++;
 				}
 				var value = util.padZero(h) + ':' + util.padZero(t);

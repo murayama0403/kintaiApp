@@ -23,6 +23,7 @@
         <!-- このアプリ固有のファイル -->
         <link rel="stylesheet" href="css/index.css" />
         <script src="js/app.js"></script>
+        <script src="js/kinmuService.js"></script>
         <script src="js/util.js"></script>
         <script src="js/inputController.js"></script>
         <script src="js/timeDialogController.js"></script>
@@ -41,7 +42,7 @@
                     <ons-icon icon="ion-ios-clock-outline"></ons-icon> 出勤
                 </ons-col>
                 <ons-col align="bottom">
-                    <input type="text" class="time-input text-input text-input--underbar" ng-model="input.inTime" ng-click="input.selectInTime()">
+                    <input type="text" class="time-input text-input text-input--underbar" ng-model="input.inTime" ng-click="input.selectInTime()" readonly>
                 </ons-col>
             </ons-row>
             <ons-row>
@@ -49,7 +50,7 @@
                     <ons-icon icon="ion-ios-clock"></ons-icon> 退勤
                 </ons-col>
                 <ons-col align="bottom">
-                    <input type="text" class="time-input text-input text-input--underbar" ng-model="input.outTime" ng-click="input.selectOutTime()">
+                    <input type="text" class="time-input text-input text-input--underbar" ng-model="input.outTime" ng-click="input.selectOutTime()" readonly>
                 </ons-col>
             </ons-row>
             
@@ -59,7 +60,7 @@
 	                    <button class="button" ng-click="input.quickIn()">出</button>
 	                </ons-col>
 	                <ons-col align="bottom" class="quick-time-col">
-	                    <input type="text" class="time-input text-input text-input--underbar quick-time-input" ng-model="input.quickTime" ng-click="input.selectQuickTime()">
+	                    <input type="text" class="time-input text-input text-input--underbar quick-time-input" ng-model="input.quickTime" ng-click="input.selectQuickTime()" readonly>
 	                </ons-col>
 	                <ons-col align="bottom" class="out-button-col">
 	                    <button class="button" ng-click="input.quickOut()">退</button>

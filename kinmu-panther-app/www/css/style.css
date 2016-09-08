@@ -1,0 +1,55 @@
+body {
+margin: 0;
+padding: 0;
+line-height:1.4;
+font-family:"‚l‚r ‚oƒSƒVƒbƒN";
+
+}
+
+.inputtable {
+height: 30px;
+}
+.inputtable th{
+height: 30px;
+text-align: left;
+vertical-align: top;
+}
+
+select{
+width:180px;
+height: 30px;
+}
+
+#btnstart{
+border:3px solid #9999cc;
+background-color:#FFFFFF;
+width:60px;
+height:40px;
+font-weight:bold;
+
+}
+
+#btnstart:hover{
+background-color:#9999FF;
+
+}
+
+#btnend{
+border:3px solid #9999cc;
+background-color:#FFFFFF;
+width:60px;
+height:40px;
+font-weight:bold;
+
+}
+
+#btnend:hover{
+background-color:#9999FF;
+}
+
+.buttontable th{
+background-color:#9999FF; 
+height:40px;
+width:100px;
+font-size:x-large;
+}

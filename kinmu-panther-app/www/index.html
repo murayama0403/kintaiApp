@@ -1,85 +1,183 @@
 <!DOCTYPE html>
-<!-- CSP support mode (required for Windows Universal apps): https://docs.angularjs.org/api/ng/directive/ngCsp -->
-<html lang="ja" ng-csp>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="format-detection" content="telephone=no" />
-        <meta name="msapplication-tap-highlight" content="no" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="mobile-web-app-capable" content="yes" />
-        <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-        
-        <link rel="stylesheet" href="lib/onsen/css/onsenui.css"/>
-        <link rel="stylesheet" href="lib/onsen/css/onsen-css-components.css"/>
-        <!-- CSP support mode (required for Windows Universal apps) -->
-        <link rel="stylesheet" href="lib/angular/angular-csp.css" />
-        
-        <script src="lib/angular/angular.js"></script>
-        <script src="lib/angular/angular-locale_ja-jp.js"></script>
-        <script src="lib/onsen/js/onsenui.js"></script>
-        <script src="cordova.js"></script>
-        
-        <!-- このアプリ固有のファイル -->
-        <link rel="stylesheet" href="css/index.css" />
-        <script src="js/app.js"></script>
-        <script src="js/kinmuService.js"></script>
-        <script src="js/util.js"></script>
-        <script src="js/inputController.js"></script>
-        <script src="js/timeDialogController.js"></script>
-        <script src="js/timeDialogService.js"></script>
-        
-        <title>勤務パンサー</title>
-    </head>
-    <body>
-        <ons-page ng-controller="InputController as input" class="input">
-            <ons-toolbar fixed-style="true">
-                <div class="center">{{input.currentDate | date: 'M月d日(EEE)'}}</div>
-            </ons-toolbar>
-            
-            <ons-row>
-                <ons-col width="78px" align="bottom" class="label">
-                    <ons-icon icon="ion-ios-clock-outline"></ons-icon> 出勤
-                </ons-col>
-                <ons-col align="bottom">
-                    <input type="text" class="time-input text-input text-input--underbar" ng-model="input.inTime" ng-click="input.selectInTime()" readonly>
-                </ons-col>
-            </ons-row>
-            <ons-row>
-                <ons-col width="78px" align="bottom" class="label">
-                    <ons-icon icon="ion-ios-clock"></ons-icon> 退勤
-                </ons-col>
-                <ons-col align="bottom">
-                    <input type="text" class="time-input text-input text-input--underbar" ng-model="input.outTime" ng-click="input.selectOutTime()" readonly>
-                </ons-col>
-            </ons-row>
-            
-			<ons-bottom-toolbar>
-	            <ons-row>
-	                <ons-col align="bottom" class="in-button-col">
-	                    <button class="button" ng-click="input.quickIn()">出</button>
-	                </ons-col>
-	                <ons-col align="bottom" class="quick-time-col">
-	                    <input type="text" class="time-input text-input text-input--underbar quick-time-input" ng-model="input.quickTime" ng-click="input.selectQuickTime()" readonly>
-	                </ons-col>
-	                <ons-col align="bottom" class="out-button-col">
-	                    <button class="button" ng-click="input.quickOut()">退</button>
-	                </ons-col>
-	            </ons-row>
-			</ons-bottom-toolbar>
-		</ons-page>
-        
-        <ons-template id="timeDialog.html">
-            <ons-dialog cancelable ng-controller="TimeDialogController as dialog" class="timeDialog" ons-postshow="dialog.scrollToDefault()">
-                <ons-page>
-                    <ons-list>
-                        <ons-list-item modifier="tappable" ng-repeat="time in dialog.createTimeSelectList() track by $index" class="item" id="time{{$index}}" ng-click="dialog.selectTime(time)">
-                            {{time}}
-                        </ons-list-item>
-                    </ons-list>
-                </ons-page>
-            </ons-dialog>
-        </ons-template>
-        
-    </body>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="Content-Language" content="ja">
+    <title>勤怠管理</title>
+    <!-- 現在時刻取得-->
+    <script type="text/javascript" charset="Shift_JIS" src="js/nowtime.js"></script>
+    <!-- ボタン押下-->
+    <script type="text/javascript" charset="Shift_JIS" src="js/button.js"></script>
+    <!-- スタイルシート-->
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+
+<body>
+    <h2><span class="head">勤怠時間</span></h2>
+    <!-- 時間入力-->
+    <form name="inputform" id="input_form" action="">
+        <table class="inputtable">
+            <tbody>
+                <tr>
+                    <th>
+                        <p>出勤&nbsp;<span class="work"></span>&nbsp;</p>
+                    </th>
+                    <td>
+                        <!-- 出勤時間選択-->
+                        <select name="startwork" class="select" >
+                            <option value="--:--"></option>
+                            <option value="09:00">09:00</option>
+                            <option value="09:15">09:15</option>
+                            <option value="09:30">09:30</option>
+                            <option value="09:45">09:45</option>
+                            <option value="10:00">10:00</option>
+                            <option value="10:15">10:15</option>
+                            <option value="10:30">10:30</option>
+                            <option value="10:45">10:45</option>
+                            <option value="11:00">11:00</option>
+                            <option value="11:15">11:15</option>
+                            <option value="11:30">11:30</option>
+                            <option value="11:45">11:45</option>
+                            <option value="12:00">12:00</option>
+                            <option value="12:15">12:15</option>
+                            <option value="12:30">12:30</option>
+                            <option value="12:45">12:45</option>
+                            <option value="13:00">13:00</option>
+                            <option value="13:15">13:15</option>
+                            <option value="13:30">13:30</option>
+                            <option value="13:45">13:45</option>
+                            <option value="14:00">14:00</option>
+                            <option value="14:15">14:15</option>
+                            <option value="14:30">14:30</option>
+                            <option value="14:45">14:45</option>
+                            <option value="15:00">15:00</option>
+                            <option value="15:15">15:15</option>
+                            <option value="15:30">15:30</option>
+                            <option value="15:45">15:45</option>
+                            <option value="16:00">16:00</option>
+                            <option value="16:15">16:15</option>
+                            <option value="16:30">16:30</option>
+                            <option value="16:45">16:45</option>
+                            <option value="17:00">17:00</option>
+                            <option value="17:15">17:15</option>
+                            <option value="17:30">17:30</option>
+                            <option value="17:45">17:45</option>
+                            <option value="18:00">18:00</option>
+                            <option value="18:15">18:15</option>
+                            <option value="18:30">18:30</option>
+                            <option value="18:45">18:45</option>
+                            <option value="19:00">19:00</option>
+                            <option value="19:15">19:15</option>
+                            <option value="19:30">19:30</option>
+                            <option value="19:45">19:45</option>
+                            <option value="20:00">20:00</option>
+                            <option value="20:15">20:15</option>
+                            <option value="20:30">20:30</option>
+                            <option value="20:45">20:45</option>
+                            <option value="21:00">21:00</option>
+                            <option value="21:15">21:15</option>
+                            <option value="21:30">21:30</option>
+                            <option value="21:45">21:45</option>
+                            <option value="22:00">22:00</option>
+                            <option value="22:15">22:15</option>
+                            <option value="22:30">22:30</option>
+                            <option value="22:45">22:45</option>
+                            <option value="23:00">23:00</option>
+                            <option value="23:00">23:00</option>
+                            <option value="23:30">23:30</option>
+                            <option value="23:45">23:45</option>
+                            <option value="0" style="display:none;">00:00</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <p>退勤&nbsp;<span class="work"></span>&nbsp;</p>
+                    </th>
+                    <td>
+                        <!-- 退勤時間選択-->
+                        <select name="endwork" class="select" >
+                            <option value="--:--"></option>
+                            <option value="09:00">09:00</option>
+                            <option value="09:15">09:15</option>
+                            <option value="09:30">09:30</option>
+                            <option value="09:45">09:45</option>
+                            <option value="10:00">10:00</option>
+                            <option value="10:15">10:15</option>
+                            <option value="10:30">10:30</option>
+                            <option value="10:45">10:45</option>
+                            <option value="11:00">11:00</option>
+                            <option value="11:15">11:15</option>
+                            <option value="11:30">11:30</option>
+                            <option value="11:45">11:45</option>
+                            <option value="12:00">12:00</option>
+                            <option value="12:15">12:15</option>
+                            <option value="12:30">12:30</option>
+                            <option value="12:45">12:45</option>
+                            <option value="13:00">13:00</option>
+                            <option value="13:15">13:15</option>
+                            <option value="13:30">13:30</option>
+                            <option value="13:45">13:45</option>
+                            <option value="14:00">14:00</option>
+                            <option value="14:15">14:15</option>
+                            <option value="14:30">14:30</option>
+                            <option value="14:45">14:45</option>
+                            <option value="15:00">15:00</option>
+                            <option value="15:15">15:15</option>
+                            <option value="15:30">15:30</option>
+                            <option value="15:45">15:45</option>
+                            <option value="16:00">16:00</option>
+                            <option value="16:15">16:15</option>
+                            <option value="16:30">16:30</option>
+                            <option value="16:45">16:45</option>
+                            <option value="17:00">17:00</option>
+                            <option value="17:15">17:15</option>
+                            <option value="17:30">17:30</option>
+                            <option value="17:45">17:45</option>
+                            <option value="18:00">18:00</option>
+                            <option value="18:15">18:15</option>
+                            <option value="18:30">18:30</option>
+                            <option value="18:45">18:45</option>
+                            <option value="19:00">19:00</option>
+                            <option value="19:15">19:15</option>
+                            <option value="19:30">19:30</option>
+                            <option value="19:45">19:45</option>
+                            <option value="20:00">20:00</option>
+                            <option value="20:15">20:15</option>
+                            <option value="20:30">20:30</option>
+                            <option value="20:45">20:45</option>
+                            <option value="21:00">21:00</option>
+                            <option value="21:15">21:15</option>
+                            <option value="21:30">21:30</option>
+                            <option value="21:45">21:45</option>
+                            <option value="22:00">22:00</option>
+                            <option value="22:15">22:15</option>
+                            <option value="22:30">22:30</option>
+                            <option value="22:45">22:45</option>
+                            <option value="23:00">23:00</option>
+                            <option value="23:00">23:00</option>
+                            <option value="23:30">23:30</option>
+                            <option value="23:45">23:45</option>
+                            <option value="0" style="display:none;">00:00</option>
+                        </select>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <br>
+    <table class="buttontable">
+        <tr>
+            <td>
+                <button id="btnstart" type="button" onclick="starttime();"><font size="4">出</font></button>
+            </td>
+            <th> <span id="RealtimeClockArea" ></span> </th>
+            <td>
+                <button id="btnend" type="button" onclick="endtime();"><font size="4">退</font></button>
+            </td>
+        </tr>
+    </table>
+</body>
+
 </html>

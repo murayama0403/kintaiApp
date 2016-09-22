@@ -67,7 +67,7 @@ angular.module('app').controller('InputController', ['timeDialogService', 'kinmu
     }
     
     this.saveTime = function() {
-        console.info("save");
+        kinmuService.saveTime(this.currentDate, this.inTime, this.outTime);
     }
 
 }]);

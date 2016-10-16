@@ -15,21 +15,24 @@ export class BottomToolbar extends React.Component<Props, {}> {
             <Ons.BottomToolbar>
                 <Ons.Row>
                     <Ons.Col verticalAlign="bottom" style={{textAlign: 'right'}}>
-                        <Ons.Button onClick={() => this.props.actions.quickIn()}>出</Ons.Button>
+                        <Ons.Button onClick={this.handleQuickInClick.bind(this)}>出</Ons.Button>
                     </Ons.Col>
                     <Ons.Col verticalAlign="bottom" style={{marginLeft: '4px', marginRight: '4px'}}>
                         <input type="text" className="text-input text-input--underbar" defaultValue="現在時刻" style={{textAlign: 'center'}}></input>
                     </Ons.Col>
                     <Ons.Col verticalAlign="bottom" style={{textAlign: 'left'}}>
-                        <Ons.Button onClick={() => this.props.actions.quickOut()}>退</Ons.Button>
+                        <Ons.Button onClick={this.handleQuickOutClick.bind(this)}>退</Ons.Button>
                     </Ons.Col>
                 </Ons.Row>
             </Ons.BottomToolbar>
         )
     }
 
-    private formatCurrentDate() {
-        const date = this.props.value.currentDate
-        return date.getMonth() + 1 + "月" + date.getDate() + "日" 
+    private handleQuickInClick() {
+        this.props.actions.quickIn()
+    }
+
+    private handleQuickOutClick() {
+        this.props.actions.quickOut()
     }
 }

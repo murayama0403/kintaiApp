@@ -4,6 +4,7 @@ module.exports = {
   entry:{
     app: "./src/Index.tsx",
     vendor: [
+      "core-js",
       "onsenui",
       "react",
       "react-dom",

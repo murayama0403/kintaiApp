@@ -1,5 +1,6 @@
 import {GlobalState} from "./States";
 import {Action} from "./Actions";
+import {assign} from "core-js/library/fn/object"
 
 const initialState: GlobalState = {
     currentDate: new Date(),
@@ -11,10 +12,10 @@ export function kintai(state: GlobalState = initialState, action: Action): Globa
     switch (action.type) {
         case "quickIn":
             const inTime = calcQuickInTime(action.now)
-            return Object.assign({}, state, {inTime: inTime});
+            return assign({}, state, {inTime: inTime})
         case "quickOut":
             const outTime = calcQuickOutTime(action.now)
-            return Object.assign({}, state, {outTime: outTime});
+            return assign({}, state, {outTime: outTime});
         default:
             return state
     }

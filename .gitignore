@@ -3,3 +3,4 @@ kinmu-panther-app/.settings/
 kinmu-panther-app/node_modules/
 kinmu-panther-app/typings/
 kinmu-panther-app/www/dist/*.js*
+kinmu-panther-app/platforms/

@@ -6,6 +6,7 @@ import {DispatchActions} from "../../DispatchActions"
 import {Toolbar} from "./Toolbar";
 import {Main} from "./Main";
 import {BottomToolbar} from "./BottomToolbar";
+import {TimeDialog} from "./TimeDialog";
 
 interface Props {
     value: GlobalState;
@@ -18,6 +19,7 @@ export class InputPage extends React.Component<Props, {}> {
             <Ons.Page renderToolbar={() => <Toolbar {...this.props} />}>
                 <Main {...this.props} />
                 <BottomToolbar {...this.props} />
+                <TimeDialog {...this.props} />
             </Ons.Page>
         )
     }

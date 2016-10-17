@@ -13,4 +13,12 @@ export class DispatchActions {
     quickOut() {
         this.dispatch({type: "quickOut", now: new Date()})
     }
+
+    showTimeDialog() {
+        this.dispatch({type: "showTimeDialog"})
+    }
+
+    hideTimeDialog() {
+        this.dispatch({type: "hideTimeDialog"})
+    }
 }

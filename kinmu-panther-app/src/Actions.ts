@@ -1,4 +1,4 @@
-export type Action = QuickInAction | QuickOutAction
+export type Action = QuickInAction | QuickOutAction | ShowTimeDialogAction | HideTimeDialogAction
 
 export interface QuickInAction {
     type: "quickIn";
@@ -8,4 +8,12 @@ export interface QuickInAction {
 export interface QuickOutAction {
     type: "quickOut";
     now: Date;
+}
+
+export interface ShowTimeDialogAction {
+    type: "showTimeDialog";
+}
+
+export interface HideTimeDialogAction {
+    type: "hideTimeDialog";
 }

@@ -14,8 +14,8 @@ export class Main extends React.Component<Props, {}> {
     render() {
         return (
             <div>
-                <TimeRow label="出勤" time={this.props.value.inTime}/>
-                <TimeRow label="退勤" time={this.props.value.outTime}/>
+                <TimeRow label="出勤" time={this.props.value.inTime} actions={this.props.actions} />
+                <TimeRow label="退勤" time={this.props.value.outTime} actions={this.props.actions} />
             </div>
         )
     }

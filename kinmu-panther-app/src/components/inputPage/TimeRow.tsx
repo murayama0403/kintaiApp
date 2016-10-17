@@ -1,10 +1,12 @@
 import * as React from "react";
 import * as ons from 'onsenui';
 import * as Ons from 'react-onsenui';
+import {DispatchActions} from "../../DispatchActions"
 
 interface Props {
     label: string;
     time: string;
+    actions: DispatchActions;
 }
 
 export class TimeRow extends React.Component<Props, {}> {
@@ -26,6 +28,6 @@ export class TimeRow extends React.Component<Props, {}> {
     }
 
     private handleClick() {
-        // TODO
+        this.props.actions.showTimeDialog()
     }
 }

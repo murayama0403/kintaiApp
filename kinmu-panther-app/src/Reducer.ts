@@ -5,7 +5,9 @@ import {assign} from "core-js/library/fn/object"
 const initialState: GlobalState = {
     currentDate: new Date(),
     inTime: "",
-    outTime: ""
+    outTime: "",
+    // TODO stateやreducerを分割？
+    timeDialogShown: false
 }
 
 export function kintai(state: GlobalState = initialState, action: Action): GlobalState {
@@ -16,6 +18,10 @@ export function kintai(state: GlobalState = initialState, action: Action): Globa
         case "quickOut":
             const outTime = calcQuickOutTime(action.now)
             return assign({}, state, {outTime: outTime});
+        case "showTimeDialog":
+            return assign({}, state, {timeDialogShown: true});
+        case "hideTimeDialog":
+            return assign({}, state, {timeDialogShown: false});
         default:
             return state
     }

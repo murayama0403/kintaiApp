@@ -19,7 +19,6 @@ export class InputPage extends React.Component<Props, {}> {
             <Ons.Page renderToolbar={() => <Toolbar {...this.props} />}>
                 <Main {...this.props} />
                 <BottomToolbar {...this.props} />
-                <TimeDialog {...this.props} />
             </Ons.Page>
         )
     }

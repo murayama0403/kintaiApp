@@ -7,7 +7,8 @@ const initialState: GlobalState = {
     inTime: "",
     outTime: "",
     // TODO stateやreducerを分割？
-    timeDialogShown: false
+    timeDialogShown: false,
+    timeDialogDefaultTime: '09:00'
 }
 
 export function kintai(state: GlobalState = initialState, action: Action): GlobalState {
@@ -19,7 +20,7 @@ export function kintai(state: GlobalState = initialState, action: Action): Globa
             const outTime = calcQuickOutTime(action.now)
             return assign({}, state, {outTime: outTime});
         case "showTimeDialog":
-            return assign({}, state, {timeDialogShown: true});
+            return assign({}, state, {timeDialogShown: true, timeDialogDefaultTime: action.defaultTime});
         case "hideTimeDialog":
             return assign({}, state, {timeDialogShown: false});
         default:

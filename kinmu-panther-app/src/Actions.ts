@@ -12,6 +12,7 @@ export interface QuickOutAction {
 
 export interface ShowTimeDialogAction {
     type: "showTimeDialog";
+    defaultTime: string;
 }
 
 export interface HideTimeDialogAction {

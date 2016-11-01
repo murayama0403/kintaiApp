@@ -28,6 +28,7 @@ export class TimeRow extends React.Component<Props, {}> {
     }
 
     private handleClick() {
-        this.props.actions.showTimeDialog()
+        // TODO in,outのタイプなどを渡す？
+        this.props.actions.showTimeDialog(this.props.time)
     }
 }

@@ -1,8 +1,7 @@
 import * as React from "react";
-import * as ons from 'onsenui';
-import * as Ons from 'react-onsenui';
 import {GlobalState} from "../../States";
 import {DispatchActions} from "../../DispatchActions"
+import AppBar from 'material-ui/AppBar';
 
 interface Props {
     value: GlobalState;
@@ -12,9 +11,7 @@ interface Props {
 export class Toolbar extends React.Component<Props, {}> {
     render() {
         return (
-            <Ons.Toolbar>
-                <div className='center'>{this.formatCurrentDate()}</div>
-            </Ons.Toolbar>
+            <AppBar title={this.formatCurrentDate()} showMenuIconButton={false} />
         )
     }
 

@@ -10,7 +10,9 @@ interface Props {
 }
 
 export class BottomToolbar extends React.Component<Props, {}> {
+
     render() {
+
         return (
             <Ons.BottomToolbar>
                 <Ons.Row>

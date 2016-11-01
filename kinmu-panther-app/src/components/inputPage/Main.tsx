@@ -11,6 +11,7 @@ interface Props {
 }
 
 export class Main extends React.Component<Props, {}> {
+    
     render() {
         return (
             <div>

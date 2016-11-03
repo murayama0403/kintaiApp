@@ -1,4 +1,4 @@
-.dialog-container {
-    max-height: 80%;
-    overflow: auto;
+@font-face {
+    font-family: "Roboto";
+    src: url("../res/font/GenShinGothic-Regular.ttf")
 }

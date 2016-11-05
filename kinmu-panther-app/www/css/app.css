@@ -2,3 +2,7 @@
     font-family: "Roboto";
     src: url("../res/font/GenShinGothic-Regular.ttf")
 }
+
+body {
+    margin: 0;
+}

@@ -1,6 +1,6 @@
 import {GlobalState} from "./States";
 import {Action} from "./Actions";
-import {assign} from "core-js/library/fn/object"
+import * as _ from "lodash"
 
 const initialState: GlobalState = {
     currentDate: new Date(),
@@ -14,14 +14,14 @@ export function kintai(state: GlobalState = initialState, action: Action): Globa
     switch (action.type) {
         case "quickIn":
             const inTime = calcQuickInTime(action.now)
-            return assign({}, state, {inTime: inTime})
+            return _.assign({}, state, {inTime: inTime})
         case "quickOut":
             const outTime = calcQuickOutTime(action.now)
-            return assign({}, state, {outTime: outTime});
+            return _.assign({}, state, {outTime: outTime});
         case "showTimeDialog":
-            return assign({}, state, {timeDialogShown: true});
+            return _.assign({}, state, {timeDialogShown: true});
         case "hideTimeDialog":
-            return assign({}, state, {timeDialogShown: false});
+            return _.assign({}, state, {timeDialogShown: false});
         default:
             return state
     }
@@ -38,9 +38,5 @@ function calcQuickOutTime(now: Date) {
 
 function to15minTime(time: Date) {
     time.setMinutes(Math.floor(time.getMinutes() / 15) * 15);
-    return padZero(time.getHours()) + ':' + padZero(time.getMinutes())
-}
-
-function padZero(i: number) {
-    return ('0' + i).slice(-2);
+    return _.padStart(time.getHours().toString(), 2, '0') + ':' + _.padStart(time.getMinutes().toString(), 2, '0')
 }

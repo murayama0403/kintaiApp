@@ -3,8 +3,6 @@ import {GlobalState} from "../../States";
 import {DispatchActions} from "../../DispatchActions"
 import {Toolbar} from "./Toolbar";
 import {Main} from "./Main";
-import {BottomToolbar} from "./BottomToolbar";
-import RaisedButton from 'material-ui/RaisedButton';
 
 interface Props {
     value: GlobalState;
@@ -16,7 +14,7 @@ export class InputPage extends React.Component<Props, {}> {
         return (
             <div>
                 <Toolbar {...this.props} />
-                <RaisedButton label="Default" />
+                <Main {...this.props}/>
             </div>
         )
     }

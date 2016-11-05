@@ -1,9 +1,7 @@
-import * as React from "react";
-import * as ons from 'onsenui';
-import * as Ons from 'react-onsenui';
-import {GlobalState} from "../../States";
+import * as React from "react"
+import {GlobalState} from "../../States"
 import {DispatchActions} from "../../DispatchActions"
-import {TimeRow} from "./TimeRow"
+import {TimeInput, IN} from "./TimeInput"
 
 interface Props {
     value: GlobalState;
@@ -15,9 +13,12 @@ export class Main extends React.Component<Props, {}> {
     render() {
         return (
             <div>
-                <TimeRow label="出勤" time={this.props.value.inTime} actions={this.props.actions} />
-                <TimeRow label="退勤" time={this.props.value.outTime} actions={this.props.actions} />
+                <TimeInput type={IN} value={this.props.value.inTime} onSelected={this.handleInSelected.bind(this)} />
             </div>
         )
+    }
+
+    private handleInSelected(value: string) {
+        console.log(value)
     }
 }

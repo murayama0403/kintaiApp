@@ -11,6 +11,8 @@ interface Props {
     onSelected: (value: string) => void;
 }
 
+const TIMES = [':00', ':15', ':30', ':45']
+
 export const IN: InputType = {
     label: "出勤",
     menus: createMenus("09:00")
@@ -29,14 +31,15 @@ interface InputType {
 function createMenus(defaultValue: string): Array<any> {
     var menus: Array<any> = []
     for (var h = 0; h < 24; h++) {
-        for (var t = 0; t < 60; t += 15) {
-            const value = _.padStart(h.toString(), 2, '0') + ':' + _.padStart(t.toString(), 2, '0')
+        const hour = _.padStart(h.toString(), 2, '0')
+        TIMES.forEach(time => {
+            const value = hour + time
             if (value == defaultValue) {
                 menus.push(<MenuItem key="" value="" primaryText="" />)
                 menus.push(<MenuItem key="---" value="---" primaryText="---" />)
             }
             menus.push(<MenuItem key={value} value={value} primaryText={value} />)
-        }
+        })
     }
     return menus
 }

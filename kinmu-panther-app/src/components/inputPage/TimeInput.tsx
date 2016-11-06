@@ -48,6 +48,7 @@ export class TimeInput extends React.Component<Props, {}> {
                 hintText={this.props.type.label}
                 value={this.props.value}
                 onChange={this.handleChange.bind(this)}
+                autoWidth={true}
                 >
                 {this.props.type.menus}
             </SelectField>
@@ -55,6 +56,7 @@ export class TimeInput extends React.Component<Props, {}> {
     }
 
     private handleChange(event: TouchTapEvent, index: number, value: string) {
+        event.preventDefault()
         this.props.onSelected(value)
     }
 }

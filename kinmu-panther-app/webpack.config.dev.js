@@ -4,12 +4,12 @@ module.exports = {
   entry:{
     app: "./src/Index.tsx",
     vendor: [
-      "core-js",
-      "onsenui",
+      "lodash",
+      "material-ui",
       "react",
       "react-dom",
-      "react-onsenui",
       "react-redux",
+      "react-tap-event-plugin",
       "redux"
     ]
   },

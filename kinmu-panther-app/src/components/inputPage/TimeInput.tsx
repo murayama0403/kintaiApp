@@ -15,7 +15,7 @@ const TIMES = [':00', ':15', ':30', ':45']
 
 export const IN: InputType = {
     label: "出勤",
-    menus: createMenus("09:00")
+    menus: createMenus("9:00")
 }
 
 export const OUT: InputType = {
@@ -31,9 +31,8 @@ interface InputType {
 function createMenus(defaultValue: string): Array<any> {
     var menus: Array<any> = []
     for (var h = 0; h < 24; h++) {
-        const hour = _.padStart(h.toString(), 2, '0')
         TIMES.forEach(time => {
-            const value = hour + time
+            const value = h + time
             if (value == defaultValue) {
                 menus.push(<MenuItem key="" value="" primaryText="" />)
                 menus.push(<MenuItem key="---" value="---" primaryText="---" />)
@@ -52,6 +51,7 @@ export class TimeInput extends React.Component<Props, {}> {
                 value={this.props.value}
                 onChange={this.handleChange.bind(this)}
                 autoWidth={true}
+                fullWidth={true}
                 >
                 {this.props.type.menus}
             </SelectField>

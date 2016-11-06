@@ -16,6 +16,11 @@ export const IN: InputType = {
     menus: createMenus("09:00")
 }
 
+export const OUT: InputType = {
+    label: "退勤",
+    menus: createMenus("17:45")
+}
+
 interface InputType {
     label: string;
     menus: Array<any>

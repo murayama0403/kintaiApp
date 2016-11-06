@@ -1,4 +1,14 @@
-export type Action = QuickInAction | QuickOutAction | ShowTimeDialogAction | HideTimeDialogAction
+export type Action = SelectInAction | SelectOutAction | QuickInAction | QuickOutAction
+
+export interface SelectInAction {
+    type: "selectIn";
+    time: string;
+}
+
+export interface SelectOutAction {
+    type: "selectOut";
+    time: string;
+}
 
 export interface QuickInAction {
     type: "quickIn";
@@ -8,12 +18,4 @@ export interface QuickInAction {
 export interface QuickOutAction {
     type: "quickOut";
     now: Date;
-}
-
-export interface ShowTimeDialogAction {
-    type: "showTimeDialog";
-}
-
-export interface HideTimeDialogAction {
-    type: "hideTimeDialog";
 }

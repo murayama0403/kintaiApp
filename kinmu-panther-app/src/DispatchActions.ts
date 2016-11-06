@@ -6,19 +6,19 @@ export class DispatchActions {
         this.dispatch = dispatch
     }
 
+    selectIn(time: string) {
+        this.dispatch({type: "selectIn", time: time})
+    }
+
+    selectOut(time: string) {
+        this.dispatch({type: "selectOut", time: time})
+    }
+
     quickIn() {
         this.dispatch({type: "quickIn", now: new Date()})
     }
 
     quickOut() {
         this.dispatch({type: "quickOut", now: new Date()})
-    }
-
-    showTimeDialog() {
-        this.dispatch({type: "showTimeDialog"})
-    }
-
-    hideTimeDialog() {
-        this.dispatch({type: "hideTimeDialog"})
     }
 }

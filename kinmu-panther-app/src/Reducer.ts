@@ -6,22 +6,20 @@ const initialState: GlobalState = {
     currentDate: new Date(),
     inTime: "",
     outTime: "",
-    // TODO stateやreducerを分割？
-    timeDialogShown: false
 }
 
 export function kintai(state: GlobalState = initialState, action: Action): GlobalState {
     switch (action.type) {
+        case "selectIn":
+            return _.assign({}, state, {inTime: action.time})
+        case "selectOut":
+            return _.assign({}, state, {outTime: action.time})
         case "quickIn":
             const inTime = calcQuickInTime(action.now)
             return _.assign({}, state, {inTime: inTime})
         case "quickOut":
             const outTime = calcQuickOutTime(action.now)
             return _.assign({}, state, {outTime: outTime});
-        case "showTimeDialog":
-            return _.assign({}, state, {timeDialogShown: true});
-        case "hideTimeDialog":
-            return _.assign({}, state, {timeDialogShown: false});
         default:
             return state
     }

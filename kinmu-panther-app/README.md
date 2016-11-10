@@ -7,7 +7,8 @@
 （ある程度動くようになったらここにスクリーンショットを貼りたい。）
 
 ## 必要環境
-Onsen-UIとCordovaに依存しているので下記を想定しています。
+下記環境を想定しています。
+※使用ライブラリなどによって再検証が必要
 
 - iOS7以降
 - Android 4.0.2以降
@@ -24,26 +25,36 @@ npmでライブラリのダウンロードなどを行う。
 
     npm install
 
-### ビルド
+### ビルド＆実行
 
-    npm run build
+    npm start
 
-※2016/10/19現在、onsenui.d.tsがエラーになるので、
-291行目のload関数の戻りの型として「: void」を追記する必要がある。
+http://localhost:8080
+をブラウザで開けば確認できる。
 
-ファイルを変更すると自動で再ビルドされる。
+ファイルを変更すると自動で再ビルド＆リロードされる
+
+http://[開発マシンのIPアドレス]:8080 にアクセスすることで、
+簡易的にスマホでの見た目もチェック可能。
+（後述するphonegap同様、プライベートネットワークにするといった対応は必要かもしれない）
+
+### Redux DevToolsの利用
+
+下記URLからブラウザの拡張機能としてインストールする。
+Chrome用: https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
+Firefox用: https://addons.mozilla.org/en-US/firefox/addon/remotedev/
+
+debug_sessionパラメータを追加することで、ソース変更などでリロードしても状態が保持される。
+http://localhost:8080/?debug_session=aaa
+（aaaは任意の文字列を指定）
+
+アドレスバー右側のボタンからDevToolsが利用可能。
 
 ### phonegapインストール
 
 node.jsをインストールされたnpmコマンドを使ってインストール
 
     npm install -g phonegap
-
-### ブラウザで動作確認
-
-このREADME.mdファイルと同じディレクトリで下記コマンドを実行
-
-    phonegap run browser
 
 ### デバイスで動作確認
 

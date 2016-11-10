@@ -1,4 +1,5 @@
 var webpack = require("webpack");
+var path = require('path');
 
 module.exports = {
   entry:{
@@ -14,10 +15,12 @@ module.exports = {
     ]
   },
   output: {
-    filename: "./www/dist/bundle.js"
+    path: path.join(__dirname, 'www/dist'),
+    filename: '[name].js',
+    publicPath: 'dist/',
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"./www/dist/vendor.bundle.js")
+    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.js")
   ],
   // Enable sourcemaps for debugging webpack's output.
   devtool: "source-map",

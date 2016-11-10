@@ -6,7 +6,7 @@
     "postinstall": "typings install",
     "build": "webpack --progress --colors --watch --config ./webpack.config.dev.js",
     "build:prod": "webpack --config ./webpack.config.prod.js",
-    "start": "webpack-dev-server --progress --colors --inline --host 0.0.0.0 --content-base www/ --config ./webpack.config.dev.js"
+    "start": "webpack-dev-server --progress --colors -d --inline --host 0.0.0.0 --content-base www/ --config ./webpack.config.dev.js"
   },
   "devDependencies": {
     "ts-loader": "^0.9.1",

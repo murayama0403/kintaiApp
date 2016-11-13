@@ -1,5 +1,5 @@
 import {GlobalState} from "./States";
-import {Action} from "./Actions";
+import {Action, ActionType, SelectInAction, SelectOutAction} from "./Actions";
 import * as _ from "lodash"
 
 const initialState: GlobalState = {
@@ -8,22 +8,30 @@ const initialState: GlobalState = {
     outTime: "",
 }
 
-export function kintai(state: GlobalState = initialState, action: Action): GlobalState {
-    switch (action.type) {
-        case "selectIn":
-            return _.assign({}, state, {inTime: action.time})
-        case "selectOut":
-            return _.assign({}, state, {outTime: action.time})
-        case "quickIn":
-            const inTime = calcQuickInTime(action.now)
-            return _.assign({}, state, {inTime: inTime})
-        case "quickOut":
-            const outTime = calcQuickOutTime(action.now)
-            return _.assign({}, state, {outTime: outTime});
-        default:
-            return state
+type Reducer<S, T> = (state: S, action: Action<T>) => S
+
+function createReducer<S>(initialState: S, reducers: (reduce: <T>(type: ActionType<T>, reducer: Reducer<S, T>) => void) => void): Reducer<S, any> {
+    const reducerMap: {[key: string]: Reducer<S, any>} = {}
+
+    reducers(<T>(t: ActionType<T>, reducer: Reducer<S, T>) => reducerMap[t.type] = reducer)
+
+    return (state: S = initialState, action: Action<any>) => {
+        const reducer = reducerMap[action.type]
+        if (reducer) {
+            return reducer(state, action)
+        }
+        return state
     }
 }
+
+export const kintai = createReducer(initialState, reduce => {
+    reduce(SelectInAction, (state, action) =>
+        _.assign({}, state, {inTime: action.payload})
+    )
+    reduce(SelectOutAction, (state, action) =>
+        _.assign({}, state, {outTime: action.payload})
+    )
+})
 
 function calcQuickInTime(now: Date) {
     now.setMinutes(now.getMinutes() + 15);

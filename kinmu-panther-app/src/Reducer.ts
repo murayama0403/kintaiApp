@@ -1,5 +1,6 @@
 import {GlobalState} from "./States";
-import {Action, ActionType, SelectInAction, SelectOutAction} from "./Actions";
+import {createReducer} from "./common/redux-common";
+import {SelectInAction, SelectOutAction} from "./Actions";
 import * as _ from "lodash"
 
 const initialState: GlobalState = {
@@ -8,28 +9,12 @@ const initialState: GlobalState = {
     outTime: "",
 }
 
-type Reducer<S, T> = (state: S, action: Action<T>) => S
-
-function createReducer<S>(initialState: S, reducers: (reduce: <T>(type: ActionType<T>, reducer: Reducer<S, T>) => void) => void): Reducer<S, any> {
-    const reducerMap: {[key: string]: Reducer<S, any>} = {}
-
-    reducers(<T>(t: ActionType<T>, reducer: Reducer<S, T>) => reducerMap[t.type] = reducer)
-
-    return (state: S = initialState, action: Action<any>) => {
-        const reducer = reducerMap[action.type]
-        if (reducer) {
-            return reducer(state, action)
-        }
-        return state
-    }
-}
-
 export const kintai = createReducer(initialState, reduce => {
-    reduce(SelectInAction, (state, action) =>
-        _.assign({}, state, {inTime: action.payload})
+    reduce(SelectInAction, (state, time) =>
+        _.assign({}, state, {inTime: time})
     )
-    reduce(SelectOutAction, (state, action) =>
-        _.assign({}, state, {outTime: action.payload})
+    reduce(SelectOutAction, (state, time) =>
+        _.assign({}, state, {outTime: time})
     )
 })
 

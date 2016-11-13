@@ -1,4 +1,5 @@
-import {Action, SelectInAction, SelectOutAction} from "./Actions";
+import {Action} from "./common/redux-common";
+import {SelectInAction, SelectOutAction} from "./Actions";
 
 export class DispatchActions {
     private dispatch: (action: Action<any>) => any;

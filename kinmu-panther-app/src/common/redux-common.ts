@@ -26,7 +26,7 @@ export function action<T>(type: string): ActionType<T> {
 
 type Reducer<S, T> = (state: S, payload: T, error?: boolean, meta?: any) => S
 
-export function createReducer<S>(initialState: S, reducers: (reduce: <T>(type: ActionType<T>, reducer: Reducer<S, T>) => void) => void): (state: S, action: Action<any>) => S {
+export function createReducer<S>(initialState: S, reducers: (handle: <T>(type: ActionType<T>, reducer: Reducer<S, T>) => void) => void): (state: S, action: Action<any>) => S {
     const reducerMap: {[key: string]: Reducer<S, any>} = {}
 
     reducers(<T>(actionType: ActionType<T>, reduce: Reducer<S, T>) => reducerMap[actionType.type] = reduce)

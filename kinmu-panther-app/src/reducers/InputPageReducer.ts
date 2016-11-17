@@ -1,19 +1,19 @@
-import {GlobalState} from "./States";
-import {createReducer} from "./common/redux-common";
-import {SelectInAction, SelectOutAction} from "./Actions";
+import {InputPageState} from "../States";
+import {createReducer} from "../common/redux-common";
+import {SelectInAction, SelectOutAction} from "../Actions";
 import * as _ from "lodash"
 
-const initialState: GlobalState = {
+const initialState: InputPageState = {
     currentDate: new Date(),
     inTime: "",
     outTime: "",
 }
 
-export const kintai = createReducer(initialState, reduce => {
-    reduce(SelectInAction, (state, time) =>
+export const inputPage = createReducer(initialState, handle => {
+    handle(SelectInAction, (state, time) =>
         _.assign({}, state, {inTime: time})
     )
-    reduce(SelectOutAction, (state, time) =>
+    handle(SelectOutAction, (state, time) =>
         _.assign({}, state, {outTime: time})
     )
 })

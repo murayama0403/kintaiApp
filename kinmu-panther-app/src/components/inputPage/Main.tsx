@@ -1,10 +1,10 @@
 import * as React from "react"
-import {GlobalState} from "../../States"
+import {InputPageState} from "../../States"
 import {DispatchActions} from "../../DispatchActions"
 import {TimeInput, IN, OUT} from "./TimeInput"
 
 interface Props {
-    value: GlobalState;
+    value: InputPageState;
     actions: DispatchActions;
 }
 

@@ -11,7 +11,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 injectTapEventPlugin()
 
 const AppComponent = connect(
-    (store: any) => { return { value: store.kintai } },
+    (store: any) => { return { value: store } },
     (dispatch: Dispatch<any>) => { return { actions: new DispatchActions(dispatch) } }
 )(App);
 

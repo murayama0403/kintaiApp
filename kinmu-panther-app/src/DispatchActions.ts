@@ -7,11 +7,17 @@ export class DispatchActions {
         this.dispatch = dispatch
     }
 
-    selectIn(time: string) {
-        this.dispatch(SelectInAction.create(time))
+    selectIn(date: Date, time: string) {
+        this.dispatch(SelectInAction.create({
+            date: date,
+            time: time
+        }))
     }
 
-    selectOut(time: string) {
-        this.dispatch(SelectOutAction.create(time))
+    selectOut(date: Date, time: string) {
+        this.dispatch(SelectOutAction.create({
+            date: date,
+            time: time
+        }))
     }
 }

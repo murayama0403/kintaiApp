@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
+    "postinstall": "typings install",
     "build": "webpack --progress --colors --watch --config ./webpack.config.dev.js",
     "build:prod": "webpack --config ./webpack.config.prod.js",
     "start": "webpack-dev-server --progress --colors -d --inline --host 0.0.0.0 --content-base www/ --config ./webpack.config.dev.js"
@@ -28,6 +29,7 @@
     "react-dom": "^15.4.0",
     "react-redux": "^4.4.5",
     "react-tap-event-plugin": "^2.0.1",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "redux-persist": "3.5.0"
   }
 }

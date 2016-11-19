@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "redux-persist": "registry:npm/redux-persist#3.2.2+20160817092816"
+  }
+}

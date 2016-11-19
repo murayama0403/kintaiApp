@@ -4,7 +4,9 @@ export interface GlobalState {
 }
 
 export interface KintaiState {
-    months: {[month: number]: MonthKintai}
+    inTime: string;
+    outTime: string;
+//    months: {[month: number]: MonthKintai}
 }
 
 export interface MonthKintai {
@@ -20,6 +22,4 @@ export interface DayKintai {
 
 export interface InputPageState {
     currentDate: Date;
-    inTime: string;
-    outTime: string;
 }

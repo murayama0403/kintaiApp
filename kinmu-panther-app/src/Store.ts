@@ -1,12 +1,19 @@
 import { inputPage } from './reducers/InputPageReducer'
+import { kintai } from './reducers/KintaiReducer'
 import { createStore, combineReducers } from 'redux'
+import {persistStore, autoRehydrate} from 'redux-persist'
 
 declare var window: any
 
-export default createStore(
+const store = createStore(
     combineReducers({
-        // kintai
+        kintai,
         inputPage
     }),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+    autoRehydrate()
 );
+
+persistStore(store, {whitelist: ['kintai']})
+
+export default store

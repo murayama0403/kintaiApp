@@ -8,6 +8,7 @@
         "jsx": "react"
     },
     "include": [
+        "./typings/index.d.ts",
         "./src/**/*"
     ]
 }

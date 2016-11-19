@@ -12,7 +12,7 @@ export class App extends React.Component<Props, {}> {
     render() {
         return (
             <div>
-                <InputPage value={this.props.value.inputPage} actions={this.props.actions} />
+                <InputPage {...this.props} />
             </div>
         )
     }

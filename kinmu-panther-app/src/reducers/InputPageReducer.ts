@@ -4,17 +4,15 @@ import {SelectInAction, SelectOutAction} from "../Actions";
 import * as _ from "lodash"
 
 const initialState: InputPageState = {
-    currentDate: new Date(),
-    inTime: "",
-    outTime: "",
+    currentDate: new Date()
 }
 
 export const inputPage = createReducer(initialState, handle => {
-    handle(SelectInAction, (state, time) =>
-        _.assign({}, state, {inTime: time})
+    handle(SelectInAction, (state, selectedTime) =>
+        _.assign({}, state, {inTime: selectedTime.time})
     )
-    handle(SelectOutAction, (state, time) =>
-        _.assign({}, state, {outTime: time})
+    handle(SelectOutAction, (state, selectedTime) =>
+        _.assign({}, state, {outTime: selectedTime.time})
     )
 })
 

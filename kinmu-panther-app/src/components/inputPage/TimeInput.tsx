@@ -52,7 +52,7 @@ export class TimeInput extends React.Component<Props, {}> {
                 onChange={this.handleChange.bind(this)}
                 autoWidth={true}
                 fullWidth={true}
-                >
+            >
                 {this.props.type.menus}
             </SelectField>
         )

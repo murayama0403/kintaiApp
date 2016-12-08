@@ -11,7 +11,8 @@ module.exports = {
       "react-dom",
       "react-redux",
       "react-tap-event-plugin",
-      "redux"
+      "redux",
+      "redux-persist"
     ]
   },
   output: {

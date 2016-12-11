@@ -1,23 +1,26 @@
-import {KintaiState, MonthKintai} from "../States";
+import {KintaiState, DayKintai, getDayKintai} from "../States";
 import {createReducer} from "../common/redux-common";
 import {SelectInAction, SelectOutAction} from "../Actions";
+import {toDayString} from "../Utils"
 import * as _ from "lodash"
 
 const initialState: KintaiState = {
-    inTime: '',
-    outTime: ''
-//    months: {}
+    days: {}
 }
 
 export const kintai = createReducer(initialState, handle => {
     handle(SelectInAction, (state, selectedTime) => {
-        return _.assign({}, state, {inTime: selectedTime.time})
+        return updateDayKintai(state, selectedTime.date, {inTime: selectedTime.time})
     })
-    handle(SelectOutAction, (state, selectedTime) =>
-        _.assign({}, state, {outTime: selectedTime.time})
-    )
+    handle(SelectOutAction, (state, selectedTime) => {
+        return updateDayKintai(state, selectedTime.date, {outTime: selectedTime.time})
+    })
 })
 
-function toMonthKey(date: Date): number {
-    return date.getFullYear() * 100 + (date.getMonth() + 1)
+function updateDayKintai(state: KintaiState, date: Date, partialDayKintai: Partial<DayKintai>) {
+    const oldDayKintai = getDayKintai(state, date)
+    const newDayState = _.assign({}, oldDayKintai, partialDayKintai)
+    const newState = _.assign({}, state)
+    newState.days[toDayString(date)] = newDayState
+    return newState
 }

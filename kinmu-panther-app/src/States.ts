@@ -1,18 +1,12 @@
+import {toDayString} from "./Utils"
+
 export interface GlobalState {
     kintai: KintaiState;
     inputPage: InputPageState;
 }
 
 export interface KintaiState {
-    inTime: string;
-    outTime: string;
-//    months: {[month: number]: MonthKintai}
-}
-
-export interface MonthKintai {
-    year: number;
-    month: number;
-    days: {[day: number]: DayKintai}
+    days: {[day: string]: DayKintai}
 }
 
 export interface DayKintai {
@@ -23,3 +17,17 @@ export interface DayKintai {
 export interface InputPageState {
     currentDate: Date;
 }
+
+export function getDayKintai(state: KintaiState, date: Date) {
+    const day = toDayString(date)
+    let kintai = state.days[day]
+    if (kintai) {
+        return kintai
+    }
+
+    return {
+        inTime: '',
+        outTime: ''
+    }
+}
+

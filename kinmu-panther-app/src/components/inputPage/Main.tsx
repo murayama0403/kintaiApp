@@ -1,5 +1,5 @@
 import * as React from "react"
-import {GlobalState} from "../../States"
+import {GlobalState, getDayKintai} from "../../States"
 import {DispatchActions} from "../../DispatchActions"
 import {TimeInput, IN, OUT} from "./TimeInput"
 
@@ -9,12 +9,13 @@ interface Props {
 }
 
 export class Main extends React.Component<Props, {}> {
-    
     render() {
+        const currentKintai = getDayKintai(this.props.value.kintai, this.props.value.inputPage.currentDate)
+
         return (
             <div>
-                <TimeInput type={IN} value={this.props.value.kintai.inTime} onSelected={this.handleInSelected.bind(this)} />
-                <TimeInput type={OUT} value={this.props.value.kintai.outTime} onSelected={this.handleOutSelected.bind(this)} />
+                <TimeInput type={IN} value={currentKintai.inTime} onSelected={this.handleInSelected.bind(this)} />
+                <TimeInput type={OUT} value={currentKintai.outTime} onSelected={this.handleOutSelected.bind(this)} />
             </div>
         )
     }

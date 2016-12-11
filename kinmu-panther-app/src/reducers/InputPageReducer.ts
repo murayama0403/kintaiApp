@@ -8,12 +8,6 @@ const initialState: InputPageState = {
 }
 
 export const inputPage = createReducer(initialState, handle => {
-    handle(SelectInAction, (state, selectedTime) =>
-        _.assign({}, state, {inTime: selectedTime.time})
-    )
-    handle(SelectOutAction, (state, selectedTime) =>
-        _.assign({}, state, {outTime: selectedTime.time})
-    )
 })
 
 function calcQuickInTime(now: Date) {

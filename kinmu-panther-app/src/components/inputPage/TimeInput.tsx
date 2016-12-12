@@ -50,8 +50,7 @@ export class TimeInput extends React.Component<Props, {}> {
                 hintText={this.props.type.label}
                 value={this.props.value}
                 onChange={this.handleChange.bind(this)}
-                autoWidth={true}
-                fullWidth={true}
+                style={{width: "200px"}}
                 >
                 {this.props.type.menus}
             </SelectField>

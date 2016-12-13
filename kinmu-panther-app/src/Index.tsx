@@ -11,8 +11,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {
   cyan500, cyan700,
   pinkA200,
-  grey100, grey300, grey400, grey500,
-  white, darkBlack, fullBlack,red500,red800
+  deepOrange900, grey300,
+  white, darkBlack, fullBlack,red500,red800,indigo500,lightBlue900
 } from 'material-ui/styles/colors';
 import {fade} from 'material-ui/utils/colorManipulator';
 import spacing from 'material-ui/styles/spacing';
@@ -28,16 +28,16 @@ const muiTheme = getMuiTheme({
   spacing: spacing,
   fontFamily: 'Roboto, sans-serif',
   palette: {
-    primary1Color: red800,
+    primary1Color: lightBlue900,
     primary2Color: cyan700,
-    primary3Color: grey400,
-    accent1Color: pinkA200,
-    accent2Color: grey100,
-    accent3Color: grey500,
+    primary3Color: red800,
+    accent1Color: deepOrange900,
+    accent2Color: indigo500,
+    accent3Color: red500,
     textColor: darkBlack,
     alternateTextColor: white,
-    canvasColor: white,
-    borderColor: red500,
+    canvasColor: grey300,
+    borderColor: lightBlue900,
     disabledColor: fade(darkBlack, 0.3),
     pickerHeaderColor: cyan500,
     clockCircleColor: fade(white, 0.07),

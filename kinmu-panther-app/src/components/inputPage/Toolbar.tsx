@@ -5,24 +5,25 @@ import AppBar from 'material-ui/AppBar';
 import {IconMenuAll} from "./IconMenu";
 import FlatButton from 'material-ui/FlatButton';
 import IconButton from 'material-ui/IconButton';
-import {DatePickers} from "./Calendar";
+import ActionInput from 'material-ui/svg-icons/action/input';
+import RaisedButton from 'material-ui/RaisedButton';
 
 interface Props {
     value: GlobalState;
     actions: DispatchActions;
 }
 
-function handleTouchTap() {
-  return DatePickers; 
-}
+const style = {
+  margin: 12,
+};
 
 export class Toolbar extends React.Component<Props, {}> {
     render() {
         return (
             <AppBar title={this.formatCurrentDate()}
-            onTitleTouchTap={handleTouchTap}
-            iconElementLeft={<IconButton><IconMenuAll /></IconButton>}
-            iconElementRight={<FlatButton label="Save" />}/>
+            iconElementLeft={<IconMenuAll />}
+            iconElementRight={<RaisedButton label="SAVE" style={style} />}
+            titleStyle={{textAlign: "center"}}/>
         )
     }
 

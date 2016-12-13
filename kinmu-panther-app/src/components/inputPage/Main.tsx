@@ -8,13 +8,32 @@ interface Props {
     actions: DispatchActions;
 }
 
+const styles = {
+    block: {
+        maxWidth: 250,
+    },
+    checkbox: {
+        marginBottom: 180,
+    },
+    center:{
+        margin: '0 auto',
+        marginBottom: '0 auto',
+        display:'flex',
+        width: '50%',
+    }
+};
+
 export class Main extends React.Component<Props, {}> {
     
     render() {
         return (
             <div>
-                <TimeInput type={IN} value={this.props.value.inTime} onSelected={this.handleInSelected.bind(this)} />
-                <TimeInput type={OUT} value={this.props.value.outTime} onSelected={this.handleOutSelected.bind(this)} />
+                <div style={styles.center}>
+                    <TimeInput type={IN} value={this.props.value.inTime} onSelected={this.handleInSelected.bind(this)} />
+                </div>
+                <div style={styles.center}>
+                    <TimeInput type={OUT} value={this.props.value.outTime} onSelected={this.handleOutSelected.bind(this)} />
+                </div>
             </div>
         )
     }

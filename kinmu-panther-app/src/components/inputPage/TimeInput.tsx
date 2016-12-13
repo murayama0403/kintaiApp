@@ -17,21 +17,27 @@ interface Props {
 
 interface InputType {
     label: string;
+    regularTime: string
     menus: Array<any>
     offsetMinutes: number
 }
 
 const TIMES = [':00', ':15', ':30', ':45']
 
+const REGULAR_TIME_IN = '9:00'
+const REGULAR_TIME_OUT = '17:45'
+
 export const IN: InputType = {
     label: "出勤",
-    menus: createMenus("9:00"),
+    regularTime: REGULAR_TIME_IN,
+    menus: createMenus(REGULAR_TIME_IN),
     offsetMinutes: 15
 }
 
 export const OUT: InputType = {
     label: "退勤",
-    menus: createMenus("17:45"),
+    regularTime: REGULAR_TIME_OUT,
+    menus: createMenus(REGULAR_TIME_OUT),
     offsetMinutes: 0
 }
 
@@ -63,7 +69,7 @@ export class TimeInput extends React.Component<Props, {}> {
                 <IconButton onClick={this.handleNow.bind(this)}>
                     <ActionUpdate />
                 </IconButton>
-                <IconButton>
+                <IconButton onClick={this.handleRegular.bind(this)}>
                     <ActionSchedule />
                 </IconButton>
             </div>
@@ -91,6 +97,10 @@ export class TimeInput extends React.Component<Props, {}> {
     private handleNow() {
         const time = this.calcNowTime(new Date())
         this.props.onSelected(time)
+    }
+
+    private handleRegular() {
+        this.props.onSelected(this.props.type.regularTime)
     }
 
     private calcNowTime(now: Date) {

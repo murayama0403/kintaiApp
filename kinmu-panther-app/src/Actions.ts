@@ -7,3 +7,4 @@ interface SelectedTime {
 
 export const SelectInAction = action<SelectedTime>('SelectIn')
 export const SelectOutAction = action<SelectedTime>('SelectOut')
+export const MoveCurrentDateAction = action<Date>('MoveCurrentDate')

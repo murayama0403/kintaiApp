@@ -1,5 +1,5 @@
 import {Action} from "./common/redux-common";
-import {SelectInAction, SelectOutAction} from "./Actions";
+import {SelectInAction, SelectOutAction, MoveCurrentDateAction} from "./Actions";
 
 export class DispatchActions {
     private dispatch: (action: Action<any>) => any;
@@ -19,5 +19,9 @@ export class DispatchActions {
             date: date,
             time: time
         }))
+    }
+
+    moveCurrentDate(date: Date) {
+        this.dispatch(MoveCurrentDateAction.create(date))
     }
 }

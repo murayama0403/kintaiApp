@@ -1,6 +1,6 @@
 import {KintaiState, DayKintai, getDayKintai} from "../States";
 import {createReducer} from "../common/redux-common";
-import {SelectInAction, SelectOutAction} from "../Actions";
+import {SelectInAction, SelectOutAction, InputHolidayAction} from "../Actions";
 import {toDayString} from "../DateUtils"
 
 const initialState: KintaiState = {
@@ -13,6 +13,9 @@ export const kintai = createReducer(initialState, handle => {
     })
     handle(SelectOutAction, (state, selectedTime) => {
         return updateDayKintai(state, selectedTime.date, {outTime: selectedTime.time})
+    })
+    handle(InputHolidayAction, (state, selectedHoliday) => {
+        return updateDayKintai(state, selectedHoliday.date, {holiday: selectedHoliday.holiday})
     })
 })
 

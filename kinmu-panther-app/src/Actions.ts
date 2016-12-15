@@ -5,6 +5,12 @@ interface SelectedTime {
     time: string;
 }
 
+interface SelectedHoliday {
+    date: Date;
+    holiday: string;
+}
+
 export const SelectInAction = action<SelectedTime>('SelectIn')
 export const SelectOutAction = action<SelectedTime>('SelectOut')
 export const MoveCurrentDateAction = action<Date>('MoveCurrentDate')
+export const InputHolidayAction = action<SelectedHoliday>('InputHoliday')

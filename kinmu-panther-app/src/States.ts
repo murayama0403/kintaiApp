@@ -12,6 +12,7 @@ export interface KintaiState {
 export interface DayKintai {
     inTime: string;
     outTime: string;
+    holiday: string;
 }
 
 export interface InputPageState {
@@ -27,7 +28,8 @@ export function getDayKintai(state: KintaiState, date: Date) {
 
     return {
         inTime: '',
-        outTime: ''
+        outTime: '',
+        holiday: ''
     }
 }
 

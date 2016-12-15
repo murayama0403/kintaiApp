@@ -5,7 +5,7 @@ import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton'
 import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left'
 import ArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right'
-import * as moment from 'moment'
+import {moveDates, formatDate} from '../../DateUtils'
 
 interface Props {
     value: GlobalState;
@@ -32,16 +32,16 @@ export class Toolbar extends React.Component<Props, {}> {
     }
 
     private handleBefore() {
-        const date = moment(this.props.value.inputPage.currentDate).add(-1, 'days')
-        this.props.actions.moveCurrentDate(date.toDate())
+        const date = moveDates(this.props.value.inputPage.currentDate, -1)
+        this.props.actions.moveCurrentDate(date)
     }
 
     private handleAfter() {
-        const date = moment(this.props.value.inputPage.currentDate).add(1, 'days')
-        this.props.actions.moveCurrentDate(date.toDate())
+        const date = moveDates(this.props.value.inputPage.currentDate, 1)
+        this.props.actions.moveCurrentDate(date)
     }
 
     private formatCurrentDate() {
-        return moment(this.props.value.inputPage.currentDate).format('MM/DD(ddd)')
+        return formatDate(this.props.value.inputPage.currentDate)
     }
 }

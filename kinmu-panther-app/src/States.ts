@@ -1,4 +1,4 @@
-import {toDayString} from "./Utils"
+import {toDayString} from "./DateUtils"
 
 export interface GlobalState {
     kintai: KintaiState;

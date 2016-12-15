@@ -7,7 +7,7 @@ import IconButton from 'material-ui/IconButton'
 import ActionSchedule from 'material-ui/svg-icons/action/schedule'
 import ActionUpdate from 'material-ui/svg-icons/action/update'
 import {TouchTapEvent} from 'material-ui'
-import * as moment from 'moment'
+import {ceil15Minutes, floor15Minutes, formatTime} from '../../DateUtils'
 
 interface Props {
     type: InputType;
@@ -19,7 +19,7 @@ interface InputType {
     label: string;
     regularTime: string
     menus: Array<any>
-    offsetMinutes: number
+    adjustTime: (date: Date) => Date
 }
 
 const TIMES = [':00', ':15', ':30', ':45']
@@ -31,14 +31,14 @@ export const IN: InputType = {
     label: "出勤",
     regularTime: REGULAR_TIME_IN,
     menus: createMenus(REGULAR_TIME_IN),
-    offsetMinutes: 15
+    adjustTime: ceil15Minutes
 }
 
 export const OUT: InputType = {
     label: "退勤",
     regularTime: REGULAR_TIME_OUT,
     menus: createMenus(REGULAR_TIME_OUT),
-    offsetMinutes: 0
+    adjustTime: floor15Minutes
 }
 
 const listInnerStyle = {
@@ -96,17 +96,12 @@ export class TimeInput extends React.Component<Props, {}> {
     }
 
     private handleNow() {
-        const time = this.calcNowTime(new Date())
-        this.props.onSelected(time)
+        const time = this.props.type.adjustTime(new Date())
+        this.props.onSelected(formatTime(time))
     }
 
     private handleRegular() {
         this.props.onSelected(this.props.type.regularTime)
     }
 
-    private calcNowTime(now: Date) {
-        now.setMinutes(now.getMinutes() + this.props.type.offsetMinutes)
-        now.setMinutes(Math.floor(now.getMinutes() / 15) * 15)
-        return moment(now).format('H:mm')
-    }
 }

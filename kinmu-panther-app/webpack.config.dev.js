@@ -5,7 +5,6 @@ module.exports = {
   entry:{
     app: "./src/Index.tsx",
     vendor: [
-      "lodash",
       "material-ui",
       "moment",
       "react",

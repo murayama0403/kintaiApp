@@ -7,7 +7,7 @@ import IconButton from 'material-ui/IconButton'
 import ActionSchedule from 'material-ui/svg-icons/action/schedule'
 import ActionUpdate from 'material-ui/svg-icons/action/update'
 import {TouchTapEvent} from 'material-ui'
-import * as _ from "lodash"
+import * as moment from 'moment'
 
 interface Props {
     type: InputType;
@@ -104,8 +104,8 @@ export class TimeInput extends React.Component<Props, {}> {
     }
 
     private calcNowTime(now: Date) {
-        now.setMinutes(now.getMinutes() + this.props.type.offsetMinutes);
-        now.setMinutes(Math.floor(now.getMinutes() / 15) * 15);
-        return now.getHours().toString() + ':' + _.padStart(now.getMinutes().toString(), 2, '0')
+        now.setMinutes(now.getMinutes() + this.props.type.offsetMinutes)
+        now.setMinutes(Math.floor(now.getMinutes() / 15) * 15)
+        return moment(now).format('H:mm')
     }
 }

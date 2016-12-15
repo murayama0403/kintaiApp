@@ -7,8 +7,12 @@ import { Provider, connect } from "react-redux";
 import { Dispatch } from "redux";
 import * as injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import * as moment from 'moment'
+import 'moment/locale/ja'
 
 injectTapEventPlugin()
+
+moment.locale('ja')
 
 const AppComponent = connect(
     (store: any) => { return { value: store } },

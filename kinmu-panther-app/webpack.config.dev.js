@@ -7,6 +7,7 @@ module.exports = {
     vendor: [
       "lodash",
       "material-ui",
+      "moment",
       "react",
       "react-dom",
       "react-redux",

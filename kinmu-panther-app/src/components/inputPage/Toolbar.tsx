@@ -5,13 +5,12 @@ import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton'
 import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left'
 import ArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right'
+import * as moment from 'moment'
 
 interface Props {
     value: GlobalState;
     actions: DispatchActions;
 }
-
-const DAY_OF_WEEKS = ['日', '月', '火', '水', '木', '金', '土']
 
 export class Toolbar extends React.Component<Props, {}> {
     private buttons = <div>
@@ -33,19 +32,16 @@ export class Toolbar extends React.Component<Props, {}> {
     }
 
     private handleBefore() {
-        const date = new Date(this.props.value.inputPage.currentDate)
-        date.setDate(date.getDate() - 1)
-        this.props.actions.moveCurrentDate(date)
+        const date = moment(this.props.value.inputPage.currentDate).add(-1, 'days')
+        this.props.actions.moveCurrentDate(date.toDate())
     }
 
     private handleAfter() {
-        const date = new Date(this.props.value.inputPage.currentDate)
-        date.setDate(date.getDate() + 1)
-        this.props.actions.moveCurrentDate(date)
+        const date = moment(this.props.value.inputPage.currentDate).add(1, 'days')
+        this.props.actions.moveCurrentDate(date.toDate())
     }
 
     private formatCurrentDate() {
-        const date = this.props.value.inputPage.currentDate
-        return date.getMonth() + 1 + "/" + date.getDate() + "(" + DAY_OF_WEEKS[date.getDay()] + ")" 
+        return moment(this.props.value.inputPage.currentDate).format('MM/DD(ddd)')
     }
 }

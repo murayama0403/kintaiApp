@@ -1,9 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { App } from "./Components/App";
+import { InputPage } from "./components/inputPage/InputPage"
 import store from "./Store";
 import { DispatchActions } from "./DispatchActions";
 import { Provider, connect } from "react-redux";
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { syncHistoryWithStore } from 'react-router-redux'
 import { Dispatch } from "redux";
 import * as injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -14,15 +17,29 @@ injectTapEventPlugin()
 
 moment.locale('ja')
 
-const AppComponent = connect(
-    (store: any) => { return { value: store } },
+const connector = connect(
+    (store: any, ownProps: any) => { return {
+            value: store,
+            location: ownProps.location
+    }},
     (dispatch: Dispatch<any>) => { return { actions: new DispatchActions(dispatch) } }
-)(App);
+)
+
+const AppComponent = connector(App)
+const InputPageComponent = connector(InputPage)
+const ListPageComponent = connector(InputPage)
+
+const history = syncHistoryWithStore(browserHistory, store)
 
 ReactDOM.render(
     <Provider store={store}>
         <MuiThemeProvider>
-            <AppComponent />
+            <Router history={history}>
+                <Route path="/" component={AppComponent}>
+                    <IndexRoute component={InputPageComponent} />
+                    <Route path="list" component={ListPageComponent} />
+                </Route>
+            </Router>
         </MuiThemeProvider>
     </Provider>
     , document.getElementById('app')

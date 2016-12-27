@@ -1,5 +1,5 @@
 import * as React from "react";
-import {GlobalState} from "../../States";
+import {RootProps} from "../../RootProps";
 import {DispatchActions} from "../../DispatchActions"
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton'
@@ -7,12 +7,7 @@ import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left'
 import ArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right'
 import {moveDates, formatDate} from '../../DateUtils'
 
-interface Props {
-    value: GlobalState;
-    actions: DispatchActions;
-}
-
-export class Toolbar extends React.Component<Props, {}> {
+export class Toolbar extends React.Component<RootProps, {}> {
     private buttons = <div>
             <IconButton onClick={this.handleBefore.bind(this)} >
                 <ArrowLeft color="white" />

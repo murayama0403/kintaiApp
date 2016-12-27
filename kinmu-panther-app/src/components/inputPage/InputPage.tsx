@@ -1,15 +1,10 @@
 import * as React from "react";
-import {GlobalState} from "../../States";
+import {RootProps} from "../../RootProps";
 import {DispatchActions} from "../../DispatchActions"
 import {Toolbar} from "./Toolbar";
 import {Main} from "./Main";
 
-interface Props {
-    value: GlobalState;
-    actions: DispatchActions;
-}
-
-export class InputPage extends React.Component<Props, {}> {
+export class InputPage extends React.Component<RootProps, {}> {
     render() {
         return (
             <div>

@@ -9,7 +9,7 @@ export function formatDate(date: Date): string {
 }
 
 export function formatMonth(date: Date): string {
-    return moment(date).format('YYYY年M月')
+    return moment(date).format('YYYY/M')
 }
 
 export function ceil15Minutes(date: Date): Date {

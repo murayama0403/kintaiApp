@@ -3,6 +3,7 @@ import {toDayString} from "./DateUtils"
 export interface GlobalState {
     kintai: KintaiState;
     inputPage: InputPageState;
+    listPage: ListPageState;
 }
 
 export interface KintaiState {
@@ -16,6 +17,10 @@ export interface DayKintai {
 }
 
 export interface InputPageState {
+    currentDate: Date;
+}
+
+export interface ListPageState {
     currentDate: Date;
 }
 

@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { App } from "./Components/App";
 import { InputPage } from "./components/inputPage/InputPage"
+import { ListPage } from "./components/listPage/ListPage"
 import store from "./Store";
 import { DispatchActions } from "./DispatchActions";
 import { Provider, connect } from "react-redux";
@@ -27,7 +28,7 @@ const connector = connect(
 
 const AppComponent = connector(App)
 const InputPageComponent = connector(InputPage)
-const ListPageComponent = connector(InputPage)
+const ListPageComponent = connector(ListPage)
 
 const history = syncHistoryWithStore(browserHistory, store)
 

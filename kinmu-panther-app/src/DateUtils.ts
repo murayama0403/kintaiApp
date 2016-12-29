@@ -8,6 +8,10 @@ export function formatDate(date: Date): string {
     return moment(date).format('M/D(dd)')
 }
 
+export function formatMonth(date: Date): string {
+    return moment(date).format('YYYY年M月')
+}
+
 export function ceil15Minutes(date: Date): Date {
     const minutes = Math.ceil(date.getMinutes() / 15) * 15
     return moment(date).minute(minutes).toDate()

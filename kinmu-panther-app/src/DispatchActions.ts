@@ -34,16 +34,10 @@ export class DispatchActions {
     }
 
     showInputPage() {
-        this.pushIfNotCurrent('/')
+        browserHistory.push('/')
     }
 
     showListPage() {
-        this.pushIfNotCurrent('/list')
-    }
-
-    private pushIfNotCurrent(path: string) {
-        if (browserHistory.getCurrentLocation().pathname != path) {
-            browserHistory.push(path)
-        }
+        browserHistory.push('/list')
     }
 }

@@ -17,11 +17,11 @@ export class App extends React.Component<RootProps, {}> {
                     <BottomNavigation selectedIndex={selectedIndex}>
                         <BottomNavigationItem label="入力"
                             icon={<EditIcon />}
-                            onTouchTap={this.onInputSelected.bind(this)}
+                            onClick={this.onInputSelected.bind(this)}
                         />
                         <BottomNavigationItem label="一覧"
                             icon={<ListIcon />}
-                            onTouchTap={this.onListSelected.bind(this)}
+                            onClick={this.onListSelected.bind(this)}
                         />
                     </BottomNavigation>
                 </div>

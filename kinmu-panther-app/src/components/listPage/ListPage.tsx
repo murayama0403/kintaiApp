@@ -3,7 +3,7 @@ import {RootProps} from "../../RootProps";
 import {DispatchActions} from "../../DispatchActions"
 import {Toolbar} from "./Toolbar";
 import {Main} from "./Main";
-import {FooterTab} from '../FooterTab'
+import {FooterTab} from '../common/FooterTab'
 
 export class ListPage extends React.Component<RootProps, {}> {
     render() {

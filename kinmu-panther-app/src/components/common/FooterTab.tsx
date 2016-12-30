@@ -1,5 +1,5 @@
 import * as React from "react";
-import {RootProps} from '../RootProps'
+import {RootProps} from '../../RootProps'
 import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation'
 import Divider from 'material-ui/Divider'
 import EditIcon from 'material-ui/svg-icons/image/edit'

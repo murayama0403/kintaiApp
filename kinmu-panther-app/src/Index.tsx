@@ -1,6 +1,5 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { App } from "./Components/App";
 import { InputPage } from "./components/inputPage/InputPage"
 import { ListPage } from "./components/listPage/ListPage"
 import store from "./Store";
@@ -23,7 +22,6 @@ const connector = connect(
     (dispatch: Dispatch<any>) => { return { actions: new DispatchActions(dispatch) } }
 )
 
-const AppComponent = connector(App)
 const InputPageComponent = connector(InputPage)
 const ListPageComponent = connector(ListPage)
 
@@ -33,10 +31,8 @@ ReactDOM.render(
     <Provider store={store}>
         <MuiThemeProvider>
             <Router history={history}>
-                <Route path="/" component={AppComponent}>
-                    <IndexRoute component={InputPageComponent} />
-                    <Route path="list" component={ListPageComponent} />
-                </Route>
+                <Route path="/" component={InputPageComponent} />
+                <Route path="/list" component={ListPageComponent} />
             </Router>
         </MuiThemeProvider>
     </Provider>

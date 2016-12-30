@@ -19,10 +19,7 @@ injectTapEventPlugin()
 moment.locale('ja')
 
 const connector = connect(
-    (store: any, ownProps: any) => { return {
-            value: store,
-            location: ownProps.location
-    }},
+    (store: any) => { return { value: store } },
     (dispatch: Dispatch<any>) => { return { actions: new DispatchActions(dispatch) } }
 )
 

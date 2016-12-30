@@ -8,6 +8,10 @@ export function formatDate(date: Date): string {
     return moment(date).format('M/D(dd)')
 }
 
+export function formatDateForListItem(date: Date): string {
+    return moment(date).format('D(dd)')
+}
+
 export function formatMonth(date: Date): string {
     return moment(date).format('YYYY/M')
 }
@@ -28,4 +32,14 @@ export function moveDates(date: Date, amount: number) {
 
 export function formatTime(date: Date): string {
     return moment(date).format('H:mm')
+}
+
+export function getMonthDates(month: Date): Array<Date> {
+    const date = moment(month)
+    const count = date.daysInMonth()
+    const array = new Array<Date>(count)
+    for (var i = 1; i <= count; i++) {
+        array[i] = date.date(i).toDate()
+    }
+    return array
 }

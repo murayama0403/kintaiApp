@@ -1,6 +1,6 @@
 import * as React from "react"
 import {RootProps} from "../../RootProps";
-import {getDayKintai} from "../../States"
+import {getDayKintai} from "../../KintaiUtils"
 import {DispatchActions} from "../../DispatchActions"
 import {List, ListItem} from 'material-ui/List'
 import TextField from 'material-ui/TextField'

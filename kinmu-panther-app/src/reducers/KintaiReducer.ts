@@ -1,6 +1,7 @@
-import {KintaiState, DayKintai, getDayKintai} from "../States";
+import {KintaiState, DayKintai} from "../States";
 import {createReducer} from "../common/redux-common";
 import {SelectInAction, SelectOutAction, InputHolidayAction} from "../Actions";
+import {getDayKintai} from "../KintaiUtils"
 import {toDayString} from "../DateUtils"
 
 const initialState: KintaiState = {

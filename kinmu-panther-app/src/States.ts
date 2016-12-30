@@ -1,5 +1,3 @@
-import {toDayString} from "./DateUtils"
-
 export interface GlobalState {
     kintai: KintaiState;
     inputPage: InputPageState;
@@ -23,18 +21,3 @@ export interface InputPageState {
 export interface ListPageState {
     currentDate: Date;
 }
-
-export function getDayKintai(state: KintaiState, date: Date) {
-    const day = toDayString(date)
-    let kintai = state.days[day]
-    if (kintai) {
-        return kintai
-    }
-
-    return {
-        inTime: '',
-        outTime: '',
-        holiday: ''
-    }
-}
-

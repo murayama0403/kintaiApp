@@ -1,5 +1,5 @@
 import {Action} from "./common/redux-common";
-import {SelectInAction, SelectOutAction, MoveCurrentDateAction, InputHolidayAction} from "./Actions";
+import * as actions from "./Actions";
 import {browserHistory} from 'react-router'
 
 export class DispatchActions {
@@ -9,25 +9,29 @@ export class DispatchActions {
     }
 
     selectIn(date: Date, time: string) {
-        this.dispatch(SelectInAction.create({
+        this.dispatch(actions.SelectInAction.create({
             date: date,
             time: time
         }))
     }
 
     selectOut(date: Date, time: string) {
-        this.dispatch(SelectOutAction.create({
+        this.dispatch(actions.SelectOutAction.create({
             date: date,
             time: time
         }))
     }
 
     moveCurrentDate(date: Date) {
-        this.dispatch(MoveCurrentDateAction.create(date))
+        this.dispatch(actions.MoveCurrentDateAction.create(date))
+    }
+
+    moveCurrentMonth(date: Date) {
+        this.dispatch(actions.MoveCurrentMonthAction.create(date))
     }
 
     inputHoliday(date: Date, holiday: string) {
-        this.dispatch(InputHolidayAction.create({
+        this.dispatch(actions.InputHolidayAction.create({
             date: date,
             holiday: holiday
         }))

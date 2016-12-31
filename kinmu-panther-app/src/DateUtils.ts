@@ -30,6 +30,10 @@ export function moveDates(date: Date, amount: number) {
     return moment(date).add(amount, 'days').toDate()
 }
 
+export function moveMonths(date: Date, amount: number) {
+    return moment(date).add(amount, 'months').toDate()
+}
+
 export function formatTime(date: Date): string {
     return moment(date).format('H:mm')
 }

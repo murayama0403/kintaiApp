@@ -5,7 +5,7 @@ import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton'
 import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left'
 import ArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right'
-import {moveDates, formatMonth} from '../../DateUtils'
+import {moveMonths, formatMonth} from '../../DateUtils'
 
 export class Toolbar extends React.Component<RootProps, {}> {
     private buttons = <div>
@@ -27,13 +27,13 @@ export class Toolbar extends React.Component<RootProps, {}> {
     }
 
     private handleBefore() {
-        // const date = moveMonths(this.props.value.inputPage.currentDate, -1)
-        // this.props.actions.moveCurrentDate(date)
+        const date = moveMonths(this.props.value.listPage.currentDate, -1)
+        this.props.actions.moveCurrentMonth(date)
     }
 
     private handleAfter() {
-        // const date = moveMonths(this.props.value.inputPage.currentDate, 1)
-        // this.props.actions.moveCurrentDate(date)
+        const date = moveMonths(this.props.value.listPage.currentDate, 1)
+        this.props.actions.moveCurrentMonth(date)
     }
 
     private formatCurrentMonth() {

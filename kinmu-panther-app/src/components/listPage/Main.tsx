@@ -22,9 +22,13 @@ export class Main extends React.Component<RootProps, {}> {
         const kintai = getDayKintai(this.props.value.kintai, date)
         const dayString = formatDateForListItem(date)
         return (
-            <ListItem>
+            <ListItem onClick={() => this.onSelectDate(date)}>
                 {dayString} {kintai.inTime} {kintai.outTime}
             </ListItem>
         )
+    }
+
+    private onSelectDate(date: Date) {
+        this.props.actions.showInputPage(date)
     }
 }

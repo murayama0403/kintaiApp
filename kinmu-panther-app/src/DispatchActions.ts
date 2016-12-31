@@ -37,7 +37,10 @@ export class DispatchActions {
         }))
     }
 
-    showInputPage() {
+    showInputPage(date?: Date) {
+        if (!!date) {
+            this.moveCurrentDate(date)
+        }
         browserHistory.push('/')
     }
 

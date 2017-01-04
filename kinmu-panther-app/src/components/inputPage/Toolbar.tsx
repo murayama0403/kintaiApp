@@ -5,7 +5,7 @@ import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton'
 import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left'
 import ArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right'
-import {moveDates, formatDate} from '../../DateUtils'
+import {moveDates, formatDate, getDayColor} from '../../DateUtils'
 
 export class Toolbar extends React.Component<RootProps, {}> {
     private buttons = <div>
@@ -20,7 +20,7 @@ export class Toolbar extends React.Component<RootProps, {}> {
     render() {
         return (
             <AppBar
-                title={this.formatCurrentDate()}
+                title={this.createTitle()}
                 showMenuIconButton={false}
                 iconElementRight={this.buttons} />
         )
@@ -36,7 +36,19 @@ export class Toolbar extends React.Component<RootProps, {}> {
         this.props.actions.moveCurrentDate(date)
     }
 
-    private formatCurrentDate() {
-        return formatDate(this.props.value.inputPage.currentDate)
+    private createTitle() {
+        const dayStyle = this.getDayStyle(this.props.value.inputPage.currentDate)
+        const text = formatDate(this.props.value.inputPage.currentDate)
+        return <span style={dayStyle}>{text}</span>
+    }
+
+    private getDayStyle(date: Date) {
+        const color = getDayColor(date)
+        if (color) {
+            return {
+                color: color
+            }
+        }
+        return {}
     }
 }

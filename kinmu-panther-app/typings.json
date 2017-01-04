@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "redux-persist": "registry:npm/redux-persist#3.2.2+20160817092816"
+    "redux-persist": "registry:npm/redux-persist#3.2.2+20160817092816",
+    "japanese-holidays": "file:./mytypings/japanese-holidays.d.ts"
   }
 }

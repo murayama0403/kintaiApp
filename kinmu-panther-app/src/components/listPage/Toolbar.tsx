@@ -18,7 +18,7 @@ export class Toolbar extends React.Component<RootProps, {}> {
             <IconButton onClick={this.handleAfter.bind(this)}>
                 <ArrowRightIcon color="white" />
             </IconButton>
-            <IconMenu iconButtonElement={<IconButton><MoreVertIcon color="white" /></IconButton>}>
+            <IconMenu useLayerForClickAway={true} iconButtonElement={<IconButton><MoreVertIcon color="white" /></IconButton>}>
                 <MenuItem onClick={this.handleSend.bind(this)} primaryText="送信" />
             </IconMenu>
         </div>

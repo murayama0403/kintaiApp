@@ -70,6 +70,31 @@ PC側でphonegapを起動
 
 出てきたIPアドレスとポート番号をphonegap developer appで入力。
 
+### android実機で実行
+
+↓のページからSDKをダウンロードしてインストールする。
+（ページ一番↓にあるコマンドラインツールだけで十分）
+https://developer.android.com/studio/index.html
+
+解凍したディレクトリ(android.batなどがある)にPATHを通す。
+
+androidコマンドを実行し、下記をインストール
+- Android SDK Tools(たぶんインストール済み)
+- Android SDK Platform-tools
+- Android SDK Build-tools
+- Android 6.0(API 23)のSDK Platform
+- ExtrasのGoogle USB Driver
+
+実機のUSBデバッグを有効にし、USBケーブルで接続
+
+下記コマンドでデバイスが認識されていることを確認
+
+    adb devices
+
+下記コマンドでビルド＆実行
+
+    phonegap run android
+
 ### 参考ページ
 http://qiita.com/tsunet111/items/2ab7a1bfdf58a08af38f
 

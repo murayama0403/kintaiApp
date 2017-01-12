@@ -6,9 +6,8 @@ import 'whatwg-fetch'
 export function sendMonthKintai(kintai: KintaiState, month: Date) {
     const body = createBody(kintai, month)
 
-    fetch('http://localhost:9000/api/kinmu', {
+    fetch('https://sleepy-ravine-40602.herokuapp.com/api/kinmu', {
         method: 'POST',
-        credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         },

@@ -1,16 +1,18 @@
-import {KintaiState} from './States'
+import {KintaiState, DayKintai} from './States'
 import {toDayString} from './DateUtils'
 
-export function getDayKintai(state: KintaiState, date: Date) {
+const defaultDayKintai = {
+        inTime: '',
+        outTime: '',
+        holiday: ''
+    }
+
+export function getDayKintai(state: KintaiState, date: Date, defaultValue: DayKintai | null = defaultDayKintai): DayKintai | null {
     const day = toDayString(date)
     let kintai = state.days[day]
     if (kintai) {
         return kintai
     }
 
-    return {
-        inTime: '',
-        outTime: '',
-        holiday: ''
-    }
+    return defaultValue
 }

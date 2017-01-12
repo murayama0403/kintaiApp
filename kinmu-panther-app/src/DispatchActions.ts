@@ -1,6 +1,8 @@
 import {Action} from "./common/redux-common";
 import * as actions from "./Actions";
-import {browserHistory} from 'react-router'
+import {hashHistory} from 'react-router'
+import {KintaiState} from "./States";
+import {sendMonthKintai} from "./ApiClient"
 
 export class DispatchActions {
     private dispatch: (action: any) => any;
@@ -30,6 +32,10 @@ export class DispatchActions {
         this.dispatch(actions.MoveCurrentMonthAction.create(date))
     }
 
+    sendMonth(kintai: KintaiState, month: Date) {
+        const promise = sendMonthKintai(kintai, month)
+    }
+
     inputHoliday(date: Date, holiday: string) {
         this.dispatch(actions.InputHolidayAction.create({
             date: date,
@@ -41,10 +47,10 @@ export class DispatchActions {
         if (!!date) {
             this.moveCurrentDate(date)
         }
-        browserHistory.push('/')
+        hashHistory.push('/')
     }
 
     showListPage() {
-        browserHistory.push('/list')
+        hashHistory.push('/list')
     }
 }

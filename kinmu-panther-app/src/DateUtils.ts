@@ -44,8 +44,8 @@ export function getMonthDates(month: Date): Array<Date> {
     const date = moment(month)
     const count = date.daysInMonth()
     const array = new Array<Date>(count)
-    for (var i = 1; i <= count; i++) {
-        array[i] = date.date(i).toDate()
+    for (var i = 0; i < count; i++) {
+        array[i] = date.date(i+1).toDate()
     }
     return array
 }

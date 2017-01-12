@@ -5,7 +5,7 @@ import { ListPage } from "./components/listPage/ListPage"
 import store from "./Store";
 import { DispatchActions } from "./DispatchActions";
 import { Provider, connect } from "react-redux";
-import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute, hashHistory } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import { Dispatch } from "redux";
 import * as injectTapEventPlugin from 'react-tap-event-plugin';
@@ -25,7 +25,7 @@ const connector = connect(
 const InputPageComponent = connector(InputPage)
 const ListPageComponent = connector(ListPage)
 
-const history = syncHistoryWithStore(browserHistory, store)
+const history = syncHistoryWithStore(hashHistory, store)
 
 ReactDOM.render(
     <Provider store={store}>

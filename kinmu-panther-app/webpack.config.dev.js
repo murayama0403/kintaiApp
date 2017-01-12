@@ -14,7 +14,8 @@ module.exports = {
       "react-router-redux",
       "react-tap-event-plugin",
       "redux",
-      "redux-persist"
+      "redux-persist",
+      "whatwg-fetch"
     ]
   },
   output: {
@@ -37,5 +38,10 @@ module.exports = {
       { test: /\.tsx?$/, loader: "ts-loader" }
     ]
   },
-  cache: true
+  cache: true,
+  devServer: {
+    headers: {
+      "Access-Control-Allow-Origin": "*"
+    }
+  },
 };

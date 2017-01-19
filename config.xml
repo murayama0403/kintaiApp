@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="jp.sji-inc.kinmu-panther" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="jp.caica.kinmupanther" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Kinmu Panther</name>
     <description>
         Kintai application.
     </description>
-    <author email="yamato-satoshi@sji-inc.jp">
+    <author email="yamato-satoshi@caica.jp">
         Yamato Juku
     </author>
     <content src="index.html" />
@@ -21,12 +21,13 @@
     <preference name="show-splash-screen-spinner" value="true" />
     <preference name="auto-hide-splash-screen" value="true" />
     <preference name="disable-cursor" value="false" />
-    <preference name="android-minSdkVersion" value="14" />
+    <preference name="android-minSdkVersion" value="16" />
     <preference name="android-installLocation" value="auto" />
     <gap:plugin name="org.apache.cordova.console" source="npm" />
     <gap:plugin name="org.apache.cordova.splashscreen" source="npm" />
     <gap:plugin name="cordova-plugin-whitelist" source="npm" />
-    <icon src="icon.png" />
+    <gap:plugin name="cordova-plugin-crosswalk-webview" source="npm" />
+    <icon src="www/img/logo.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
     <icon gap:platform="android" gap:qualifier="mdpi" src="www/res/icon/android/icon-48-mdpi.png" />
     <icon gap:platform="android" gap:qualifier="hdpi" src="www/res/icon/android/icon-72-hdpi.png" />

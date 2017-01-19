@@ -17,6 +17,7 @@ webpackJsonp([0],{
 	var MuiThemeProvider_1 = __webpack_require__(647);
 	var moment = __webpack_require__(332);
 	__webpack_require__(385);
+	console.log('userAgent', navigator.userAgent);
 	injectTapEventPlugin();
 	moment.locale('ja');
 	var connector = react_redux_1.connect(function (store) { return { value: store }; }, function (dispatch) { return { actions: new DispatchActions_1.DispatchActions(dispatch) }; });

@@ -13,6 +13,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import * as moment from 'moment'
 import 'moment/locale/ja'
 
+console.log('userAgent', navigator.userAgent)
+
 injectTapEventPlugin()
 
 moment.locale('ja')

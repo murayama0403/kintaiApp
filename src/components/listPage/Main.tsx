@@ -23,7 +23,7 @@ export class Main extends React.Component<RootProps, {}> {
         const dayString = formatDateForListItem(date)
         const dayStyle = this.getDayStyle(date)
         return (
-            <ListItem onClick={() => this.onSelectDate(date)}>
+            <ListItem key={date.getDate()} onClick={() => this.onSelectDate(date)}>
                 <span style={dayStyle}>{dayString}</span> {kintai.inTime} {kintai.outTime}
             </ListItem>
         )

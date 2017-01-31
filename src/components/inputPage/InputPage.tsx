@@ -8,13 +8,9 @@ import {FooterTab} from "../common/FooterTab";
 export class InputPage extends React.Component<RootProps, {}> {
     render() {
         return (
-            <div style={{height: "100vh", display: "flex", flexDirection: "column"}}>
-                <div>
-                    <Toolbar {...this.props} />
-                </div>
-                <div style={{flexGrow: 1, minHeight: "100px", overflowY: "auto"}}>
-                    <Main {...this.props}/>
-                </div>
+            <div>
+                <Toolbar {...this.props} />
+                <Main {...this.props}/>
                 <FooterTab {...this.props}/>
             </div>
         )

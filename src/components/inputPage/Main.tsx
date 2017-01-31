@@ -11,7 +11,7 @@ export class Main extends React.Component<RootProps, {}> {
         const currentKintai = getDayKintai(this.props.value.kintai, this.props.value.inputPage.currentDate)
 
         return (
-            <div>
+            <div className="content">
                 <List>
                     <TimeInput type={IN} value={currentKintai.inTime} onSelected={this.handleInSelected.bind(this)} />
                     <TimeInput type={OUT} value={currentKintai.outTime} onSelected={this.handleOutSelected.bind(this)} />

@@ -25,10 +25,12 @@ export class Toolbar extends React.Component<RootProps, {}> {
 
     render() {
         return (
-            <AppBar
-                title={this.formatCurrentMonth()}
-                showMenuIconButton={false}
-                iconElementRight={this.buttons} />
+            <div className="toolbar">
+                <AppBar
+                    title={this.formatCurrentMonth()}
+                    showMenuIconButton={false}
+                    iconElementRight={this.buttons} />
+            </div>
         )
     }
 

@@ -60,11 +60,9 @@ webpackJsonp([0],{
 	        return _super.apply(this, arguments) || this;
 	    }
 	    InputPage.prototype.render = function () {
-	        return (React.createElement("div", { style: { height: "100vh", display: "flex", flexDirection: "column" } },
-	            React.createElement("div", null,
-	                React.createElement(Toolbar_1.Toolbar, __assign({}, this.props))),
-	            React.createElement("div", { style: { flexGrow: 1, minHeight: "100px", overflowY: "auto" } },
-	                React.createElement(Main_1.Main, __assign({}, this.props))),
+	        return (React.createElement("div", null,
+	            React.createElement(Toolbar_1.Toolbar, __assign({}, this.props)),
+	            React.createElement(Main_1.Main, __assign({}, this.props)),
 	            React.createElement(FooterTab_1.FooterTab, __assign({}, this.props))));
 	    };
 	    return InputPage;
@@ -101,7 +99,8 @@ webpackJsonp([0],{
 	        return _this;
 	    }
 	    Toolbar.prototype.render = function () {
-	        return (React.createElement(AppBar_1.default, { title: this.createTitle(), showMenuIconButton: false, iconElementRight: this.buttons }));
+	        return (React.createElement("div", { className: "toolbar" },
+	            React.createElement(AppBar_1.default, { title: this.createTitle(), showMenuIconButton: false, iconElementRight: this.buttons })));
 	    };
 	    Toolbar.prototype.handleBefore = function () {
 	        var date = DateUtils_1.moveDates(this.props.value.inputPage.currentDate, -1);
@@ -629,7 +628,7 @@ webpackJsonp([0],{
 	    }
 	    Main.prototype.render = function () {
 	        var currentKintai = KintaiUtils_1.getDayKintai(this.props.value.kintai, this.props.value.inputPage.currentDate);
-	        return (React.createElement("div", null,
+	        return (React.createElement("div", { className: "content" },
 	            React.createElement(List_1.List, null,
 	                React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.IN, value: currentKintai.inTime, onSelected: this.handleInSelected.bind(this) }),
 	                React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.OUT, value: currentKintai.outTime, onSelected: this.handleOutSelected.bind(this) })),
@@ -857,7 +856,7 @@ webpackJsonp([0],{
 	    }
 	    FooterTab.prototype.render = function () {
 	        var selectedIndex = this.getSelectedIndex();
-	        return (React.createElement("div", null,
+	        return (React.createElement("div", { className: "footerTab" },
 	            React.createElement(Divider_1.default, null),
 	            React.createElement(BottomNavigation_1.BottomNavigation, { selectedIndex: selectedIndex },
 	                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "入力", icon: React.createElement(edit_1.default, null), onClick: this.onInputSelected.bind(this) }),
@@ -985,11 +984,9 @@ webpackJsonp([0],{
 	        return _super.apply(this, arguments) || this;
 	    }
 	    ListPage.prototype.render = function () {
-	        return (React.createElement("div", { style: { height: "100vh", display: "flex", flexDirection: "column" } },
-	            React.createElement("div", null,
-	                React.createElement(Toolbar_1.Toolbar, __assign({}, this.props))),
-	            React.createElement("div", { style: { flexGrow: 1, minHeight: "100px", overflowY: "auto" } },
-	                React.createElement(Main_1.Main, __assign({}, this.props))),
+	        return (React.createElement("div", null,
+	            React.createElement(Toolbar_1.Toolbar, __assign({}, this.props)),
+	            React.createElement(Main_1.Main, __assign({}, this.props)),
 	            React.createElement(FooterTab_1.FooterTab, __assign({}, this.props))));
 	    };
 	    return ListPage;
@@ -1032,7 +1029,8 @@ webpackJsonp([0],{
 	        return _this;
 	    }
 	    Toolbar.prototype.render = function () {
-	        return (React.createElement(AppBar_1.default, { title: this.formatCurrentMonth(), showMenuIconButton: false, iconElementRight: this.buttons }));
+	        return (React.createElement("div", { className: "toolbar" },
+	            React.createElement(AppBar_1.default, { title: this.formatCurrentMonth(), showMenuIconButton: false, iconElementRight: this.buttons })));
 	    };
 	    Toolbar.prototype.handleBefore = function () {
 	        var date = DateUtils_1.moveMonths(this.props.value.listPage.currentDate, -1);
@@ -1113,7 +1111,7 @@ webpackJsonp([0],{
 	    }
 	    Main.prototype.render = function () {
 	        var listItems = DateUtils_1.getMonthDates(this.props.value.listPage.currentDate).map(this.createListItem.bind(this));
-	        return (React.createElement("div", null,
+	        return (React.createElement("div", { className: "content" },
 	            React.createElement(List_1.List, null, listItems)));
 	    };
 	    Main.prototype.createListItem = function (date) {

@@ -10,7 +10,7 @@ export class Main extends React.Component<RootProps, {}> {
         const listItems = getMonthDates(this.props.value.listPage.currentDate).map(this.createListItem.bind(this))
         
         return (
-            <div>
+            <div className="content">
                 <List>
                     {listItems}
                 </List>

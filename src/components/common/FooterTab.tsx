@@ -11,7 +11,7 @@ export class FooterTab extends React.Component<RootProps, {}> {
         const selectedIndex = this.getSelectedIndex()
 
         return (
-            <div>
+            <div className="footerTab">
                 <Divider />
                 <BottomNavigation selectedIndex={selectedIndex}>
                     <BottomNavigationItem label="入力"

@@ -3,6 +3,43 @@
     src: url("../res/font/GenShinGothic-Regular.ttf")
 }
 
+html {
+    height: 100%;
+    width: 100%;
+}
 body {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    padding: 0;
     margin: 0;
+}
+.toolbar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    padding: 0;
+    margin: 0;
+    height: 64px;
+}
+.content {
+    position: absolute;
+    top: 64px;
+    right: 0;
+    left: 0;
+    bottom: 57px;
+    padding: 0;
+    margin: 0;
+    overflow: auto;
+}
+.footerTab {
+    position: absolute;
+    bottom: 0;
+    padding: 0;
+    margin: 0;
+    height: 57px;
 }

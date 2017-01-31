@@ -19,10 +19,12 @@ export class Toolbar extends React.Component<RootProps, {}> {
 
     render() {
         return (
-            <AppBar
-                title={this.createTitle()}
-                showMenuIconButton={false}
-                iconElementRight={this.buttons} />
+            <div className="toolbar">
+                <AppBar
+                    title={this.createTitle()}
+                    showMenuIconButton={false}
+                    iconElementRight={this.buttons} />
+            </div>
         )
     }
 

@@ -12,14 +12,14 @@ import {moveMonths, formatMonth} from '../../DateUtils'
 
 export class Toolbar extends React.Component<RootProps, {}> {
     private buttons = <div>
-            <IconButton onClick={this.handleBefore.bind(this)} >
+            <IconButton onTouchTap={this.handleBefore.bind(this)} >
                 <ArrowLeftIcon color="white" />
             </IconButton>
-            <IconButton onClick={this.handleAfter.bind(this)}>
+            <IconButton onTouchTap={this.handleAfter.bind(this)}>
                 <ArrowRightIcon color="white" />
             </IconButton>
             <IconMenu useLayerForClickAway={true} iconButtonElement={<IconButton><MoreVertIcon color="white" /></IconButton>}>
-                <MenuItem onClick={this.handleSend.bind(this)} primaryText="送信" />
+                <MenuItem onTouchTap={this.handleSend.bind(this)} primaryText="送信" />
             </IconMenu>
         </div>
 

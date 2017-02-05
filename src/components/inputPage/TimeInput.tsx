@@ -66,10 +66,10 @@ function createMenus(defaultValue: string): Array<any> {
 export class TimeInput extends React.Component<Props, {}> {
     private quickButtons =
             <div>
-                <IconButton onClick={this.handleNow.bind(this)}>
+                <IconButton onTouchTap={this.handleNow.bind(this)}>
                     <ActionUpdate />
                 </IconButton>
-                <IconButton onClick={this.handleRegular.bind(this)}>
+                <IconButton onTouchTap={this.handleRegular.bind(this)}>
                     <ActionSchedule />
                 </IconButton>
             </div>

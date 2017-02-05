@@ -16,11 +16,11 @@ export class FooterTab extends React.Component<RootProps, {}> {
                 <BottomNavigation selectedIndex={selectedIndex}>
                     <BottomNavigationItem label="入力"
                         icon={<EditIcon />}
-                        onClick={this.onInputSelected.bind(this)}
+                        onTouchTap={this.onInputSelected.bind(this)}
                     />
                     <BottomNavigationItem label="一覧"
                         icon={<ListIcon />}
-                        onClick={this.onListSelected.bind(this)}
+                        onTouchTap={this.onListSelected.bind(this)}
                     />
                 </BottomNavigation>
             </div>

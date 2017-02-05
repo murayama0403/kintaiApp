@@ -9,10 +9,10 @@ import {moveDates, formatDate, getDayColor} from '../../DateUtils'
 
 export class Toolbar extends React.Component<RootProps, {}> {
     private buttons = <div>
-            <IconButton onClick={this.handleBefore.bind(this)} >
+            <IconButton onTouchTap={this.handleBefore.bind(this)} >
                 <ArrowLeft color="white" />
             </IconButton>
-            <IconButton onClick={this.handleAfter.bind(this)}>
+            <IconButton onTouchTap={this.handleAfter.bind(this)}>
                 <ArrowRight color="white" />
             </IconButton>
         </div>

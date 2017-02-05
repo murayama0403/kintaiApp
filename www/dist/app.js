@@ -92,9 +92,9 @@ webpackJsonp([0],{
 	    function Toolbar() {
 	        var _this = _super.apply(this, arguments) || this;
 	        _this.buttons = React.createElement("div", null,
-	            React.createElement(IconButton_1.default, { onClick: _this.handleBefore.bind(_this) },
+	            React.createElement(IconButton_1.default, { onTouchTap: _this.handleBefore.bind(_this) },
 	                React.createElement(keyboard_arrow_left_1.default, { color: "white" })),
-	            React.createElement(IconButton_1.default, { onClick: _this.handleAfter.bind(_this) },
+	            React.createElement(IconButton_1.default, { onTouchTap: _this.handleAfter.bind(_this) },
 	                React.createElement(keyboard_arrow_right_1.default, { color: "white" })));
 	        return _this;
 	    }
@@ -731,9 +731,9 @@ webpackJsonp([0],{
 	    function TimeInput() {
 	        var _this = _super.apply(this, arguments) || this;
 	        _this.quickButtons = React.createElement("div", null,
-	            React.createElement(IconButton_1.default, { onClick: _this.handleNow.bind(_this) },
+	            React.createElement(IconButton_1.default, { onTouchTap: _this.handleNow.bind(_this) },
 	                React.createElement(update_1.default, null)),
-	            React.createElement(IconButton_1.default, { onClick: _this.handleRegular.bind(_this) },
+	            React.createElement(IconButton_1.default, { onTouchTap: _this.handleRegular.bind(_this) },
 	                React.createElement(schedule_1.default, null)));
 	        return _this;
 	    }
@@ -859,8 +859,8 @@ webpackJsonp([0],{
 	        return (React.createElement("div", { className: "footerTab" },
 	            React.createElement(Divider_1.default, null),
 	            React.createElement(BottomNavigation_1.BottomNavigation, { selectedIndex: selectedIndex },
-	                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "入力", icon: React.createElement(edit_1.default, null), onClick: this.onInputSelected.bind(this) }),
-	                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "一覧", icon: React.createElement(list_1.default, null), onClick: this.onListSelected.bind(this) }))));
+	                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "入力", icon: React.createElement(edit_1.default, null), onTouchTap: this.onInputSelected.bind(this) }),
+	                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "一覧", icon: React.createElement(list_1.default, null), onTouchTap: this.onListSelected.bind(this) }))));
 	    };
 	    FooterTab.prototype.onInputSelected = function () {
 	        this.props.actions.showInputPage();
@@ -1021,13 +1021,13 @@ webpackJsonp([0],{
 	    function Toolbar() {
 	        var _this = _super.apply(this, arguments) || this;
 	        _this.buttons = React.createElement("div", null,
-	            React.createElement(IconButton_1.default, { onClick: _this.handleBefore.bind(_this) },
+	            React.createElement(IconButton_1.default, { onTouchTap: _this.handleBefore.bind(_this) },
 	                React.createElement(keyboard_arrow_left_1.default, { color: "white" })),
-	            React.createElement(IconButton_1.default, { onClick: _this.handleAfter.bind(_this) },
+	            React.createElement(IconButton_1.default, { onTouchTap: _this.handleAfter.bind(_this) },
 	                React.createElement(keyboard_arrow_right_1.default, { color: "white" })),
 	            React.createElement(IconMenu_1.default, { useLayerForClickAway: true, iconButtonElement: React.createElement(IconButton_1.default, null,
 	                    React.createElement(more_vert_1.default, { color: "white" })) },
-	                React.createElement(MenuItem_1.default, { onClick: _this.handleSend.bind(_this), primaryText: "送信" })));
+	                React.createElement(MenuItem_1.default, { onTouchTap: _this.handleSend.bind(_this), primaryText: "送信" })));
 	        return _this;
 	    }
 	    Toolbar.prototype.render = function () {
@@ -1122,7 +1122,7 @@ webpackJsonp([0],{
 	        var kintai = KintaiUtils_1.getDayKintai(this.props.value.kintai, date);
 	        var dayString = DateUtils_1.formatDateForListItem(date);
 	        var dayStyle = this.getDayStyle(date);
-	        return (React.createElement(List_1.ListItem, { key: date.getDate(), onClick: function () { return _this.onSelectDate(date); } },
+	        return (React.createElement(List_1.ListItem, { key: date.getDate(), onTouchTap: function () { return _this.onSelectDate(date); } },
 	            React.createElement("span", { style: dayStyle }, dayString),
 	            " ",
 	            kintai.inTime,

@@ -16,7 +16,7 @@ export class Main extends React.Component<RootProps, {}> {
                     <TimeInput type={IN} value={currentKintai.inTime} onSelected={this.handleInSelected.bind(this)} />
                     <TimeInput type={OUT} value={currentKintai.outTime} onSelected={this.handleOutSelected.bind(this)} />
                 </List>
-                <TextField hintText="休暇" value={currentKintai.holiday} onChange={this.handleHolidayChange.bind(this)} />
+                <TextField hintText="休暇" defaultValue={currentKintai.holiday} onChange={this.handleHolidayChange.bind(this)} />
             </div>
         )
     }

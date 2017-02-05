@@ -35,14 +35,14 @@ export class SendDialog extends React.Component<RootProps, {}> {
                 <List>
                     <TextField
                         hintText="送信先アドレス"
-                        value={this.props.value.kintai.person.email}
+                        defaultValue={this.props.value.kintai.person.email}
                         onChange={this.handleEmailChange.bind(this)}
                         style={{width: "174px"}} />@sji-inc.jp
                     <br />
                     <TextField
                         hintText="パスワード"
                         type="password"
-                        value={this.props.value.listPage.password}
+                        defaultValue={this.props.value.listPage.password}
                         onChange={this.handlePasswordChange.bind(this)} />
                 </List>
                 

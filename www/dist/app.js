@@ -633,7 +633,7 @@ webpackJsonp([0],{
 	            React.createElement(List_1.List, null,
 	                React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.IN, value: currentKintai.inTime, onSelected: this.handleInSelected.bind(this) }),
 	                React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.OUT, value: currentKintai.outTime, onSelected: this.handleOutSelected.bind(this) })),
-	            React.createElement(TextField_1.default, { hintText: "休暇", value: currentKintai.holiday, onChange: this.handleHolidayChange.bind(this) })));
+	            React.createElement(TextField_1.default, { hintText: "休暇", defaultValue: currentKintai.holiday, onChange: this.handleHolidayChange.bind(this) })));
 	    };
 	    Main.prototype.handleInSelected = function (value) {
 	        this.props.actions.selectIn(this.props.value.inputPage.currentDate, value);
@@ -1182,10 +1182,10 @@ webpackJsonp([0],{
 	        ];
 	        return (React.createElement(Dialog_1.default, { title: "勤務表送信", actions: actions, open: this.props.value.listPage.isSendDialogOpen, onRequestClose: this.handleClose.bind(this), autoScrollBodyContent: true, contentStyle: { width: "94%" } },
 	            React.createElement(List_1.List, null,
-	                React.createElement(TextField_1.default, { hintText: "送信先アドレス", value: this.props.value.kintai.person.email, onChange: this.handleEmailChange.bind(this), style: { width: "174px" } }),
+	                React.createElement(TextField_1.default, { hintText: "送信先アドレス", defaultValue: this.props.value.kintai.person.email, onChange: this.handleEmailChange.bind(this), style: { width: "174px" } }),
 	                "@sji-inc.jp",
 	                React.createElement("br", null),
-	                React.createElement(TextField_1.default, { hintText: "パスワード", type: "password", value: this.props.value.listPage.password, onChange: this.handlePasswordChange.bind(this) }))));
+	                React.createElement(TextField_1.default, { hintText: "パスワード", type: "password", defaultValue: this.props.value.listPage.password, onChange: this.handlePasswordChange.bind(this) }))));
 	    };
 	    SendDialog.prototype.handleEmailChange = function (event) {
 	        event.preventDefault();

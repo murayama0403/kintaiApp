@@ -65,6 +65,7 @@ export class DispatchActions {
     }
 
     openSendDialog() {
+        console.log('openSendDialog')
         this.dispatch(actions.OpenSendDialogAction.create({}))
     }
 

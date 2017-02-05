@@ -44,7 +44,8 @@ export class Toolbar extends React.Component<RootProps, {}> {
         this.props.actions.moveCurrentMonth(date)
     }
 
-    private handleSend() {
+    private handleSend(event: any) {
+        console.log('handleSend', event)
         this.props.actions.openSendDialog()
     }
 

@@ -1042,7 +1042,8 @@ webpackJsonp([0],{
 	        var date = DateUtils_1.moveMonths(this.props.value.listPage.currentDate, 1);
 	        this.props.actions.moveCurrentMonth(date);
 	    };
-	    Toolbar.prototype.handleSend = function () {
+	    Toolbar.prototype.handleSend = function (event) {
+	        console.log('handleSend', event);
 	        this.props.actions.openSendDialog();
 	    };
 	    Toolbar.prototype.formatCurrentMonth = function () {
@@ -1456,6 +1457,7 @@ webpackJsonp([0],{
 	        this.dispatch(actions.InputPasswordAction.create(password));
 	    };
 	    DispatchActions.prototype.openSendDialog = function () {
+	        console.log('openSendDialog');
 	        this.dispatch(actions.OpenSendDialogAction.create({}));
 	    };
 	    DispatchActions.prototype.closeSendDialog = function () {

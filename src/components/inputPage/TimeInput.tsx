@@ -95,12 +95,14 @@ export class TimeInput extends React.Component<Props, {}> {
         this.props.onSelected(value)
     }
 
-    private handleNow() {
+    private handleNow(event: TouchTapEvent) {
+        event.preventDefault()
         const time = this.props.type.adjustTime(new Date())
         this.props.onSelected(formatTime(time))
     }
 
-    private handleRegular() {
+    private handleRegular(event: TouchTapEvent) {
+        event.preventDefault()
         this.props.onSelected(this.props.type.regularTime)
     }
 

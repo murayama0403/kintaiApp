@@ -101,11 +101,13 @@ webpackJsonp([0],{
 	        return (React.createElement("div", { className: "toolbar" },
 	            React.createElement(AppBar_1.default, { title: this.createTitle(), showMenuIconButton: false, iconElementRight: this.buttons })));
 	    };
-	    Toolbar.prototype.handleBefore = function () {
+	    Toolbar.prototype.handleBefore = function (event) {
+	        event.preventDefault();
 	        var date = DateUtils_1.moveDates(this.props.value.inputPage.currentDate, -1);
 	        this.props.actions.moveCurrentDate(date);
 	    };
-	    Toolbar.prototype.handleAfter = function () {
+	    Toolbar.prototype.handleAfter = function (event) {
+	        event.preventDefault();
 	        var date = DateUtils_1.moveDates(this.props.value.inputPage.currentDate, 1);
 	        this.props.actions.moveCurrentDate(date);
 	    };
@@ -744,11 +746,13 @@ webpackJsonp([0],{
 	        event.preventDefault();
 	        this.props.onSelected(value);
 	    };
-	    TimeInput.prototype.handleNow = function () {
+	    TimeInput.prototype.handleNow = function (event) {
+	        event.preventDefault();
 	        var time = this.props.type.adjustTime(new Date());
 	        this.props.onSelected(DateUtils_1.formatTime(time));
 	    };
-	    TimeInput.prototype.handleRegular = function () {
+	    TimeInput.prototype.handleRegular = function (event) {
+	        event.preventDefault();
 	        this.props.onSelected(this.props.type.regularTime);
 	    };
 	    return TimeInput;
@@ -1035,15 +1039,18 @@ webpackJsonp([0],{
 	        return (React.createElement("div", { className: "toolbar" },
 	            React.createElement(AppBar_1.default, { title: this.formatCurrentMonth(), showMenuIconButton: false, iconElementRight: this.buttons })));
 	    };
-	    Toolbar.prototype.handleBefore = function () {
+	    Toolbar.prototype.handleBefore = function (event) {
+	        event.preventDefault();
 	        var date = DateUtils_1.moveMonths(this.props.value.listPage.currentDate, -1);
 	        this.props.actions.moveCurrentMonth(date);
 	    };
-	    Toolbar.prototype.handleAfter = function () {
+	    Toolbar.prototype.handleAfter = function (event) {
+	        event.preventDefault();
 	        var date = DateUtils_1.moveMonths(this.props.value.listPage.currentDate, 1);
 	        this.props.actions.moveCurrentMonth(date);
 	    };
 	    Toolbar.prototype.handleSend = function (event) {
+	        event.preventDefault();
 	        this.props.actions.openSendDialog();
 	    };
 	    Toolbar.prototype.formatCurrentMonth = function () {
@@ -1122,14 +1129,15 @@ webpackJsonp([0],{
 	        var kintai = KintaiUtils_1.getDayKintai(this.props.value.kintai, date);
 	        var dayString = DateUtils_1.formatDateForListItem(date);
 	        var dayStyle = this.getDayStyle(date);
-	        return (React.createElement(List_1.ListItem, { key: date.getDate(), onTouchTap: function () { return _this.onSelectDate(date); } },
+	        return (React.createElement(List_1.ListItem, { key: date.getDate(), onTouchTap: function (event) { return _this.onSelectDate(event, date); } },
 	            React.createElement("span", { style: dayStyle }, dayString),
 	            " ",
 	            kintai.inTime,
 	            " ",
 	            kintai.outTime));
 	    };
-	    Main.prototype.onSelectDate = function (date) {
+	    Main.prototype.onSelectDate = function (event, date) {
+	        event.preventDefault();
 	        this.props.actions.showInputPage(date);
 	    };
 	    Main.prototype.getDayStyle = function (date) {
@@ -1180,12 +1188,15 @@ webpackJsonp([0],{
 	                React.createElement(TextField_1.default, { hintText: "パスワード", type: "password", value: this.props.value.listPage.password, onChange: this.handlePasswordChange.bind(this) }))));
 	    };
 	    SendDialog.prototype.handleEmailChange = function (event) {
+	        event.preventDefault();
 	        this.props.actions.inputEmail(event.target.value);
 	    };
 	    SendDialog.prototype.handlePasswordChange = function (event) {
+	        event.preventDefault();
 	        this.props.actions.inputPassword(event.target.value);
 	    };
-	    SendDialog.prototype.handleSend = function () {
+	    SendDialog.prototype.handleSend = function (event) {
+	        event.preventDefault();
 	        this.props.actions.sendMonth(this.props.value.kintai, this.props.value.listPage.currentDate, this.props.value.listPage.password);
 	        this.props.actions.closeSendDialog();
 	    };

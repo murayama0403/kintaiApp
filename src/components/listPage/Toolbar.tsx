@@ -34,17 +34,20 @@ export class Toolbar extends React.Component<RootProps, {}> {
         )
     }
 
-    private handleBefore() {
+    private handleBefore(event: Event) {
+        event.preventDefault()
         const date = moveMonths(this.props.value.listPage.currentDate, -1)
         this.props.actions.moveCurrentMonth(date)
     }
 
-    private handleAfter() {
+    private handleAfter(event: Event) {
+        event.preventDefault()
         const date = moveMonths(this.props.value.listPage.currentDate, 1)
         this.props.actions.moveCurrentMonth(date)
     }
 
-    private handleSend(event: any) {
+    private handleSend(event: Event) {
+        event.preventDefault()
         this.props.actions.openSendDialog()
     }
 

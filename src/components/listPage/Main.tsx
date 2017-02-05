@@ -4,6 +4,7 @@ import {getDayKintai} from "../../KintaiUtils"
 import {getMonthDates, formatDateForListItem, getDayColor} from "../../DateUtils"
 import {DispatchActions} from "../../DispatchActions"
 import {List, ListItem} from 'material-ui/List'
+import {TouchTapEvent} from 'material-ui'
 
 export class Main extends React.Component<RootProps, {}> {
     render() {
@@ -23,13 +24,14 @@ export class Main extends React.Component<RootProps, {}> {
         const dayString = formatDateForListItem(date)
         const dayStyle = this.getDayStyle(date)
         return (
-            <ListItem key={date.getDate()} onTouchTap={() => this.onSelectDate(date)}>
+            <ListItem key={date.getDate()} onTouchTap={(event) => this.onSelectDate(event, date)}>
                 <span style={dayStyle}>{dayString}</span> {kintai.inTime} {kintai.outTime}
             </ListItem>
         )
     }
 
-    private onSelectDate(date: Date) {
+    private onSelectDate(event: TouchTapEvent, date: Date) {
+        event.preventDefault()
         this.props.actions.showInputPage(date)
     }
 

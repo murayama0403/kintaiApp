@@ -5,6 +5,7 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import {List, ListItem} from 'material-ui/List'
 import TextField from 'material-ui/TextField'
+import {TouchTapEvent} from 'material-ui'
 
 export class SendDialog extends React.Component<RootProps, {}> {
     
@@ -50,14 +51,17 @@ export class SendDialog extends React.Component<RootProps, {}> {
     }
 
     private handleEmailChange(event: any) {
+        event.preventDefault()
         this.props.actions.inputEmail(event.target.value)
     }
 
     private handlePasswordChange(event: any) {
+        event.preventDefault()
         this.props.actions.inputPassword(event.target.value)
     }
 
-    private handleSend() {
+    private handleSend(event: Event) {
+        event.preventDefault()
         this.props.actions.sendMonth(
             this.props.value.kintai,
             this.props.value.listPage.currentDate,

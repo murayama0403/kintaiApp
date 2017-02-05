@@ -45,7 +45,6 @@ export class Toolbar extends React.Component<RootProps, {}> {
     }
 
     private handleSend(event: any) {
-        console.log('handleSend', event)
         this.props.actions.openSendDialog()
     }
 

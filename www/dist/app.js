@@ -17,7 +17,6 @@ webpackJsonp([0],{
 	var MuiThemeProvider_1 = __webpack_require__(661);
 	var moment = __webpack_require__(332);
 	__webpack_require__(385);
-	console.log('userAgent', navigator.userAgent);
 	injectTapEventPlugin();
 	moment.locale('ja');
 	var connector = react_redux_1.connect(function (store) { return { value: store }; }, function (dispatch) { return { actions: new DispatchActions_1.DispatchActions(dispatch) }; });
@@ -1043,7 +1042,6 @@ webpackJsonp([0],{
 	        this.props.actions.moveCurrentMonth(date);
 	    };
 	    Toolbar.prototype.handleSend = function (event) {
-	        console.log('handleSend', event);
 	        this.props.actions.openSendDialog();
 	    };
 	    Toolbar.prototype.formatCurrentMonth = function () {
@@ -1457,7 +1455,6 @@ webpackJsonp([0],{
 	        this.dispatch(actions.InputPasswordAction.create(password));
 	    };
 	    DispatchActions.prototype.openSendDialog = function () {
-	        console.log('openSendDialog');
 	        this.dispatch(actions.OpenSendDialogAction.create({}));
 	    };
 	    DispatchActions.prototype.closeSendDialog = function () {

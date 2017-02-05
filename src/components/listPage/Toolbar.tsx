@@ -45,7 +45,7 @@ export class Toolbar extends React.Component<RootProps, {}> {
     }
 
     private handleSend() {
-        this.props.actions.sendMonth(this.props.value.kintai, this.props.value.listPage.currentDate)
+        this.props.actions.openSendDialog()
     }
 
     private formatCurrentMonth() {

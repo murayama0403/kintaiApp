@@ -8,13 +8,13 @@ webpackJsonp([0],{
 	var ReactDOM = __webpack_require__(32);
 	var InputPage_1 = __webpack_require__(178);
 	var ListPage_1 = __webpack_require__(499);
-	var Store_1 = __webpack_require__(505);
-	var DispatchActions_1 = __webpack_require__(577);
-	var react_redux_1 = __webpack_require__(634);
-	var react_router_1 = __webpack_require__(578);
-	var react_router_redux_1 = __webpack_require__(572);
-	var injectTapEventPlugin = __webpack_require__(641);
-	var MuiThemeProvider_1 = __webpack_require__(647);
+	var Store_1 = __webpack_require__(513);
+	var DispatchActions_1 = __webpack_require__(585);
+	var react_redux_1 = __webpack_require__(642);
+	var react_router_1 = __webpack_require__(586);
+	var react_router_redux_1 = __webpack_require__(580);
+	var injectTapEventPlugin = __webpack_require__(649);
+	var MuiThemeProvider_1 = __webpack_require__(655);
 	var moment = __webpack_require__(332);
 	__webpack_require__(385);
 	console.log('userAgent', navigator.userAgent);
@@ -978,6 +978,7 @@ webpackJsonp([0],{
 	var Toolbar_1 = __webpack_require__(500);
 	var Main_1 = __webpack_require__(504);
 	var FooterTab_1 = __webpack_require__(491);
+	var SendDialog_1 = __webpack_require__(505);
 	var ListPage = (function (_super) {
 	    __extends(ListPage, _super);
 	    function ListPage() {
@@ -987,7 +988,8 @@ webpackJsonp([0],{
 	        return (React.createElement("div", null,
 	            React.createElement(Toolbar_1.Toolbar, __assign({}, this.props)),
 	            React.createElement(Main_1.Main, __assign({}, this.props)),
-	            React.createElement(FooterTab_1.FooterTab, __assign({}, this.props))));
+	            React.createElement(FooterTab_1.FooterTab, __assign({}, this.props)),
+	            React.createElement(SendDialog_1.SendDialog, __assign({}, this.props))));
 	    };
 	    return ListPage;
 	}(React.Component));
@@ -1041,7 +1043,7 @@ webpackJsonp([0],{
 	        this.props.actions.moveCurrentMonth(date);
 	    };
 	    Toolbar.prototype.handleSend = function () {
-	        this.props.actions.sendMonth(this.props.value.kintai, this.props.value.listPage.currentDate);
+	        this.props.actions.openSendDialog();
 	    };
 	    Toolbar.prototype.formatCurrentMonth = function () {
 	        return DateUtils_1.formatMonth(this.props.value.listPage.currentDate);
@@ -1149,12 +1151,63 @@ webpackJsonp([0],{
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var KintaiReducer_1 = __webpack_require__(506);
-	var InputPageReducer_1 = __webpack_require__(509);
-	var ListPageReducer_1 = __webpack_require__(510);
-	var redux_1 = __webpack_require__(511);
-	var redux_persist_1 = __webpack_require__(531);
-	var react_router_redux_1 = __webpack_require__(572);
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var React = __webpack_require__(1);
+	var Dialog_1 = __webpack_require__(506);
+	var FlatButton_1 = __webpack_require__(510);
+	var List_1 = __webpack_require__(448);
+	var TextField_1 = __webpack_require__(458);
+	var SendDialog = (function (_super) {
+	    __extends(SendDialog, _super);
+	    function SendDialog() {
+	        return _super.apply(this, arguments) || this;
+	    }
+	    SendDialog.prototype.render = function () {
+	        var actions = [
+	            React.createElement(FlatButton_1.default, { label: "キャンセル", primary: true, onTouchTap: this.handleClose.bind(this) }),
+	            React.createElement(FlatButton_1.default, { label: "送信", primary: true, keyboardFocused: true, onTouchTap: this.handleSend.bind(this) }),
+	        ];
+	        return (React.createElement(Dialog_1.default, { title: "勤務表送信", actions: actions, open: this.props.value.listPage.isSendDialogOpen, onRequestClose: this.handleClose.bind(this), autoScrollBodyContent: true, contentStyle: { width: "94%" } },
+	            React.createElement(List_1.List, null,
+	                React.createElement(TextField_1.default, { hintText: "送信先アドレス", value: this.props.value.kintai.person.email, onChange: this.handleEmailChange.bind(this), style: { width: "174px" } }),
+	                "@sji-inc.jp",
+	                React.createElement("br", null),
+	                React.createElement(TextField_1.default, { hintText: "パスワード", type: "password", value: this.props.value.listPage.password, onChange: this.handlePasswordChange.bind(this) }))));
+	    };
+	    SendDialog.prototype.handleEmailChange = function (event) {
+	        this.props.actions.inputEmail(event.target.value);
+	    };
+	    SendDialog.prototype.handlePasswordChange = function (event) {
+	        this.props.actions.inputPassword(event.target.value);
+	    };
+	    SendDialog.prototype.handleSend = function () {
+	        this.props.actions.sendMonth(this.props.value.kintai, this.props.value.listPage.currentDate, this.props.value.listPage.password);
+	        this.props.actions.closeSendDialog();
+	    };
+	    SendDialog.prototype.handleClose = function () {
+	        this.props.actions.closeSendDialog();
+	    };
+	    return SendDialog;
+	}(React.Component));
+	exports.SendDialog = SendDialog;
+
+
+/***/ },
+
+/***/ 513:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var KintaiReducer_1 = __webpack_require__(514);
+	var InputPageReducer_1 = __webpack_require__(517);
+	var ListPageReducer_1 = __webpack_require__(518);
+	var redux_1 = __webpack_require__(519);
+	var redux_persist_1 = __webpack_require__(539);
+	var react_router_redux_1 = __webpack_require__(580);
 	var store = redux_1.createStore(redux_1.combineReducers({
 	    kintai: KintaiReducer_1.kintai,
 	    inputPage: InputPageReducer_1.inputPage,
@@ -1168,7 +1221,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 506:
+/***/ 514:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1180,11 +1233,14 @@ webpackJsonp([0],{
 	    }
 	    return t;
 	};
-	var redux_common_1 = __webpack_require__(507);
-	var Actions_1 = __webpack_require__(508);
+	var redux_common_1 = __webpack_require__(515);
+	var Actions_1 = __webpack_require__(516);
 	var KintaiUtils_1 = __webpack_require__(447);
 	var DateUtils_1 = __webpack_require__(331);
 	var initialState = {
+	    person: {
+	        email: ""
+	    },
 	    days: {}
 	};
 	exports.kintai = redux_common_1.createReducer(initialState, function (handle) {
@@ -1196,6 +1252,10 @@ webpackJsonp([0],{
 	    });
 	    handle(Actions_1.InputHolidayAction, function (state, selectedHoliday) {
 	        return updateDayKintai(state, selectedHoliday.date, { holiday: selectedHoliday.holiday });
+	    });
+	    handle(Actions_1.InputEmailAction, function (state, email) {
+	        var person = __assign({}, state.person, { email: email });
+	        return __assign({}, state, { person: person });
 	    });
 	});
 	function updateDayKintai(state, date, partialDayKintai) {
@@ -1209,7 +1269,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 507:
+/***/ 515:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1244,21 +1304,25 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 508:
+/***/ 516:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var redux_common_1 = __webpack_require__(507);
+	var redux_common_1 = __webpack_require__(515);
 	exports.SelectInAction = redux_common_1.action('SelectIn');
 	exports.SelectOutAction = redux_common_1.action('SelectOut');
 	exports.MoveCurrentDateAction = redux_common_1.action('MoveCurrentDate');
 	exports.MoveCurrentMonthAction = redux_common_1.action('MoveCurrentMonth');
 	exports.InputHolidayAction = redux_common_1.action('InputHoliday');
+	exports.OpenSendDialogAction = redux_common_1.action('OpenSendDialog');
+	exports.CloseSendDialogAction = redux_common_1.action('CloseSendDialog');
+	exports.InputEmailAction = redux_common_1.action('InputEmail');
+	exports.InputPasswordAction = redux_common_1.action('InputPassword');
 
 
 /***/ },
 
-/***/ 509:
+/***/ 517:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1270,8 +1334,8 @@ webpackJsonp([0],{
 	    }
 	    return t;
 	};
-	var redux_common_1 = __webpack_require__(507);
-	var Actions_1 = __webpack_require__(508);
+	var redux_common_1 = __webpack_require__(515);
+	var Actions_1 = __webpack_require__(516);
 	var initialState = {
 	    currentDate: new Date()
 	};
@@ -1284,7 +1348,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 510:
+/***/ 518:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1296,27 +1360,39 @@ webpackJsonp([0],{
 	    }
 	    return t;
 	};
-	var redux_common_1 = __webpack_require__(507);
-	var Actions_1 = __webpack_require__(508);
+	var redux_common_1 = __webpack_require__(515);
+	var Actions_1 = __webpack_require__(516);
+	var Actions_2 = __webpack_require__(516);
 	var initialState = {
-	    currentDate: new Date()
+	    currentDate: new Date(),
+	    isSendDialogOpen: false,
+	    password: ""
 	};
 	exports.listPage = redux_common_1.createReducer(initialState, function (handle) {
 	    handle(Actions_1.MoveCurrentMonthAction, function (state, date) {
 	        return __assign({}, state, { currentDate: date });
+	    });
+	    handle(Actions_2.OpenSendDialogAction, function (state, date) {
+	        return __assign({}, state, { isSendDialogOpen: true });
+	    });
+	    handle(Actions_2.CloseSendDialogAction, function (state, date) {
+	        return __assign({}, state, { isSendDialogOpen: false });
+	    });
+	    handle(Actions_2.InputPasswordAction, function (state, password) {
+	        return __assign({}, state, { password: password });
 	    });
 	});
 
 
 /***/ },
 
-/***/ 577:
+/***/ 585:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var actions = __webpack_require__(508);
-	var react_router_1 = __webpack_require__(578);
-	var ApiClient_1 = __webpack_require__(632);
+	var actions = __webpack_require__(516);
+	var react_router_1 = __webpack_require__(586);
+	var ApiClient_1 = __webpack_require__(640);
 	var DispatchActions = (function () {
 	    function DispatchActions(dispatch) {
 	        this.dispatch = dispatch;
@@ -1339,8 +1415,9 @@ webpackJsonp([0],{
 	    DispatchActions.prototype.moveCurrentMonth = function (date) {
 	        this.dispatch(actions.MoveCurrentMonthAction.create(date));
 	    };
-	    DispatchActions.prototype.sendMonth = function (kintai, month) {
-	        var promise = ApiClient_1.sendMonthKintai(kintai, month);
+	    DispatchActions.prototype.sendMonth = function (kintai, month, password) {
+	        // TODO 入力チェック
+	        var promise = ApiClient_1.sendMonthKintai(kintai, month, password);
 	    };
 	    DispatchActions.prototype.inputHoliday = function (date, holiday) {
 	        this.dispatch(actions.InputHolidayAction.create({
@@ -1357,6 +1434,19 @@ webpackJsonp([0],{
 	    DispatchActions.prototype.showListPage = function () {
 	        react_router_1.hashHistory.push('/list');
 	    };
+	    DispatchActions.prototype.inputEmail = function (email) {
+	        // TODO 入力チェック？
+	        this.dispatch(actions.InputEmailAction.create(email));
+	    };
+	    DispatchActions.prototype.inputPassword = function (password) {
+	        this.dispatch(actions.InputPasswordAction.create(password));
+	    };
+	    DispatchActions.prototype.openSendDialog = function () {
+	        this.dispatch(actions.OpenSendDialogAction.create({}));
+	    };
+	    DispatchActions.prototype.closeSendDialog = function () {
+	        this.dispatch(actions.CloseSendDialogAction.create({}));
+	    };
 	    return DispatchActions;
 	}());
 	exports.DispatchActions = DispatchActions;
@@ -1364,15 +1454,15 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 632:
+/***/ 640:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var DateUtils_1 = __webpack_require__(331);
 	var KintaiUtils_1 = __webpack_require__(447);
-	__webpack_require__(633);
-	function sendMonthKintai(kintai, month) {
-	    var body = createBody(kintai, month);
+	__webpack_require__(641);
+	function sendMonthKintai(kintai, month, password) {
+	    var body = createBody(kintai, month, password);
 	    fetch('https://sleepy-ravine-40602.herokuapp.com/api/kinmu', {
 	        method: 'POST',
 	        headers: {
@@ -1383,7 +1473,7 @@ webpackJsonp([0],{
 	        .then(function (res) { return console.log(res); });
 	}
 	exports.sendMonthKintai = sendMonthKintai;
-	function createBody(kintai, month) {
+	function createBody(kintai, month, password) {
 	    var workInfoList = DateUtils_1.getMonthDates(month)
 	        .map(function (date) { return createWorkInfo(date, kintai); })
 	        .filter(function (info) { return info != null; });
@@ -1394,8 +1484,8 @@ webpackJsonp([0],{
 	        employeeNo: "99999",
 	        employeName: "勤務太郎",
 	        departmentCode: "123456",
-	        sendMailAddr: "yamato-satoshi@sji-inc.jp",
-	        password: "test",
+	        sendMailAddr: kintai.person.email + "@sji-inc.jp",
+	        password: password,
 	        workInfoList: workInfoList
 	    };
 	}

@@ -3,8 +3,8 @@ import {getMonthDates} from "./DateUtils"
 import {getDayKintai} from "./KintaiUtils"
 import 'whatwg-fetch'
 
-export function sendMonthKintai(kintai: KintaiState, month: Date) {
-    const body = createBody(kintai, month)
+export function sendMonthKintai(kintai: KintaiState, month: Date, password: string) {
+    const body = createBody(kintai, month, password)
 
     fetch('https://sleepy-ravine-40602.herokuapp.com/api/kinmu', {
         method: 'POST',
@@ -16,7 +16,7 @@ export function sendMonthKintai(kintai: KintaiState, month: Date) {
     .then((res) => console.log(res))
 }
 
-function createBody(kintai: KintaiState, month: Date) {
+function createBody(kintai: KintaiState, month: Date, password: string) {
     const workInfoList = getMonthDates(month)
             .map(date => createWorkInfo(date, kintai))
             .filter(info => info != null)
@@ -28,8 +28,8 @@ function createBody(kintai: KintaiState, month: Date) {
         employeeNo: "99999",
         employeName: "勤務太郎",
         departmentCode: "123456",
-        sendMailAddr: "yamato-satoshi@sji-inc.jp",
-        password: "test",
+        sendMailAddr: kintai.person.email + "@sji-inc.jp",
+        password: password,
 
         workInfoList: workInfoList
     }

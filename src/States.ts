@@ -5,7 +5,12 @@ export interface GlobalState {
 }
 
 export interface KintaiState {
-    days: {[day: string]: DayKintai}
+    person: Person;
+    days: {[day: string]: DayKintai};
+}
+
+export interface Person {
+    email: string;
 }
 
 export interface DayKintai {
@@ -20,4 +25,7 @@ export interface InputPageState {
 
 export interface ListPageState {
     currentDate: Date;
+    isSendDialogOpen: boolean;
+    // セキュリティや毎月変わることを考慮して保存したくないのでListPageState側で保持
+    password: string;
 }

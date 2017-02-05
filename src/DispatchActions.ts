@@ -32,8 +32,9 @@ export class DispatchActions {
         this.dispatch(actions.MoveCurrentMonthAction.create(date))
     }
 
-    sendMonth(kintai: KintaiState, month: Date) {
-        const promise = sendMonthKintai(kintai, month)
+    sendMonth(kintai: KintaiState, month: Date, password: string) {
+        // TODO 入力チェック
+        const promise = sendMonthKintai(kintai, month, password)
     }
 
     inputHoliday(date: Date, holiday: string) {
@@ -52,5 +53,22 @@ export class DispatchActions {
 
     showListPage() {
         hashHistory.push('/list')
+    }
+
+    inputEmail(email: string) {
+        // TODO 入力チェック？
+        this.dispatch(actions.InputEmailAction.create(email))
+    }
+
+    inputPassword(password: string) {
+        this.dispatch(actions.InputPasswordAction.create(password))
+    }
+
+    openSendDialog() {
+        this.dispatch(actions.OpenSendDialogAction.create({}))
+    }
+
+    closeSendDialog() {
+        this.dispatch(actions.CloseSendDialogAction.create({}))
     }
 }

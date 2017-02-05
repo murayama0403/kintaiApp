@@ -9,12 +9,12 @@ webpackJsonp([0],{
 	var InputPage_1 = __webpack_require__(178);
 	var ListPage_1 = __webpack_require__(499);
 	var Store_1 = __webpack_require__(513);
-	var DispatchActions_1 = __webpack_require__(585);
-	var react_redux_1 = __webpack_require__(642);
-	var react_router_1 = __webpack_require__(586);
+	var DispatchActions_1 = __webpack_require__(591);
+	var react_redux_1 = __webpack_require__(648);
+	var react_router_1 = __webpack_require__(592);
 	var react_router_redux_1 = __webpack_require__(580);
-	var injectTapEventPlugin = __webpack_require__(649);
-	var MuiThemeProvider_1 = __webpack_require__(655);
+	var injectTapEventPlugin = __webpack_require__(655);
+	var MuiThemeProvider_1 = __webpack_require__(661);
 	var moment = __webpack_require__(332);
 	__webpack_require__(385);
 	console.log('userAgent', navigator.userAgent);
@@ -1208,12 +1208,13 @@ webpackJsonp([0],{
 	var redux_1 = __webpack_require__(519);
 	var redux_persist_1 = __webpack_require__(539);
 	var react_router_redux_1 = __webpack_require__(580);
+	var createLogger = __webpack_require__(585);
 	var store = redux_1.createStore(redux_1.combineReducers({
 	    kintai: KintaiReducer_1.kintai,
 	    inputPage: InputPageReducer_1.inputPage,
 	    listPage: ListPageReducer_1.listPage,
 	    routing: react_router_redux_1.routerReducer
-	}), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), redux_persist_1.autoRehydrate());
+	}), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), redux_1.compose(redux_persist_1.autoRehydrate(), redux_1.applyMiddleware(createLogger())));
 	redux_persist_1.persistStore(store, { whitelist: ['kintai'] });
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = store;
@@ -1386,13 +1387,13 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 585:
+/***/ 591:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var actions = __webpack_require__(516);
-	var react_router_1 = __webpack_require__(586);
-	var ApiClient_1 = __webpack_require__(640);
+	var react_router_1 = __webpack_require__(592);
+	var ApiClient_1 = __webpack_require__(646);
 	var DispatchActions = (function () {
 	    function DispatchActions(dispatch) {
 	        this.dispatch = dispatch;
@@ -1454,13 +1455,13 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 640:
+/***/ 646:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var DateUtils_1 = __webpack_require__(331);
 	var KintaiUtils_1 = __webpack_require__(447);
-	__webpack_require__(641);
+	__webpack_require__(647);
 	function sendMonthKintai(kintai, month, password) {
 	    var body = createBody(kintai, month, password);
 	    fetch('https://sleepy-ravine-40602.herokuapp.com/api/kinmu', {

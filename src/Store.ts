@@ -8,6 +8,15 @@ import * as createLogger from 'redux-logger'
 
 declare var window: any
 
+// weinreでConsoleデバッグができるようにredux-loggerがconsole.logを呼び出すように変更
+const logger = createLogger({
+    level: 'log',
+    logger: {
+        log: (...args: any[]) => {
+            console.log.apply(console, args)
+        }
+    }
+})
 const store = createStore(
     combineReducers({
         kintai: kintai,
@@ -18,7 +27,7 @@ const store = createStore(
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
     compose(
         autoRehydrate(),
-        applyMiddleware(createLogger())
+        applyMiddleware(logger)
     )
 );
 

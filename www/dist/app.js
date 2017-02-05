@@ -1209,12 +1209,25 @@ webpackJsonp([0],{
 	var redux_persist_1 = __webpack_require__(539);
 	var react_router_redux_1 = __webpack_require__(580);
 	var createLogger = __webpack_require__(585);
+	// weinreでConsoleデバッグができるようにredux-loggerがconsole.logを呼び出すように変更
+	var logger = createLogger({
+	    level: 'log',
+	    logger: {
+	        log: function () {
+	            var args = [];
+	            for (var _i = 0; _i < arguments.length; _i++) {
+	                args[_i] = arguments[_i];
+	            }
+	            console.log.apply(console, args);
+	        }
+	    }
+	});
 	var store = redux_1.createStore(redux_1.combineReducers({
 	    kintai: KintaiReducer_1.kintai,
 	    inputPage: InputPageReducer_1.inputPage,
 	    listPage: ListPageReducer_1.listPage,
 	    routing: react_router_redux_1.routerReducer
-	}), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), redux_1.compose(redux_persist_1.autoRehydrate(), redux_1.applyMiddleware(createLogger())));
+	}), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), redux_1.compose(redux_persist_1.autoRehydrate(), redux_1.applyMiddleware(logger)));
 	redux_persist_1.persistStore(store, { whitelist: ['kintai'] });
 	Object.defineProperty(exports, "__esModule", { value: true });
 	exports.default = store;

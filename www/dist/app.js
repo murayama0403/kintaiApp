@@ -861,10 +861,12 @@ webpackJsonp([0],{
 	                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "入力", icon: React.createElement(edit_1.default, null), onTouchTap: this.onInputSelected.bind(this) }),
 	                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "一覧", icon: React.createElement(list_1.default, null), onTouchTap: this.onListSelected.bind(this) }))));
 	    };
-	    FooterTab.prototype.onInputSelected = function () {
+	    FooterTab.prototype.onInputSelected = function (event) {
+	        event.preventDefault();
 	        this.props.actions.showInputPage();
 	    };
-	    FooterTab.prototype.onListSelected = function () {
+	    FooterTab.prototype.onListSelected = function (event) {
+	        event.preventDefault();
 	        this.props.actions.showListPage();
 	    };
 	    FooterTab.prototype.getSelectedIndex = function () {

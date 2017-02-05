@@ -4,6 +4,7 @@ import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigati
 import Divider from 'material-ui/Divider'
 import EditIcon from 'material-ui/svg-icons/image/edit'
 import ListIcon from 'material-ui/svg-icons/action/list'
+import {TouchTapEvent} from 'material-ui'
 
 export class FooterTab extends React.Component<RootProps, {}> {
 
@@ -27,11 +28,13 @@ export class FooterTab extends React.Component<RootProps, {}> {
         )
     }
 
-    private onInputSelected() {
+    private onInputSelected(event: TouchTapEvent) {
+        event.preventDefault()
         this.props.actions.showInputPage()
     }
 
-    private onListSelected() {
+    private onListSelected(event: TouchTapEvent) {
+        event.preventDefault()
         this.props.actions.showListPage()
     }
 

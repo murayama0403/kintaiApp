@@ -1,7 +1,6 @@
 import * as React from "react";
 import {DispatchActions} from "../../DispatchActions"
 import SelectField from 'material-ui/SelectField'
-import {ListItem} from 'material-ui/List'
 import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
 import ActionSchedule from 'material-ui/svg-icons/action/schedule'
@@ -64,19 +63,9 @@ function createMenus(defaultValue: string): Array<any> {
 }
 
 export class TimeInput extends React.Component<Props, {}> {
-    private quickButtons =
-            <div>
-                <IconButton onTouchTap={this.handleNow.bind(this)}>
-                    <ActionUpdate />
-                </IconButton>
-                <IconButton onTouchTap={this.handleRegular.bind(this)}>
-                    <ActionSchedule />
-                </IconButton>
-            </div>
-
     render() {
         return (
-            <ListItem innerDivStyle={listInnerStyle} rightIconButton={this.quickButtons} disabled={true}>
+            <div style={{display: "flex"}}>
                 <SelectField
                     hintText={this.props.type.label}
                     value={this.props.value}
@@ -86,7 +75,13 @@ export class TimeInput extends React.Component<Props, {}> {
                     >
                     {this.props.type.menus}
                 </SelectField>
-            </ListItem>
+                <IconButton onTouchTap={this.handleNow.bind(this)}>
+                    <ActionUpdate />
+                </IconButton>
+                <IconButton onTouchTap={this.handleRegular.bind(this)}>
+                    <ActionSchedule />
+                </IconButton>
+            </div>
         )
     }
 

@@ -2,7 +2,6 @@ import * as React from "react"
 import {RootProps} from "../../RootProps";
 import {getDayKintai} from "../../KintaiUtils"
 import {DispatchActions} from "../../DispatchActions"
-import {List, ListItem} from 'material-ui/List'
 import TextField from 'material-ui/TextField'
 import {TimeInput, IN, OUT} from "./TimeInput"
 
@@ -12,10 +11,8 @@ export class Main extends React.Component<RootProps, {}> {
 
         return (
             <div className="content">
-                <List>
-                    <TimeInput type={IN} value={currentKintai.inTime} onSelected={this.handleInSelected.bind(this)} />
-                    <TimeInput type={OUT} value={currentKintai.outTime} onSelected={this.handleOutSelected.bind(this)} />
-                </List>
+                <TimeInput type={IN} value={currentKintai.inTime} onSelected={this.handleInSelected.bind(this)} />
+                <TimeInput type={OUT} value={currentKintai.outTime} onSelected={this.handleOutSelected.bind(this)} />
                 <TextField hintText="休暇" defaultValue={currentKintai.holiday} onChange={this.handleHolidayChange.bind(this)} />
             </div>
         )

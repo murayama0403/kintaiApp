@@ -623,7 +623,6 @@ webpackJsonp([0],{
 	};
 	var React = __webpack_require__(1);
 	var KintaiUtils_1 = __webpack_require__(447);
-	var List_1 = __webpack_require__(448);
 	var TextField_1 = __webpack_require__(458);
 	var TimeInput_1 = __webpack_require__(469);
 	var Main = (function (_super) {
@@ -634,9 +633,8 @@ webpackJsonp([0],{
 	    Main.prototype.render = function () {
 	        var currentKintai = KintaiUtils_1.getDayKintai(this.props.value.kintai, this.props.value.view.currentDate);
 	        return (React.createElement("div", { className: "content" },
-	            React.createElement(List_1.List, null,
-	                React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.IN, value: currentKintai.inTime, onSelected: this.handleInSelected.bind(this) }),
-	                React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.OUT, value: currentKintai.outTime, onSelected: this.handleOutSelected.bind(this) })),
+	            React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.IN, value: currentKintai.inTime, onSelected: this.handleInSelected.bind(this) }),
+	            React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.OUT, value: currentKintai.outTime, onSelected: this.handleOutSelected.bind(this) }),
 	            React.createElement(TextField_1.default, { hintText: "休暇", defaultValue: currentKintai.holiday, onChange: this.handleHolidayChange.bind(this) })));
 	    };
 	    Main.prototype.handleInSelected = function (value) {
@@ -690,7 +688,6 @@ webpackJsonp([0],{
 	};
 	var React = __webpack_require__(1);
 	var SelectField_1 = __webpack_require__(470);
-	var List_1 = __webpack_require__(448);
 	var MenuItem_1 = __webpack_require__(488);
 	var IconButton_1 = __webpack_require__(278);
 	var schedule_1 = __webpack_require__(489);
@@ -734,17 +731,15 @@ webpackJsonp([0],{
 	var TimeInput = (function (_super) {
 	    __extends(TimeInput, _super);
 	    function TimeInput() {
-	        var _this = _super.apply(this, arguments) || this;
-	        _this.quickButtons = React.createElement("div", null,
-	            React.createElement(IconButton_1.default, { onTouchTap: _this.handleNow.bind(_this) },
-	                React.createElement(update_1.default, null)),
-	            React.createElement(IconButton_1.default, { onTouchTap: _this.handleRegular.bind(_this) },
-	                React.createElement(schedule_1.default, null)));
-	        return _this;
+	        return _super.apply(this, arguments) || this;
 	    }
 	    TimeInput.prototype.render = function () {
-	        return (React.createElement(List_1.ListItem, { innerDivStyle: listInnerStyle, rightIconButton: this.quickButtons, disabled: true },
-	            React.createElement(SelectField_1.default, { hintText: this.props.type.label, value: this.props.value, onChange: this.handleChange.bind(this), style: { width: "200px" }, labelStyle: { height: "48px" } }, this.props.type.menus)));
+	        return (React.createElement("div", { style: { display: "flex" } },
+	            React.createElement(SelectField_1.default, { hintText: this.props.type.label, value: this.props.value, onChange: this.handleChange.bind(this), style: { width: "200px" }, labelStyle: { height: "48px" } }, this.props.type.menus),
+	            React.createElement(IconButton_1.default, { onTouchTap: this.handleNow.bind(this) },
+	                React.createElement(update_1.default, null)),
+	            React.createElement(IconButton_1.default, { onTouchTap: this.handleRegular.bind(this) },
+	                React.createElement(schedule_1.default, null))));
 	    };
 	    TimeInput.prototype.handleChange = function (event, index, value) {
 	        event.preventDefault();

@@ -8,7 +8,7 @@ import {TouchTapEvent} from 'material-ui'
 
 export class Main extends React.Component<RootProps, {}> {
     render() {
-        const listItems = getMonthDates(this.props.value.listPage.currentDate).map(this.createListItem.bind(this))
+        const listItems = getMonthDates(this.props.value.view.currentDate).map(this.createListItem.bind(this))
         
         return (
             <div className="content">

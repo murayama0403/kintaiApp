@@ -3,9 +3,9 @@ import {RootProps} from "../../RootProps";
 import {DispatchActions} from "../../DispatchActions"
 import {MonthToolbar} from "../common/MonthToolbar";
 import {Main} from "./Main";
-import {FooterTab} from '../common/FooterTab'
+import {FooterTab} from "../common/FooterTab";
 
-export class ListPage extends React.Component<RootProps, {}> {
+export class SendPage extends React.Component<RootProps, {}> {
     render() {
         return (
             <div>

@@ -33,7 +33,8 @@ export function moveDates(date: Date, amount: number) {
 }
 
 export function moveMonths(date: Date, amount: number) {
-    return moment(date).add(amount, 'months').toDate()
+    // 月移動する場合は日付は1日にリセットする
+    return moment(date).add(amount, 'months').date(1).toDate()
 }
 
 export function formatTime(date: Date): string {

@@ -4,6 +4,7 @@ import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigati
 import Divider from 'material-ui/Divider'
 import EditIcon from 'material-ui/svg-icons/image/edit'
 import ListIcon from 'material-ui/svg-icons/action/list'
+import SendIcon from 'material-ui/svg-icons/content/send'
 import {TouchTapEvent} from 'material-ui'
 
 export class FooterTab extends React.Component<RootProps, {}> {
@@ -23,6 +24,10 @@ export class FooterTab extends React.Component<RootProps, {}> {
                         icon={<ListIcon />}
                         onTouchTap={this.onListSelected.bind(this)}
                     />
+                    <BottomNavigationItem label="送信"
+                        icon={<SendIcon />}
+                        onTouchTap={this.onSendSelected.bind(this)}
+                    />
                 </BottomNavigation>
             </div>
         )
@@ -38,9 +43,17 @@ export class FooterTab extends React.Component<RootProps, {}> {
         this.props.actions.showListPage()
     }
 
+    private onSendSelected(event: TouchTapEvent) {
+        event.preventDefault()
+        this.props.actions.showSendPage()
+    }
+
     private getSelectedIndex(): number {
         if (this.props.location.pathname == '/list') {
             return 1;
+        }
+        if (this.props.location.pathname == '/send') {
+            return 2;
         }
         return 0;
     }

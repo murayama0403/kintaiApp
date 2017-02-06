@@ -3,14 +3,11 @@ import {RootProps} from "../../RootProps";
 import {DispatchActions} from "../../DispatchActions"
 import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
-import IconMenu from 'material-ui/IconMenu'
-import MenuItem from 'material-ui/MenuItem'
 import ArrowLeftIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-left'
 import ArrowRightIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-right'
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
 import {moveMonths, formatMonth} from '../../DateUtils'
 
-export class Toolbar extends React.Component<RootProps, {}> {
+export class MonthToolbar extends React.Component<RootProps, {}> {
     private buttons = <div>
             <IconButton onTouchTap={this.handleBefore.bind(this)} >
                 <ArrowLeftIcon color="white" />
@@ -18,9 +15,6 @@ export class Toolbar extends React.Component<RootProps, {}> {
             <IconButton onTouchTap={this.handleAfter.bind(this)}>
                 <ArrowRightIcon color="white" />
             </IconButton>
-            <IconMenu useLayerForClickAway={true} iconButtonElement={<IconButton><MoreVertIcon color="white" /></IconButton>}>
-                <MenuItem onTouchTap={this.handleSend.bind(this)} primaryText="送信" />
-            </IconMenu>
         </div>
 
     render() {
@@ -36,22 +30,17 @@ export class Toolbar extends React.Component<RootProps, {}> {
 
     private handleBefore(event: Event) {
         event.preventDefault()
-        const date = moveMonths(this.props.value.listPage.currentDate, -1)
-        this.props.actions.moveCurrentMonth(date)
+        const date = moveMonths(this.props.value.view.currentDate, -1)
+        this.props.actions.moveCurrentDate(date)
     }
 
     private handleAfter(event: Event) {
         event.preventDefault()
-        const date = moveMonths(this.props.value.listPage.currentDate, 1)
-        this.props.actions.moveCurrentMonth(date)
-    }
-
-    private handleSend(event: Event) {
-        event.preventDefault()
-        this.props.actions.openSendDialog()
+        const date = moveMonths(this.props.value.view.currentDate, 1)
+        this.props.actions.moveCurrentDate(date)
     }
 
     private formatCurrentMonth() {
-        return formatMonth(this.props.value.listPage.currentDate)
+        return formatMonth(this.props.value.view.currentDate)
     }
 }

@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { InputPage } from "./components/inputPage/InputPage"
 import { ListPage } from "./components/listPage/ListPage"
+import { SendPage } from "./components/sendPage/SendPage"
 import store from "./Store";
 import { DispatchActions } from "./DispatchActions";
 import { Provider, connect } from "react-redux";
@@ -24,6 +25,7 @@ const connector = connect(
 
 const InputPageComponent = connector(InputPage)
 const ListPageComponent = connector(ListPage)
+const SendPageComponent = connector(SendPage)
 
 const history = syncHistoryWithStore(hashHistory, store)
 
@@ -33,6 +35,7 @@ ReactDOM.render(
             <Router history={history}>
                 <Route path="/" component={InputPageComponent} />
                 <Route path="/list" component={ListPageComponent} />
+                <Route path="/send" component={SendPageComponent} />
             </Router>
         </MuiThemeProvider>
     </Provider>

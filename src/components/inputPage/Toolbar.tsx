@@ -31,19 +31,19 @@ export class Toolbar extends React.Component<RootProps, {}> {
 
     private handleBefore(event: TouchTapEvent) {
         event.preventDefault()
-        const date = moveDates(this.props.value.inputPage.currentDate, -1)
+        const date = moveDates(this.props.value.view.currentDate, -1)
         this.props.actions.moveCurrentDate(date)
     }
 
     private handleAfter(event: TouchTapEvent) {
         event.preventDefault()
-        const date = moveDates(this.props.value.inputPage.currentDate, 1)
+        const date = moveDates(this.props.value.view.currentDate, 1)
         this.props.actions.moveCurrentDate(date)
     }
 
     private createTitle() {
-        const dayStyle = this.getDayStyle(this.props.value.inputPage.currentDate)
-        const text = formatDate(this.props.value.inputPage.currentDate)
+        const dayStyle = this.getDayStyle(this.props.value.view.currentDate)
+        const text = formatDate(this.props.value.view.currentDate)
         return <span style={dayStyle}>{text}</span>
     }
 

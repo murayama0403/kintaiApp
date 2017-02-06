@@ -1,6 +1,5 @@
 import { kintai } from './reducers/KintaiReducer'
-import { inputPage } from './reducers/InputPageReducer'
-import { listPage } from './reducers/ListPageReducer'
+import { view } from './reducers/ViewReducer'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import {persistStore, autoRehydrate} from 'redux-persist'
 import { routerReducer } from 'react-router-redux'
@@ -20,8 +19,7 @@ const logger = createLogger({
 const store = createStore(
     combineReducers({
         kintai: kintai,
-        inputPage: inputPage,
-        listPage: listPage,
+        view: view,
         routing: routerReducer
     }),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),

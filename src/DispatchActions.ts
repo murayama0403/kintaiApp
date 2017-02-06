@@ -28,10 +28,6 @@ export class DispatchActions {
         this.dispatch(actions.MoveCurrentDateAction.create(date))
     }
 
-    moveCurrentMonth(date: Date) {
-        this.dispatch(actions.MoveCurrentMonthAction.create(date))
-    }
-
     sendMonth(kintai: KintaiState, month: Date, password: string) {
         // TODO 入力チェック
         const promise = sendMonthKintai(kintai, month, password)
@@ -55,6 +51,10 @@ export class DispatchActions {
         hashHistory.push('/list')
     }
 
+    showSendPage() {
+        hashHistory.push('/send')
+    }
+
     inputEmail(email: string) {
         // TODO 入力チェック？
         this.dispatch(actions.InputEmailAction.create(email))
@@ -62,13 +62,5 @@ export class DispatchActions {
 
     inputPassword(password: string) {
         this.dispatch(actions.InputPasswordAction.create(password))
-    }
-
-    openSendDialog() {
-        this.dispatch(actions.OpenSendDialogAction.create({}))
-    }
-
-    closeSendDialog() {
-        this.dispatch(actions.CloseSendDialogAction.create({}))
     }
 }

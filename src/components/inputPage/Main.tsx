@@ -8,7 +8,7 @@ import {TimeInput, IN, OUT} from "./TimeInput"
 
 export class Main extends React.Component<RootProps, {}> {
     render() {
-        const currentKintai = getDayKintai(this.props.value.kintai, this.props.value.inputPage.currentDate)
+        const currentKintai = getDayKintai(this.props.value.kintai, this.props.value.view.currentDate)
 
         return (
             <div className="content">
@@ -22,15 +22,15 @@ export class Main extends React.Component<RootProps, {}> {
     }
 
     private handleInSelected(value: string) {
-        this.props.actions.selectIn(this.props.value.inputPage.currentDate, value)
+        this.props.actions.selectIn(this.props.value.view.currentDate, value)
     }
 
     private handleOutSelected(value: string) {
-        this.props.actions.selectOut(this.props.value.inputPage.currentDate, value)
+        this.props.actions.selectOut(this.props.value.view.currentDate, value)
     }
 
     private handleHolidayChange(event: any) {
-        this.props.actions.inputHoliday(this.props.value.inputPage.currentDate, event.target.value)
+        this.props.actions.inputHoliday(this.props.value.view.currentDate, event.target.value)
     }
 
 }

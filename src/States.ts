@@ -1,7 +1,6 @@
 export interface GlobalState {
     kintai: KintaiState;
-    inputPage: InputPageState;
-    listPage: ListPageState;
+    view: ViewState;
 }
 
 export interface KintaiState {
@@ -19,13 +18,8 @@ export interface DayKintai {
     holiday: string;
 }
 
-export interface InputPageState {
+export interface ViewState {
     currentDate: Date;
-}
-
-export interface ListPageState {
-    currentDate: Date;
-    isSendDialogOpen: boolean;
-    // セキュリティや毎月変わることを考慮して保存したくないのでListPageState側で保持
+    // セキュリティや毎月変わることを考慮して保存したくないのでViewState側で保持
     password: string;
 }

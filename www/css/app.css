@@ -2,8 +2,8 @@
     font-family: "Roboto";
     src: url("../res/font/GenShinGothic-Regular.ttf")
 }
-
 html {
+    font-family: 'Roboto', 'sans-serif';
     height: 100%;
     width: 100%;
 }

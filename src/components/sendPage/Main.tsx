@@ -10,6 +10,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 
 export class Main extends React.Component<RootProps, {}> {
     render() {
+        const buttonLabel = this.props.value.view.isSending? '送信中...': '勤務表送信'
         return (
             <div className="content">
                 <TextField
@@ -25,9 +26,10 @@ export class Main extends React.Component<RootProps, {}> {
                     onChange={this.handlePasswordChange.bind(this)} />
                 <br />
                 <RaisedButton
-                    label="勤務表送信"
+                    label={buttonLabel}
                     primary={true}
-                    onTouchTap={this.handleSend.bind(this)} />
+                    onTouchTap={this.handleSend.bind(this)}
+                    disabled={this.props.value.view.isSending} />
             </div>
         )
     }

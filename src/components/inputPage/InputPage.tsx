@@ -11,7 +11,6 @@ export class InputPage extends React.Component<RootProps, {}> {
             <div>
                 <Toolbar {...this.props} />
                 <Main {...this.props}/>
-                <FooterTab {...this.props}/>
             </div>
         )
     }

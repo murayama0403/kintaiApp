@@ -6,21 +6,23 @@ webpackJsonp([0],{
 	"use strict";
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(32);
-	var InputPage_1 = __webpack_require__(178);
-	var ListPage_1 = __webpack_require__(500);
-	var SendPage_1 = __webpack_require__(503);
-	var Store_1 = __webpack_require__(507);
-	var DispatchActions_1 = __webpack_require__(584);
-	var react_redux_1 = __webpack_require__(641);
-	var react_router_1 = __webpack_require__(585);
-	var react_router_redux_1 = __webpack_require__(573);
-	var injectTapEventPlugin = __webpack_require__(648);
-	var MuiThemeProvider_1 = __webpack_require__(654);
-	var moment = __webpack_require__(332);
-	__webpack_require__(385);
+	var Root_1 = __webpack_require__(178);
+	var InputPage_1 = __webpack_require__(351);
+	var ListPage_1 = __webpack_require__(513);
+	var SendPage_1 = __webpack_require__(518);
+	var Store_1 = __webpack_require__(522);
+	var DispatchActions_1 = __webpack_require__(599);
+	var react_redux_1 = __webpack_require__(656);
+	var react_router_1 = __webpack_require__(600);
+	var react_router_redux_1 = __webpack_require__(588);
+	var injectTapEventPlugin = __webpack_require__(663);
+	var MuiThemeProvider_1 = __webpack_require__(669);
+	var moment = __webpack_require__(364);
+	__webpack_require__(417);
 	injectTapEventPlugin();
 	moment.locale('ja');
 	var connector = react_redux_1.connect(function (store) { return { value: store }; }, function (dispatch) { return { actions: new DispatchActions_1.DispatchActions(dispatch) }; });
+	var RootComponent = connector(Root_1.Root);
 	var InputPageComponent = connector(InputPage_1.InputPage);
 	var ListPageComponent = connector(ListPage_1.ListPage);
 	var SendPageComponent = connector(SendPage_1.SendPage);
@@ -28,9 +30,10 @@ webpackJsonp([0],{
 	ReactDOM.render(React.createElement(react_redux_1.Provider, { store: Store_1.default },
 	    React.createElement(MuiThemeProvider_1.default, null,
 	        React.createElement(react_router_1.Router, { history: history },
-	            React.createElement(react_router_1.Route, { path: "/", component: InputPageComponent }),
-	            React.createElement(react_router_1.Route, { path: "/list", component: ListPageComponent }),
-	            React.createElement(react_router_1.Route, { path: "/send", component: SendPageComponent })))), document.getElementById('app'));
+	            React.createElement(react_router_1.Route, { path: "/", component: RootComponent },
+	                React.createElement(react_router_1.Route, { path: "/list", component: ListPageComponent }),
+	                React.createElement(react_router_1.Route, { path: "/send", component: SendPageComponent }),
+	                React.createElement(react_router_1.IndexRoute, { component: InputPageComponent }))))), document.getElementById('app'));
 
 
 /***/ },
@@ -53,23 +56,22 @@ webpackJsonp([0],{
 	    return t;
 	};
 	var React = __webpack_require__(1);
-	var Toolbar_1 = __webpack_require__(179);
-	var Main_1 = __webpack_require__(446);
-	var FooterTab_1 = __webpack_require__(491);
-	var InputPage = (function (_super) {
-	    __extends(InputPage, _super);
-	    function InputPage() {
+	var FooterTab_1 = __webpack_require__(179);
+	var SendStatus_1 = __webpack_require__(324);
+	var Root = (function (_super) {
+	    __extends(Root, _super);
+	    function Root() {
 	        return _super.apply(this, arguments) || this;
 	    }
-	    InputPage.prototype.render = function () {
+	    Root.prototype.render = function () {
 	        return (React.createElement("div", null,
-	            React.createElement(Toolbar_1.Toolbar, __assign({}, this.props)),
-	            React.createElement(Main_1.Main, __assign({}, this.props)),
+	            this.props.children,
+	            React.createElement(SendStatus_1.SendStatus, __assign({}, this.props)),
 	            React.createElement(FooterTab_1.FooterTab, __assign({}, this.props))));
 	    };
-	    return InputPage;
+	    return Root;
 	}(React.Component));
-	exports.InputPage = InputPage;
+	exports.Root = Root;
 
 
 /***/ },
@@ -84,11 +86,258 @@ webpackJsonp([0],{
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var React = __webpack_require__(1);
-	var AppBar_1 = __webpack_require__(180);
-	var IconButton_1 = __webpack_require__(278);
-	var keyboard_arrow_left_1 = __webpack_require__(329);
-	var keyboard_arrow_right_1 = __webpack_require__(330);
-	var DateUtils_1 = __webpack_require__(331);
+	var BottomNavigation_1 = __webpack_require__(180);
+	var Divider_1 = __webpack_require__(306);
+	var edit_1 = __webpack_require__(308);
+	var list_1 = __webpack_require__(320);
+	var send_1 = __webpack_require__(321);
+	var LinearProgress_1 = __webpack_require__(322);
+	var FooterTab = (function (_super) {
+	    __extends(FooterTab, _super);
+	    function FooterTab() {
+	        return _super.apply(this, arguments) || this;
+	    }
+	    FooterTab.prototype.render = function () {
+	        var selectedIndex = this.getSelectedIndex();
+	        var progressVisibility = this.props.value.view.isSending ? 'visible' : 'hidden';
+	        return (React.createElement("div", { className: "footerTab" },
+	            React.createElement(LinearProgress_1.default, { mode: "indeterminate", style: { visibility: progressVisibility } }),
+	            React.createElement(Divider_1.default, null),
+	            React.createElement(BottomNavigation_1.BottomNavigation, { selectedIndex: selectedIndex },
+	                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "入力", icon: React.createElement(edit_1.default, null), onTouchTap: this.onInputSelected.bind(this) }),
+	                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "一覧", icon: React.createElement(list_1.default, null), onTouchTap: this.onListSelected.bind(this) }),
+	                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "送信", icon: React.createElement(send_1.default, null), onTouchTap: this.onSendSelected.bind(this) }))));
+	    };
+	    FooterTab.prototype.onInputSelected = function (event) {
+	        event.preventDefault();
+	        this.props.actions.showInputPage();
+	    };
+	    FooterTab.prototype.onListSelected = function (event) {
+	        event.preventDefault();
+	        this.props.actions.showListPage();
+	    };
+	    FooterTab.prototype.onSendSelected = function (event) {
+	        event.preventDefault();
+	        this.props.actions.showSendPage();
+	    };
+	    FooterTab.prototype.getSelectedIndex = function () {
+	        if (this.props.location.pathname == '/list') {
+	            return 1;
+	        }
+	        if (this.props.location.pathname == '/send') {
+	            return 2;
+	        }
+	        return 0;
+	    };
+	    return FooterTab;
+	}(React.Component));
+	exports.FooterTab = FooterTab;
+
+
+/***/ },
+
+/***/ 308:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(309);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(318);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ImageEdit = function ImageEdit(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z' })
+	  );
+	};
+	ImageEdit = (0, _pure2.default)(ImageEdit);
+	ImageEdit.displayName = 'ImageEdit';
+	ImageEdit.muiName = 'SvgIcon';
+	
+	exports.default = ImageEdit;
+
+/***/ },
+
+/***/ 320:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(309);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(318);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ActionList = function ActionList(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z' })
+	  );
+	};
+	ActionList = (0, _pure2.default)(ActionList);
+	ActionList.displayName = 'ActionList';
+	ActionList.muiName = 'SvgIcon';
+	
+	exports.default = ActionList;
+
+/***/ },
+
+/***/ 321:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(309);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(318);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ContentSend = function ContentSend(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M2.01 21L23 12 2.01 3 2 10l15 2-15 2z' })
+	  );
+	};
+	ContentSend = (0, _pure2.default)(ContentSend);
+	ContentSend.displayName = 'ContentSend';
+	ContentSend.muiName = 'SvgIcon';
+	
+	exports.default = ContentSend;
+
+/***/ },
+
+/***/ 324:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var React = __webpack_require__(1);
+	var Snackbar_1 = __webpack_require__(325);
+	var Dialog_1 = __webpack_require__(343);
+	var SendStatus = (function (_super) {
+	    __extends(SendStatus, _super);
+	    function SendStatus() {
+	        return _super.apply(this, arguments) || this;
+	    }
+	    SendStatus.prototype.render = function () {
+	        // TODO dialogでエラー
+	        return (React.createElement("div", null,
+	            React.createElement(Snackbar_1.default, { open: this.props.value.view.isShowSendSuccessMessage, message: "勤務表を送信しました", autoHideDuration: 2000, onRequestClose: this.handleCloseSendSuccess.bind(this) }),
+	            React.createElement(Dialog_1.default, { open: this.props.value.view.sendErrorMessage != null, title: "エラー", onRequestClose: this.handleCloseError.bind(this) }, this.props.value.view.sendErrorMessage)));
+	    };
+	    SendStatus.prototype.handleCloseSendSuccess = function () {
+	        this.props.actions.closeSendSuccessMessage();
+	    };
+	    SendStatus.prototype.handleCloseError = function () {
+	        this.props.actions.closeSendErrorMessage();
+	    };
+	    return SendStatus;
+	}(React.Component));
+	exports.SendStatus = SendStatus;
+
+
+/***/ },
+
+/***/ 351:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var __assign = (this && this.__assign) || Object.assign || function(t) {
+	    for (var s, i = 1, n = arguments.length; i < n; i++) {
+	        s = arguments[i];
+	        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+	            t[p] = s[p];
+	    }
+	    return t;
+	};
+	var React = __webpack_require__(1);
+	var Toolbar_1 = __webpack_require__(352);
+	var Main_1 = __webpack_require__(478);
+	var InputPage = (function (_super) {
+	    __extends(InputPage, _super);
+	    function InputPage() {
+	        return _super.apply(this, arguments) || this;
+	    }
+	    InputPage.prototype.render = function () {
+	        return (React.createElement("div", null,
+	            React.createElement(Toolbar_1.Toolbar, __assign({}, this.props)),
+	            React.createElement(Main_1.Main, __assign({}, this.props))));
+	    };
+	    return InputPage;
+	}(React.Component));
+	exports.InputPage = InputPage;
+
+
+/***/ },
+
+/***/ 352:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var React = __webpack_require__(1);
+	var AppBar_1 = __webpack_require__(353);
+	var IconButton_1 = __webpack_require__(355);
+	var keyboard_arrow_left_1 = __webpack_require__(361);
+	var keyboard_arrow_right_1 = __webpack_require__(362);
+	var DateUtils_1 = __webpack_require__(363);
 	var Toolbar = (function (_super) {
 	    __extends(Toolbar, _super);
 	    function Toolbar() {
@@ -135,7 +384,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 329:
+/***/ 361:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -148,11 +397,11 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _pure = __webpack_require__(315);
+	var _pure = __webpack_require__(309);
 	
 	var _pure2 = _interopRequireDefault(_pure);
 	
-	var _SvgIcon = __webpack_require__(324);
+	var _SvgIcon = __webpack_require__(318);
 	
 	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 	
@@ -173,7 +422,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 330:
+/***/ 362:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -186,11 +435,11 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _pure = __webpack_require__(315);
+	var _pure = __webpack_require__(309);
 	
 	var _pure2 = _interopRequireDefault(_pure);
 	
-	var _SvgIcon = __webpack_require__(324);
+	var _SvgIcon = __webpack_require__(318);
 	
 	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 	
@@ -211,13 +460,13 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 331:
+/***/ 363:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var moment = __webpack_require__(332);
-	var japanese_holidays_1 = __webpack_require__(443);
-	var colors_1 = __webpack_require__(445);
+	var moment = __webpack_require__(364);
+	var japanese_holidays_1 = __webpack_require__(475);
+	var colors_1 = __webpack_require__(477);
 	function toDayString(date) {
 	    return moment(date).format('YYYYMMDD');
 	}
@@ -310,17 +559,17 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 443:
+/***/ 475:
 /***/ function(module, exports, __webpack_require__) {
 
-	var JapaneseHolidays = __webpack_require__(444);
+	var JapaneseHolidays = __webpack_require__(476);
 	
 	module.exports = JapaneseHolidays;
 
 
 /***/ },
 
-/***/ 444:
+/***/ 476:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(module) {// Generated by CoffeeScript 1.10.0
@@ -608,11 +857,11 @@ webpackJsonp([0],{
 	
 	//# sourceMappingURL=japanese-holidays.js.map
 	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(333)(module)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(365)(module)))
 
 /***/ },
 
-/***/ 446:
+/***/ 478:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -622,9 +871,9 @@ webpackJsonp([0],{
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var React = __webpack_require__(1);
-	var KintaiUtils_1 = __webpack_require__(447);
-	var TextField_1 = __webpack_require__(458);
-	var TimeInput_1 = __webpack_require__(469);
+	var KintaiUtils_1 = __webpack_require__(479);
+	var TextField_1 = __webpack_require__(480);
+	var TimeInput_1 = __webpack_require__(486);
 	var Main = (function (_super) {
 	    __extends(Main, _super);
 	    function Main() {
@@ -653,11 +902,11 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 447:
+/***/ 479:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var DateUtils_1 = __webpack_require__(331);
+	var DateUtils_1 = __webpack_require__(363);
 	var defaultDayKintai = {
 	    inTime: '',
 	    outTime: '',
@@ -677,7 +926,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 469:
+/***/ 486:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -687,12 +936,12 @@ webpackJsonp([0],{
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var React = __webpack_require__(1);
-	var SelectField_1 = __webpack_require__(470);
-	var MenuItem_1 = __webpack_require__(488);
-	var IconButton_1 = __webpack_require__(278);
-	var schedule_1 = __webpack_require__(489);
-	var update_1 = __webpack_require__(490);
-	var DateUtils_1 = __webpack_require__(331);
+	var SelectField_1 = __webpack_require__(487);
+	var MenuItem_1 = __webpack_require__(510);
+	var IconButton_1 = __webpack_require__(355);
+	var schedule_1 = __webpack_require__(511);
+	var update_1 = __webpack_require__(512);
+	var DateUtils_1 = __webpack_require__(363);
 	var TIMES = [':00', ':15', ':30', ':45'];
 	var REGULAR_TIME_IN = '9:00';
 	var REGULAR_TIME_OUT = '17:45';
@@ -761,7 +1010,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 489:
+/***/ 511:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -774,11 +1023,11 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _pure = __webpack_require__(315);
+	var _pure = __webpack_require__(309);
 	
 	var _pure2 = _interopRequireDefault(_pure);
 	
-	var _SvgIcon = __webpack_require__(324);
+	var _SvgIcon = __webpack_require__(318);
 	
 	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 	
@@ -799,7 +1048,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 490:
+/***/ 512:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -812,11 +1061,11 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _pure = __webpack_require__(315);
+	var _pure = __webpack_require__(309);
 	
 	var _pure2 = _interopRequireDefault(_pure);
 	
-	var _SvgIcon = __webpack_require__(324);
+	var _SvgIcon = __webpack_require__(318);
 	
 	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 	
@@ -837,178 +1086,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 491:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var React = __webpack_require__(1);
-	var BottomNavigation_1 = __webpack_require__(492);
-	var Divider_1 = __webpack_require__(495);
-	var edit_1 = __webpack_require__(497);
-	var list_1 = __webpack_require__(498);
-	var send_1 = __webpack_require__(499);
-	var FooterTab = (function (_super) {
-	    __extends(FooterTab, _super);
-	    function FooterTab() {
-	        return _super.apply(this, arguments) || this;
-	    }
-	    FooterTab.prototype.render = function () {
-	        var selectedIndex = this.getSelectedIndex();
-	        return (React.createElement("div", { className: "footerTab" },
-	            React.createElement(Divider_1.default, null),
-	            React.createElement(BottomNavigation_1.BottomNavigation, { selectedIndex: selectedIndex },
-	                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "入力", icon: React.createElement(edit_1.default, null), onTouchTap: this.onInputSelected.bind(this) }),
-	                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "一覧", icon: React.createElement(list_1.default, null), onTouchTap: this.onListSelected.bind(this) }),
-	                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "送信", icon: React.createElement(send_1.default, null), onTouchTap: this.onSendSelected.bind(this) }))));
-	    };
-	    FooterTab.prototype.onInputSelected = function (event) {
-	        event.preventDefault();
-	        this.props.actions.showInputPage();
-	    };
-	    FooterTab.prototype.onListSelected = function (event) {
-	        event.preventDefault();
-	        this.props.actions.showListPage();
-	    };
-	    FooterTab.prototype.onSendSelected = function (event) {
-	        event.preventDefault();
-	        this.props.actions.showSendPage();
-	    };
-	    FooterTab.prototype.getSelectedIndex = function () {
-	        if (this.props.location.pathname == '/list') {
-	            return 1;
-	        }
-	        if (this.props.location.pathname == '/send') {
-	            return 2;
-	        }
-	        return 0;
-	    };
-	    return FooterTab;
-	}(React.Component));
-	exports.FooterTab = FooterTab;
-
-
-/***/ },
-
-/***/ 497:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _pure = __webpack_require__(315);
-	
-	var _pure2 = _interopRequireDefault(_pure);
-	
-	var _SvgIcon = __webpack_require__(324);
-	
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var ImageEdit = function ImageEdit(props) {
-	  return _react2.default.createElement(
-	    _SvgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: 'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z' })
-	  );
-	};
-	ImageEdit = (0, _pure2.default)(ImageEdit);
-	ImageEdit.displayName = 'ImageEdit';
-	ImageEdit.muiName = 'SvgIcon';
-	
-	exports.default = ImageEdit;
-
-/***/ },
-
-/***/ 498:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _pure = __webpack_require__(315);
-	
-	var _pure2 = _interopRequireDefault(_pure);
-	
-	var _SvgIcon = __webpack_require__(324);
-	
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var ActionList = function ActionList(props) {
-	  return _react2.default.createElement(
-	    _SvgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: 'M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z' })
-	  );
-	};
-	ActionList = (0, _pure2.default)(ActionList);
-	ActionList.displayName = 'ActionList';
-	ActionList.muiName = 'SvgIcon';
-	
-	exports.default = ActionList;
-
-/***/ },
-
-/***/ 499:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _pure = __webpack_require__(315);
-	
-	var _pure2 = _interopRequireDefault(_pure);
-	
-	var _SvgIcon = __webpack_require__(324);
-	
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var ContentSend = function ContentSend(props) {
-	  return _react2.default.createElement(
-	    _SvgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: 'M2.01 21L23 12 2.01 3 2 10l15 2-15 2z' })
-	  );
-	};
-	ContentSend = (0, _pure2.default)(ContentSend);
-	ContentSend.displayName = 'ContentSend';
-	ContentSend.muiName = 'SvgIcon';
-	
-	exports.default = ContentSend;
-
-/***/ },
-
-/***/ 500:
+/***/ 513:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1026,9 +1104,8 @@ webpackJsonp([0],{
 	    return t;
 	};
 	var React = __webpack_require__(1);
-	var MonthToolbar_1 = __webpack_require__(501);
-	var Main_1 = __webpack_require__(502);
-	var FooterTab_1 = __webpack_require__(491);
+	var MonthToolbar_1 = __webpack_require__(514);
+	var Main_1 = __webpack_require__(515);
 	var ListPage = (function (_super) {
 	    __extends(ListPage, _super);
 	    function ListPage() {
@@ -1037,8 +1114,7 @@ webpackJsonp([0],{
 	    ListPage.prototype.render = function () {
 	        return (React.createElement("div", null,
 	            React.createElement(MonthToolbar_1.MonthToolbar, __assign({}, this.props)),
-	            React.createElement(Main_1.Main, __assign({}, this.props)),
-	            React.createElement(FooterTab_1.FooterTab, __assign({}, this.props))));
+	            React.createElement(Main_1.Main, __assign({}, this.props))));
 	    };
 	    return ListPage;
 	}(React.Component));
@@ -1047,7 +1123,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 501:
+/***/ 514:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1057,11 +1133,11 @@ webpackJsonp([0],{
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var React = __webpack_require__(1);
-	var AppBar_1 = __webpack_require__(180);
-	var IconButton_1 = __webpack_require__(278);
-	var keyboard_arrow_left_1 = __webpack_require__(329);
-	var keyboard_arrow_right_1 = __webpack_require__(330);
-	var DateUtils_1 = __webpack_require__(331);
+	var AppBar_1 = __webpack_require__(353);
+	var IconButton_1 = __webpack_require__(355);
+	var keyboard_arrow_left_1 = __webpack_require__(361);
+	var keyboard_arrow_right_1 = __webpack_require__(362);
+	var DateUtils_1 = __webpack_require__(363);
 	var MonthToolbar = (function (_super) {
 	    __extends(MonthToolbar, _super);
 	    function MonthToolbar() {
@@ -1097,7 +1173,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 502:
+/***/ 515:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1107,9 +1183,9 @@ webpackJsonp([0],{
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var React = __webpack_require__(1);
-	var KintaiUtils_1 = __webpack_require__(447);
-	var DateUtils_1 = __webpack_require__(331);
-	var List_1 = __webpack_require__(448);
+	var KintaiUtils_1 = __webpack_require__(479);
+	var DateUtils_1 = __webpack_require__(363);
+	var List_1 = __webpack_require__(516);
 	var Main = (function (_super) {
 	    __extends(Main, _super);
 	    function Main() {
@@ -1152,7 +1228,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 503:
+/***/ 518:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1170,9 +1246,8 @@ webpackJsonp([0],{
 	    return t;
 	};
 	var React = __webpack_require__(1);
-	var MonthToolbar_1 = __webpack_require__(501);
-	var Main_1 = __webpack_require__(504);
-	var FooterTab_1 = __webpack_require__(491);
+	var MonthToolbar_1 = __webpack_require__(514);
+	var Main_1 = __webpack_require__(519);
 	var SendPage = (function (_super) {
 	    __extends(SendPage, _super);
 	    function SendPage() {
@@ -1181,8 +1256,7 @@ webpackJsonp([0],{
 	    SendPage.prototype.render = function () {
 	        return (React.createElement("div", null,
 	            React.createElement(MonthToolbar_1.MonthToolbar, __assign({}, this.props)),
-	            React.createElement(Main_1.Main, __assign({}, this.props)),
-	            React.createElement(FooterTab_1.FooterTab, __assign({}, this.props))));
+	            React.createElement(Main_1.Main, __assign({}, this.props))));
 	    };
 	    return SendPage;
 	}(React.Component));
@@ -1191,7 +1265,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 504:
+/***/ 519:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1201,21 +1275,22 @@ webpackJsonp([0],{
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var React = __webpack_require__(1);
-	var TextField_1 = __webpack_require__(458);
-	var RaisedButton_1 = __webpack_require__(505);
+	var TextField_1 = __webpack_require__(480);
+	var RaisedButton_1 = __webpack_require__(520);
 	var Main = (function (_super) {
 	    __extends(Main, _super);
 	    function Main() {
 	        return _super.apply(this, arguments) || this;
 	    }
 	    Main.prototype.render = function () {
+	        var buttonLabel = this.props.value.view.isSending ? '送信中...' : '勤務表送信';
 	        return (React.createElement("div", { className: "content" },
 	            React.createElement(TextField_1.default, { hintText: "送信先アドレス", defaultValue: this.props.value.kintai.person.email, onChange: this.handleEmailChange.bind(this), style: { width: "192px" } }),
 	            "@sji-inc.jp",
 	            React.createElement("br", null),
 	            React.createElement(TextField_1.default, { hintText: "zipパスワード", type: "password", defaultValue: this.props.value.view.password, onChange: this.handlePasswordChange.bind(this) }),
 	            React.createElement("br", null),
-	            React.createElement(RaisedButton_1.default, { label: "勤務表送信", primary: true, onTouchTap: this.handleSend.bind(this) })));
+	            React.createElement(RaisedButton_1.default, { label: buttonLabel, primary: true, onTouchTap: this.handleSend.bind(this), disabled: this.props.value.view.isSending })));
 	    };
 	    Main.prototype.handleEmailChange = function (event) {
 	        event.preventDefault();
@@ -1236,16 +1311,16 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 507:
+/***/ 522:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var KintaiReducer_1 = __webpack_require__(508);
-	var ViewReducer_1 = __webpack_require__(511);
-	var redux_1 = __webpack_require__(512);
-	var redux_persist_1 = __webpack_require__(532);
-	var react_router_redux_1 = __webpack_require__(573);
-	var createLogger = __webpack_require__(578);
+	var KintaiReducer_1 = __webpack_require__(523);
+	var ViewReducer_1 = __webpack_require__(526);
+	var redux_1 = __webpack_require__(527);
+	var redux_persist_1 = __webpack_require__(547);
+	var react_router_redux_1 = __webpack_require__(588);
+	var createLogger = __webpack_require__(593);
 	// weinreでConsoleデバッグができるようにredux-loggerがconsole.logを呼び出すように変更
 	var logger = createLogger({
 	    level: 'log',
@@ -1271,7 +1346,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 508:
+/***/ 523:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1283,10 +1358,10 @@ webpackJsonp([0],{
 	    }
 	    return t;
 	};
-	var redux_common_1 = __webpack_require__(509);
-	var Actions_1 = __webpack_require__(510);
-	var KintaiUtils_1 = __webpack_require__(447);
-	var DateUtils_1 = __webpack_require__(331);
+	var redux_common_1 = __webpack_require__(524);
+	var Actions_1 = __webpack_require__(525);
+	var KintaiUtils_1 = __webpack_require__(479);
+	var DateUtils_1 = __webpack_require__(363);
 	var initialState = {
 	    person: {
 	        email: ""
@@ -1319,7 +1394,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 509:
+/***/ 524:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1354,22 +1429,27 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 510:
+/***/ 525:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var redux_common_1 = __webpack_require__(509);
+	var redux_common_1 = __webpack_require__(524);
 	exports.SelectInAction = redux_common_1.action('SelectIn');
 	exports.SelectOutAction = redux_common_1.action('SelectOut');
 	exports.MoveCurrentDateAction = redux_common_1.action('MoveCurrentDate');
 	exports.InputHolidayAction = redux_common_1.action('InputHoliday');
 	exports.InputEmailAction = redux_common_1.action('InputEmail');
 	exports.InputPasswordAction = redux_common_1.action('InputPassword');
+	exports.SendStartAction = redux_common_1.action('SendStart');
+	exports.SendSuccessAction = redux_common_1.action('SendSuccess');
+	exports.CloseSendSuccessMessageAction = redux_common_1.action('CloseSendSuccessMessage');
+	exports.SendErrorAction = redux_common_1.action('SendError');
+	exports.CloseSendErrorMessageAction = redux_common_1.action('CloseSendErrorMessage');
 
 
 /***/ },
 
-/***/ 511:
+/***/ 526:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -1381,11 +1461,15 @@ webpackJsonp([0],{
 	    }
 	    return t;
 	};
-	var redux_common_1 = __webpack_require__(509);
-	var Actions_1 = __webpack_require__(510);
+	var redux_common_1 = __webpack_require__(524);
+	var Actions_1 = __webpack_require__(525);
+	var Actions_2 = __webpack_require__(525);
 	var initialState = {
 	    currentDate: new Date(),
-	    password: ""
+	    password: "",
+	    isSending: false,
+	    isShowSendSuccessMessage: false,
+	    sendErrorMessage: null
 	};
 	exports.view = redux_common_1.createReducer(initialState, function (handle) {
 	    handle(Actions_1.MoveCurrentDateAction, function (state, date) {
@@ -1394,18 +1478,33 @@ webpackJsonp([0],{
 	    handle(Actions_1.InputPasswordAction, function (state, password) {
 	        return __assign({}, state, { password: password });
 	    });
+	    handle(Actions_2.SendStartAction, function (state) {
+	        return __assign({}, state, { isSending: true });
+	    });
+	    handle(Actions_2.SendSuccessAction, function (state) {
+	        return __assign({}, state, { isSending: false, isShowSendSuccessMessage: true });
+	    });
+	    handle(Actions_2.CloseSendSuccessMessageAction, function (state) {
+	        return __assign({}, state, { isShowSendSuccessMessage: false });
+	    });
+	    handle(Actions_2.SendErrorAction, function (state, message) {
+	        return __assign({}, state, { isSending: false, sendErrorMessage: message });
+	    });
+	    handle(Actions_2.CloseSendErrorMessageAction, function (state) {
+	        return __assign({}, state, { sendErrorMessage: null });
+	    });
 	});
 
 
 /***/ },
 
-/***/ 584:
+/***/ 599:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var actions = __webpack_require__(510);
-	var react_router_1 = __webpack_require__(585);
-	var ApiClient_1 = __webpack_require__(639);
+	var actions = __webpack_require__(525);
+	var react_router_1 = __webpack_require__(600);
+	var ApiClient_1 = __webpack_require__(654);
 	var DispatchActions = (function () {
 	    function DispatchActions(dispatch) {
 	        this.dispatch = dispatch;
@@ -1426,8 +1525,15 @@ webpackJsonp([0],{
 	        this.dispatch(actions.MoveCurrentDateAction.create(date));
 	    };
 	    DispatchActions.prototype.sendMonth = function (kintai, month, password) {
+	        var _this = this;
 	        // TODO 入力チェック
-	        var promise = ApiClient_1.sendMonthKintai(kintai, month, password);
+	        this.dispatch(actions.SendStartAction.create({}));
+	        ApiClient_1.sendMonthKintai(kintai, month, password).then(function () {
+	            _this.dispatch(actions.SendSuccessAction.create({}));
+	        })
+	            .catch(function (error) {
+	            _this.dispatch(actions.SendErrorAction.create(JSON.stringify(error)));
+	        });
 	    };
 	    DispatchActions.prototype.inputHoliday = function (date, holiday) {
 	        this.dispatch(actions.InputHolidayAction.create({
@@ -1454,6 +1560,12 @@ webpackJsonp([0],{
 	    DispatchActions.prototype.inputPassword = function (password) {
 	        this.dispatch(actions.InputPasswordAction.create(password));
 	    };
+	    DispatchActions.prototype.closeSendSuccessMessage = function () {
+	        this.dispatch(actions.CloseSendSuccessMessageAction.create({}));
+	    };
+	    DispatchActions.prototype.closeSendErrorMessage = function () {
+	        this.dispatch(actions.CloseSendErrorMessageAction.create({}));
+	    };
 	    return DispatchActions;
 	}());
 	exports.DispatchActions = DispatchActions;
@@ -1461,23 +1573,22 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 639:
+/***/ 654:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var DateUtils_1 = __webpack_require__(331);
-	var KintaiUtils_1 = __webpack_require__(447);
-	__webpack_require__(640);
+	var DateUtils_1 = __webpack_require__(363);
+	var KintaiUtils_1 = __webpack_require__(479);
+	__webpack_require__(655);
 	function sendMonthKintai(kintai, month, password) {
 	    var body = createBody(kintai, month, password);
-	    fetch('https://sleepy-ravine-40602.herokuapp.com/api/kinmu', {
+	    return fetch('https://sleepy-ravine-40602.herokuapp.com/api/kinmu', {
 	        method: 'POST',
 	        headers: {
 	            'Content-Type': 'application/json'
 	        },
 	        body: JSON.stringify(body)
-	    })
-	        .then(function (res) { return console.log(res); });
+	    });
 	}
 	exports.sendMonthKintai = sendMonthKintai;
 	function createBody(kintai, month, password) {

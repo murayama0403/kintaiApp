@@ -30,7 +30,13 @@ export class DispatchActions {
 
     sendMonth(kintai: KintaiState, month: Date, password: string) {
         // TODO 入力チェック
-        const promise = sendMonthKintai(kintai, month, password)
+        this.dispatch(actions.SendStartAction.create({}))
+        sendMonthKintai(kintai, month, password).then(() => {
+            this.dispatch(actions.SendSuccessAction.create({}))
+        })
+        .catch((error) => {
+            this.dispatch(actions.SendErrorAction.create(JSON.stringify(error)))
+        })
     }
 
     inputHoliday(date: Date, holiday: string) {
@@ -62,5 +68,13 @@ export class DispatchActions {
 
     inputPassword(password: string) {
         this.dispatch(actions.InputPasswordAction.create(password))
+    }
+
+    closeSendSuccessMessage() {
+        this.dispatch(actions.CloseSendSuccessMessageAction.create({}))
+    }
+
+    closeSendErrorMessage() {
+        this.dispatch(actions.CloseSendErrorMessageAction.create({}))
     }
 }

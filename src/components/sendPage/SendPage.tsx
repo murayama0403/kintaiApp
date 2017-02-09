@@ -11,7 +11,6 @@ export class SendPage extends React.Component<RootProps, {}> {
             <div>
                 <MonthToolbar {...this.props} />
                 <Main {...this.props}/>
-                <FooterTab {...this.props}/>
             </div>
         )
     }

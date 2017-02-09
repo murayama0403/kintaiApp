@@ -6,14 +6,17 @@ import EditIcon from 'material-ui/svg-icons/image/edit'
 import ListIcon from 'material-ui/svg-icons/action/list'
 import SendIcon from 'material-ui/svg-icons/content/send'
 import {TouchTapEvent} from 'material-ui'
+import LinearProgress from 'material-ui/LinearProgress'
 
 export class FooterTab extends React.Component<RootProps, {}> {
 
     render() {
         const selectedIndex = this.getSelectedIndex()
+        const progressVisibility = this.props.value.view.isSending? 'visible': 'hidden'
 
         return (
             <div className="footerTab">
+                <LinearProgress mode="indeterminate" style={{visibility: progressVisibility}}/>
                 <Divider />
                 <BottomNavigation selectedIndex={selectedIndex}>
                     <BottomNavigationItem label="入力"

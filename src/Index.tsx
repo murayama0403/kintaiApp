@@ -1,5 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import { Root } from "./components/root/Root"
 import { InputPage } from "./components/inputPage/InputPage"
 import { ListPage } from "./components/listPage/ListPage"
 import { SendPage } from "./components/sendPage/SendPage"
@@ -23,6 +24,7 @@ const connector = connect(
     (dispatch: Dispatch<any>) => { return { actions: new DispatchActions(dispatch) } }
 )
 
+const RootComponent = connector(Root)
 const InputPageComponent = connector(InputPage)
 const ListPageComponent = connector(ListPage)
 const SendPageComponent = connector(SendPage)
@@ -33,9 +35,11 @@ ReactDOM.render(
     <Provider store={store}>
         <MuiThemeProvider>
             <Router history={history}>
-                <Route path="/" component={InputPageComponent} />
-                <Route path="/list" component={ListPageComponent} />
-                <Route path="/send" component={SendPageComponent} />
+                <Route path="/" component={RootComponent}>
+                    <Route path="/list" component={ListPageComponent} />
+                    <Route path="/send" component={SendPageComponent} />
+                    <IndexRoute component={InputPageComponent} />
+                </Route>
             </Router>
         </MuiThemeProvider>
     </Provider>

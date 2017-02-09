@@ -3,17 +3,16 @@ import {getMonthDates} from "./DateUtils"
 import {getDayKintai} from "./KintaiUtils"
 import 'whatwg-fetch'
 
-export function sendMonthKintai(kintai: KintaiState, month: Date, password: string) {
+export function sendMonthKintai(kintai: KintaiState, month: Date, password: string): Promise<Response> {
     const body = createBody(kintai, month, password)
 
-    fetch('https://sleepy-ravine-40602.herokuapp.com/api/kinmu', {
+    return fetch('https://sleepy-ravine-40602.herokuapp.com/api/kinmu', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(body)
     })
-    .then((res) => console.log(res))
 }
 
 function createBody(kintai: KintaiState, month: Date, password: string) {

@@ -1286,7 +1286,7 @@ webpackJsonp([0],{
 	        var buttonLabel = this.props.value.view.isSending ? '送信中...' : '勤務表送信';
 	        return (React.createElement("div", { className: "content" },
 	            React.createElement(TextField_1.default, { hintText: "送信先アドレス", defaultValue: this.props.value.kintai.person.email, onChange: this.handleEmailChange.bind(this), style: { width: "192px" } }),
-	            "@sji-inc.jp",
+	            "@caica.jp",
 	            React.createElement("br", null),
 	            React.createElement(TextField_1.default, { hintText: "zipパスワード", type: "password", defaultValue: this.props.value.view.password, onChange: this.handlePasswordChange.bind(this) }),
 	            React.createElement("br", null),
@@ -1602,7 +1602,7 @@ webpackJsonp([0],{
 	        employeeNo: "99999",
 	        employeName: "勤務太郎",
 	        departmentCode: "123456",
-	        sendMailAddr: kintai.person.email + "@sji-inc.jp",
+	        sendMailAddr: kintai.person.email + "@caica.jp",
 	        password: password,
 	        workInfoList: workInfoList
 	    };

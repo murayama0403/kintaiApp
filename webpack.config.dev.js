@@ -5,6 +5,7 @@ module.exports = {
   entry:{
     app: "./src/Index.tsx",
     vendor: [
+      "japanese-holidays",
       "material-ui",
       "moment",
       "react",
@@ -25,18 +26,20 @@ module.exports = {
     publicPath: 'dist/',
   },
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.js")
+    new webpack.optimize.CommonsChunkPlugin({name: "vendor", filename: "vendor.js"})
   ],
   // Enable sourcemaps for debugging webpack's output.
   devtool: "source-map",
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: ["", ".ts", ".tsx", ".js"]
+    extensions: [".ts", ".tsx", ".js"]
   },
   module: {
-    loaders: [
-      // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'.
-      { test: /\.tsx?$/, loader: "ts-loader" }
+    rules: [
+      {
+        test: /\.tsx?$/,
+        loader: "ts-loader"
+      }
     ]
   },
   cache: true,

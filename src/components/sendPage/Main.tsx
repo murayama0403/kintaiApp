@@ -17,7 +17,7 @@ export class Main extends React.Component<RootProps, {}> {
                     hintText="送信先アドレス"
                     defaultValue={this.props.value.kintai.person.email}
                     onChange={this.handleEmailChange.bind(this)}
-                    style={{width: "192px"}} />@sji-inc.jp
+                    style={{width: "192px"}} />@caica.jp
                 <br />
                 <TextField
                     hintText="zipパスワード"

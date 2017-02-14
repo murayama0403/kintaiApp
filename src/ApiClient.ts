@@ -27,7 +27,7 @@ function createBody(kintai: KintaiState, month: Date, password: string) {
         employeeNo: "99999",
         employeName: "勤務太郎",
         departmentCode: "123456",
-        sendMailAddr: kintai.person.email + "@sji-inc.jp",
+        sendMailAddr: kintai.person.email + "@caica.jp",
         password: password,
 
         workInfoList: workInfoList

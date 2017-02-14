@@ -1,5 +1,0 @@
-{
-  "dependencies": {
-    "japanese-holidays": "file:./mytypings/japanese-holidays.d.ts"
-  }
-}

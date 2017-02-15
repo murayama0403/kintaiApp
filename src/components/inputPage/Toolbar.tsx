@@ -5,6 +5,7 @@ import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton'
 import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left'
 import ArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right'
+import {ToolbarWithProgress} from '../common/ToolbarWithProgress'
 import {moveDates, formatDate, getDayColor} from '../../DateUtils'
 import {TouchTapEvent} from 'material-ui'
 
@@ -20,12 +21,12 @@ export class Toolbar extends React.Component<RootProps, {}> {
 
     render() {
         return (
-            <div className="toolbar">
+            <ToolbarWithProgress {...this.props}>
                 <AppBar
                     title={this.createTitle()}
                     showMenuIconButton={false}
                     iconElementRight={this.buttons} />
-            </div>
+            </ToolbarWithProgress>
         )
     }
 

@@ -5,6 +5,7 @@ import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
 import ArrowLeftIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-left'
 import ArrowRightIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-right'
+import {ToolbarWithProgress} from './ToolbarWithProgress'
 import {moveMonths, formatMonth} from '../../DateUtils'
 
 export class MonthToolbar extends React.Component<RootProps, {}> {
@@ -19,12 +20,12 @@ export class MonthToolbar extends React.Component<RootProps, {}> {
 
     render() {
         return (
-            <div className="toolbar">
+            <ToolbarWithProgress {...this.props}>
                 <AppBar
                     title={this.formatCurrentMonth()}
                     showMenuIconButton={false}
                     iconElementRight={this.buttons} />
-            </div>
+            </ToolbarWithProgress>
         )
     }
 

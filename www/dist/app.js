@@ -170,11 +170,20 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 var React = __webpack_require__(1);
 var AppBar_1 = __webpack_require__(139);
 var IconButton_1 = __webpack_require__(35);
 var keyboard_arrow_left_1 = __webpack_require__(247);
 var keyboard_arrow_right_1 = __webpack_require__(248);
+var ToolbarWithProgress_1 = __webpack_require__(802);
 var DateUtils_1 = __webpack_require__(57);
 var MonthToolbar = (function (_super) {
     __extends(MonthToolbar, _super);
@@ -188,7 +197,7 @@ var MonthToolbar = (function (_super) {
         return _this;
     }
     MonthToolbar.prototype.render = function () {
-        return (React.createElement("div", { className: "toolbar" },
+        return (React.createElement(ToolbarWithProgress_1.ToolbarWithProgress, __assign({}, this.props),
             React.createElement(AppBar_1.default, { title: this.formatCurrentMonth(), showMenuIconButton: false, iconElementRight: this.buttons })));
     };
     MonthToolbar.prototype.handleBefore = function (event) {
@@ -850,7 +859,6 @@ var Divider_1 = __webpack_require__(141);
 var edit_1 = __webpack_require__(627);
 var list_1 = __webpack_require__(621);
 var send_1 = __webpack_require__(624);
-var LinearProgress_1 = __webpack_require__(222);
 var FooterTab = (function (_super) {
     __extends(FooterTab, _super);
     function FooterTab() {
@@ -858,9 +866,7 @@ var FooterTab = (function (_super) {
     }
     FooterTab.prototype.render = function () {
         var selectedIndex = this.getSelectedIndex();
-        var progressVisibility = this.props.value.view.isSending ? 'visible' : 'hidden';
         return (React.createElement("div", { className: "footerTab" },
-            React.createElement(LinearProgress_1.default, { mode: "indeterminate", style: { visibility: progressVisibility } }),
             React.createElement(Divider_1.default, null),
             React.createElement(BottomNavigation_1.BottomNavigation, { selectedIndex: selectedIndex },
                 React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "入力", icon: React.createElement(edit_1.default, null), onTouchTap: this.onInputSelected.bind(this) }),
@@ -1032,11 +1038,20 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 var React = __webpack_require__(1);
 var AppBar_1 = __webpack_require__(139);
 var IconButton_1 = __webpack_require__(35);
 var keyboard_arrow_left_1 = __webpack_require__(247);
 var keyboard_arrow_right_1 = __webpack_require__(248);
+var ToolbarWithProgress_1 = __webpack_require__(802);
 var DateUtils_1 = __webpack_require__(57);
 var Toolbar = (function (_super) {
     __extends(Toolbar, _super);
@@ -1050,7 +1065,7 @@ var Toolbar = (function (_super) {
         return _this;
     }
     Toolbar.prototype.render = function () {
-        return (React.createElement("div", { className: "toolbar" },
+        return (React.createElement(ToolbarWithProgress_1.ToolbarWithProgress, __assign({}, this.props),
             React.createElement(AppBar_1.default, { title: this.createTitle(), showMenuIconButton: false, iconElementRight: this.buttons })));
     };
     Toolbar.prototype.handleBefore = function (event) {
@@ -1358,6 +1373,36 @@ ReactDOM.render(React.createElement(react_redux_1.Provider, { store: Store_1.def
                 React.createElement(react_router_1.Route, { path: "/list", component: ListPageComponent }),
                 React.createElement(react_router_1.Route, { path: "/send", component: SendPageComponent }),
                 React.createElement(react_router_1.IndexRoute, { component: InputPageComponent }))))), document.getElementById('app'));
+
+
+/***/ }),
+
+/***/ 802:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var React = __webpack_require__(1);
+var LinearProgress_1 = __webpack_require__(222);
+var ToolbarWithProgress = (function (_super) {
+    __extends(ToolbarWithProgress, _super);
+    function ToolbarWithProgress() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    ToolbarWithProgress.prototype.render = function () {
+        var progressVisibility = this.props.value.view.isSending ? 'visible' : 'hidden';
+        return (React.createElement("div", { className: "toolbar" },
+            this.props.children,
+            React.createElement(LinearProgress_1.default, { mode: "indeterminate", style: { visibility: progressVisibility } })));
+    };
+    return ToolbarWithProgress;
+}(React.Component));
+exports.ToolbarWithProgress = ToolbarWithProgress;
 
 
 /***/ })

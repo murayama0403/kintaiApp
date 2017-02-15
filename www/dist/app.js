@@ -783,6 +783,7 @@ function sendMonthKintai(kintai, month, password) {
     var body = createBody(kintai, month, password);
     return fetch('https://sleepy-ravine-40602.herokuapp.com/api/kinmu', {
         method: 'POST',
+        mode: 'no-cors',
         headers: {
             'Content-Type': 'application/json'
         },

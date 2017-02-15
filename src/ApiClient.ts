@@ -8,6 +8,7 @@ export function sendMonthKintai(kintai: KintaiState, month: Date, password: stri
 
     return fetch('https://sleepy-ravine-40602.herokuapp.com/api/kinmu', {
         method: 'POST',
+        mode: 'no-cors',
         headers: {
             'Content-Type': 'application/json'
         },

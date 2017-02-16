@@ -242,11 +242,15 @@ var DispatchActions = (function () {
         var _this = this;
         // TODO 入力チェック
         this.dispatch(actions.SendStartAction.create({}));
-        ApiClient_1.sendMonthKintai(kintai, month, password).then(function () {
+        ApiClient_1.sendMonthKintai(kintai, month, password).then(function (response) {
+            if (!response.ok) {
+                return response.json().then(function (json) {
+                    _this.dispatch(actions.SendErrorAction.create("サーバーサイドエラー: " + json.message));
+                });
+            }
             _this.dispatch(actions.SendSuccessAction.create({}));
-        })
-            .catch(function (error) {
-            _this.dispatch(actions.SendErrorAction.create(JSON.stringify(error)));
+        }).catch(function (error) {
+            _this.dispatch(actions.SendErrorAction.create("ネットワークエラー"));
         });
     };
     DispatchActions.prototype.inputHoliday = function (date, holiday) {
@@ -783,7 +787,6 @@ function sendMonthKintai(kintai, month, password) {
     var body = createBody(kintai, month, password);
     return fetch('https://sleepy-ravine-40602.herokuapp.com/api/kinmu', {
         method: 'POST',
-        mode: 'no-cors',
         headers: {
             'Content-Type': 'application/json'
         },

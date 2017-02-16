@@ -31,11 +31,15 @@ export class DispatchActions {
     sendMonth(kintai: KintaiState, month: Date, password: string) {
         // TODO 入力チェック
         this.dispatch(actions.SendStartAction.create({}))
-        sendMonthKintai(kintai, month, password).then(() => {
+        sendMonthKintai(kintai, month, password).then(response => {
+            if (!response.ok) {
+                return response.json().then(json => {
+                    this.dispatch(actions.SendErrorAction.create("サーバーサイドエラー: " + json.message))
+                })
+            }
             this.dispatch(actions.SendSuccessAction.create({}))
-        })
-        .catch((error) => {
-            this.dispatch(actions.SendErrorAction.create(JSON.stringify(error)))
+        }).catch((error) => {
+            this.dispatch(actions.SendErrorAction.create("ネットワークエラー"))
         })
     }
 

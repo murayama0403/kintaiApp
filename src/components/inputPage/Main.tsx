@@ -1,13 +1,12 @@
 import * as React from "react"
 import {RootProps} from "../../RootProps";
-import {getDayKintai} from "../../KintaiUtils"
-import {DispatchActions} from "../../DispatchActions"
+import {getDayKintaiOrDefault} from "../../KintaiUtils"
 import TextField from 'material-ui/TextField'
 import {TimeInput, IN, OUT} from "./TimeInput"
 
 export class Main extends React.Component<RootProps, {}> {
     render() {
-        const currentKintai = getDayKintai(this.props.value.kintai, this.props.value.view.currentDate)
+        const currentKintai = getDayKintaiOrDefault(this.props.value.kintai, this.props.value.view.currentDate)
 
         return (
             <div className="content">
@@ -26,8 +25,8 @@ export class Main extends React.Component<RootProps, {}> {
         this.props.actions.selectOut(this.props.value.view.currentDate, value)
     }
 
-    private handleHolidayChange(event: any) {
-        this.props.actions.inputHoliday(this.props.value.view.currentDate, event.target.value)
+    private handleHolidayChange(_event: Event, value: string) {
+        this.props.actions.inputHoliday(this.props.value.view.currentDate, value)
     }
 
 }

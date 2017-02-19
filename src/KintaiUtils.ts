@@ -7,12 +7,15 @@ const defaultDayKintai = {
         holiday: ''
     }
 
-export function getDayKintai(state: KintaiState, date: Date, defaultValue: DayKintai | null = defaultDayKintai): DayKintai | null {
+export function getDayKintai(state: KintaiState, date: Date): DayKintai | undefined {
     const day = toDayString(date)
-    let kintai = state.days[day]
+    return state.days[day]
+}
+
+export function getDayKintaiOrDefault(state: KintaiState, date: Date, defaultValue: DayKintai = defaultDayKintai): DayKintai {
+    let kintai = getDayKintai(state, date)
     if (kintai) {
         return kintai
     }
-
     return defaultValue
 }

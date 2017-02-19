@@ -8,7 +8,7 @@ const initialState: ViewState = {
     password: "",
     isSending: false,
     isShowSendSuccessMessage: false,
-    sendErrorMessage: null
+    sendErrorMessage: undefined
 }
 
 export const view = createReducer(initialState, handle => {
@@ -35,6 +35,6 @@ export const view = createReducer(initialState, handle => {
             sendErrorMessage: message}
     })
     handle(CloseSendErrorMessageAction, (state) => {
-        return {...state, sendErrorMessage: null}
+        return {...state, sendErrorMessage: undefined}
     })
 })

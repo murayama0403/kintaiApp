@@ -1,12 +1,11 @@
 import * as React from "react";
-import {DispatchActions} from "../../DispatchActions"
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import IconButton from 'material-ui/IconButton'
 import ActionSchedule from 'material-ui/svg-icons/action/schedule'
 import ActionUpdate from 'material-ui/svg-icons/action/update'
-import {TouchTapEvent} from 'material-ui'
 import {ceil15Minutes, floor15Minutes, formatTime} from '../../DateUtils'
+import {TouchTapEvent} from 'material-ui'
 
 interface Props {
     type: InputType;
@@ -17,7 +16,7 @@ interface Props {
 interface InputType {
     label: string;
     regularTime: string
-    menus: Array<any>
+    menus: Array<JSX.Element>
     adjustTime: (date: Date) => Date
 }
 
@@ -40,15 +39,8 @@ export const OUT: InputType = {
     adjustTime: floor15Minutes
 }
 
-const listInnerStyle = {
-    paddingLeft: "4px",
-    paddingRight: "4px",
-    paddingTop: "0px",
-    paddingBottom: "0px"
-}
-
-function createMenus(defaultValue: string): Array<any> {
-    var menus: Array<any> = []
+function createMenus(defaultValue: string): Array<JSX.Element> {
+    var menus: Array<JSX.Element> = []
     for (var h = 0; h < 24; h++) {
         TIMES.forEach(time => {
             const value = h + time
@@ -85,7 +77,7 @@ export class TimeInput extends React.Component<Props, {}> {
         )
     }
 
-    private handleChange(event: TouchTapEvent, index: number, value: string) {
+    private handleChange(event: Event, _index: number, value: string) {
         event.preventDefault()
         this.props.onSelected(value)
     }

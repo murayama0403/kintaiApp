@@ -5,7 +5,6 @@ import Divider from 'material-ui/Divider'
 import EditIcon from 'material-ui/svg-icons/image/edit'
 import ListIcon from 'material-ui/svg-icons/action/list'
 import SendIcon from 'material-ui/svg-icons/content/send'
-import {TouchTapEvent} from 'material-ui'
 import LinearProgress from 'material-ui/LinearProgress'
 
 export class FooterTab extends React.Component<RootProps, {}> {
@@ -36,17 +35,17 @@ export class FooterTab extends React.Component<RootProps, {}> {
         )
     }
 
-    private onInputSelected(event: TouchTapEvent) {
+    private onInputSelected(event: Event) {
         event.preventDefault()
         this.props.actions.showInputPage()
     }
 
-    private onListSelected(event: TouchTapEvent) {
+    private onListSelected(event: Event) {
         event.preventDefault()
         this.props.actions.showListPage()
     }
 
-    private onSendSelected(event: TouchTapEvent) {
+    private onSendSelected(event: Event) {
         event.preventDefault()
         this.props.actions.showSendPage()
     }

@@ -1,8 +1,7 @@
 import * as React from "react"
 import {RootProps} from "../../RootProps";
-import {getDayKintai} from "../../KintaiUtils"
+import {getDayKintaiOrDefault} from "../../KintaiUtils"
 import {getMonthDates, formatDateForListItem, getDayColor} from "../../DateUtils"
-import {DispatchActions} from "../../DispatchActions"
 import {List, ListItem} from 'material-ui/List'
 import {TouchTapEvent} from 'material-ui'
 
@@ -20,7 +19,7 @@ export class Main extends React.Component<RootProps, {}> {
     }
 
     private createListItem(date: Date) {
-        const kintai = getDayKintai(this.props.value.kintai, date)
+        const kintai = getDayKintaiOrDefault(this.props.value.kintai, date)
         const dayString = formatDateForListItem(date)
         const dayStyle = this.getDayStyle(date)
         return (

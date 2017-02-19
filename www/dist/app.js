@@ -32,16 +32,20 @@ var defaultDayKintai = {
     outTime: '',
     holiday: ''
 };
-function getDayKintai(state, date, defaultValue) {
-    if (defaultValue === void 0) { defaultValue = defaultDayKintai; }
+function getDayKintai(state, date) {
     var day = DateUtils_1.toDayString(date);
-    var kintai = state.days[day];
+    return state.days[day];
+}
+exports.getDayKintai = getDayKintai;
+function getDayKintaiOrDefault(state, date, defaultValue) {
+    if (defaultValue === void 0) { defaultValue = defaultDayKintai; }
+    var kintai = getDayKintai(state, date);
     if (kintai) {
         return kintai;
     }
     return defaultValue;
 }
-exports.getDayKintai = getDayKintai;
+exports.getDayKintaiOrDefault = getDayKintaiOrDefault;
 
 
 /***/ }),
@@ -54,12 +58,10 @@ exports.getDayKintai = getDayKintai;
 function action(type) {
     return {
         type: type,
-        create: function (payload, error, meta) {
+        create: function (payload) {
             return {
                 type: type,
-                payload: payload,
-                error: error,
-                meta: meta
+                payload: payload
             };
         }
     };
@@ -72,7 +74,7 @@ function createReducer(initialState, reducers) {
         if (state === void 0) { state = initialState; }
         var reducer = reducerMap[action.type];
         if (reducer) {
-            return reducer(state, action.payload, action.error, action.meta);
+            return reducer(state, action.payload);
         }
         return state;
     };
@@ -241,15 +243,16 @@ var DispatchActions = (function () {
     DispatchActions.prototype.sendMonth = function (kintai, month, password) {
         var _this = this;
         // TODO 入力チェック
-        this.dispatch(actions.SendStartAction.create({}));
+        this.dispatch(actions.SendStartAction.create(undefined));
         ApiClient_1.sendMonthKintai(kintai, month, password).then(function (response) {
             if (!response.ok) {
                 return response.json().then(function (json) {
                     _this.dispatch(actions.SendErrorAction.create("サーバーサイドエラー: " + json.message));
                 });
             }
-            _this.dispatch(actions.SendSuccessAction.create({}));
-        }).catch(function (error) {
+            _this.dispatch(actions.SendSuccessAction.create(undefined));
+            return response;
+        }).catch(function () {
             _this.dispatch(actions.SendErrorAction.create("ネットワークエラー"));
         });
     };
@@ -279,10 +282,10 @@ var DispatchActions = (function () {
         this.dispatch(actions.InputPasswordAction.create(password));
     };
     DispatchActions.prototype.closeSendSuccessMessage = function () {
-        this.dispatch(actions.CloseSendSuccessMessageAction.create({}));
+        this.dispatch(actions.CloseSendSuccessMessageAction.create(undefined));
     };
     DispatchActions.prototype.closeSendErrorMessage = function () {
-        this.dispatch(actions.CloseSendErrorMessageAction.create({}));
+        this.dispatch(actions.CloseSendErrorMessageAction.create(undefined));
     };
     return DispatchActions;
 }());
@@ -797,7 +800,7 @@ exports.sendMonthKintai = sendMonthKintai;
 function createBody(kintai, month, password) {
     var workInfoList = DateUtils_1.getMonthDates(month)
         .map(function (date) { return createWorkInfo(date, kintai); })
-        .filter(function (info) { return info != null; });
+        .filter(function (info) { return info != undefined; });
     return {
         year: month.getFullYear(),
         month: month.getMonth() + 1,
@@ -811,9 +814,9 @@ function createBody(kintai, month, password) {
     };
 }
 function createWorkInfo(date, KintaiState) {
-    var dayKintai = KintaiUtils_1.getDayKintai(KintaiState, date, null);
-    if (dayKintai == null) {
-        return null;
+    var dayKintai = KintaiUtils_1.getDayKintai(KintaiState, date);
+    if (!dayKintai) {
+        return undefined;
     }
     return toWorkInfo(date, dayKintai);
 }
@@ -918,7 +921,7 @@ var Main = (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Main.prototype.render = function () {
-        var currentKintai = KintaiUtils_1.getDayKintai(this.props.value.kintai, this.props.value.view.currentDate);
+        var currentKintai = KintaiUtils_1.getDayKintaiOrDefault(this.props.value.kintai, this.props.value.view.currentDate);
         return (React.createElement("div", { className: "content" },
             React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.IN, value: currentKintai.inTime, onSelected: this.handleInSelected.bind(this) }),
             React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.OUT, value: currentKintai.outTime, onSelected: this.handleOutSelected.bind(this) }),
@@ -930,8 +933,8 @@ var Main = (function (_super) {
     Main.prototype.handleOutSelected = function (value) {
         this.props.actions.selectOut(this.props.value.view.currentDate, value);
     };
-    Main.prototype.handleHolidayChange = function (event) {
-        this.props.actions.inputHoliday(this.props.value.view.currentDate, event.target.value);
+    Main.prototype.handleHolidayChange = function (_event, value) {
+        this.props.actions.inputHoliday(this.props.value.view.currentDate, value);
     };
     return Main;
 }(React.Component));
@@ -972,12 +975,6 @@ exports.OUT = {
     menus: createMenus(REGULAR_TIME_OUT),
     adjustTime: DateUtils_1.floor15Minutes
 };
-var listInnerStyle = {
-    paddingLeft: "4px",
-    paddingRight: "4px",
-    paddingTop: "0px",
-    paddingBottom: "0px"
-};
 function createMenus(defaultValue) {
     var menus = [];
     for (var h = 0; h < 24; h++) {
@@ -1005,7 +1002,7 @@ var TimeInput = (function (_super) {
             React.createElement(IconButton_1.default, { onTouchTap: this.handleRegular.bind(this) },
                 React.createElement(schedule_1.default, null))));
     };
-    TimeInput.prototype.handleChange = function (event, index, value) {
+    TimeInput.prototype.handleChange = function (event, _index, value) {
         event.preventDefault();
         this.props.onSelected(value);
     };
@@ -1113,7 +1110,7 @@ var Main = (function (_super) {
     };
     Main.prototype.createListItem = function (date) {
         var _this = this;
-        var kintai = KintaiUtils_1.getDayKintai(this.props.value.kintai, date);
+        var kintai = KintaiUtils_1.getDayKintaiOrDefault(this.props.value.kintai, date);
         var dayString = DateUtils_1.formatDateForListItem(date);
         var dayStyle = this.getDayStyle(date);
         return (React.createElement(List_1.ListItem, { key: date.getDate(), onTouchTap: function (event) { return _this.onSelectDate(event, date); } },
@@ -1208,13 +1205,11 @@ var Main = (function (_super) {
             React.createElement("br", null),
             React.createElement(RaisedButton_1.default, { label: buttonLabel, primary: true, onTouchTap: this.handleSend.bind(this), disabled: this.props.value.view.isSending })));
     };
-    Main.prototype.handleEmailChange = function (event) {
-        event.preventDefault();
-        this.props.actions.inputEmail(event.target.value);
+    Main.prototype.handleEmailChange = function (_event, value) {
+        this.props.actions.inputEmail(value);
     };
-    Main.prototype.handlePasswordChange = function (event) {
-        event.preventDefault();
-        this.props.actions.inputPassword(event.target.value);
+    Main.prototype.handlePasswordChange = function (_event, value) {
+        this.props.actions.inputPassword(value);
     };
     Main.prototype.handleSend = function (event) {
         event.preventDefault();
@@ -1297,7 +1292,7 @@ var initialState = {
     password: "",
     isSending: false,
     isShowSendSuccessMessage: false,
-    sendErrorMessage: null
+    sendErrorMessage: undefined
 };
 exports.view = redux_common_1.createReducer(initialState, function (handle) {
     handle(Actions_1.MoveCurrentDateAction, function (state, date) {
@@ -1319,7 +1314,7 @@ exports.view = redux_common_1.createReducer(initialState, function (handle) {
         return __assign({}, state, { isSending: false, sendErrorMessage: message });
     });
     handle(Actions_2.CloseSendErrorMessageAction, function (state) {
-        return __assign({}, state, { sendErrorMessage: null });
+        return __assign({}, state, { sendErrorMessage: undefined });
     });
 });
 

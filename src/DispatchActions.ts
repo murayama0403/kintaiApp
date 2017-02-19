@@ -1,12 +1,12 @@
-import {Action} from "./common/redux-common";
+import {Action} from "./common/redux-common"
 import * as actions from "./Actions";
 import {hashHistory} from 'react-router'
 import {KintaiState} from "./States";
 import {sendMonthKintai} from "./ApiClient"
 
 export class DispatchActions {
-    private dispatch: (action: any) => any;
-    constructor(dispatch: (action: any) => any) {
+    private dispatch: (action: Action<any>) => void;
+    constructor(dispatch: (action: Action<any>) => void) {
         this.dispatch = dispatch
     }
 
@@ -30,15 +30,16 @@ export class DispatchActions {
 
     sendMonth(kintai: KintaiState, month: Date, password: string) {
         // TODO 入力チェック
-        this.dispatch(actions.SendStartAction.create({}))
+        this.dispatch(actions.SendStartAction.create(undefined))
         sendMonthKintai(kintai, month, password).then(response => {
             if (!response.ok) {
                 return response.json().then(json => {
                     this.dispatch(actions.SendErrorAction.create("サーバーサイドエラー: " + json.message))
                 })
             }
-            this.dispatch(actions.SendSuccessAction.create({}))
-        }).catch((error) => {
+            this.dispatch(actions.SendSuccessAction.create(undefined))
+            return response
+        }).catch(() => {
             this.dispatch(actions.SendErrorAction.create("ネットワークエラー"))
         })
     }
@@ -75,10 +76,10 @@ export class DispatchActions {
     }
 
     closeSendSuccessMessage() {
-        this.dispatch(actions.CloseSendSuccessMessageAction.create({}))
+        this.dispatch(actions.CloseSendSuccessMessageAction.create(undefined))
     }
 
     closeSendErrorMessage() {
-        this.dispatch(actions.CloseSendErrorMessageAction.create({}))
+        this.dispatch(actions.CloseSendErrorMessageAction.create(undefined))
     }
 }

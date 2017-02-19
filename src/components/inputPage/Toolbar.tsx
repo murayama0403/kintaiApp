@@ -1,6 +1,5 @@
 import * as React from "react";
 import {RootProps} from "../../RootProps";
-import {DispatchActions} from "../../DispatchActions"
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton'
 import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left'

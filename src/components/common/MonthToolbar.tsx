@@ -1,11 +1,11 @@
 import * as React from "react";
 import {RootProps} from "../../RootProps";
-import {DispatchActions} from "../../DispatchActions"
 import AppBar from 'material-ui/AppBar'
 import IconButton from 'material-ui/IconButton'
 import ArrowLeftIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-left'
 import ArrowRightIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-right'
 import {moveMonths, formatMonth} from '../../DateUtils'
+import {TouchTapEvent} from 'material-ui'
 
 export class MonthToolbar extends React.Component<RootProps, {}> {
     private buttons = <div>
@@ -28,13 +28,13 @@ export class MonthToolbar extends React.Component<RootProps, {}> {
         )
     }
 
-    private handleBefore(event: Event) {
+    private handleBefore(event: TouchTapEvent) {
         event.preventDefault()
         const date = moveMonths(this.props.value.view.currentDate, -1)
         this.props.actions.moveCurrentDate(date)
     }
 
-    private handleAfter(event: Event) {
+    private handleAfter(event: TouchTapEvent) {
         event.preventDefault()
         const date = moveMonths(this.props.value.view.currentDate, 1)
         this.props.actions.moveCurrentDate(date)

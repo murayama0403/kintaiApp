@@ -18,7 +18,7 @@ export function sendMonthKintai(kintai: KintaiState, month: Date, password: stri
 function createBody(kintai: KintaiState, month: Date, password: string) {
     const workInfoList = getMonthDates(month)
             .map(date => createWorkInfo(date, kintai))
-            .filter(info => info != null)
+            .filter(info => info != undefined)
 
     return {
         year: month.getFullYear(),
@@ -35,9 +35,9 @@ function createBody(kintai: KintaiState, month: Date, password: string) {
 }
 
 function createWorkInfo(date: Date, KintaiState: KintaiState) {
-    const dayKintai = getDayKintai(KintaiState, date, null)
-    if (dayKintai == null) {
-        return null
+    const dayKintai = getDayKintai(KintaiState, date)
+    if (!dayKintai) {
+        return undefined
     }
 
     return toWorkInfo(date, dayKintai)

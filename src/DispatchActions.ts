@@ -1,39 +1,39 @@
-import {Action} from "./common/redux-common"
-import * as actions from "./Actions";
-import {hashHistory} from 'react-router'
-import {KintaiState} from "./States";
+import {hashHistory} from "react-router"
+import * as actions from "./Actions"
 import {sendMonthKintai} from "./ApiClient"
+import {Action} from "./common/redux-common"
+import {KintaiState} from "./States"
 
 export class DispatchActions {
-    private dispatch: (action: Action<any>) => void;
+    private dispatch: (action: Action<any>) => void
     constructor(dispatch: (action: Action<any>) => void) {
         this.dispatch = dispatch
     }
 
-    selectIn(date: Date, time: string) {
+    public selectIn(date: Date, time: string) {
         this.dispatch(actions.SelectInAction.create({
-            date: date,
-            time: time
+            date,
+            time,
         }))
     }
 
-    selectOut(date: Date, time: string) {
+    public selectOut(date: Date, time: string) {
         this.dispatch(actions.SelectOutAction.create({
-            date: date,
-            time: time
+            date,
+            time,
         }))
     }
 
-    moveCurrentDate(date: Date) {
+    public moveCurrentDate(date: Date) {
         this.dispatch(actions.MoveCurrentDateAction.create(date))
     }
 
-    sendMonth(kintai: KintaiState, month: Date, password: string) {
+    public sendMonth(kintai: KintaiState, month: Date, password: string) {
         // TODO 入力チェック
         this.dispatch(actions.SendStartAction.create(undefined))
-        sendMonthKintai(kintai, month, password).then(response => {
+        sendMonthKintai(kintai, month, password).then((response) => {
             if (!response.ok) {
-                return response.json().then(json => {
+                return response.json().then((json) => {
                     this.dispatch(actions.SendErrorAction.create("サーバーサイドエラー: " + json.message))
                 })
             }
@@ -44,42 +44,42 @@ export class DispatchActions {
         })
     }
 
-    inputHoliday(date: Date, holiday: string) {
+    public inputHoliday(date: Date, holiday: string) {
         this.dispatch(actions.InputHolidayAction.create({
-            date: date,
-            holiday: holiday
+            date,
+            holiday,
         }))
     }
 
-    showInputPage(date?: Date) {
+    public showInputPage(date?: Date) {
         if (!!date) {
             this.moveCurrentDate(date)
         }
-        hashHistory.push('/')
+        hashHistory.push("/")
     }
 
-    showListPage() {
-        hashHistory.push('/list')
+    public showListPage() {
+        hashHistory.push("/list")
     }
 
-    showSendPage() {
-        hashHistory.push('/send')
+    public showSendPage() {
+        hashHistory.push("/send")
     }
 
-    inputEmail(email: string) {
+    public inputEmail(email: string) {
         // TODO 入力チェック？
         this.dispatch(actions.InputEmailAction.create(email))
     }
 
-    inputPassword(password: string) {
+    public inputPassword(password: string) {
         this.dispatch(actions.InputPasswordAction.create(password))
     }
 
-    closeSendSuccessMessage() {
+    public closeSendSuccessMessage() {
         this.dispatch(actions.CloseSendSuccessMessageAction.create(undefined))
     }
 
-    closeSendErrorMessage() {
+    public closeSendErrorMessage() {
         this.dispatch(actions.CloseSendErrorMessageAction.create(undefined))
     }
 }

@@ -1,27 +1,27 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import { Root } from "./components/root/Root"
-import { InputPage } from "./components/inputPage/InputPage"
-import { ListPage } from "./components/listPage/ListPage"
-import { SendPage } from "./components/sendPage/SendPage"
-import store from "./Store";
-import { DispatchActions } from "./DispatchActions";
-import { Provider, connect } from "react-redux";
-import { Router, Route, IndexRoute, hashHistory } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
-import { Dispatch } from "redux";
-import * as injectTapEventPlugin from 'react-tap-event-plugin';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import * as moment from 'moment'
-import 'moment/locale/ja'
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"
+import * as moment from "moment"
+import "moment/locale/ja"
+import * as React from "react"
+import * as ReactDOM from "react-dom"
+import {connect, Provider} from "react-redux"
+import {hashHistory, IndexRoute, Route, Router} from "react-router"
+import {syncHistoryWithStore} from "react-router-redux"
+import * as injectTapEventPlugin from "react-tap-event-plugin"
+import {Dispatch} from "redux"
+import {InputPage} from "./components/inputPage/InputPage"
+import {ListPage} from "./components/listPage/ListPage"
+import {Root} from "./components/root/Root"
+import {SendPage} from "./components/sendPage/SendPage"
+import {DispatchActions} from "./DispatchActions"
+import store from "./Store"
 
 injectTapEventPlugin()
 
-moment.locale('ja')
+moment.locale("ja")
 
 const connector = connect(
-    (store: any) => { return { value: store } },
-    (dispatch: Dispatch<any>) => { return { actions: new DispatchActions(dispatch) } }
+    (store: any) => ({ value: store }),
+    (dispatch: Dispatch<any>) => ({ actions: new DispatchActions(dispatch) }),
 )
 
 const RootComponent = connector(Root)
@@ -43,5 +43,5 @@ ReactDOM.render(
             </Router>
         </MuiThemeProvider>
     </Provider>
-    , document.getElementById('app')
-);
+    , document.getElementById("app"),
+)

@@ -1,9 +1,9 @@
-import {GlobalState} from "./States";
-import {DispatchActions} from "./DispatchActions"
 import {Location} from "react-router"
+import {DispatchActions} from "./DispatchActions"
+import {GlobalState} from "./States"
 
 export interface RootProps {
-    value: GlobalState;
-    location: Location;
-    actions: DispatchActions;
+    value: GlobalState
+    actions: DispatchActions
+    location: Location
 }

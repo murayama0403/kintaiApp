@@ -1,29 +1,29 @@
-import {KintaiState, DayKintai} from "../States";
-import {createReducer} from "../common/redux-common";
-import {SelectInAction, SelectOutAction, InputHolidayAction, InputEmailAction} from "../Actions";
-import {getDayKintai} from "../KintaiUtils"
+import * as actions from "../Actions"
+import {createReducer} from "../common/redux-common"
 import {toDayString} from "../DateUtils"
+import {getDayKintai} from "../KintaiUtils"
+import {DayKintai, KintaiState} from "../States"
 
 const initialState: KintaiState = {
     person: {
-        email: ""
+        email: "",
     },
-    days: {}
+    days: {},
 }
 
-export const kintai = createReducer(initialState, handle => {
-    handle(SelectInAction, (state, selectedTime) => {
+export const kintai = createReducer(initialState, (handle) => {
+    handle(actions.SelectInAction, (state, selectedTime) => {
         return updateDayKintai(state, selectedTime.date, {inTime: selectedTime.time})
     })
-    handle(SelectOutAction, (state, selectedTime) => {
+    handle(actions.SelectOutAction, (state, selectedTime) => {
         return updateDayKintai(state, selectedTime.date, {outTime: selectedTime.time})
     })
-    handle(InputHolidayAction, (state, selectedHoliday) => {
+    handle(actions.InputHolidayAction, (state, selectedHoliday) => {
         return updateDayKintai(state, selectedHoliday.date, {holiday: selectedHoliday.holiday})
     })
-    handle(InputEmailAction, (state, email) => {
-        const person = {...state.person, email: email}
-        return {...state, person: person}
+    handle(actions.InputEmailAction, (state, email) => {
+        const person = {...state.person, email}
+        return {...state, person}
     })
 })
 

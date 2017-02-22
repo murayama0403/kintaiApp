@@ -1,24 +1,24 @@
-import {KintaiState, DayKintai} from "./States"
+import "whatwg-fetch"
 import {getMonthDates} from "./DateUtils"
 import {getDayKintai} from "./KintaiUtils"
-import 'whatwg-fetch'
+import {DayKintai, KintaiState} from "./States"
 
 export function sendMonthKintai(kintai: KintaiState, month: Date, password: string): Promise<Response> {
     const body = createBody(kintai, month, password)
 
-    return fetch('https://sleepy-ravine-40602.herokuapp.com/api/kinmu', {
-        method: 'POST',
+    return fetch("https://sleepy-ravine-40602.herokuapp.com/api/kinmu", {
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
         },
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
     })
 }
 
 function createBody(kintai: KintaiState, month: Date, password: string) {
     const workInfoList = getMonthDates(month)
-            .map(date => createWorkInfo(date, kintai))
-            .filter(info => info != undefined)
+            .map((date) => createWorkInfo(date, kintai))
+            .filter((info) => info !== undefined)
 
     return {
         year: month.getFullYear(),
@@ -28,9 +28,8 @@ function createBody(kintai: KintaiState, month: Date, password: string) {
         employeName: "勤務太郎",
         departmentCode: "123456",
         sendMailAddr: kintai.person.email + "@caica.jp",
-        password: password,
-
-        workInfoList: workInfoList
+        password,
+        workInfoList,
     }
 }
 
@@ -56,6 +55,6 @@ function toWorkInfo(date: Date, dayKintai: DayKintai) {
         break5: "",
         break6: "",
         pjNo: "",
-        wkCd: "F"
+        wkCd: "F",
     }
 }

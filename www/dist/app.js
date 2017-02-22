@@ -5,32 +5,11 @@ webpackJsonp([0],{
 
 "use strict";
 
-var redux_common_1 = __webpack_require__(177);
-exports.SelectInAction = redux_common_1.action('SelectIn');
-exports.SelectOutAction = redux_common_1.action('SelectOut');
-exports.MoveCurrentDateAction = redux_common_1.action('MoveCurrentDate');
-exports.InputHolidayAction = redux_common_1.action('InputHoliday');
-exports.InputEmailAction = redux_common_1.action('InputEmail');
-exports.InputPasswordAction = redux_common_1.action('InputPassword');
-exports.SendStartAction = redux_common_1.action('SendStart');
-exports.SendSuccessAction = redux_common_1.action('SendSuccess');
-exports.CloseSendSuccessMessageAction = redux_common_1.action('CloseSendSuccessMessage');
-exports.SendErrorAction = redux_common_1.action('SendError');
-exports.CloseSendErrorMessageAction = redux_common_1.action('CloseSendErrorMessage');
-
-
-/***/ }),
-
-/***/ 109:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 var DateUtils_1 = __webpack_require__(57);
 var defaultDayKintai = {
-    inTime: '',
-    outTime: '',
-    holiday: ''
+    holiday: "",
+    inTime: "",
+    outTime: "",
 };
 function getDayKintai(state, date) {
     var day = DateUtils_1.toDayString(date);
@@ -50,6 +29,27 @@ exports.getDayKintaiOrDefault = getDayKintaiOrDefault;
 
 /***/ }),
 
+/***/ 176:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var redux_common_1 = __webpack_require__(177);
+exports.SelectInAction = redux_common_1.action("SelectIn");
+exports.SelectOutAction = redux_common_1.action("SelectOut");
+exports.MoveCurrentDateAction = redux_common_1.action("MoveCurrentDate");
+exports.InputHolidayAction = redux_common_1.action("InputHoliday");
+exports.InputEmailAction = redux_common_1.action("InputEmail");
+exports.InputPasswordAction = redux_common_1.action("InputPassword");
+exports.SendStartAction = redux_common_1.action("SendStart");
+exports.SendSuccessAction = redux_common_1.action("SendSuccess");
+exports.CloseSendSuccessMessageAction = redux_common_1.action("CloseSendSuccessMessage");
+exports.SendErrorAction = redux_common_1.action("SendError");
+exports.CloseSendErrorMessageAction = redux_common_1.action("CloseSendErrorMessage");
+
+
+/***/ }),
+
 /***/ 177:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -61,9 +61,9 @@ function action(type) {
         create: function (payload) {
             return {
                 type: type,
-                payload: payload
+                payload: payload,
             };
-        }
+        },
     };
 }
 exports.action = action;
@@ -180,13 +180,13 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var React = __webpack_require__(1);
-var AppBar_1 = __webpack_require__(139);
+var AppBar_1 = __webpack_require__(138);
 var IconButton_1 = __webpack_require__(35);
 var keyboard_arrow_left_1 = __webpack_require__(247);
 var keyboard_arrow_right_1 = __webpack_require__(248);
-var ToolbarWithProgress_1 = __webpack_require__(409);
+var React = __webpack_require__(1);
 var DateUtils_1 = __webpack_require__(57);
+var ToolbarWithProgress_1 = __webpack_require__(409);
 var MonthToolbar = (function (_super) {
     __extends(MonthToolbar, _super);
     function MonthToolbar() {
@@ -232,15 +232,15 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var React = __webpack_require__(1);
 var LinearProgress_1 = __webpack_require__(222);
+var React = __webpack_require__(1);
 var ToolbarWithProgress = (function (_super) {
     __extends(ToolbarWithProgress, _super);
     function ToolbarWithProgress() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     ToolbarWithProgress.prototype.render = function () {
-        var progressVisibility = this.props.value.view.isSending ? 'visible' : 'hidden';
+        var progressVisibility = this.props.value.view.isSending ? "visible" : "hidden";
         return (React.createElement("div", { className: "toolbar" },
             this.props.children,
             React.createElement(LinearProgress_1.default, { mode: "indeterminate", style: { visibility: progressVisibility } })));
@@ -257,8 +257,8 @@ exports.ToolbarWithProgress = ToolbarWithProgress;
 
 "use strict";
 
-var actions = __webpack_require__(108);
 var react_router_1 = __webpack_require__(86);
+var actions = __webpack_require__(176);
 var ApiClient_1 = __webpack_require__(790);
 var DispatchActions = (function () {
     function DispatchActions(dispatch) {
@@ -267,13 +267,13 @@ var DispatchActions = (function () {
     DispatchActions.prototype.selectIn = function (date, time) {
         this.dispatch(actions.SelectInAction.create({
             date: date,
-            time: time
+            time: time,
         }));
     };
     DispatchActions.prototype.selectOut = function (date, time) {
         this.dispatch(actions.SelectOutAction.create({
             date: date,
-            time: time
+            time: time,
         }));
     };
     DispatchActions.prototype.moveCurrentDate = function (date) {
@@ -298,20 +298,20 @@ var DispatchActions = (function () {
     DispatchActions.prototype.inputHoliday = function (date, holiday) {
         this.dispatch(actions.InputHolidayAction.create({
             date: date,
-            holiday: holiday
+            holiday: holiday,
         }));
     };
     DispatchActions.prototype.showInputPage = function (date) {
         if (!!date) {
             this.moveCurrentDate(date);
         }
-        react_router_1.hashHistory.push('/');
+        react_router_1.hashHistory.push("/");
     };
     DispatchActions.prototype.showListPage = function () {
-        react_router_1.hashHistory.push('/list');
+        react_router_1.hashHistory.push("/list");
     };
     DispatchActions.prototype.showSendPage = function () {
-        react_router_1.hashHistory.push('/send');
+        react_router_1.hashHistory.push("/send");
     };
     DispatchActions.prototype.inputEmail = function (email) {
         // TODO 入力チェック？
@@ -338,15 +338,15 @@ exports.DispatchActions = DispatchActions;
 
 "use strict";
 
+var react_router_redux_1 = __webpack_require__(85);
+var redux_1 = __webpack_require__(111);
+var createLogger = __webpack_require__(180);
+var redux_persist_1 = __webpack_require__(181);
 var KintaiReducer_1 = __webpack_require__(798);
 var ViewReducer_1 = __webpack_require__(799);
-var redux_1 = __webpack_require__(112);
-var redux_persist_1 = __webpack_require__(181);
-var react_router_redux_1 = __webpack_require__(85);
-var createLogger = __webpack_require__(180);
 // weinreでConsoleデバッグができるようにredux-loggerがconsole.logを呼び出すように変更
 var logger = createLogger({
-    level: 'log',
+    level: "log",
     logger: {
         log: function () {
             var args = [];
@@ -354,15 +354,15 @@ var logger = createLogger({
                 args[_i] = arguments[_i];
             }
             console.log.apply(console, args);
-        }
-    }
+        },
+    },
 });
 var store = redux_1.createStore(redux_1.combineReducers({
     kintai: KintaiReducer_1.kintai,
+    routing: react_router_redux_1.routerReducer,
     view: ViewReducer_1.view,
-    routing: react_router_redux_1.routerReducer
 }), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), redux_1.compose(redux_persist_1.autoRehydrate(), redux_1.applyMiddleware(logger)));
-redux_persist_1.persistStore(store, { whitelist: ['kintai'] });
+redux_persist_1.persistStore(store, { whitelist: ["kintai"] });
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = store;
 
@@ -388,8 +388,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var Toolbar_1 = __webpack_require__(794);
 var Main_1 = __webpack_require__(792);
+var Toolbar_1 = __webpack_require__(794);
 var InputPage = (function (_super) {
     __extends(InputPage, _super);
     function InputPage() {
@@ -527,23 +527,23 @@ exports.SendPage = SendPage;
 
 "use strict";
 
-var moment = __webpack_require__(2);
 var japanese_holidays_1 = __webpack_require__(178);
 var colors_1 = __webpack_require__(99);
+var moment = __webpack_require__(2);
 function toDayString(date) {
-    return moment(date).format('YYYYMMDD');
+    return moment(date).format("YYYYMMDD");
 }
 exports.toDayString = toDayString;
 function formatDate(date) {
-    return moment(date).format('M/D(dd)');
+    return moment(date).format("M/D(dd)");
 }
 exports.formatDate = formatDate;
 function formatDateForListItem(date) {
-    return moment(date).format('D(dd)');
+    return moment(date).format("D(dd)");
 }
 exports.formatDateForListItem = formatDateForListItem;
 function formatMonth(date) {
-    return moment(date).format('YYYY/M');
+    return moment(date).format("YYYY/M");
 }
 exports.formatMonth = formatMonth;
 function ceil15Minutes(date) {
@@ -557,16 +557,16 @@ function floor15Minutes(date) {
 }
 exports.floor15Minutes = floor15Minutes;
 function moveDates(date, amount) {
-    return moment(date).add(amount, 'days').toDate();
+    return moment(date).add(amount, "days").toDate();
 }
 exports.moveDates = moveDates;
 function moveMonths(date, amount) {
     // 月移動する場合は日付は1日にリセットする
-    return moment(date).add(amount, 'months').date(1).toDate();
+    return moment(date).add(amount, "months").date(1).toDate();
 }
 exports.moveMonths = moveMonths;
 function formatTime(date) {
-    return moment(date).format('H:mm');
+    return moment(date).format("H:mm");
 }
 exports.formatTime = formatTime;
 function getMonthDates(month) {
@@ -587,20 +587,20 @@ var DayType;
     DayType[DayType["HOLIDAY"] = 3] = "HOLIDAY";
 })(DayType = exports.DayType || (exports.DayType = {}));
 // 就業規則で12/30-1/3は休み(1/1は元日なので設定不要)
-var COMPANY_HOLIDAYS = ['12/30', '12/31', '1/2', '1/3'];
+var COMPANY_HOLIDAYS = ["12/30", "12/31", "1/2", "1/3"];
 function getDayType(date) {
     var holiday = japanese_holidays_1.isHoliday(date);
     if (holiday) {
         return DayType.HOLIDAY;
     }
-    if (COMPANY_HOLIDAYS.indexOf(moment(date).format('M/D')) != -1) {
+    if (COMPANY_HOLIDAYS.indexOf(moment(date).format("M/D")) !== -1) {
         return DayType.HOLIDAY;
     }
     var day = date.getDay();
-    if (day == 6) {
+    if (day === 6) {
         return DayType.SATURDAY;
     }
-    if (day == 0) {
+    if (day === 0) {
         return DayType.SUNDAY;
     }
     return DayType.WEEKDAY;
@@ -614,8 +614,9 @@ function getDayColor(date) {
             return colors_1.red700;
         case DayType.SATURDAY:
             return colors_1.indigo700;
+        default:
+            return undefined;
     }
-    return null;
 }
 exports.getDayColor = getDayColor;
 
@@ -822,24 +823,24 @@ exports.default = ImageEdit;
 
 "use strict";
 
-var DateUtils_1 = __webpack_require__(57);
-var KintaiUtils_1 = __webpack_require__(109);
 __webpack_require__(182);
+var DateUtils_1 = __webpack_require__(57);
+var KintaiUtils_1 = __webpack_require__(108);
 function sendMonthKintai(kintai, month, password) {
     var body = createBody(kintai, month, password);
-    return fetch('https://sleepy-ravine-40602.herokuapp.com/api/kinmu', {
-        method: 'POST',
+    return fetch("https://sleepy-ravine-40602.herokuapp.com/api/kinmu", {
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
         },
-        body: JSON.stringify(body)
+        body: JSON.stringify(body),
     });
 }
 exports.sendMonthKintai = sendMonthKintai;
 function createBody(kintai, month, password) {
     var workInfoList = DateUtils_1.getMonthDates(month)
         .map(function (date) { return createWorkInfo(date, kintai); })
-        .filter(function (info) { return info != undefined; });
+        .filter(function (info) { return info !== undefined; });
     return {
         year: month.getFullYear(),
         month: month.getMonth() + 1,
@@ -849,7 +850,7 @@ function createBody(kintai, month, password) {
         departmentCode: "123456",
         sendMailAddr: kintai.person.email + "@caica.jp",
         password: password,
-        workInfoList: workInfoList
+        workInfoList: workInfoList,
     };
 }
 function createWorkInfo(date, KintaiState) {
@@ -872,7 +873,7 @@ function toWorkInfo(date, dayKintai) {
         break5: "",
         break6: "",
         pjNo: "",
-        wkCd: "F"
+        wkCd: "F",
     };
 }
 
@@ -889,12 +890,12 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var React = __webpack_require__(1);
 var BottomNavigation_1 = __webpack_require__(213);
-var Divider_1 = __webpack_require__(141);
-var edit_1 = __webpack_require__(628);
+var Divider_1 = __webpack_require__(140);
 var list_1 = __webpack_require__(622);
 var send_1 = __webpack_require__(625);
+var edit_1 = __webpack_require__(628);
+var React = __webpack_require__(1);
 var FooterTab = (function (_super) {
     __extends(FooterTab, _super);
     function FooterTab() {
@@ -922,10 +923,10 @@ var FooterTab = (function (_super) {
         this.props.actions.showSendPage();
     };
     FooterTab.prototype.getSelectedIndex = function () {
-        if (this.props.location.pathname == '/list') {
+        if (this.props.location.pathname === "/list") {
             return 1;
         }
-        if (this.props.location.pathname == '/send') {
+        if (this.props.location.pathname === "/send") {
             return 2;
         }
         return 0;
@@ -947,9 +948,9 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var React = __webpack_require__(1);
-var KintaiUtils_1 = __webpack_require__(109);
 var TextField_1 = __webpack_require__(52);
+var React = __webpack_require__(1);
+var KintaiUtils_1 = __webpack_require__(108);
 var TimeInput_1 = __webpack_require__(793);
 var Main = (function (_super) {
     __extends(Main, _super);
@@ -969,7 +970,7 @@ var Main = (function (_super) {
     Main.prototype.handleOutSelected = function (value) {
         this.props.actions.selectOut(this.props.value.view.currentDate, value);
     };
-    Main.prototype.handleHolidayChange = function (_event, value) {
+    Main.prototype.handleHolidayChange = function (_, value) {
         this.props.actions.inputHoliday(this.props.value.view.currentDate, value);
     };
     return Main;
@@ -989,39 +990,42 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var React = __webpack_require__(1);
-var SelectField_1 = __webpack_require__(229);
-var MenuItem_1 = __webpack_require__(96);
 var IconButton_1 = __webpack_require__(35);
+var MenuItem_1 = __webpack_require__(96);
+var SelectField_1 = __webpack_require__(229);
 var schedule_1 = __webpack_require__(623);
 var update_1 = __webpack_require__(624);
+var React = __webpack_require__(1);
 var DateUtils_1 = __webpack_require__(57);
-var TIMES = [':00', ':15', ':30', ':45'];
-var REGULAR_TIME_IN = '9:00';
-var REGULAR_TIME_OUT = '17:45';
+var TIMES = [":00", ":15", ":30", ":45"];
+var REGULAR_TIME_IN = "9:00";
+var REGULAR_TIME_OUT = "17:45";
 exports.IN = {
     label: "出勤",
     regularTime: REGULAR_TIME_IN,
     menus: createMenus(REGULAR_TIME_IN),
-    adjustTime: DateUtils_1.ceil15Minutes
+    adjustTime: DateUtils_1.ceil15Minutes,
 };
 exports.OUT = {
     label: "退勤",
     regularTime: REGULAR_TIME_OUT,
     menus: createMenus(REGULAR_TIME_OUT),
-    adjustTime: DateUtils_1.floor15Minutes
+    adjustTime: DateUtils_1.floor15Minutes,
 };
 function createMenus(defaultValue) {
     var menus = [];
-    for (var h = 0; h < 24; h++) {
+    var _loop_1 = function (h) {
         TIMES.forEach(function (time) {
             var value = h + time;
-            if (value == defaultValue) {
+            if (value === defaultValue) {
                 menus.push(React.createElement(MenuItem_1.default, { key: "", value: "", primaryText: "" }));
                 menus.push(React.createElement(MenuItem_1.default, { key: "---", value: "---", primaryText: "---" }));
             }
             menus.push(React.createElement(MenuItem_1.default, { key: value, value: value, primaryText: value }));
         });
+    };
+    for (var h = 0; h < 24; h++) {
+        _loop_1(h);
     }
     return menus;
 }
@@ -1038,7 +1042,7 @@ var TimeInput = (function (_super) {
             React.createElement(IconButton_1.default, { onTouchTap: this.handleRegular.bind(this) },
                 React.createElement(schedule_1.default, null))));
     };
-    TimeInput.prototype.handleChange = function (event, _index, value) {
+    TimeInput.prototype.handleChange = function (event, _, value) {
         event.preventDefault();
         this.props.onSelected(value);
     };
@@ -1076,13 +1080,13 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var React = __webpack_require__(1);
-var AppBar_1 = __webpack_require__(139);
+var AppBar_1 = __webpack_require__(138);
 var IconButton_1 = __webpack_require__(35);
 var keyboard_arrow_left_1 = __webpack_require__(247);
 var keyboard_arrow_right_1 = __webpack_require__(248);
-var ToolbarWithProgress_1 = __webpack_require__(409);
+var React = __webpack_require__(1);
 var DateUtils_1 = __webpack_require__(57);
+var ToolbarWithProgress_1 = __webpack_require__(409);
 var Toolbar = (function (_super) {
     __extends(Toolbar, _super);
     function Toolbar() {
@@ -1117,7 +1121,7 @@ var Toolbar = (function (_super) {
         var color = DateUtils_1.getDayColor(date);
         if (color) {
             return {
-                color: color
+                color: color,
             };
         }
         return {};
@@ -1139,10 +1143,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var React = __webpack_require__(1);
-var KintaiUtils_1 = __webpack_require__(109);
-var DateUtils_1 = __webpack_require__(57);
 var List_1 = __webpack_require__(223);
+var React = __webpack_require__(1);
+var DateUtils_1 = __webpack_require__(57);
+var KintaiUtils_1 = __webpack_require__(108);
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
@@ -1173,7 +1177,7 @@ var Main = (function (_super) {
         var color = DateUtils_1.getDayColor(date);
         if (color) {
             return {
-                color: color
+                color: color,
             };
         }
         return {};
@@ -1195,16 +1199,15 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var React = __webpack_require__(1);
-var Snackbar_1 = __webpack_require__(230);
 var Dialog_1 = __webpack_require__(94);
+var Snackbar_1 = __webpack_require__(230);
+var React = __webpack_require__(1);
 var SendStatus = (function (_super) {
     __extends(SendStatus, _super);
     function SendStatus() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     SendStatus.prototype.render = function () {
-        // TODO dialogでエラー
         return (React.createElement("div", null,
             React.createElement(Snackbar_1.default, { open: this.props.value.view.isShowSendSuccessMessage, message: "勤務表を送信しました", autoHideDuration: 2000, onRequestClose: this.handleCloseSendSuccess.bind(this) }),
             React.createElement(Dialog_1.default, { open: this.props.value.view.sendErrorMessage != null, title: "エラー", onRequestClose: this.handleCloseError.bind(this) }, this.props.value.view.sendErrorMessage)));
@@ -1232,16 +1235,16 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var React = __webpack_require__(1);
-var TextField_1 = __webpack_require__(52);
 var RaisedButton_1 = __webpack_require__(228);
+var TextField_1 = __webpack_require__(52);
+var React = __webpack_require__(1);
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Main.prototype.render = function () {
-        var buttonLabel = this.props.value.view.isSending ? '送信中...' : '勤務表送信';
+        var buttonLabel = this.props.value.view.isSending ? "送信中..." : "勤務表送信";
         return (React.createElement("div", { className: "content" },
             React.createElement(TextField_1.default, { hintText: "送信先アドレス", defaultValue: this.props.value.kintai.person.email, onChange: this.handleEmailChange.bind(this), style: { width: "192px" } }),
             "@caica.jp",
@@ -1250,10 +1253,10 @@ var Main = (function (_super) {
             React.createElement("br", null),
             React.createElement(RaisedButton_1.default, { label: buttonLabel, primary: true, onTouchTap: this.handleSend.bind(this), disabled: this.props.value.view.isSending })));
     };
-    Main.prototype.handleEmailChange = function (_event, value) {
+    Main.prototype.handleEmailChange = function (_, value) {
         this.props.actions.inputEmail(value);
     };
-    Main.prototype.handlePasswordChange = function (_event, value) {
+    Main.prototype.handlePasswordChange = function (_, value) {
         this.props.actions.inputPassword(value);
     };
     Main.prototype.handleSend = function (event) {
@@ -1280,27 +1283,27 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
+var actions = __webpack_require__(176);
 var redux_common_1 = __webpack_require__(177);
-var Actions_1 = __webpack_require__(108);
-var KintaiUtils_1 = __webpack_require__(109);
 var DateUtils_1 = __webpack_require__(57);
+var KintaiUtils_1 = __webpack_require__(108);
 var initialState = {
     person: {
-        email: ""
+        email: "",
     },
-    days: {}
+    days: {},
 };
 exports.kintai = redux_common_1.createReducer(initialState, function (handle) {
-    handle(Actions_1.SelectInAction, function (state, selectedTime) {
+    handle(actions.SelectInAction, function (state, selectedTime) {
         return updateDayKintai(state, selectedTime.date, { inTime: selectedTime.time });
     });
-    handle(Actions_1.SelectOutAction, function (state, selectedTime) {
+    handle(actions.SelectOutAction, function (state, selectedTime) {
         return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time });
     });
-    handle(Actions_1.InputHolidayAction, function (state, selectedHoliday) {
+    handle(actions.InputHolidayAction, function (state, selectedHoliday) {
         return updateDayKintai(state, selectedHoliday.date, { holiday: selectedHoliday.holiday });
     });
-    handle(Actions_1.InputEmailAction, function (state, email) {
+    handle(actions.InputEmailAction, function (state, email) {
         var person = __assign({}, state.person, { email: email });
         return __assign({}, state, { person: person });
     });
@@ -1329,36 +1332,35 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
+var actions = __webpack_require__(176);
 var redux_common_1 = __webpack_require__(177);
-var Actions_1 = __webpack_require__(108);
-var Actions_2 = __webpack_require__(108);
 var initialState = {
     currentDate: new Date(),
     password: "",
     isSending: false,
     isShowSendSuccessMessage: false,
-    sendErrorMessage: undefined
+    sendErrorMessage: undefined,
 };
 exports.view = redux_common_1.createReducer(initialState, function (handle) {
-    handle(Actions_1.MoveCurrentDateAction, function (state, date) {
+    handle(actions.MoveCurrentDateAction, function (state, date) {
         return __assign({}, state, { currentDate: date });
     });
-    handle(Actions_1.InputPasswordAction, function (state, password) {
+    handle(actions.InputPasswordAction, function (state, password) {
         return __assign({}, state, { password: password });
     });
-    handle(Actions_2.SendStartAction, function (state) {
+    handle(actions.SendStartAction, function (state) {
         return __assign({}, state, { isSending: true });
     });
-    handle(Actions_2.SendSuccessAction, function (state) {
+    handle(actions.SendSuccessAction, function (state) {
         return __assign({}, state, { isSending: false, isShowSendSuccessMessage: true });
     });
-    handle(Actions_2.CloseSendSuccessMessageAction, function (state) {
+    handle(actions.CloseSendSuccessMessageAction, function (state) {
         return __assign({}, state, { isShowSendSuccessMessage: false });
     });
-    handle(Actions_2.SendErrorAction, function (state, message) {
+    handle(actions.SendErrorAction, function (state, message) {
         return __assign({}, state, { isSending: false, sendErrorMessage: message });
     });
-    handle(Actions_2.CloseSendErrorMessageAction, function (state) {
+    handle(actions.CloseSendErrorMessageAction, function (state) {
         return __assign({}, state, { sendErrorMessage: undefined });
     });
 });
@@ -1371,24 +1373,24 @@ exports.view = redux_common_1.createReducer(initialState, function (handle) {
 
 "use strict";
 
-var React = __webpack_require__(1);
-var ReactDOM = __webpack_require__(17);
-var Root_1 = __webpack_require__(415);
-var InputPage_1 = __webpack_require__(413);
-var ListPage_1 = __webpack_require__(414);
-var SendPage_1 = __webpack_require__(416);
-var Store_1 = __webpack_require__(412);
-var DispatchActions_1 = __webpack_require__(411);
-var react_redux_1 = __webpack_require__(113);
-var react_router_1 = __webpack_require__(86);
-var react_router_redux_1 = __webpack_require__(85);
-var injectTapEventPlugin = __webpack_require__(114);
 var MuiThemeProvider_1 = __webpack_require__(179);
 var moment = __webpack_require__(2);
-__webpack_require__(111);
+__webpack_require__(110);
+var React = __webpack_require__(1);
+var ReactDOM = __webpack_require__(17);
+var react_redux_1 = __webpack_require__(112);
+var react_router_1 = __webpack_require__(86);
+var react_router_redux_1 = __webpack_require__(85);
+var injectTapEventPlugin = __webpack_require__(113);
+var InputPage_1 = __webpack_require__(413);
+var ListPage_1 = __webpack_require__(414);
+var Root_1 = __webpack_require__(415);
+var SendPage_1 = __webpack_require__(416);
+var DispatchActions_1 = __webpack_require__(411);
+var Store_1 = __webpack_require__(412);
 injectTapEventPlugin();
-moment.locale('ja');
-var connector = react_redux_1.connect(function (store) { return { value: store }; }, function (dispatch) { return { actions: new DispatchActions_1.DispatchActions(dispatch) }; });
+moment.locale("ja");
+var connector = react_redux_1.connect(function (store) { return ({ value: store }); }, function (dispatch) { return ({ actions: new DispatchActions_1.DispatchActions(dispatch) }); });
 var RootComponent = connector(Root_1.Root);
 var InputPageComponent = connector(InputPage_1.InputPage);
 var ListPageComponent = connector(ListPage_1.ListPage);
@@ -1400,7 +1402,7 @@ ReactDOM.render(React.createElement(react_redux_1.Provider, { store: Store_1.def
             React.createElement(react_router_1.Route, { path: "/", component: RootComponent },
                 React.createElement(react_router_1.Route, { path: "/list", component: ListPageComponent }),
                 React.createElement(react_router_1.Route, { path: "/send", component: SendPageComponent }),
-                React.createElement(react_router_1.IndexRoute, { component: InputPageComponent }))))), document.getElementById('app'));
+                React.createElement(react_router_1.IndexRoute, { component: InputPageComponent }))))), document.getElementById("app"));
 
 
 /***/ })

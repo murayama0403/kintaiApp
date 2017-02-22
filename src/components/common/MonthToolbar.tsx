@@ -1,12 +1,12 @@
-import * as React from "react";
-import {RootProps} from "../../RootProps";
-import AppBar from 'material-ui/AppBar'
-import IconButton from 'material-ui/IconButton'
-import ArrowLeftIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-left'
-import ArrowRightIcon from 'material-ui/svg-icons/hardware/keyboard-arrow-right'
-import {ToolbarWithProgress} from './ToolbarWithProgress'
-import {moveMonths, formatMonth} from '../../DateUtils'
-import {TouchTapEvent} from 'material-ui'
+import {TouchTapEvent} from "material-ui"
+import AppBar from "material-ui/AppBar"
+import IconButton from "material-ui/IconButton"
+import ArrowLeftIcon from "material-ui/svg-icons/hardware/keyboard-arrow-left"
+import ArrowRightIcon from "material-ui/svg-icons/hardware/keyboard-arrow-right"
+import * as React from "react"
+import {formatMonth, moveMonths} from "../../DateUtils"
+import {RootProps} from "../../RootProps"
+import {ToolbarWithProgress} from "./ToolbarWithProgress"
 
 export class MonthToolbar extends React.Component<RootProps, {}> {
     private buttons = <div>
@@ -18,7 +18,7 @@ export class MonthToolbar extends React.Component<RootProps, {}> {
             </IconButton>
         </div>
 
-    render() {
+    public render() {
         return (
             <ToolbarWithProgress {...this.props}>
                 <AppBar

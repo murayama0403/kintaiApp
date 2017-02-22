@@ -1,40 +1,39 @@
-import {ViewState} from "../States";
-import {createReducer} from "../common/redux-common";
-import {MoveCurrentDateAction, InputPasswordAction} from "../Actions";
-import {SendStartAction, SendSuccessAction, SendErrorAction, CloseSendSuccessMessageAction, CloseSendErrorMessageAction} from "../Actions";
+import * as actions from "../Actions"
+import {createReducer} from "../common/redux-common"
+import {ViewState} from "../States"
 
 const initialState: ViewState = {
     currentDate: new Date(),
     password: "",
     isSending: false,
     isShowSendSuccessMessage: false,
-    sendErrorMessage: undefined
+    sendErrorMessage: undefined,
 }
 
-export const view = createReducer(initialState, handle => {
-    handle(MoveCurrentDateAction, (state, date) => {
+export const view = createReducer(initialState, (handle) => {
+    handle(actions.MoveCurrentDateAction, (state, date) => {
         return {...state, currentDate: date}
     })
-    handle(InputPasswordAction, (state, password) => {
-        return {...state, password: password}
+    handle(actions.InputPasswordAction, (state, password) => {
+        return {...state, password}
     })
-    handle(SendStartAction, (state) => {
+    handle(actions.SendStartAction, (state) => {
         return {...state, isSending: true}
     })
-    handle(SendSuccessAction, (state) => {
+    handle(actions.SendSuccessAction, (state) => {
         return {...state,
             isSending: false,
             isShowSendSuccessMessage: true}
     })
-    handle(CloseSendSuccessMessageAction, (state) => {
+    handle(actions.CloseSendSuccessMessageAction, (state) => {
         return {...state, isShowSendSuccessMessage: false}
     })
-    handle(SendErrorAction, (state, message) => {
+    handle(actions.SendErrorAction, (state, message) => {
         return {...state,
             isSending: false,
             sendErrorMessage: message}
     })
-    handle(CloseSendErrorMessageAction, (state) => {
+    handle(actions.CloseSendErrorMessageAction, (state) => {
         return {...state, sendErrorMessage: undefined}
     })
 })

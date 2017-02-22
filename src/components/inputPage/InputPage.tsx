@@ -1,10 +1,10 @@
-import * as React from "react";
-import {RootProps} from "../../RootProps";
-import {Toolbar} from "./Toolbar";
-import {Main} from "./Main";
+import * as React from "react"
+import {RootProps} from "../../RootProps"
+import {Main} from "./Main"
+import {Toolbar} from "./Toolbar"
 
 export class InputPage extends React.Component<RootProps, {}> {
-    render() {
+    public render() {
         return (
             <div>
                 <Toolbar {...this.props} />

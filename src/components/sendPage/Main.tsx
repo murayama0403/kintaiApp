@@ -1,12 +1,12 @@
+import {TouchTapEvent} from "material-ui"
+import RaisedButton from "material-ui/RaisedButton"
+import TextField from "material-ui/TextField"
 import * as React from "react"
-import {RootProps} from "../../RootProps";
-import TextField from 'material-ui/TextField'
-import RaisedButton from 'material-ui/RaisedButton'
-import {TouchTapEvent} from 'material-ui'
+import {RootProps} from "../../RootProps"
 
 export class Main extends React.Component<RootProps, {}> {
-    render() {
-        const buttonLabel = this.props.value.view.isSending? '送信中...': '勤務表送信'
+    public render() {
+        const buttonLabel = this.props.value.view.isSending ? "送信中..." : "勤務表送信"
         return (
             <div className="content">
                 <TextField
@@ -30,11 +30,11 @@ export class Main extends React.Component<RootProps, {}> {
         )
     }
 
-    private handleEmailChange(_event: Event, value: string) {
+    private handleEmailChange(_: Event, value: string) {
         this.props.actions.inputEmail(value)
     }
 
-    private handlePasswordChange(_event: Event, value: string) {
+    private handlePasswordChange(_: Event, value: string) {
         this.props.actions.inputPassword(value)
     }
 

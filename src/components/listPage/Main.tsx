@@ -1,14 +1,14 @@
+import {TouchTapEvent} from "material-ui"
+import {List, ListItem} from "material-ui/List"
 import * as React from "react"
-import {RootProps} from "../../RootProps";
+import {formatDateForListItem, getDayColor, getMonthDates} from "../../DateUtils"
 import {getDayKintaiOrDefault} from "../../KintaiUtils"
-import {getMonthDates, formatDateForListItem, getDayColor} from "../../DateUtils"
-import {List, ListItem} from 'material-ui/List'
-import {TouchTapEvent} from 'material-ui'
+import {RootProps} from "../../RootProps"
 
 export class Main extends React.Component<RootProps, {}> {
-    render() {
+    public render() {
         const listItems = getMonthDates(this.props.value.view.currentDate).map(this.createListItem.bind(this))
-        
+
         return (
             <div className="content">
                 <List>
@@ -38,10 +38,10 @@ export class Main extends React.Component<RootProps, {}> {
         const color = getDayColor(date)
         if (color) {
             return {
-                color: color
+                color,
             }
         }
-        
+
         return {}
     }
 }

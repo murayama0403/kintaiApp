@@ -1,50 +1,50 @@
-import * as React from "react";
-import SelectField from 'material-ui/SelectField'
-import MenuItem from 'material-ui/MenuItem'
-import IconButton from 'material-ui/IconButton'
-import ActionSchedule from 'material-ui/svg-icons/action/schedule'
-import ActionUpdate from 'material-ui/svg-icons/action/update'
-import {ceil15Minutes, floor15Minutes, formatTime} from '../../DateUtils'
-import {TouchTapEvent} from 'material-ui'
+import {TouchTapEvent} from "material-ui"
+import IconButton from "material-ui/IconButton"
+import MenuItem from "material-ui/MenuItem"
+import SelectField from "material-ui/SelectField"
+import ActionSchedule from "material-ui/svg-icons/action/schedule"
+import ActionUpdate from "material-ui/svg-icons/action/update"
+import * as React from "react"
+import {ceil15Minutes, floor15Minutes, formatTime} from "../../DateUtils"
 
 interface Props {
-    type: InputType;
-    value: string;
-    onSelected: (value: string) => void;
+    type: InputType
+    value: string
+    onSelected: (value: string) => void
 }
 
 interface InputType {
-    label: string;
+    label: string
     regularTime: string
-    menus: Array<JSX.Element>
+    menus: JSX.Element[]
     adjustTime: (date: Date) => Date
 }
 
-const TIMES = [':00', ':15', ':30', ':45']
+const TIMES = [":00", ":15", ":30", ":45"]
 
-const REGULAR_TIME_IN = '9:00'
-const REGULAR_TIME_OUT = '17:45'
+const REGULAR_TIME_IN = "9:00"
+const REGULAR_TIME_OUT = "17:45"
 
 export const IN: InputType = {
     label: "出勤",
     regularTime: REGULAR_TIME_IN,
     menus: createMenus(REGULAR_TIME_IN),
-    adjustTime: ceil15Minutes
+    adjustTime: ceil15Minutes,
 }
 
 export const OUT: InputType = {
     label: "退勤",
     regularTime: REGULAR_TIME_OUT,
     menus: createMenus(REGULAR_TIME_OUT),
-    adjustTime: floor15Minutes
+    adjustTime: floor15Minutes,
 }
 
-function createMenus(defaultValue: string): Array<JSX.Element> {
-    var menus: Array<JSX.Element> = []
-    for (var h = 0; h < 24; h++) {
-        TIMES.forEach(time => {
+function createMenus(defaultValue: string): JSX.Element[] {
+    const menus: JSX.Element[] = []
+    for (let h = 0; h < 24; h++) {
+        TIMES.forEach((time) => {
             const value = h + time
-            if (value == defaultValue) {
+            if (value === defaultValue) {
                 menus.push(<MenuItem key="" value="" primaryText="" />)
                 menus.push(<MenuItem key="---" value="---" primaryText="---" />)
             }
@@ -55,7 +55,7 @@ function createMenus(defaultValue: string): Array<JSX.Element> {
 }
 
 export class TimeInput extends React.Component<Props, {}> {
-    render() {
+    public render() {
         return (
             <div style={{display: "flex"}}>
                 <SelectField
@@ -77,7 +77,7 @@ export class TimeInput extends React.Component<Props, {}> {
         )
     }
 
-    private handleChange(event: Event, _index: number, value: string) {
+    private handleChange(event: Event, _: number, value: string) {
         event.preventDefault()
         this.props.onSelected(value)
     }

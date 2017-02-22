@@ -1,12 +1,12 @@
-import * as React from "react";
-import {RootProps} from "../../RootProps";
-import AppBar from 'material-ui/AppBar';
-import IconButton from 'material-ui/IconButton'
-import ArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left'
-import ArrowRight from 'material-ui/svg-icons/hardware/keyboard-arrow-right'
-import {ToolbarWithProgress} from '../common/ToolbarWithProgress'
-import {moveDates, formatDate, getDayColor} from '../../DateUtils'
-import {TouchTapEvent} from 'material-ui'
+import {TouchTapEvent} from "material-ui"
+import AppBar from "material-ui/AppBar"
+import IconButton from "material-ui/IconButton"
+import ArrowLeft from "material-ui/svg-icons/hardware/keyboard-arrow-left"
+import ArrowRight from "material-ui/svg-icons/hardware/keyboard-arrow-right"
+import * as React from "react"
+import {formatDate, getDayColor, moveDates} from "../../DateUtils"
+import {RootProps} from "../../RootProps"
+import {ToolbarWithProgress} from "../common/ToolbarWithProgress"
 
 export class Toolbar extends React.Component<RootProps, {}> {
     private buttons = <div>
@@ -18,7 +18,7 @@ export class Toolbar extends React.Component<RootProps, {}> {
             </IconButton>
         </div>
 
-    render() {
+    public render() {
         return (
             <ToolbarWithProgress {...this.props}>
                 <AppBar
@@ -51,7 +51,7 @@ export class Toolbar extends React.Component<RootProps, {}> {
         const color = getDayColor(date)
         if (color) {
             return {
-                color: color
+                color,
             }
         }
         return {}

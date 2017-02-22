@@ -1,11 +1,10 @@
-import * as React from "react";
-import {RootProps} from "../../RootProps";
-import Snackbar from 'material-ui/Snackbar'
-import Dialog from 'material-ui/Dialog'
+import Dialog from "material-ui/Dialog"
+import Snackbar from "material-ui/Snackbar"
+import * as React from "react"
+import {RootProps} from "../../RootProps"
 
 export class SendStatus extends React.Component<RootProps, {}> {
-    render() {
-        // TODO dialogでエラー
+    public render() {
         return (
             <div>
                 <Snackbar

@@ -1,5 +1,5 @@
-import {isHoliday} from "japanese-holidays"
-import {indigo700, red700} from "material-ui/styles/colors"
+import { isHoliday } from "japanese-holidays"
+import { indigo700, red700 } from "material-ui/styles/colors"
 import * as moment from "moment"
 
 export function toDayString(date: Date): string {

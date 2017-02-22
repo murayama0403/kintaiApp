@@ -1,22 +1,22 @@
-import {TouchTapEvent} from "material-ui"
+import { TouchTapEvent } from "material-ui"
 import AppBar from "material-ui/AppBar"
 import IconButton from "material-ui/IconButton"
 import ArrowLeft from "material-ui/svg-icons/hardware/keyboard-arrow-left"
 import ArrowRight from "material-ui/svg-icons/hardware/keyboard-arrow-right"
 import * as React from "react"
-import {formatDate, getDayColor, moveDates} from "../../DateUtils"
-import {RootProps} from "../../RootProps"
-import {ToolbarWithProgress} from "../common/ToolbarWithProgress"
+import { formatDate, getDayColor, moveDates } from "../../DateUtils"
+import { RootProps } from "../../RootProps"
+import { ToolbarWithProgress } from "../common/ToolbarWithProgress"
 
 export class Toolbar extends React.Component<RootProps, {}> {
     private buttons = <div>
-            <IconButton onTouchTap={this.handleBefore.bind(this)} >
-                <ArrowLeft color="white" />
-            </IconButton>
-            <IconButton onTouchTap={this.handleAfter.bind(this)}>
-                <ArrowRight color="white" />
-            </IconButton>
-        </div>
+        <IconButton onTouchTap={this.handleBefore.bind(this)} >
+            <ArrowLeft color="white" />
+        </IconButton>
+        <IconButton onTouchTap={this.handleAfter.bind(this)}>
+            <ArrowRight color="white" />
+        </IconButton>
+    </div>
 
     public render() {
         return (

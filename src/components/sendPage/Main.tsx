@@ -1,8 +1,8 @@
-import {TouchTapEvent} from "material-ui"
+import { TouchTapEvent } from "material-ui"
 import RaisedButton from "material-ui/RaisedButton"
 import TextField from "material-ui/TextField"
 import * as React from "react"
-import {RootProps} from "../../RootProps"
+import { RootProps } from "../../RootProps"
 
 export class Main extends React.Component<RootProps, {}> {
     public render() {
@@ -13,7 +13,7 @@ export class Main extends React.Component<RootProps, {}> {
                     hintText="送信先アドレス"
                     defaultValue={this.props.value.kintai.person.email}
                     onChange={this.handleEmailChange.bind(this)}
-                    style={{width: "192px"}} />@caica.jp
+                    style={{ width: "192px" }} />@caica.jp
                 <br />
                 <TextField
                     hintText="zipパスワード"

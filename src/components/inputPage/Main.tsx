@@ -1,8 +1,8 @@
 import TextField from "material-ui/TextField"
 import * as React from "react"
-import {getDayKintaiOrDefault} from "../../KintaiUtils"
-import {RootProps} from "../../RootProps"
-import {IN, OUT, TimeInput} from "./TimeInput"
+import { getDayKintaiOrDefault } from "../../KintaiUtils"
+import { RootProps } from "../../RootProps"
+import { IN, OUT, TimeInput } from "./TimeInput"
 
 export class Main extends React.Component<RootProps, {}> {
     public render() {

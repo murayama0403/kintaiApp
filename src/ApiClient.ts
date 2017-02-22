@@ -1,7 +1,7 @@
 import "whatwg-fetch"
-import {getMonthDates} from "./DateUtils"
-import {getDayKintai} from "./KintaiUtils"
-import {DayKintai, KintaiState} from "./States"
+import { getMonthDates } from "./DateUtils"
+import { getDayKintai } from "./KintaiUtils"
+import { DayKintai, KintaiState } from "./States"
 
 export function sendMonthKintai(kintai: KintaiState, month: Date, password: string): Promise<Response> {
     const body = createBody(kintai, month, password)
@@ -17,8 +17,8 @@ export function sendMonthKintai(kintai: KintaiState, month: Date, password: stri
 
 function createBody(kintai: KintaiState, month: Date, password: string) {
     const workInfoList = getMonthDates(month)
-            .map((date) => createWorkInfo(date, kintai))
-            .filter((info) => info !== undefined)
+        .map((date) => createWorkInfo(date, kintai))
+        .filter((info) => info !== undefined)
 
     return {
         year: month.getFullYear(),
@@ -44,7 +44,7 @@ function createWorkInfo(date: Date, KintaiState: KintaiState) {
 
 function toWorkInfo(date: Date, dayKintai: DayKintai) {
     return {
-        day : date.getDate(),
+        day: date.getDate(),
         startTime: dayKintai.inTime,
         clockOutTime: dayKintai.outTime,
         // TODO

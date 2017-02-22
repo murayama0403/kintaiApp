@@ -1,9 +1,9 @@
-import {routerReducer} from "react-router-redux"
-import {applyMiddleware, combineReducers, compose, createStore} from "redux"
+import { routerReducer } from "react-router-redux"
+import { applyMiddleware, combineReducers, compose, createStore } from "redux"
 import * as createLogger from "redux-logger"
-import {autoRehydrate, persistStore} from "redux-persist"
-import {kintai} from "./reducers/KintaiReducer"
-import {view} from "./reducers/ViewReducer"
+import { autoRehydrate, persistStore } from "redux-persist"
+import { kintai } from "./reducers/KintaiReducer"
+import { view } from "./reducers/ViewReducer"
 
 declare var window: any
 
@@ -29,6 +29,6 @@ const store = createStore(
     ),
 )
 
-persistStore(store, {whitelist: ["kintai"]})
+persistStore(store, { whitelist: ["kintai"] })
 
 export default store

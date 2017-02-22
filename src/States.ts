@@ -5,7 +5,7 @@ export interface GlobalState {
 
 export interface KintaiState {
     person: Person
-    days: {[day: string]: DayKintai}
+    days: { [day: string]: DayKintai }
 }
 
 export interface Person {

@@ -1,5 +1,5 @@
-import {toDayString} from "./DateUtils"
-import {DayKintai, KintaiState} from "./States"
+import { toDayString } from "./DateUtils"
+import { DayKintai, KintaiState } from "./States"
 
 const defaultDayKintai = {
     holiday: "",
@@ -13,7 +13,7 @@ export function getDayKintai(state: KintaiState, date: Date): DayKintai | undefi
 }
 
 export function getDayKintaiOrDefault(
-        state: KintaiState, date: Date, defaultValue: DayKintai = defaultDayKintai): DayKintai {
+    state: KintaiState, date: Date, defaultValue: DayKintai = defaultDayKintai): DayKintai {
     const kintai = getDayKintai(state, date)
     if (kintai) {
         return kintai

@@ -1,11 +1,11 @@
-import {TouchTapEvent} from "material-ui"
+import { TouchTapEvent } from "material-ui"
 import IconButton from "material-ui/IconButton"
 import MenuItem from "material-ui/MenuItem"
 import SelectField from "material-ui/SelectField"
 import ActionSchedule from "material-ui/svg-icons/action/schedule"
 import ActionUpdate from "material-ui/svg-icons/action/update"
 import * as React from "react"
-import {ceil15Minutes, floor15Minutes, formatTime} from "../../DateUtils"
+import { ceil15Minutes, floor15Minutes, formatTime } from "../../DateUtils"
 
 interface Props {
     type: InputType
@@ -57,14 +57,14 @@ function createMenus(defaultValue: string): JSX.Element[] {
 export class TimeInput extends React.Component<Props, {}> {
     public render() {
         return (
-            <div style={{display: "flex"}}>
+            <div style={{ display: "flex" }}>
                 <SelectField
                     hintText={this.props.type.label}
                     value={this.props.value}
                     onChange={this.handleChange.bind(this)}
-                    style={{width: "200px"}}
-                    labelStyle={{height: "48px"}}
-                    >
+                    style={{ width: "200px" }}
+                    labelStyle={{ height: "48px" }}
+                >
                     {this.props.type.menus}
                 </SelectField>
                 <IconButton onTouchTap={this.handleNow.bind(this)}>

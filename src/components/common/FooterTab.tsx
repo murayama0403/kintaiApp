@@ -1,11 +1,11 @@
-import {TouchTapEvent} from "material-ui"
-import {BottomNavigation, BottomNavigationItem} from "material-ui/BottomNavigation"
+import { TouchTapEvent } from "material-ui"
+import { BottomNavigation, BottomNavigationItem } from "material-ui/BottomNavigation"
 import Divider from "material-ui/Divider"
 import ListIcon from "material-ui/svg-icons/action/list"
 import SendIcon from "material-ui/svg-icons/content/send"
 import EditIcon from "material-ui/svg-icons/image/edit"
 import * as React from "react"
-import {RootProps} from "../../RootProps"
+import { RootProps } from "../../RootProps"
 
 export class FooterTab extends React.Component<RootProps, {}> {
 

@@ -12,29 +12,29 @@ export class Main extends React.Component<RootProps, {}> {
                 <TextField
                     hintText="送信先アドレス"
                     value={this.props.value.kintai.person.email}
-                    onChange={this.handleEmailChange.bind(this)}
+                    onChange={(_, value) => this.handleEmailChange(value)}
                     style={{ width: "192px" }} />@caica.jp
                 <br />
                 <TextField
                     hintText="zipパスワード"
                     type="password"
                     value={this.props.value.view.password}
-                    onChange={this.handlePasswordChange.bind(this)} />
+                    onChange={(_, value) => this.handlePasswordChange(value)} />
                 <br />
                 <RaisedButton
                     label={buttonLabel}
                     primary={true}
-                    onTouchTap={this.handleSend.bind(this)}
+                    onTouchTap={(event) => this.handleSend(event)}
                     disabled={this.props.value.view.isSending} />
             </div>
         )
     }
 
-    private handleEmailChange(_: Event, value: string) {
+    private handleEmailChange(value: string) {
         this.props.actions.inputEmail(value)
     }
 
-    private handlePasswordChange(_: Event, value: string) {
+    private handlePasswordChange(value: string) {
         this.props.actions.inputPassword(value)
     }
 

@@ -13,17 +13,17 @@ export class Main extends React.Component<RootProps, {}> {
                 <TimeInput
                     type={IN}
                     value={currentKintai.inTime}
-                    onSelected={this.handleInSelected.bind(this)} />
+                    onSelected={(event) => this.handleInSelected(event)} />
                 <TimeInput
                     type={OUT}
                     value={currentKintai.outTime}
-                    onSelected={this.handleOutSelected.bind(this)} />
+                    onSelected={(event) => this.handleOutSelected(event)} />
                 <TextField
                     multiLine={true}
                     fullWidth={true}
                     hintText="メモ（勤務表には反映されません）"
                     value={currentKintai.memo}
-                    onChange={this.handleMemoChange.bind(this)} />
+                    onChange={(_, value) => this.handleMemoChange(value)} />
             </div>
         )
     }
@@ -36,7 +36,7 @@ export class Main extends React.Component<RootProps, {}> {
         this.props.actions.selectOut(this.props.value.view.currentDate, value)
     }
 
-    private handleMemoChange(_: Event, value: string) {
+    private handleMemoChange(value: string) {
         this.props.actions.inputMemo(this.props.value.view.currentDate, value)
     }
 

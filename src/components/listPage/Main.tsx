@@ -7,7 +7,7 @@ import { RootProps } from "../../RootProps"
 
 export class Main extends React.Component<RootProps, {}> {
     public render() {
-        const listItems = getMonthDates(this.props.value.view.currentDate).map(this.createListItem.bind(this))
+        const listItems = getMonthDates(this.props.value.view.currentDate).map((date) => this.createListItem(date))
 
         return (
             <div className="content">

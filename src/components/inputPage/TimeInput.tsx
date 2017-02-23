@@ -61,23 +61,23 @@ export class TimeInput extends React.Component<Props, {}> {
                 <SelectField
                     hintText={this.props.type.label}
                     value={this.props.value}
-                    onChange={this.handleChange.bind(this)}
+                    onChange={(event, _, value) => this.handleChange(event, value)}
                     style={{ width: "200px" }}
                     labelStyle={{ height: "48px" }}
                 >
                     {this.props.type.menus}
                 </SelectField>
-                <IconButton onTouchTap={this.handleNow.bind(this)}>
+                <IconButton onTouchTap={(event) => this.handleNow(event)}>
                     <ActionUpdate />
                 </IconButton>
-                <IconButton onTouchTap={this.handleRegular.bind(this)}>
+                <IconButton onTouchTap={(event) => this.handleRegular(event)}>
                     <ActionSchedule />
                 </IconButton>
             </div>
         )
     }
 
-    private handleChange(event: Event, _: number, value: string) {
+    private handleChange(event: TouchTapEvent, value: string) {
         event.preventDefault()
         this.props.onSelected(value)
     }

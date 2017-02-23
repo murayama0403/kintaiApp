@@ -11,11 +11,11 @@ export class SendStatus extends React.Component<RootProps, {}> {
                     open={this.props.value.view.isShowSendSuccessMessage}
                     message="勤務表を送信しました"
                     autoHideDuration={2000}
-                    onRequestClose={this.handleCloseSendSuccess.bind(this)} />
+                    onRequestClose={() => this.handleCloseSendSuccess()} />
                 <Dialog
                     open={this.props.value.view.sendErrorMessage != null}
                     title="エラー"
-                    onRequestClose={this.handleCloseError.bind(this)} >
+                    onRequestClose={() => this.handleCloseError()} >
                     {this.props.value.view.sendErrorMessage}
                 </Dialog>
             </div>

@@ -192,9 +192,9 @@ var MonthToolbar = (function (_super) {
     function MonthToolbar() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.buttons = React.createElement("div", null,
-            React.createElement(IconButton_1.default, { onTouchTap: _this.handleBefore.bind(_this) },
+            React.createElement(IconButton_1.default, { onTouchTap: function (event) { return _this.handleBefore(event); } },
                 React.createElement(keyboard_arrow_left_1.default, { color: "white" })),
-            React.createElement(IconButton_1.default, { onTouchTap: _this.handleAfter.bind(_this) },
+            React.createElement(IconButton_1.default, { onTouchTap: function (event) { return _this.handleAfter(event); } },
                 React.createElement(keyboard_arrow_right_1.default, { color: "white" })));
         return _this;
     }
@@ -902,13 +902,14 @@ var FooterTab = (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     FooterTab.prototype.render = function () {
+        var _this = this;
         var selectedIndex = this.getSelectedIndex();
         return (React.createElement("div", { className: "footerTab" },
             React.createElement(Divider_1.default, null),
             React.createElement(BottomNavigation_1.BottomNavigation, { selectedIndex: selectedIndex },
-                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "入力", icon: React.createElement(edit_1.default, null), onTouchTap: this.onInputSelected.bind(this) }),
-                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "一覧", icon: React.createElement(list_1.default, null), onTouchTap: this.onListSelected.bind(this) }),
-                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "送信", icon: React.createElement(send_1.default, null), onTouchTap: this.onSendSelected.bind(this) }))));
+                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "入力", icon: React.createElement(edit_1.default, null), onTouchTap: function (event) { return _this.onInputSelected(event); } }),
+                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "一覧", icon: React.createElement(list_1.default, null), onTouchTap: function (event) { return _this.onListSelected(event); } }),
+                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "送信", icon: React.createElement(send_1.default, null), onTouchTap: function (event) { return _this.onSendSelected(event); } }))));
     };
     FooterTab.prototype.onInputSelected = function (event) {
         event.preventDefault();
@@ -958,11 +959,12 @@ var Main = (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Main.prototype.render = function () {
+        var _this = this;
         var currentKintai = KintaiUtils_1.getDayKintaiOrDefault(this.props.value.kintai, this.props.value.view.currentDate);
         return (React.createElement("div", { className: "content" },
-            React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.IN, value: currentKintai.inTime, onSelected: this.handleInSelected.bind(this) }),
-            React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.OUT, value: currentKintai.outTime, onSelected: this.handleOutSelected.bind(this) }),
-            React.createElement(TextField_1.default, { multiLine: true, fullWidth: true, hintText: "メモ（勤務表には反映されません）", value: currentKintai.memo, onChange: this.handleMemoChange.bind(this) })));
+            React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.IN, value: currentKintai.inTime, onSelected: function (event) { return _this.handleInSelected(event); } }),
+            React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.OUT, value: currentKintai.outTime, onSelected: function (event) { return _this.handleOutSelected(event); } }),
+            React.createElement(TextField_1.default, { multiLine: true, fullWidth: true, hintText: "メモ（勤務表には反映されません）", value: currentKintai.memo, onChange: function (_, value) { return _this.handleMemoChange(value); } })));
     };
     Main.prototype.handleInSelected = function (value) {
         this.props.actions.selectIn(this.props.value.view.currentDate, value);
@@ -970,7 +972,7 @@ var Main = (function (_super) {
     Main.prototype.handleOutSelected = function (value) {
         this.props.actions.selectOut(this.props.value.view.currentDate, value);
     };
-    Main.prototype.handleMemoChange = function (_, value) {
+    Main.prototype.handleMemoChange = function (value) {
         this.props.actions.inputMemo(this.props.value.view.currentDate, value);
     };
     return Main;
@@ -1035,14 +1037,15 @@ var TimeInput = (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     TimeInput.prototype.render = function () {
+        var _this = this;
         return (React.createElement("div", { style: { display: "flex" } },
-            React.createElement(SelectField_1.default, { hintText: this.props.type.label, value: this.props.value, onChange: this.handleChange.bind(this), style: { width: "200px" }, labelStyle: { height: "48px" } }, this.props.type.menus),
-            React.createElement(IconButton_1.default, { onTouchTap: this.handleNow.bind(this) },
+            React.createElement(SelectField_1.default, { hintText: this.props.type.label, value: this.props.value, onChange: function (event, _, value) { return _this.handleChange(event, value); }, style: { width: "200px" }, labelStyle: { height: "48px" } }, this.props.type.menus),
+            React.createElement(IconButton_1.default, { onTouchTap: function (event) { return _this.handleNow(event); } },
                 React.createElement(update_1.default, null)),
-            React.createElement(IconButton_1.default, { onTouchTap: this.handleRegular.bind(this) },
+            React.createElement(IconButton_1.default, { onTouchTap: function (event) { return _this.handleRegular(event); } },
                 React.createElement(schedule_1.default, null))));
     };
-    TimeInput.prototype.handleChange = function (event, _, value) {
+    TimeInput.prototype.handleChange = function (event, value) {
         event.preventDefault();
         this.props.onSelected(value);
     };
@@ -1092,9 +1095,9 @@ var Toolbar = (function (_super) {
     function Toolbar() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.buttons = React.createElement("div", null,
-            React.createElement(IconButton_1.default, { onTouchTap: _this.handleBefore.bind(_this) },
+            React.createElement(IconButton_1.default, { onTouchTap: function (event) { return _this.handleBefore(event); } },
                 React.createElement(keyboard_arrow_left_1.default, { color: "white" })),
-            React.createElement(IconButton_1.default, { onTouchTap: _this.handleAfter.bind(_this) },
+            React.createElement(IconButton_1.default, { onTouchTap: function (event) { return _this.handleAfter(event); } },
                 React.createElement(keyboard_arrow_right_1.default, { color: "white" })));
         return _this;
     }
@@ -1153,7 +1156,8 @@ var Main = (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Main.prototype.render = function () {
-        var listItems = DateUtils_1.getMonthDates(this.props.value.view.currentDate).map(this.createListItem.bind(this));
+        var _this = this;
+        var listItems = DateUtils_1.getMonthDates(this.props.value.view.currentDate).map(function (date) { return _this.createListItem(date); });
         return (React.createElement("div", { className: "content" },
             React.createElement(List_1.List, null, listItems)));
     };
@@ -1208,9 +1212,10 @@ var SendStatus = (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     SendStatus.prototype.render = function () {
+        var _this = this;
         return (React.createElement("div", null,
-            React.createElement(Snackbar_1.default, { open: this.props.value.view.isShowSendSuccessMessage, message: "勤務表を送信しました", autoHideDuration: 2000, onRequestClose: this.handleCloseSendSuccess.bind(this) }),
-            React.createElement(Dialog_1.default, { open: this.props.value.view.sendErrorMessage != null, title: "エラー", onRequestClose: this.handleCloseError.bind(this) }, this.props.value.view.sendErrorMessage)));
+            React.createElement(Snackbar_1.default, { open: this.props.value.view.isShowSendSuccessMessage, message: "勤務表を送信しました", autoHideDuration: 2000, onRequestClose: function () { return _this.handleCloseSendSuccess(); } }),
+            React.createElement(Dialog_1.default, { open: this.props.value.view.sendErrorMessage != null, title: "エラー", onRequestClose: function () { return _this.handleCloseError(); } }, this.props.value.view.sendErrorMessage)));
     };
     SendStatus.prototype.handleCloseSendSuccess = function () {
         this.props.actions.closeSendSuccessMessage();
@@ -1244,19 +1249,20 @@ var Main = (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     Main.prototype.render = function () {
+        var _this = this;
         var buttonLabel = this.props.value.view.isSending ? "送信中..." : "勤務表送信";
         return (React.createElement("div", { className: "content" },
-            React.createElement(TextField_1.default, { hintText: "送信先アドレス", value: this.props.value.kintai.person.email, onChange: this.handleEmailChange.bind(this), style: { width: "192px" } }),
+            React.createElement(TextField_1.default, { hintText: "送信先アドレス", value: this.props.value.kintai.person.email, onChange: function (_, value) { return _this.handleEmailChange(value); }, style: { width: "192px" } }),
             "@caica.jp",
             React.createElement("br", null),
-            React.createElement(TextField_1.default, { hintText: "zipパスワード", type: "password", value: this.props.value.view.password, onChange: this.handlePasswordChange.bind(this) }),
+            React.createElement(TextField_1.default, { hintText: "zipパスワード", type: "password", value: this.props.value.view.password, onChange: function (_, value) { return _this.handlePasswordChange(value); } }),
             React.createElement("br", null),
-            React.createElement(RaisedButton_1.default, { label: buttonLabel, primary: true, onTouchTap: this.handleSend.bind(this), disabled: this.props.value.view.isSending })));
+            React.createElement(RaisedButton_1.default, { label: buttonLabel, primary: true, onTouchTap: function (event) { return _this.handleSend(event); }, disabled: this.props.value.view.isSending })));
     };
-    Main.prototype.handleEmailChange = function (_, value) {
+    Main.prototype.handleEmailChange = function (value) {
         this.props.actions.inputEmail(value);
     };
-    Main.prototype.handlePasswordChange = function (_, value) {
+    Main.prototype.handlePasswordChange = function (value) {
         this.props.actions.inputPassword(value);
     };
     Main.prototype.handleSend = function (event) {

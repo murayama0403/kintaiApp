@@ -18,15 +18,15 @@ export class FooterTab extends React.Component<RootProps, {}> {
                 <BottomNavigation selectedIndex={selectedIndex}>
                     <BottomNavigationItem label="入力"
                         icon={<EditIcon />}
-                        onTouchTap={this.onInputSelected.bind(this)}
+                        onTouchTap={(event) => this.onInputSelected(event)}
                     />
                     <BottomNavigationItem label="一覧"
                         icon={<ListIcon />}
-                        onTouchTap={this.onListSelected.bind(this)}
+                        onTouchTap={(event) => this.onListSelected(event)}
                     />
                     <BottomNavigationItem label="送信"
                         icon={<SendIcon />}
-                        onTouchTap={this.onSendSelected.bind(this)}
+                        onTouchTap={(event) => this.onSendSelected(event)}
                     />
                 </BottomNavigation>
             </div>

@@ -7,9 +7,9 @@ webpackJsonp([0],{
 
 var DateUtils_1 = __webpack_require__(57);
 var defaultDayKintai = {
-    holiday: "",
     inTime: "",
     outTime: "",
+    memo: "",
 };
 function getDayKintai(state, date) {
     var day = DateUtils_1.toDayString(date);
@@ -38,7 +38,7 @@ var redux_common_1 = __webpack_require__(177);
 exports.SelectInAction = redux_common_1.action("SelectIn");
 exports.SelectOutAction = redux_common_1.action("SelectOut");
 exports.MoveCurrentDateAction = redux_common_1.action("MoveCurrentDate");
-exports.InputHolidayAction = redux_common_1.action("InputHoliday");
+exports.InputMemoAction = redux_common_1.action("InputMemo");
 exports.InputEmailAction = redux_common_1.action("InputEmail");
 exports.InputPasswordAction = redux_common_1.action("InputPassword");
 exports.SendStartAction = redux_common_1.action("SendStart");
@@ -295,10 +295,10 @@ var DispatchActions = (function () {
             _this.dispatch(actions.SendErrorAction.create("ネットワークエラー"));
         });
     };
-    DispatchActions.prototype.inputHoliday = function (date, holiday) {
-        this.dispatch(actions.InputHolidayAction.create({
+    DispatchActions.prototype.inputMemo = function (date, memo) {
+        this.dispatch(actions.InputMemoAction.create({
             date: date,
-            holiday: holiday,
+            text: memo,
         }));
     };
     DispatchActions.prototype.showInputPage = function (date) {
@@ -962,7 +962,7 @@ var Main = (function (_super) {
         return (React.createElement("div", { className: "content" },
             React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.IN, value: currentKintai.inTime, onSelected: this.handleInSelected.bind(this) }),
             React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.OUT, value: currentKintai.outTime, onSelected: this.handleOutSelected.bind(this) }),
-            React.createElement(TextField_1.default, { hintText: "休暇", defaultValue: currentKintai.holiday, onChange: this.handleHolidayChange.bind(this) })));
+            React.createElement(TextField_1.default, { multiLine: true, fullWidth: true, hintText: "メモ（勤務表には反映されません）", value: currentKintai.memo, onChange: this.handleMemoChange.bind(this) })));
     };
     Main.prototype.handleInSelected = function (value) {
         this.props.actions.selectIn(this.props.value.view.currentDate, value);
@@ -970,8 +970,8 @@ var Main = (function (_super) {
     Main.prototype.handleOutSelected = function (value) {
         this.props.actions.selectOut(this.props.value.view.currentDate, value);
     };
-    Main.prototype.handleHolidayChange = function (_, value) {
-        this.props.actions.inputHoliday(this.props.value.view.currentDate, value);
+    Main.prototype.handleMemoChange = function (_, value) {
+        this.props.actions.inputMemo(this.props.value.view.currentDate, value);
     };
     return Main;
 }(React.Component));
@@ -1300,8 +1300,8 @@ exports.kintai = redux_common_1.createReducer(initialState, function (handle) {
     handle(actions.SelectOutAction, function (state, selectedTime) {
         return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time });
     });
-    handle(actions.InputHolidayAction, function (state, selectedHoliday) {
-        return updateDayKintai(state, selectedHoliday.date, { holiday: selectedHoliday.holiday });
+    handle(actions.InputMemoAction, function (state, memo) {
+        return updateDayKintai(state, memo.date, { memo: memo.text });
     });
     handle(actions.InputEmailAction, function (state, email) {
         var person = __assign({}, state.person, { email: email });

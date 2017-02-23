@@ -19,9 +19,11 @@ export class Main extends React.Component<RootProps, {}> {
                     value={currentKintai.outTime}
                     onSelected={this.handleOutSelected.bind(this)} />
                 <TextField
-                    hintText="休暇"
-                    defaultValue={currentKintai.holiday}
-                    onChange={this.handleHolidayChange.bind(this)} />
+                    multiLine={true}
+                    fullWidth={true}
+                    hintText="メモ（勤務表には反映されません）"
+                    value={currentKintai.memo}
+                    onChange={this.handleMemoChange.bind(this)} />
             </div>
         )
     }
@@ -34,8 +36,8 @@ export class Main extends React.Component<RootProps, {}> {
         this.props.actions.selectOut(this.props.value.view.currentDate, value)
     }
 
-    private handleHolidayChange(_: Event, value: string) {
-        this.props.actions.inputHoliday(this.props.value.view.currentDate, value)
+    private handleMemoChange(_: Event, value: string) {
+        this.props.actions.inputMemo(this.props.value.view.currentDate, value)
     }
 
 }

@@ -44,10 +44,10 @@ export class DispatchActions {
         })
     }
 
-    public inputHoliday(date: Date, holiday: string) {
-        this.dispatch(actions.InputHolidayAction.create({
+    public inputMemo(date: Date, memo: string) {
+        this.dispatch(actions.InputMemoAction.create({
             date,
-            holiday,
+            text: memo,
         }))
     }
 

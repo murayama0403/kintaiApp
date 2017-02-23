@@ -15,7 +15,7 @@ export interface Person {
 export interface DayKintai {
     inTime: string
     outTime: string
-    holiday: string
+    memo: string
 }
 
 export interface ViewState {

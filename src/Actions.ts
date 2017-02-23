@@ -5,15 +5,15 @@ interface SelectedTime {
     time: string
 }
 
-interface SelectedHoliday {
+interface DateText {
     date: Date
-    holiday: string
+    text: string
 }
 
 export const SelectInAction = action<SelectedTime>("SelectIn")
 export const SelectOutAction = action<SelectedTime>("SelectOut")
 export const MoveCurrentDateAction = action<Date>("MoveCurrentDate")
-export const InputHolidayAction = action<SelectedHoliday>("InputHoliday")
+export const InputMemoAction = action<DateText>("InputMemo")
 export const InputEmailAction = action<string>("InputEmail")
 export const InputPasswordAction = action<string>("InputPassword")
 export const SendStartAction = action<undefined>("SendStart")

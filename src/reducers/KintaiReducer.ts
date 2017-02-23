@@ -18,8 +18,8 @@ export const kintai = createReducer(initialState, (handle) => {
     handle(actions.SelectOutAction, (state, selectedTime) => {
         return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time })
     })
-    handle(actions.InputHolidayAction, (state, selectedHoliday) => {
-        return updateDayKintai(state, selectedHoliday.date, { holiday: selectedHoliday.holiday })
+    handle(actions.InputMemoAction, (state, memo) => {
+        return updateDayKintai(state, memo.date, { memo: memo.text })
     })
     handle(actions.InputEmailAction, (state, email) => {
         const person = { ...state.person, email }

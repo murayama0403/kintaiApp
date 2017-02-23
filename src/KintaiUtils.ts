@@ -2,9 +2,9 @@ import { toDayString } from "./DateUtils"
 import { DayKintai, KintaiState } from "./States"
 
 const defaultDayKintai = {
-    holiday: "",
     inTime: "",
     outTime: "",
+    memo: "",
 }
 
 export function getDayKintai(state: KintaiState, date: Date): DayKintai | undefined {

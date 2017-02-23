@@ -11,14 +11,14 @@ export class Main extends React.Component<RootProps, {}> {
             <div className="content">
                 <TextField
                     hintText="送信先アドレス"
-                    defaultValue={this.props.value.kintai.person.email}
+                    value={this.props.value.kintai.person.email}
                     onChange={this.handleEmailChange.bind(this)}
                     style={{ width: "192px" }} />@caica.jp
                 <br />
                 <TextField
                     hintText="zipパスワード"
                     type="password"
-                    defaultValue={this.props.value.view.password}
+                    value={this.props.value.view.password}
                     onChange={this.handlePasswordChange.bind(this)} />
                 <br />
                 <RaisedButton

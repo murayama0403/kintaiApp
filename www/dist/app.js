@@ -1246,10 +1246,10 @@ var Main = (function (_super) {
     Main.prototype.render = function () {
         var buttonLabel = this.props.value.view.isSending ? "送信中..." : "勤務表送信";
         return (React.createElement("div", { className: "content" },
-            React.createElement(TextField_1.default, { hintText: "送信先アドレス", defaultValue: this.props.value.kintai.person.email, onChange: this.handleEmailChange.bind(this), style: { width: "192px" } }),
+            React.createElement(TextField_1.default, { hintText: "送信先アドレス", value: this.props.value.kintai.person.email, onChange: this.handleEmailChange.bind(this), style: { width: "192px" } }),
             "@caica.jp",
             React.createElement("br", null),
-            React.createElement(TextField_1.default, { hintText: "zipパスワード", type: "password", defaultValue: this.props.value.view.password, onChange: this.handlePasswordChange.bind(this) }),
+            React.createElement(TextField_1.default, { hintText: "zipパスワード", type: "password", value: this.props.value.view.password, onChange: this.handlePasswordChange.bind(this) }),
             React.createElement("br", null),
             React.createElement(RaisedButton_1.default, { label: buttonLabel, primary: true, onTouchTap: this.handleSend.bind(this), disabled: this.props.value.view.isSending })));
     };

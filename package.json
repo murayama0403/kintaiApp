@@ -5,9 +5,20 @@
   "scripts": {
     "build": "webpack --progress --colors --watch --config ./webpack.config.dev.js",
     "build:prod": "webpack --config ./webpack.config.prod.js",
-    "start": "webpack-dev-server --progress --colors -d --inline --history-api-fallback --host 0.0.0.0 --content-base www/ --config ./webpack.config.dev.js"
+    "start": "webpack-dev-server --progress --colors -d --inline --history-api-fallback --host 0.0.0.0 --content-base www/ --config ./webpack.config.dev.js",
+    "test": "karma start"
   },
   "devDependencies": {
+    "@types/jasmine": "2.5.43",
+    "istanbul-instrumenter-loader": "2.0.0",
+    "jasmine-core": "2.5.2",
+    "karma": "1.5.0",
+    "karma-coverage": "1.1.1",
+    "karma-jasmine": "1.1.0",
+    "karma-phantomjs-launcher": "1.0.2",
+    "karma-sourcemap-loader": "0.3.7",
+    "karma-typescript-preprocessor": "^0.3.1",
+    "karma-webpack": "2.0.2",
     "ts-loader": "2.0.0",
     "tslint": "4.4.2",
     "tslint-loader": "3.4.2",

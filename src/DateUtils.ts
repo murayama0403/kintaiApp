@@ -1,6 +1,9 @@
 import { isHoliday } from "japanese-holidays"
 import { indigo700, red700 } from "material-ui/styles/colors"
 import * as moment from "moment"
+import "moment/locale/ja"
+
+moment.locale("ja")
 
 export function toDayString(date: Date): string {
     return moment(date).format("YYYYMMDD")
@@ -19,8 +22,9 @@ export function formatMonth(date: Date): string {
 }
 
 export function ceil15Minutes(date: Date): Date {
-    const minutes = Math.ceil(date.getMinutes() / 15) * 15
-    return moment(date).minute(minutes).toDate()
+    // 00分は繰り上げしたくないので14分足してから15分の切り捨てをする
+    const plus14 = moment(date).add(14, "minutes").toDate()
+    return floor15Minutes(plus14)
 }
 
 export function floor15Minutes(date: Date): Date {

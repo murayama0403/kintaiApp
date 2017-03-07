@@ -1,6 +1,4 @@
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider"
-import * as moment from "moment"
-import "moment/locale/ja"
 import * as React from "react"
 import * as ReactDOM from "react-dom"
 import {connect, Provider} from "react-redux"
@@ -16,8 +14,6 @@ import {DispatchActions} from "./DispatchActions"
 import store from "./Store"
 
 injectTapEventPlugin()
-
-moment.locale("ja")
 
 const connector = connect(
     (store: any) => ({ value: store }),

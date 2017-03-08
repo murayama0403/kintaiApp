@@ -1,8 +1,8 @@
-import * as actions from "../Actions"
-import { createReducer } from "../common/redux-common"
-import { toDayString } from "../DateUtils"
-import { getDayKintai } from "../KintaiUtils"
-import { DayKintai, KintaiState } from "../States"
+import * as actions from "../actions/Actions"
+import { createReducer } from "../commons/redux-commons"
+import { DayKintai, KintaiState } from "../states/States"
+import { toDayString } from "../utils/DateUtils"
+import { getDayKintai } from "../utils/KintaiUtils"
 
 const initialState: KintaiState = {
     person: {

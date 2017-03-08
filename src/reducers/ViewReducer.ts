@@ -1,6 +1,6 @@
-import * as actions from "../Actions"
-import { createReducer } from "../common/redux-common"
-import { ViewState } from "../States"
+import * as actions from "../actions/Actions"
+import { createReducer } from "../commons/redux-commons"
+import { ViewState } from "../states/States"
 
 const initialState: ViewState = {
     currentDate: new Date(),

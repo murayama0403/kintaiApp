@@ -5,7 +5,7 @@ import SelectField from "material-ui/SelectField"
 import ActionSchedule from "material-ui/svg-icons/action/schedule"
 import ActionUpdate from "material-ui/svg-icons/action/update"
 import * as React from "react"
-import { ceil15Minutes, floor15Minutes, formatTime } from "../../DateUtils"
+import { ceil15Minutes, floor15Minutes, formatTime } from "../../utils/DateUtils"
 
 interface Props {
     type: InputType

@@ -1,7 +1,7 @@
 import "whatwg-fetch"
-import { getMonthDates } from "./DateUtils"
-import { getDayKintai } from "./KintaiUtils"
-import { DayKintai, KintaiState } from "./States"
+import { DayKintai, KintaiState } from "../states/States"
+import { getMonthDates } from "../utils/DateUtils"
+import { getDayKintai } from "../utils/KintaiUtils"
 
 export function sendMonthKintai(kintai: KintaiState, month: Date, password: string): Promise<Response> {
     const body = createBody(kintai, month, password)

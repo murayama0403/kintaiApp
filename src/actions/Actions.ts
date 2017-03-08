@@ -1,4 +1,4 @@
-import { action } from "./common/redux-common"
+import { action } from "../commons/redux-commons"
 
 interface SelectedTime {
     date: Date

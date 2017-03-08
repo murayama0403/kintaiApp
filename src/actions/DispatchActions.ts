@@ -1,8 +1,8 @@
 import { hashHistory } from "react-router"
-import * as actions from "./Actions"
-import { sendMonthKintai } from "./ApiClient"
-import { Action } from "./common/redux-common"
-import { KintaiState } from "./States"
+import * as actions from "../actions/Actions"
+import { sendMonthKintai } from "../clients/ApiClient"
+import { Action } from "../commons/redux-commons"
+import { KintaiState } from "../states/States"
 
 export class DispatchActions {
     private dispatch: (action: Action<any>) => void

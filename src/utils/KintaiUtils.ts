@@ -1,5 +1,5 @@
+import { DayKintai, KintaiState } from "../states/States"
 import { toDayString } from "./DateUtils"
-import { DayKintai, KintaiState } from "./States"
 
 const defaultDayKintai = {
     inTime: "",

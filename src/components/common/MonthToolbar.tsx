@@ -4,8 +4,8 @@ import IconButton from "material-ui/IconButton"
 import ArrowLeftIcon from "material-ui/svg-icons/hardware/keyboard-arrow-left"
 import ArrowRightIcon from "material-ui/svg-icons/hardware/keyboard-arrow-right"
 import * as React from "react"
-import { formatMonth, moveMonths } from "../../DateUtils"
 import { RootProps } from "../../RootProps"
+import { formatMonth, moveMonths } from "../../utils/DateUtils"
 import { ToolbarWithProgress } from "./ToolbarWithProgress"
 
 export class MonthToolbar extends React.Component<RootProps, {}> {

@@ -1,9 +1,9 @@
 import { TouchTapEvent } from "material-ui"
 import { List, ListItem } from "material-ui/List"
 import * as React from "react"
-import { formatDateForListItem, getDayColor, getMonthDates } from "../../DateUtils"
-import { getDayKintaiOrDefault } from "../../KintaiUtils"
 import { RootProps } from "../../RootProps"
+import { formatDateForListItem, getDayColor, getMonthDates } from "../../utils/DateUtils"
+import { getDayKintaiOrDefault } from "../../utils/KintaiUtils"
 
 export class Main extends React.Component<RootProps, {}> {
     public render() {

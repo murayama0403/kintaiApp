@@ -1,90 +1,131 @@
 webpackJsonp([0],{
 
-/***/ 108:
+/***/ 174:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var DateUtils_1 = __webpack_require__(57);
-var defaultDayKintai = {
-    inTime: "",
-    outTime: "",
-    memo: "",
-};
-function getDayKintai(state, date) {
-    var day = DateUtils_1.toDayString(date);
-    return state.days[day];
+var redux_commons_1 = __webpack_require__(802);
+exports.SelectInAction = redux_commons_1.action("SelectIn");
+exports.SelectOutAction = redux_commons_1.action("SelectOut");
+exports.MoveCurrentDateAction = redux_commons_1.action("MoveCurrentDate");
+exports.InputMemoAction = redux_commons_1.action("InputMemo");
+exports.InputEmailAction = redux_commons_1.action("InputEmail");
+exports.InputPasswordAction = redux_commons_1.action("InputPassword");
+exports.SendStartAction = redux_commons_1.action("SendStart");
+exports.SendSuccessAction = redux_commons_1.action("SendSuccess");
+exports.CloseSendSuccessMessageAction = redux_commons_1.action("CloseSendSuccessMessage");
+exports.SendErrorAction = redux_commons_1.action("SendError");
+exports.CloseSendErrorMessageAction = redux_commons_1.action("CloseSendErrorMessage");
+
+
+/***/ }),
+
+/***/ 175:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var japanese_holidays_1 = __webpack_require__(176);
+var colors_1 = __webpack_require__(98);
+var moment = __webpack_require__(2);
+__webpack_require__(148);
+moment.locale("ja");
+function toDayString(date) {
+    return moment(date).format("YYYYMMDD");
 }
-exports.getDayKintai = getDayKintai;
-function getDayKintaiOrDefault(state, date, defaultValue) {
-    if (defaultValue === void 0) { defaultValue = defaultDayKintai; }
-    var kintai = getDayKintai(state, date);
-    if (kintai) {
-        return kintai;
+exports.toDayString = toDayString;
+function formatDate(date) {
+    return moment(date).format("M/D(dd)");
+}
+exports.formatDate = formatDate;
+function formatDateForListItem(date) {
+    return moment(date).format("D(dd)");
+}
+exports.formatDateForListItem = formatDateForListItem;
+function formatMonth(date) {
+    return moment(date).format("YYYY/M");
+}
+exports.formatMonth = formatMonth;
+function ceil15Minutes(date) {
+    // 00分は繰り上げしたくないので14分足してから15分の切り捨てをする
+    var plus14 = moment(date).add(14, "minutes").toDate();
+    return floor15Minutes(plus14);
+}
+exports.ceil15Minutes = ceil15Minutes;
+function floor15Minutes(date) {
+    var minutes = Math.floor(date.getMinutes() / 15) * 15;
+    return moment(date).minute(minutes).toDate();
+}
+exports.floor15Minutes = floor15Minutes;
+function moveDates(date, amount) {
+    return moment(date).add(amount, "days").toDate();
+}
+exports.moveDates = moveDates;
+function moveMonths(date, amount) {
+    // 月移動する場合は日付は1日にリセットする
+    return moment(date).add(amount, "months").date(1).toDate();
+}
+exports.moveMonths = moveMonths;
+function formatTime(date) {
+    return moment(date).format("H:mm");
+}
+exports.formatTime = formatTime;
+function getMonthDates(month) {
+    var date = moment(month);
+    var count = date.daysInMonth();
+    var array = new Array(count);
+    for (var i = 0; i < count; i++) {
+        array[i] = date.date(i + 1).toDate();
     }
-    return defaultValue;
+    return array;
 }
-exports.getDayKintaiOrDefault = getDayKintaiOrDefault;
+exports.getMonthDates = getMonthDates;
+var DayType;
+(function (DayType) {
+    DayType[DayType["WEEKDAY"] = 0] = "WEEKDAY";
+    DayType[DayType["SATURDAY"] = 1] = "SATURDAY";
+    DayType[DayType["SUNDAY"] = 2] = "SUNDAY";
+    DayType[DayType["HOLIDAY"] = 3] = "HOLIDAY";
+})(DayType = exports.DayType || (exports.DayType = {}));
+// 就業規則で12/30-1/3は休み(1/1は元日なので設定不要)
+var COMPANY_HOLIDAYS = ["12/30", "12/31", "1/2", "1/3"];
+function getDayType(date) {
+    var holiday = japanese_holidays_1.isHoliday(date);
+    if (holiday) {
+        return DayType.HOLIDAY;
+    }
+    if (COMPANY_HOLIDAYS.indexOf(moment(date).format("M/D")) !== -1) {
+        return DayType.HOLIDAY;
+    }
+    var day = date.getDay();
+    if (day === 6) {
+        return DayType.SATURDAY;
+    }
+    if (day === 0) {
+        return DayType.SUNDAY;
+    }
+    return DayType.WEEKDAY;
+}
+exports.getDayType = getDayType;
+function getDayColor(date) {
+    var dayType = getDayType(date);
+    switch (dayType) {
+        case DayType.HOLIDAY:
+        case DayType.SUNDAY:
+            return colors_1.red700;
+        case DayType.SATURDAY:
+            return colors_1.indigo700;
+        default:
+            return undefined;
+    }
+}
+exports.getDayColor = getDayColor;
 
 
 /***/ }),
 
-/***/ 176:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var redux_common_1 = __webpack_require__(177);
-exports.SelectInAction = redux_common_1.action("SelectIn");
-exports.SelectOutAction = redux_common_1.action("SelectOut");
-exports.MoveCurrentDateAction = redux_common_1.action("MoveCurrentDate");
-exports.InputMemoAction = redux_common_1.action("InputMemo");
-exports.InputEmailAction = redux_common_1.action("InputEmail");
-exports.InputPasswordAction = redux_common_1.action("InputPassword");
-exports.SendStartAction = redux_common_1.action("SendStart");
-exports.SendSuccessAction = redux_common_1.action("SendSuccess");
-exports.CloseSendSuccessMessageAction = redux_common_1.action("CloseSendSuccessMessage");
-exports.SendErrorAction = redux_common_1.action("SendError");
-exports.CloseSendErrorMessageAction = redux_common_1.action("CloseSendErrorMessage");
-
-
-/***/ }),
-
-/***/ 177:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-function action(type) {
-    return {
-        type: type,
-        create: function (payload) {
-            return {
-                type: type,
-                payload: payload,
-            };
-        },
-    };
-}
-exports.action = action;
-function createReducer(initialState, reducers) {
-    var reducerMap = {};
-    reducers(function (actionType, reduce) { return reducerMap[actionType.type] = reduce; });
-    return function (state, action) {
-        if (state === void 0) { state = initialState; }
-        var reducer = reducerMap[action.type];
-        if (reducer) {
-            return reducer(state, action.payload);
-        }
-        return state;
-    };
-}
-exports.createReducer = createReducer;
-
-
-/***/ }),
-
-/***/ 247:
+/***/ 245:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -123,7 +164,7 @@ exports.default = HardwareKeyboardArrowLeft;
 
 /***/ }),
 
-/***/ 248:
+/***/ 246:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -162,7 +203,7 @@ exports.default = HardwareKeyboardArrowRight;
 
 /***/ }),
 
-/***/ 408:
+/***/ 406:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -180,13 +221,13 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var AppBar_1 = __webpack_require__(138);
+var AppBar_1 = __webpack_require__(135);
 var IconButton_1 = __webpack_require__(35);
-var keyboard_arrow_left_1 = __webpack_require__(247);
-var keyboard_arrow_right_1 = __webpack_require__(248);
+var keyboard_arrow_left_1 = __webpack_require__(245);
+var keyboard_arrow_right_1 = __webpack_require__(246);
 var React = __webpack_require__(1);
-var DateUtils_1 = __webpack_require__(57);
-var ToolbarWithProgress_1 = __webpack_require__(409);
+var DateUtils_1 = __webpack_require__(175);
+var ToolbarWithProgress_1 = __webpack_require__(407);
 var MonthToolbar = (function (_super) {
     __extends(MonthToolbar, _super);
     function MonthToolbar() {
@@ -222,7 +263,7 @@ exports.MonthToolbar = MonthToolbar;
 
 /***/ }),
 
-/***/ 409:
+/***/ 407:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -232,7 +273,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var LinearProgress_1 = __webpack_require__(222);
+var LinearProgress_1 = __webpack_require__(220);
 var React = __webpack_require__(1);
 var ToolbarWithProgress = (function (_super) {
     __extends(ToolbarWithProgress, _super);
@@ -252,14 +293,79 @@ exports.ToolbarWithProgress = ToolbarWithProgress;
 
 /***/ }),
 
+/***/ 408:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var DateUtils_1 = __webpack_require__(175);
+var defaultDayKintai = {
+    inTime: "",
+    outTime: "",
+    memo: "",
+};
+function getDayKintai(state, date) {
+    var day = DateUtils_1.toDayString(date);
+    return state.days[day];
+}
+exports.getDayKintai = getDayKintai;
+function getDayKintaiOrDefault(state, date, defaultValue) {
+    if (defaultValue === void 0) { defaultValue = defaultDayKintai; }
+    var kintai = getDayKintai(state, date);
+    if (kintai) {
+        return kintai;
+    }
+    return defaultValue;
+}
+exports.getDayKintaiOrDefault = getDayKintaiOrDefault;
+
+
+/***/ }),
+
+/***/ 410:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var react_router_redux_1 = __webpack_require__(84);
+var redux_1 = __webpack_require__(108);
+var createLogger = __webpack_require__(178);
+var redux_persist_1 = __webpack_require__(179);
+var KintaiReducer_1 = __webpack_require__(797);
+var ViewReducer_1 = __webpack_require__(798);
+// weinreでConsoleデバッグができるようにredux-loggerがconsole.logを呼び出すように変更
+var logger = createLogger({
+    level: "log",
+    logger: {
+        log: function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            console.log.apply(console, args);
+        },
+    },
+});
+var store = redux_1.createStore(redux_1.combineReducers({
+    kintai: KintaiReducer_1.kintai,
+    routing: react_router_redux_1.routerReducer,
+    view: ViewReducer_1.view,
+}), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), redux_1.compose(redux_persist_1.autoRehydrate(), redux_1.applyMiddleware(logger)));
+redux_persist_1.persistStore(store, { whitelist: ["kintai"] });
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = store;
+
+
+/***/ }),
+
 /***/ 411:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var react_router_1 = __webpack_require__(86);
-var actions = __webpack_require__(176);
-var ApiClient_1 = __webpack_require__(790);
+var react_router_1 = __webpack_require__(85);
+var actions = __webpack_require__(174);
+var ApiClient_1 = __webpack_require__(789);
 var DispatchActions = (function () {
     function DispatchActions(dispatch) {
         this.dispatch = dispatch;
@@ -338,33 +444,35 @@ exports.DispatchActions = DispatchActions;
 
 "use strict";
 
-var react_router_redux_1 = __webpack_require__(85);
-var redux_1 = __webpack_require__(111);
-var createLogger = __webpack_require__(180);
-var redux_persist_1 = __webpack_require__(181);
-var KintaiReducer_1 = __webpack_require__(798);
-var ViewReducer_1 = __webpack_require__(799);
-// weinreでConsoleデバッグができるようにredux-loggerがconsole.logを呼び出すように変更
-var logger = createLogger({
-    level: "log",
-    logger: {
-        log: function () {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
-            }
-            console.log.apply(console, args);
-        },
-    },
-});
-var store = redux_1.createStore(redux_1.combineReducers({
-    kintai: KintaiReducer_1.kintai,
-    routing: react_router_redux_1.routerReducer,
-    view: ViewReducer_1.view,
-}), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), redux_1.compose(redux_persist_1.autoRehydrate(), redux_1.applyMiddleware(logger)));
-redux_persist_1.persistStore(store, { whitelist: ["kintai"] });
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = store;
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var React = __webpack_require__(1);
+var Main_1 = __webpack_require__(791);
+var Toolbar_1 = __webpack_require__(793);
+var InputPage = (function (_super) {
+    __extends(InputPage, _super);
+    function InputPage() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    InputPage.prototype.render = function () {
+        return (React.createElement("div", null,
+            React.createElement(Toolbar_1.Toolbar, __assign({}, this.props)),
+            React.createElement(Main_1.Main, __assign({}, this.props))));
+    };
+    return InputPage;
+}(React.Component));
+exports.InputPage = InputPage;
 
 
 /***/ }),
@@ -388,21 +496,21 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var Main_1 = __webpack_require__(792);
-var Toolbar_1 = __webpack_require__(794);
-var InputPage = (function (_super) {
-    __extends(InputPage, _super);
-    function InputPage() {
+var MonthToolbar_1 = __webpack_require__(406);
+var Main_1 = __webpack_require__(794);
+var ListPage = (function (_super) {
+    __extends(ListPage, _super);
+    function ListPage() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    InputPage.prototype.render = function () {
+    ListPage.prototype.render = function () {
         return (React.createElement("div", null,
-            React.createElement(Toolbar_1.Toolbar, __assign({}, this.props)),
+            React.createElement(MonthToolbar_1.MonthToolbar, __assign({}, this.props)),
             React.createElement(Main_1.Main, __assign({}, this.props))));
     };
-    return InputPage;
+    return ListPage;
 }(React.Component));
-exports.InputPage = InputPage;
+exports.ListPage = ListPage;
 
 
 /***/ }),
@@ -426,21 +534,22 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var MonthToolbar_1 = __webpack_require__(408);
-var Main_1 = __webpack_require__(795);
-var ListPage = (function (_super) {
-    __extends(ListPage, _super);
-    function ListPage() {
+var FooterTab_1 = __webpack_require__(790);
+var SendStatus_1 = __webpack_require__(795);
+var Root = (function (_super) {
+    __extends(Root, _super);
+    function Root() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    ListPage.prototype.render = function () {
+    Root.prototype.render = function () {
         return (React.createElement("div", null,
-            React.createElement(MonthToolbar_1.MonthToolbar, __assign({}, this.props)),
-            React.createElement(Main_1.Main, __assign({}, this.props))));
+            this.props.children,
+            React.createElement(SendStatus_1.SendStatus, __assign({}, this.props)),
+            React.createElement(FooterTab_1.FooterTab, __assign({}, this.props))));
     };
-    return ListPage;
+    return Root;
 }(React.Component));
-exports.ListPage = ListPage;
+exports.Root = Root;
 
 
 /***/ }),
@@ -464,47 +573,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var FooterTab_1 = __webpack_require__(791);
-var SendStatus_1 = __webpack_require__(796);
-var Root = (function (_super) {
-    __extends(Root, _super);
-    function Root() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Root.prototype.render = function () {
-        return (React.createElement("div", null,
-            this.props.children,
-            React.createElement(SendStatus_1.SendStatus, __assign({}, this.props)),
-            React.createElement(FooterTab_1.FooterTab, __assign({}, this.props))));
-    };
-    return Root;
-}(React.Component));
-exports.Root = Root;
-
-
-/***/ }),
-
-/***/ 416:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-var React = __webpack_require__(1);
-var MonthToolbar_1 = __webpack_require__(408);
-var Main_1 = __webpack_require__(797);
+var MonthToolbar_1 = __webpack_require__(406);
+var Main_1 = __webpack_require__(796);
 var SendPage = (function (_super) {
     __extends(SendPage, _super);
     function SendPage() {
@@ -522,108 +592,7 @@ exports.SendPage = SendPage;
 
 /***/ }),
 
-/***/ 57:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var japanese_holidays_1 = __webpack_require__(178);
-var colors_1 = __webpack_require__(99);
-var moment = __webpack_require__(2);
-function toDayString(date) {
-    return moment(date).format("YYYYMMDD");
-}
-exports.toDayString = toDayString;
-function formatDate(date) {
-    return moment(date).format("M/D(dd)");
-}
-exports.formatDate = formatDate;
-function formatDateForListItem(date) {
-    return moment(date).format("D(dd)");
-}
-exports.formatDateForListItem = formatDateForListItem;
-function formatMonth(date) {
-    return moment(date).format("YYYY/M");
-}
-exports.formatMonth = formatMonth;
-function ceil15Minutes(date) {
-    var minutes = Math.ceil(date.getMinutes() / 15) * 15;
-    return moment(date).minute(minutes).toDate();
-}
-exports.ceil15Minutes = ceil15Minutes;
-function floor15Minutes(date) {
-    var minutes = Math.floor(date.getMinutes() / 15) * 15;
-    return moment(date).minute(minutes).toDate();
-}
-exports.floor15Minutes = floor15Minutes;
-function moveDates(date, amount) {
-    return moment(date).add(amount, "days").toDate();
-}
-exports.moveDates = moveDates;
-function moveMonths(date, amount) {
-    // 月移動する場合は日付は1日にリセットする
-    return moment(date).add(amount, "months").date(1).toDate();
-}
-exports.moveMonths = moveMonths;
-function formatTime(date) {
-    return moment(date).format("H:mm");
-}
-exports.formatTime = formatTime;
-function getMonthDates(month) {
-    var date = moment(month);
-    var count = date.daysInMonth();
-    var array = new Array(count);
-    for (var i = 0; i < count; i++) {
-        array[i] = date.date(i + 1).toDate();
-    }
-    return array;
-}
-exports.getMonthDates = getMonthDates;
-var DayType;
-(function (DayType) {
-    DayType[DayType["WEEKDAY"] = 0] = "WEEKDAY";
-    DayType[DayType["SATURDAY"] = 1] = "SATURDAY";
-    DayType[DayType["SUNDAY"] = 2] = "SUNDAY";
-    DayType[DayType["HOLIDAY"] = 3] = "HOLIDAY";
-})(DayType = exports.DayType || (exports.DayType = {}));
-// 就業規則で12/30-1/3は休み(1/1は元日なので設定不要)
-var COMPANY_HOLIDAYS = ["12/30", "12/31", "1/2", "1/3"];
-function getDayType(date) {
-    var holiday = japanese_holidays_1.isHoliday(date);
-    if (holiday) {
-        return DayType.HOLIDAY;
-    }
-    if (COMPANY_HOLIDAYS.indexOf(moment(date).format("M/D")) !== -1) {
-        return DayType.HOLIDAY;
-    }
-    var day = date.getDay();
-    if (day === 6) {
-        return DayType.SATURDAY;
-    }
-    if (day === 0) {
-        return DayType.SUNDAY;
-    }
-    return DayType.WEEKDAY;
-}
-exports.getDayType = getDayType;
-function getDayColor(date) {
-    var dayType = getDayType(date);
-    switch (dayType) {
-        case DayType.HOLIDAY:
-        case DayType.SUNDAY:
-            return colors_1.red700;
-        case DayType.SATURDAY:
-            return colors_1.indigo700;
-        default:
-            return undefined;
-    }
-}
-exports.getDayColor = getDayColor;
-
-
-/***/ }),
-
-/***/ 622:
+/***/ 621:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -662,7 +631,7 @@ exports.default = ActionList;
 
 /***/ }),
 
-/***/ 623:
+/***/ 622:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -701,7 +670,7 @@ exports.default = ActionSchedule;
 
 /***/ }),
 
-/***/ 624:
+/***/ 623:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -740,7 +709,7 @@ exports.default = ActionUpdate;
 
 /***/ }),
 
-/***/ 625:
+/***/ 624:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -779,7 +748,7 @@ exports.default = ContentSend;
 
 /***/ }),
 
-/***/ 628:
+/***/ 627:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -818,14 +787,14 @@ exports.default = ImageEdit;
 
 /***/ }),
 
-/***/ 790:
+/***/ 789:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-__webpack_require__(182);
-var DateUtils_1 = __webpack_require__(57);
-var KintaiUtils_1 = __webpack_require__(108);
+__webpack_require__(180);
+var DateUtils_1 = __webpack_require__(175);
+var KintaiUtils_1 = __webpack_require__(408);
 function sendMonthKintai(kintai, month, password) {
     var body = createBody(kintai, month, password);
     return fetch("https://sleepy-ravine-40602.herokuapp.com/api/kinmu", {
@@ -880,7 +849,7 @@ function toWorkInfo(date, dayKintai) {
 
 /***/ }),
 
-/***/ 791:
+/***/ 790:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -890,11 +859,11 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var BottomNavigation_1 = __webpack_require__(213);
-var Divider_1 = __webpack_require__(140);
-var list_1 = __webpack_require__(622);
-var send_1 = __webpack_require__(625);
-var edit_1 = __webpack_require__(628);
+var BottomNavigation_1 = __webpack_require__(211);
+var Divider_1 = __webpack_require__(137);
+var list_1 = __webpack_require__(621);
+var send_1 = __webpack_require__(624);
+var edit_1 = __webpack_require__(627);
 var React = __webpack_require__(1);
 var FooterTab = (function (_super) {
     __extends(FooterTab, _super);
@@ -939,7 +908,7 @@ exports.FooterTab = FooterTab;
 
 /***/ }),
 
-/***/ 792:
+/***/ 791:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -951,8 +920,8 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var TextField_1 = __webpack_require__(52);
 var React = __webpack_require__(1);
-var KintaiUtils_1 = __webpack_require__(108);
-var TimeInput_1 = __webpack_require__(793);
+var KintaiUtils_1 = __webpack_require__(408);
+var TimeInput_1 = __webpack_require__(792);
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
@@ -982,7 +951,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 793:
+/***/ 792:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -993,12 +962,12 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var IconButton_1 = __webpack_require__(35);
-var MenuItem_1 = __webpack_require__(96);
-var SelectField_1 = __webpack_require__(229);
-var schedule_1 = __webpack_require__(623);
-var update_1 = __webpack_require__(624);
+var MenuItem_1 = __webpack_require__(95);
+var SelectField_1 = __webpack_require__(227);
+var schedule_1 = __webpack_require__(622);
+var update_1 = __webpack_require__(623);
 var React = __webpack_require__(1);
-var DateUtils_1 = __webpack_require__(57);
+var DateUtils_1 = __webpack_require__(175);
 var TIMES = [":00", ":15", ":30", ":45"];
 var REGULAR_TIME_IN = "9:00";
 var REGULAR_TIME_OUT = "17:45";
@@ -1065,7 +1034,7 @@ exports.TimeInput = TimeInput;
 
 /***/ }),
 
-/***/ 794:
+/***/ 793:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1083,13 +1052,13 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var AppBar_1 = __webpack_require__(138);
+var AppBar_1 = __webpack_require__(135);
 var IconButton_1 = __webpack_require__(35);
-var keyboard_arrow_left_1 = __webpack_require__(247);
-var keyboard_arrow_right_1 = __webpack_require__(248);
+var keyboard_arrow_left_1 = __webpack_require__(245);
+var keyboard_arrow_right_1 = __webpack_require__(246);
 var React = __webpack_require__(1);
-var DateUtils_1 = __webpack_require__(57);
-var ToolbarWithProgress_1 = __webpack_require__(409);
+var DateUtils_1 = __webpack_require__(175);
+var ToolbarWithProgress_1 = __webpack_require__(407);
 var Toolbar = (function (_super) {
     __extends(Toolbar, _super);
     function Toolbar() {
@@ -1136,7 +1105,7 @@ exports.Toolbar = Toolbar;
 
 /***/ }),
 
-/***/ 795:
+/***/ 794:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1146,10 +1115,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var List_1 = __webpack_require__(223);
+var List_1 = __webpack_require__(221);
 var React = __webpack_require__(1);
-var DateUtils_1 = __webpack_require__(57);
-var KintaiUtils_1 = __webpack_require__(108);
+var DateUtils_1 = __webpack_require__(175);
+var KintaiUtils_1 = __webpack_require__(408);
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
@@ -1193,7 +1162,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 796:
+/***/ 795:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1203,8 +1172,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Dialog_1 = __webpack_require__(94);
-var Snackbar_1 = __webpack_require__(230);
+var Dialog_1 = __webpack_require__(93);
+var Snackbar_1 = __webpack_require__(228);
 var React = __webpack_require__(1);
 var SendStatus = (function (_super) {
     __extends(SendStatus, _super);
@@ -1230,7 +1199,7 @@ exports.SendStatus = SendStatus;
 
 /***/ }),
 
-/***/ 797:
+/***/ 796:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1240,7 +1209,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var RaisedButton_1 = __webpack_require__(228);
+var RaisedButton_1 = __webpack_require__(226);
 var TextField_1 = __webpack_require__(52);
 var React = __webpack_require__(1);
 var Main = (function (_super) {
@@ -1276,7 +1245,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 798:
+/***/ 797:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1289,17 +1258,17 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var actions = __webpack_require__(176);
-var redux_common_1 = __webpack_require__(177);
-var DateUtils_1 = __webpack_require__(57);
-var KintaiUtils_1 = __webpack_require__(108);
+var actions = __webpack_require__(174);
+var redux_commons_1 = __webpack_require__(802);
+var DateUtils_1 = __webpack_require__(175);
+var KintaiUtils_1 = __webpack_require__(408);
 var initialState = {
     person: {
         email: "",
     },
     days: {},
 };
-exports.kintai = redux_common_1.createReducer(initialState, function (handle) {
+exports.kintai = redux_commons_1.createReducer(initialState, function (handle) {
     handle(actions.SelectInAction, function (state, selectedTime) {
         return updateDayKintai(state, selectedTime.date, { inTime: selectedTime.time });
     });
@@ -1325,7 +1294,7 @@ function updateDayKintai(state, date, partialDayKintai) {
 
 /***/ }),
 
-/***/ 799:
+/***/ 798:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1338,8 +1307,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var actions = __webpack_require__(176);
-var redux_common_1 = __webpack_require__(177);
+var actions = __webpack_require__(174);
+var redux_commons_1 = __webpack_require__(802);
 var initialState = {
     currentDate: new Date(),
     password: "",
@@ -1347,7 +1316,7 @@ var initialState = {
     isShowSendSuccessMessage: false,
     sendErrorMessage: undefined,
 };
-exports.view = redux_common_1.createReducer(initialState, function (handle) {
+exports.view = redux_commons_1.createReducer(initialState, function (handle) {
     handle(actions.MoveCurrentDateAction, function (state, date) {
         return __assign({}, state, { currentDate: date });
     });
@@ -1374,28 +1343,25 @@ exports.view = redux_common_1.createReducer(initialState, function (handle) {
 
 /***/ }),
 
-/***/ 801:
+/***/ 800:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var MuiThemeProvider_1 = __webpack_require__(179);
-var moment = __webpack_require__(2);
-__webpack_require__(110);
+var MuiThemeProvider_1 = __webpack_require__(177);
 var React = __webpack_require__(1);
 var ReactDOM = __webpack_require__(17);
-var react_redux_1 = __webpack_require__(112);
-var react_router_1 = __webpack_require__(86);
-var react_router_redux_1 = __webpack_require__(85);
-var injectTapEventPlugin = __webpack_require__(113);
-var InputPage_1 = __webpack_require__(413);
-var ListPage_1 = __webpack_require__(414);
-var Root_1 = __webpack_require__(415);
-var SendPage_1 = __webpack_require__(416);
+var react_redux_1 = __webpack_require__(109);
+var react_router_1 = __webpack_require__(85);
+var react_router_redux_1 = __webpack_require__(84);
+var injectTapEventPlugin = __webpack_require__(110);
 var DispatchActions_1 = __webpack_require__(411);
-var Store_1 = __webpack_require__(412);
+var InputPage_1 = __webpack_require__(412);
+var ListPage_1 = __webpack_require__(413);
+var Root_1 = __webpack_require__(414);
+var SendPage_1 = __webpack_require__(415);
+var Store_1 = __webpack_require__(410);
 injectTapEventPlugin();
-moment.locale("ja");
 var connector = react_redux_1.connect(function (store) { return ({ value: store }); }, function (dispatch) { return ({ actions: new DispatchActions_1.DispatchActions(dispatch) }); });
 var RootComponent = connector(Root_1.Root);
 var InputPageComponent = connector(InputPage_1.InputPage);
@@ -1411,7 +1377,41 @@ ReactDOM.render(React.createElement(react_redux_1.Provider, { store: Store_1.def
                 React.createElement(react_router_1.IndexRoute, { component: InputPageComponent }))))), document.getElementById("app"));
 
 
+/***/ }),
+
+/***/ 802:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+function action(type) {
+    return {
+        type: type,
+        create: function (payload) {
+            return {
+                type: type,
+                payload: payload,
+            };
+        },
+    };
+}
+exports.action = action;
+function createReducer(initialState, reducers) {
+    var reducerMap = {};
+    reducers(function (actionType, reduce) { return reducerMap[actionType.type] = reduce; });
+    return function (state, action) {
+        if (state === void 0) { state = initialState; }
+        var reducer = reducerMap[action.type];
+        if (reducer) {
+            return reducer(state, action.payload);
+        }
+        return state;
+    };
+}
+exports.createReducer = createReducer;
+
+
 /***/ })
 
-},[801]);
+},[800]);
 //# sourceMappingURL=app.js.map

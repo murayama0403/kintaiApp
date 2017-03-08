@@ -4,8 +4,8 @@ import IconButton from "material-ui/IconButton"
 import ArrowLeft from "material-ui/svg-icons/hardware/keyboard-arrow-left"
 import ArrowRight from "material-ui/svg-icons/hardware/keyboard-arrow-right"
 import * as React from "react"
-import { formatDate, getDayColor, moveDates } from "../../DateUtils"
 import { RootProps } from "../../RootProps"
+import { formatDate, getDayColor, moveDates } from "../../utils/DateUtils"
 import { ToolbarWithProgress } from "../common/ToolbarWithProgress"
 
 export class Toolbar extends React.Component<RootProps, {}> {

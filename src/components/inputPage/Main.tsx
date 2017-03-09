@@ -2,6 +2,7 @@ import TextField from "material-ui/TextField"
 import * as React from "react"
 import { RootProps } from "../../RootProps"
 import { getDayKintaiOrDefault } from "../../utils/KintaiUtils"
+import { RestInput } from "./RestInput"
 import { IN, OUT, TimeInput } from "./TimeInput"
 
 export class Main extends React.Component<RootProps, {}> {
@@ -18,6 +19,9 @@ export class Main extends React.Component<RootProps, {}> {
                     type={OUT}
                     value={currentKintai.outTime}
                     onSelected={(event) => this.handleOutSelected(event)} />
+
+                <RestInput {...this.props} />
+
                 <TextField
                     multiLine={true}
                     fullWidth={true}

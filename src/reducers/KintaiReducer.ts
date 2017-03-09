@@ -25,6 +25,9 @@ export const kintai = createReducer(initialState, (handle) => {
         const person = { ...state.person, email }
         return { ...state, person }
     })
+    handle(actions.Rest1Action, (state, rest) => {
+        return updateDayKintai(state, rest.date, { rest1: rest.isRest })
+    })
 })
 
 function updateDayKintai(state: KintaiState, date: Date, partialDayKintai: Partial<DayKintai>) {

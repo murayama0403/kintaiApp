@@ -10,6 +10,11 @@ interface DateText {
     text: string
 }
 
+interface DateRest {
+    date: Date
+    isRest: boolean
+}
+
 export const SelectInAction = action<SelectedTime>("SelectIn")
 export const SelectOutAction = action<SelectedTime>("SelectOut")
 export const MoveCurrentDateAction = action<Date>("MoveCurrentDate")
@@ -21,3 +26,4 @@ export const SendSuccessAction = action<undefined>("SendSuccess")
 export const CloseSendSuccessMessageAction = action<undefined>("CloseSendSuccessMessage")
 export const SendErrorAction = action<string>("SendError")
 export const CloseSendErrorMessageAction = action<undefined>("CloseSendErrorMessage")
+export const Rest1Action = action<DateRest>("Rest1Action")

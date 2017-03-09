@@ -15,6 +15,7 @@ export interface Person {
 export interface DayKintai {
     inTime: string
     outTime: string
+    rest1: boolean
     memo: string
 }
 

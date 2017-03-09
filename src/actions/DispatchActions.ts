@@ -82,4 +82,8 @@ export class DispatchActions {
     public closeSendErrorMessage() {
         this.dispatch(actions.CloseSendErrorMessageAction.create(undefined))
     }
+
+    public rest1(date: Date, isRest: boolean) {
+        this.dispatch(actions.Rest1Action.create({date, isRest}))
+    }
 }

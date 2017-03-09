@@ -1,7 +1,7 @@
 import { indigo700, red700 } from "material-ui/styles/colors"
 import * as moment from "moment"
 import * as assert from "power-assert"
-import * as target from "../src/DateUtils"
+import * as target from "../../src/utils/DateUtils"
 
 describe("toDayString", () => {
   it("yyyyMMdd形式の日付文字列に変換する", () => {

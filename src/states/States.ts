@@ -10,6 +10,11 @@ export interface KintaiState {
 
 export interface Person {
     email: string
+    employeeNo: string
+    lastName: string
+    firstName: string
+    departmentCode: string
+    manageType: string
 }
 
 export interface DayKintai {

@@ -28,7 +28,12 @@ export function createReducer<S>(
     reducers: (handle: Handle<S>) => void): (state: S, action: Action<any>) => S {
     const reducerMap: { [key: string]: Reducer<S, any> } = {}
 
-    reducers(<T>(actionType: ActionType<T>, reduce: Reducer<S, T>) => reducerMap[actionType.type] = reduce)
+    reducers(<T>(actionType: ActionType<T>, reduce: Reducer<S, T>) => {
+        if (reducerMap[actionType.type]) {
+            throw new Error("すでに登録済みのactionです: " + actionType.type)
+        }
+        reducerMap[actionType.type] = reduce
+    })
 
     return (state: S = initialState, action: Action<any>) => {
         const reducer = reducerMap[action.type]

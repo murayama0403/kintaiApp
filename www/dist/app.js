@@ -1,11 +1,40 @@
 webpackJsonp([0],{
 
-/***/ 174:
+/***/ 108:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var redux_commons_1 = __webpack_require__(802);
+var DateUtils_1 = __webpack_require__(57);
+var defaultDayKintai = {
+    inTime: "",
+    outTime: "",
+    memo: "",
+};
+function getDayKintai(state, date) {
+    var day = DateUtils_1.toDayString(date);
+    return state.days[day];
+}
+exports.getDayKintai = getDayKintai;
+function getDayKintaiOrDefault(state, date, defaultValue) {
+    if (defaultValue === void 0) { defaultValue = defaultDayKintai; }
+    var kintai = getDayKintai(state, date);
+    if (kintai) {
+        return kintai;
+    }
+    return defaultValue;
+}
+exports.getDayKintaiOrDefault = getDayKintaiOrDefault;
+
+
+/***/ }),
+
+/***/ 177:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var redux_commons_1 = __webpack_require__(178);
 exports.SelectInAction = redux_commons_1.action("SelectIn");
 exports.SelectOutAction = redux_commons_1.action("SelectOut");
 exports.MoveCurrentDateAction = redux_commons_1.action("MoveCurrentDate");
@@ -17,19 +46,560 @@ exports.SendSuccessAction = redux_commons_1.action("SendSuccess");
 exports.CloseSendSuccessMessageAction = redux_commons_1.action("CloseSendSuccessMessage");
 exports.SendErrorAction = redux_commons_1.action("SendError");
 exports.CloseSendErrorMessageAction = redux_commons_1.action("CloseSendErrorMessage");
+exports.InputEmployeeNoAction = redux_commons_1.action("InputEmployeeNo");
+exports.InputLastNameAction = redux_commons_1.action("InputLastName");
+exports.InputFirstNameAction = redux_commons_1.action("InputFirstName");
+exports.InputDepartmentCodeAction = redux_commons_1.action("InputDepartmentCode");
+exports.InputManageTypeAction = redux_commons_1.action("InputManageType");
 
 
 /***/ }),
 
-/***/ 175:
+/***/ 178:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var japanese_holidays_1 = __webpack_require__(176);
-var colors_1 = __webpack_require__(98);
+function action(type) {
+    return {
+        type: type,
+        create: function (payload) {
+            return {
+                type: type,
+                payload: payload,
+            };
+        },
+    };
+}
+exports.action = action;
+function createReducer(initialState, reducers) {
+    var reducerMap = {};
+    reducers(function (actionType, reduce) {
+        if (reducerMap[actionType.type]) {
+            throw new Error("すでに登録済みのactionです: " + actionType.type);
+        }
+        reducerMap[actionType.type] = reduce;
+    });
+    return function (state, action) {
+        if (state === void 0) { state = initialState; }
+        var reducer = reducerMap[action.type];
+        if (reducer) {
+            return reducer(state, action.payload);
+        }
+        return state;
+    };
+}
+exports.createReducer = createReducer;
+
+
+/***/ }),
+
+/***/ 179:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var AppBar_1 = __webpack_require__(137);
+var IconButton_1 = __webpack_require__(35);
+var keyboard_arrow_left_1 = __webpack_require__(248);
+var keyboard_arrow_right_1 = __webpack_require__(249);
+var React = __webpack_require__(1);
+var DateUtils_1 = __webpack_require__(57);
+var ToolbarWithProgress_1 = __webpack_require__(409);
+var MonthToolbar = (function (_super) {
+    __extends(MonthToolbar, _super);
+    function MonthToolbar() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.buttons = React.createElement("div", null,
+            React.createElement(IconButton_1.default, { onTouchTap: function (event) { return _this.handleBefore(event); } },
+                React.createElement(keyboard_arrow_left_1.default, { color: "white" })),
+            React.createElement(IconButton_1.default, { onTouchTap: function (event) { return _this.handleAfter(event); } },
+                React.createElement(keyboard_arrow_right_1.default, { color: "white" })));
+        return _this;
+    }
+    MonthToolbar.prototype.render = function () {
+        return (React.createElement(ToolbarWithProgress_1.ToolbarWithProgress, __assign({}, this.props),
+            React.createElement(AppBar_1.default, { title: this.formatCurrentMonth(), showMenuIconButton: false, iconElementRight: this.buttons })));
+    };
+    MonthToolbar.prototype.handleBefore = function (event) {
+        event.preventDefault();
+        var date = DateUtils_1.moveMonths(this.props.value.view.currentDate, -1);
+        this.props.actions.moveCurrentDate(date);
+    };
+    MonthToolbar.prototype.handleAfter = function (event) {
+        event.preventDefault();
+        var date = DateUtils_1.moveMonths(this.props.value.view.currentDate, 1);
+        this.props.actions.moveCurrentDate(date);
+    };
+    MonthToolbar.prototype.formatCurrentMonth = function () {
+        return DateUtils_1.formatMonth(this.props.value.view.currentDate);
+    };
+    return MonthToolbar;
+}(React.Component));
+exports.MonthToolbar = MonthToolbar;
+
+
+/***/ }),
+
+/***/ 248:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(18);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(15);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var HardwareKeyboardArrowLeft = function HardwareKeyboardArrowLeft(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z' })
+  );
+};
+HardwareKeyboardArrowLeft = (0, _pure2.default)(HardwareKeyboardArrowLeft);
+HardwareKeyboardArrowLeft.displayName = 'HardwareKeyboardArrowLeft';
+HardwareKeyboardArrowLeft.muiName = 'SvgIcon';
+
+exports.default = HardwareKeyboardArrowLeft;
+
+/***/ }),
+
+/***/ 249:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(18);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(15);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var HardwareKeyboardArrowRight = function HardwareKeyboardArrowRight(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z' })
+  );
+};
+HardwareKeyboardArrowRight = (0, _pure2.default)(HardwareKeyboardArrowRight);
+HardwareKeyboardArrowRight.displayName = 'HardwareKeyboardArrowRight';
+HardwareKeyboardArrowRight.muiName = 'SvgIcon';
+
+exports.default = HardwareKeyboardArrowRight;
+
+/***/ }),
+
+/***/ 409:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var LinearProgress_1 = __webpack_require__(224);
+var React = __webpack_require__(1);
+var ToolbarWithProgress = (function (_super) {
+    __extends(ToolbarWithProgress, _super);
+    function ToolbarWithProgress() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    ToolbarWithProgress.prototype.render = function () {
+        var progressVisibility = this.props.value.view.isSending ? "visible" : "hidden";
+        return (React.createElement("div", { className: "toolbar" },
+            this.props.children,
+            React.createElement(LinearProgress_1.default, { mode: "indeterminate", style: { visibility: progressVisibility } })));
+    };
+    return ToolbarWithProgress;
+}(React.Component));
+exports.ToolbarWithProgress = ToolbarWithProgress;
+
+
+/***/ }),
+
+/***/ 411:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var react_router_redux_1 = __webpack_require__(85);
+var redux_1 = __webpack_require__(110);
+var createLogger = __webpack_require__(182);
+var redux_persist_1 = __webpack_require__(183);
+var KintaiReducer_1 = __webpack_require__(800);
+var ViewReducer_1 = __webpack_require__(801);
+// weinreでConsoleデバッグができるようにredux-loggerがconsole.logを呼び出すように変更
+var logger = createLogger({
+    level: "log",
+    logger: {
+        log: function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            console.log.apply(console, args);
+        },
+    },
+});
+var store = redux_1.createStore(redux_1.combineReducers({
+    kintai: KintaiReducer_1.kintai,
+    routing: react_router_redux_1.routerReducer,
+    view: ViewReducer_1.view,
+}), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), redux_1.compose(redux_persist_1.autoRehydrate(), redux_1.applyMiddleware(logger)));
+redux_persist_1.persistStore(store, { whitelist: ["kintai"] });
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = store;
+
+
+/***/ }),
+
+/***/ 412:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var react_router_1 = __webpack_require__(86);
+var actions = __webpack_require__(177);
+var ApiClient_1 = __webpack_require__(791);
+var DispatchActions = (function () {
+    function DispatchActions(dispatch) {
+        this.dispatch = dispatch;
+    }
+    DispatchActions.prototype.selectIn = function (date, time) {
+        this.dispatch(actions.SelectInAction.create({
+            date: date,
+            time: time,
+        }));
+    };
+    DispatchActions.prototype.selectOut = function (date, time) {
+        this.dispatch(actions.SelectOutAction.create({
+            date: date,
+            time: time,
+        }));
+    };
+    DispatchActions.prototype.moveCurrentDate = function (date) {
+        this.dispatch(actions.MoveCurrentDateAction.create(date));
+    };
+    DispatchActions.prototype.sendMonth = function (kintai, month, password) {
+        var _this = this;
+        // TODO 入力チェック
+        this.dispatch(actions.SendStartAction.create(undefined));
+        ApiClient_1.sendMonthKintai(kintai, month, password).then(function (response) {
+            if (!response.ok) {
+                return response.json().then(function (json) {
+                    _this.dispatch(actions.SendErrorAction.create("サーバーサイドエラー: " + json.message));
+                });
+            }
+            _this.dispatch(actions.SendSuccessAction.create(undefined));
+            return response;
+        }).catch(function () {
+            _this.dispatch(actions.SendErrorAction.create("ネットワークエラー"));
+        });
+    };
+    DispatchActions.prototype.inputMemo = function (date, memo) {
+        this.dispatch(actions.InputMemoAction.create({
+            date: date,
+            text: memo,
+        }));
+    };
+    DispatchActions.prototype.showInputPage = function (date) {
+        if (!!date) {
+            this.moveCurrentDate(date);
+        }
+        react_router_1.hashHistory.push("/");
+    };
+    DispatchActions.prototype.showListPage = function () {
+        react_router_1.hashHistory.push("/list");
+    };
+    DispatchActions.prototype.showCommonPage = function () {
+        react_router_1.hashHistory.push("/common");
+    };
+    DispatchActions.prototype.showSendPage = function () {
+        react_router_1.hashHistory.push("/send");
+    };
+    DispatchActions.prototype.inputEmail = function (email) {
+        // TODO 入力チェック？
+        this.dispatch(actions.InputEmailAction.create(email));
+    };
+    DispatchActions.prototype.inputPassword = function (password) {
+        this.dispatch(actions.InputPasswordAction.create(password));
+    };
+    DispatchActions.prototype.closeSendSuccessMessage = function () {
+        this.dispatch(actions.CloseSendSuccessMessageAction.create(undefined));
+    };
+    DispatchActions.prototype.closeSendErrorMessage = function () {
+        this.dispatch(actions.CloseSendErrorMessageAction.create(undefined));
+    };
+    DispatchActions.prototype.inputEmployeeNo = function (employeeNumber) {
+        this.dispatch(actions.InputEmployeeNoAction.create(employeeNumber));
+    };
+    DispatchActions.prototype.inputLastName = function (lastName) {
+        this.dispatch(actions.InputLastNameAction.create(lastName));
+    };
+    DispatchActions.prototype.inputFirstName = function (firstName) {
+        // TODO 入力チェック？
+        this.dispatch(actions.InputFirstNameAction.create(firstName));
+    };
+    DispatchActions.prototype.inputDepartmentCode = function (departmentCode) {
+        this.dispatch(actions.InputDepartmentCodeAction.create(departmentCode));
+    };
+    DispatchActions.prototype.inputManageType = function (manageType) {
+        this.dispatch(actions.InputManageTypeAction.create(manageType));
+    };
+    return DispatchActions;
+}());
+exports.DispatchActions = DispatchActions;
+
+
+/***/ }),
+
+/***/ 413:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var AppBar_1 = __webpack_require__(137);
+var React = __webpack_require__(1);
+var ToolbarWithProgress_1 = __webpack_require__(409);
+var Main_1 = __webpack_require__(792);
+var CommonPage = (function (_super) {
+    __extends(CommonPage, _super);
+    function CommonPage() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    CommonPage.prototype.render = function () {
+        return (React.createElement("div", null,
+            React.createElement(ToolbarWithProgress_1.ToolbarWithProgress, __assign({}, this.props),
+                React.createElement(AppBar_1.default, { title: "共通", showMenuIconButton: false })),
+            React.createElement(Main_1.Main, __assign({}, this.props))));
+    };
+    return CommonPage;
+}(React.Component));
+exports.CommonPage = CommonPage;
+
+
+/***/ }),
+
+/***/ 414:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var React = __webpack_require__(1);
+var Main_1 = __webpack_require__(794);
+var Toolbar_1 = __webpack_require__(796);
+var InputPage = (function (_super) {
+    __extends(InputPage, _super);
+    function InputPage() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    InputPage.prototype.render = function () {
+        return (React.createElement("div", null,
+            React.createElement(Toolbar_1.Toolbar, __assign({}, this.props)),
+            React.createElement(Main_1.Main, __assign({}, this.props))));
+    };
+    return InputPage;
+}(React.Component));
+exports.InputPage = InputPage;
+
+
+/***/ }),
+
+/***/ 415:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var React = __webpack_require__(1);
+var MonthToolbar_1 = __webpack_require__(179);
+var Main_1 = __webpack_require__(797);
+var ListPage = (function (_super) {
+    __extends(ListPage, _super);
+    function ListPage() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    ListPage.prototype.render = function () {
+        return (React.createElement("div", null,
+            React.createElement(MonthToolbar_1.MonthToolbar, __assign({}, this.props)),
+            React.createElement(Main_1.Main, __assign({}, this.props))));
+    };
+    return ListPage;
+}(React.Component));
+exports.ListPage = ListPage;
+
+
+/***/ }),
+
+/***/ 416:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var React = __webpack_require__(1);
+var FooterTab_1 = __webpack_require__(793);
+var SendStatus_1 = __webpack_require__(798);
+var Root = (function (_super) {
+    __extends(Root, _super);
+    function Root() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Root.prototype.render = function () {
+        return (React.createElement("div", null,
+            this.props.children,
+            React.createElement(SendStatus_1.SendStatus, __assign({}, this.props)),
+            React.createElement(FooterTab_1.FooterTab, __assign({}, this.props))));
+    };
+    return Root;
+}(React.Component));
+exports.Root = Root;
+
+
+/***/ }),
+
+/***/ 417:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var React = __webpack_require__(1);
+var MonthToolbar_1 = __webpack_require__(179);
+var Main_1 = __webpack_require__(799);
+var SendPage = (function (_super) {
+    __extends(SendPage, _super);
+    function SendPage() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    SendPage.prototype.render = function () {
+        return (React.createElement("div", null,
+            React.createElement(MonthToolbar_1.MonthToolbar, __assign({}, this.props)),
+            React.createElement(Main_1.Main, __assign({}, this.props))));
+    };
+    return SendPage;
+}(React.Component));
+exports.SendPage = SendPage;
+
+
+/***/ }),
+
+/***/ 57:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var japanese_holidays_1 = __webpack_require__(180);
+var colors_1 = __webpack_require__(99);
 var moment = __webpack_require__(2);
-__webpack_require__(148);
+__webpack_require__(151);
 moment.locale("ja");
 function toDayString(date) {
     return moment(date).format("YYYYMMDD");
@@ -125,474 +695,7 @@ exports.getDayColor = getDayColor;
 
 /***/ }),
 
-/***/ 245:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _pure = __webpack_require__(18);
-
-var _pure2 = _interopRequireDefault(_pure);
-
-var _SvgIcon = __webpack_require__(15);
-
-var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var HardwareKeyboardArrowLeft = function HardwareKeyboardArrowLeft(props) {
-  return _react2.default.createElement(
-    _SvgIcon2.default,
-    props,
-    _react2.default.createElement('path', { d: 'M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z' })
-  );
-};
-HardwareKeyboardArrowLeft = (0, _pure2.default)(HardwareKeyboardArrowLeft);
-HardwareKeyboardArrowLeft.displayName = 'HardwareKeyboardArrowLeft';
-HardwareKeyboardArrowLeft.muiName = 'SvgIcon';
-
-exports.default = HardwareKeyboardArrowLeft;
-
-/***/ }),
-
-/***/ 246:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _pure = __webpack_require__(18);
-
-var _pure2 = _interopRequireDefault(_pure);
-
-var _SvgIcon = __webpack_require__(15);
-
-var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var HardwareKeyboardArrowRight = function HardwareKeyboardArrowRight(props) {
-  return _react2.default.createElement(
-    _SvgIcon2.default,
-    props,
-    _react2.default.createElement('path', { d: 'M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z' })
-  );
-};
-HardwareKeyboardArrowRight = (0, _pure2.default)(HardwareKeyboardArrowRight);
-HardwareKeyboardArrowRight.displayName = 'HardwareKeyboardArrowRight';
-HardwareKeyboardArrowRight.muiName = 'SvgIcon';
-
-exports.default = HardwareKeyboardArrowRight;
-
-/***/ }),
-
-/***/ 406:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-var AppBar_1 = __webpack_require__(135);
-var IconButton_1 = __webpack_require__(35);
-var keyboard_arrow_left_1 = __webpack_require__(245);
-var keyboard_arrow_right_1 = __webpack_require__(246);
-var React = __webpack_require__(1);
-var DateUtils_1 = __webpack_require__(175);
-var ToolbarWithProgress_1 = __webpack_require__(407);
-var MonthToolbar = (function (_super) {
-    __extends(MonthToolbar, _super);
-    function MonthToolbar() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.buttons = React.createElement("div", null,
-            React.createElement(IconButton_1.default, { onTouchTap: function (event) { return _this.handleBefore(event); } },
-                React.createElement(keyboard_arrow_left_1.default, { color: "white" })),
-            React.createElement(IconButton_1.default, { onTouchTap: function (event) { return _this.handleAfter(event); } },
-                React.createElement(keyboard_arrow_right_1.default, { color: "white" })));
-        return _this;
-    }
-    MonthToolbar.prototype.render = function () {
-        return (React.createElement(ToolbarWithProgress_1.ToolbarWithProgress, __assign({}, this.props),
-            React.createElement(AppBar_1.default, { title: this.formatCurrentMonth(), showMenuIconButton: false, iconElementRight: this.buttons })));
-    };
-    MonthToolbar.prototype.handleBefore = function (event) {
-        event.preventDefault();
-        var date = DateUtils_1.moveMonths(this.props.value.view.currentDate, -1);
-        this.props.actions.moveCurrentDate(date);
-    };
-    MonthToolbar.prototype.handleAfter = function (event) {
-        event.preventDefault();
-        var date = DateUtils_1.moveMonths(this.props.value.view.currentDate, 1);
-        this.props.actions.moveCurrentDate(date);
-    };
-    MonthToolbar.prototype.formatCurrentMonth = function () {
-        return DateUtils_1.formatMonth(this.props.value.view.currentDate);
-    };
-    return MonthToolbar;
-}(React.Component));
-exports.MonthToolbar = MonthToolbar;
-
-
-/***/ }),
-
-/***/ 407:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var LinearProgress_1 = __webpack_require__(220);
-var React = __webpack_require__(1);
-var ToolbarWithProgress = (function (_super) {
-    __extends(ToolbarWithProgress, _super);
-    function ToolbarWithProgress() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    ToolbarWithProgress.prototype.render = function () {
-        var progressVisibility = this.props.value.view.isSending ? "visible" : "hidden";
-        return (React.createElement("div", { className: "toolbar" },
-            this.props.children,
-            React.createElement(LinearProgress_1.default, { mode: "indeterminate", style: { visibility: progressVisibility } })));
-    };
-    return ToolbarWithProgress;
-}(React.Component));
-exports.ToolbarWithProgress = ToolbarWithProgress;
-
-
-/***/ }),
-
-/***/ 408:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var DateUtils_1 = __webpack_require__(175);
-var defaultDayKintai = {
-    inTime: "",
-    outTime: "",
-    memo: "",
-};
-function getDayKintai(state, date) {
-    var day = DateUtils_1.toDayString(date);
-    return state.days[day];
-}
-exports.getDayKintai = getDayKintai;
-function getDayKintaiOrDefault(state, date, defaultValue) {
-    if (defaultValue === void 0) { defaultValue = defaultDayKintai; }
-    var kintai = getDayKintai(state, date);
-    if (kintai) {
-        return kintai;
-    }
-    return defaultValue;
-}
-exports.getDayKintaiOrDefault = getDayKintaiOrDefault;
-
-
-/***/ }),
-
-/***/ 410:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var react_router_redux_1 = __webpack_require__(84);
-var redux_1 = __webpack_require__(108);
-var createLogger = __webpack_require__(178);
-var redux_persist_1 = __webpack_require__(179);
-var KintaiReducer_1 = __webpack_require__(797);
-var ViewReducer_1 = __webpack_require__(798);
-// weinreでConsoleデバッグができるようにredux-loggerがconsole.logを呼び出すように変更
-var logger = createLogger({
-    level: "log",
-    logger: {
-        log: function () {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
-            }
-            console.log.apply(console, args);
-        },
-    },
-});
-var store = redux_1.createStore(redux_1.combineReducers({
-    kintai: KintaiReducer_1.kintai,
-    routing: react_router_redux_1.routerReducer,
-    view: ViewReducer_1.view,
-}), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), redux_1.compose(redux_persist_1.autoRehydrate(), redux_1.applyMiddleware(logger)));
-redux_persist_1.persistStore(store, { whitelist: ["kintai"] });
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = store;
-
-
-/***/ }),
-
-/***/ 411:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var react_router_1 = __webpack_require__(85);
-var actions = __webpack_require__(174);
-var ApiClient_1 = __webpack_require__(789);
-var DispatchActions = (function () {
-    function DispatchActions(dispatch) {
-        this.dispatch = dispatch;
-    }
-    DispatchActions.prototype.selectIn = function (date, time) {
-        this.dispatch(actions.SelectInAction.create({
-            date: date,
-            time: time,
-        }));
-    };
-    DispatchActions.prototype.selectOut = function (date, time) {
-        this.dispatch(actions.SelectOutAction.create({
-            date: date,
-            time: time,
-        }));
-    };
-    DispatchActions.prototype.moveCurrentDate = function (date) {
-        this.dispatch(actions.MoveCurrentDateAction.create(date));
-    };
-    DispatchActions.prototype.sendMonth = function (kintai, month, password) {
-        var _this = this;
-        // TODO 入力チェック
-        this.dispatch(actions.SendStartAction.create(undefined));
-        ApiClient_1.sendMonthKintai(kintai, month, password).then(function (response) {
-            if (!response.ok) {
-                return response.json().then(function (json) {
-                    _this.dispatch(actions.SendErrorAction.create("サーバーサイドエラー: " + json.message));
-                });
-            }
-            _this.dispatch(actions.SendSuccessAction.create(undefined));
-            return response;
-        }).catch(function () {
-            _this.dispatch(actions.SendErrorAction.create("ネットワークエラー"));
-        });
-    };
-    DispatchActions.prototype.inputMemo = function (date, memo) {
-        this.dispatch(actions.InputMemoAction.create({
-            date: date,
-            text: memo,
-        }));
-    };
-    DispatchActions.prototype.showInputPage = function (date) {
-        if (!!date) {
-            this.moveCurrentDate(date);
-        }
-        react_router_1.hashHistory.push("/");
-    };
-    DispatchActions.prototype.showListPage = function () {
-        react_router_1.hashHistory.push("/list");
-    };
-    DispatchActions.prototype.showSendPage = function () {
-        react_router_1.hashHistory.push("/send");
-    };
-    DispatchActions.prototype.inputEmail = function (email) {
-        // TODO 入力チェック？
-        this.dispatch(actions.InputEmailAction.create(email));
-    };
-    DispatchActions.prototype.inputPassword = function (password) {
-        this.dispatch(actions.InputPasswordAction.create(password));
-    };
-    DispatchActions.prototype.closeSendSuccessMessage = function () {
-        this.dispatch(actions.CloseSendSuccessMessageAction.create(undefined));
-    };
-    DispatchActions.prototype.closeSendErrorMessage = function () {
-        this.dispatch(actions.CloseSendErrorMessageAction.create(undefined));
-    };
-    return DispatchActions;
-}());
-exports.DispatchActions = DispatchActions;
-
-
-/***/ }),
-
-/***/ 412:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-var React = __webpack_require__(1);
-var Main_1 = __webpack_require__(791);
-var Toolbar_1 = __webpack_require__(793);
-var InputPage = (function (_super) {
-    __extends(InputPage, _super);
-    function InputPage() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    InputPage.prototype.render = function () {
-        return (React.createElement("div", null,
-            React.createElement(Toolbar_1.Toolbar, __assign({}, this.props)),
-            React.createElement(Main_1.Main, __assign({}, this.props))));
-    };
-    return InputPage;
-}(React.Component));
-exports.InputPage = InputPage;
-
-
-/***/ }),
-
-/***/ 413:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-var React = __webpack_require__(1);
-var MonthToolbar_1 = __webpack_require__(406);
-var Main_1 = __webpack_require__(794);
-var ListPage = (function (_super) {
-    __extends(ListPage, _super);
-    function ListPage() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    ListPage.prototype.render = function () {
-        return (React.createElement("div", null,
-            React.createElement(MonthToolbar_1.MonthToolbar, __assign({}, this.props)),
-            React.createElement(Main_1.Main, __assign({}, this.props))));
-    };
-    return ListPage;
-}(React.Component));
-exports.ListPage = ListPage;
-
-
-/***/ }),
-
-/***/ 414:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-var React = __webpack_require__(1);
-var FooterTab_1 = __webpack_require__(790);
-var SendStatus_1 = __webpack_require__(795);
-var Root = (function (_super) {
-    __extends(Root, _super);
-    function Root() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Root.prototype.render = function () {
-        return (React.createElement("div", null,
-            this.props.children,
-            React.createElement(SendStatus_1.SendStatus, __assign({}, this.props)),
-            React.createElement(FooterTab_1.FooterTab, __assign({}, this.props))));
-    };
-    return Root;
-}(React.Component));
-exports.Root = Root;
-
-
-/***/ }),
-
-/***/ 415:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-var React = __webpack_require__(1);
-var MonthToolbar_1 = __webpack_require__(406);
-var Main_1 = __webpack_require__(796);
-var SendPage = (function (_super) {
-    __extends(SendPage, _super);
-    function SendPage() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    SendPage.prototype.render = function () {
-        return (React.createElement("div", null,
-            React.createElement(MonthToolbar_1.MonthToolbar, __assign({}, this.props)),
-            React.createElement(Main_1.Main, __assign({}, this.props))));
-    };
-    return SendPage;
-}(React.Component));
-exports.SendPage = SendPage;
-
-
-/***/ }),
-
-/***/ 621:
+/***/ 623:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -631,7 +734,7 @@ exports.default = ActionList;
 
 /***/ }),
 
-/***/ 622:
+/***/ 624:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -670,7 +773,7 @@ exports.default = ActionSchedule;
 
 /***/ }),
 
-/***/ 623:
+/***/ 625:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -709,7 +812,7 @@ exports.default = ActionUpdate;
 
 /***/ }),
 
-/***/ 624:
+/***/ 626:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -748,7 +851,7 @@ exports.default = ContentSend;
 
 /***/ }),
 
-/***/ 627:
+/***/ 629:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -787,14 +890,14 @@ exports.default = ImageEdit;
 
 /***/ }),
 
-/***/ 789:
+/***/ 791:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-__webpack_require__(180);
-var DateUtils_1 = __webpack_require__(175);
-var KintaiUtils_1 = __webpack_require__(408);
+__webpack_require__(184);
+var DateUtils_1 = __webpack_require__(57);
+var KintaiUtils_1 = __webpack_require__(108);
 function sendMonthKintai(kintai, month, password) {
     var body = createBody(kintai, month, password);
     return fetch("https://sleepy-ravine-40602.herokuapp.com/api/kinmu", {
@@ -814,9 +917,9 @@ function createBody(kintai, month, password) {
         year: month.getFullYear(),
         month: month.getMonth() + 1,
         // TODO
-        employeeNo: "99999",
-        employeName: "勤務太郎",
-        departmentCode: "123456",
+        employeeNo: kintai.person.employeeNo,
+        employeName: kintai.person.lastName + kintai.person.firstName,
+        departmentCode: kintai.person.departmentCode,
         sendMailAddr: kintai.person.email + "@caica.jp",
         password: password,
         workInfoList: workInfoList,
@@ -849,7 +952,7 @@ function toWorkInfo(date, dayKintai) {
 
 /***/ }),
 
-/***/ 790:
+/***/ 792:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -859,11 +962,71 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var BottomNavigation_1 = __webpack_require__(211);
-var Divider_1 = __webpack_require__(137);
-var list_1 = __webpack_require__(621);
-var send_1 = __webpack_require__(624);
-var edit_1 = __webpack_require__(627);
+var MenuItem_1 = __webpack_require__(96);
+var SelectField_1 = __webpack_require__(230);
+var TextField_1 = __webpack_require__(42);
+var React = __webpack_require__(1);
+var Main = (function (_super) {
+    __extends(Main, _super);
+    function Main() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Main.prototype.render = function () {
+        var _this = this;
+        return (React.createElement("div", { className: "content" },
+            React.createElement(TextField_1.default, { hintText: "部署コード", value: this.props.value.kintai.person.departmentCode, onChange: function (_, value) { return _this.handleDepartmentCodeChange(value); } }),
+            React.createElement(TextField_1.default, { hintText: "社員番号", value: this.props.value.kintai.person.employeeNo, onChange: function (_, value) { return _this.handleEmployeeNoChange(value); } }),
+            React.createElement("br", null),
+            React.createElement(TextField_1.default, { hintText: "姓", value: this.props.value.kintai.person.lastName, onChange: function (_, value) { return _this.handleLastNameChange(value); } }),
+            React.createElement("br", null),
+            React.createElement(TextField_1.default, { hintText: "名", value: this.props.value.kintai.person.firstName, onChange: function (_, value) { return _this.handleFirstNameChange(value); } }),
+            React.createElement("br", null),
+            React.createElement(SelectField_1.default, { hintText: "管理識別", value: this.props.value.kintai.person.manageType, onChange: function (event, _, value) { return _this.handleManageTypeChange(event, value); }, labelStyle: { height: "48px" } },
+                React.createElement(MenuItem_1.default, { value: "", primaryText: "" }),
+                React.createElement(MenuItem_1.default, { value: "1", primaryText: "1: M等級" }),
+                React.createElement(MenuItem_1.default, { value: "2", primaryText: "2: D等級、E等級の営業職" }),
+                React.createElement(MenuItem_1.default, { value: "3", primaryText: "3: 一部契約社員" }),
+                React.createElement(MenuItem_1.default, { value: "4", primaryText: "4: 一部契約社員" }))));
+    };
+    Main.prototype.handleEmployeeNoChange = function (value) {
+        this.props.actions.inputEmployeeNo(value);
+    };
+    Main.prototype.handleLastNameChange = function (value) {
+        this.props.actions.inputLastName(value);
+    };
+    Main.prototype.handleFirstNameChange = function (value) {
+        this.props.actions.inputFirstName(value);
+    };
+    Main.prototype.handleDepartmentCodeChange = function (value) {
+        this.props.actions.inputDepartmentCode(value);
+    };
+    Main.prototype.handleManageTypeChange = function (event, value) {
+        event.preventDefault();
+        this.props.actions.inputManageType(value);
+    };
+    return Main;
+}(React.Component));
+exports.Main = Main;
+
+
+/***/ }),
+
+/***/ 793:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
+var BottomNavigation_1 = __webpack_require__(215);
+var Divider_1 = __webpack_require__(139);
+var list_1 = __webpack_require__(623);
+var send_1 = __webpack_require__(626);
+var edit_1 = __webpack_require__(629);
+var person_1 = __webpack_require__(805);
 var React = __webpack_require__(1);
 var FooterTab = (function (_super) {
     __extends(FooterTab, _super);
@@ -878,6 +1041,7 @@ var FooterTab = (function (_super) {
             React.createElement(BottomNavigation_1.BottomNavigation, { selectedIndex: selectedIndex },
                 React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "入力", icon: React.createElement(edit_1.default, null), onTouchTap: function (event) { return _this.onInputSelected(event); } }),
                 React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "一覧", icon: React.createElement(list_1.default, null), onTouchTap: function (event) { return _this.onListSelected(event); } }),
+                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "共通", icon: React.createElement(person_1.default, null), onTouchTap: function (event) { return _this.onCommonSelected(event); } }),
                 React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "送信", icon: React.createElement(send_1.default, null), onTouchTap: function (event) { return _this.onSendSelected(event); } }))));
     };
     FooterTab.prototype.onInputSelected = function (event) {
@@ -888,6 +1052,10 @@ var FooterTab = (function (_super) {
         event.preventDefault();
         this.props.actions.showListPage();
     };
+    FooterTab.prototype.onCommonSelected = function (event) {
+        event.preventDefault();
+        this.props.actions.showCommonPage();
+    };
     FooterTab.prototype.onSendSelected = function (event) {
         event.preventDefault();
         this.props.actions.showSendPage();
@@ -896,8 +1064,11 @@ var FooterTab = (function (_super) {
         if (this.props.location.pathname === "/list") {
             return 1;
         }
-        if (this.props.location.pathname === "/send") {
+        if (this.props.location.pathname === "/common") {
             return 2;
+        }
+        if (this.props.location.pathname === "/send") {
+            return 3;
         }
         return 0;
     };
@@ -908,7 +1079,7 @@ exports.FooterTab = FooterTab;
 
 /***/ }),
 
-/***/ 791:
+/***/ 794:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -918,10 +1089,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var TextField_1 = __webpack_require__(52);
+var TextField_1 = __webpack_require__(42);
 var React = __webpack_require__(1);
-var KintaiUtils_1 = __webpack_require__(408);
-var TimeInput_1 = __webpack_require__(792);
+var KintaiUtils_1 = __webpack_require__(108);
+var TimeInput_1 = __webpack_require__(795);
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
@@ -951,7 +1122,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 792:
+/***/ 795:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -962,12 +1133,12 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var IconButton_1 = __webpack_require__(35);
-var MenuItem_1 = __webpack_require__(95);
-var SelectField_1 = __webpack_require__(227);
-var schedule_1 = __webpack_require__(622);
-var update_1 = __webpack_require__(623);
+var MenuItem_1 = __webpack_require__(96);
+var SelectField_1 = __webpack_require__(230);
+var schedule_1 = __webpack_require__(624);
+var update_1 = __webpack_require__(625);
 var React = __webpack_require__(1);
-var DateUtils_1 = __webpack_require__(175);
+var DateUtils_1 = __webpack_require__(57);
 var TIMES = [":00", ":15", ":30", ":45"];
 var REGULAR_TIME_IN = "9:00";
 var REGULAR_TIME_OUT = "17:45";
@@ -1034,7 +1205,7 @@ exports.TimeInput = TimeInput;
 
 /***/ }),
 
-/***/ 793:
+/***/ 796:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1052,13 +1223,13 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var AppBar_1 = __webpack_require__(135);
+var AppBar_1 = __webpack_require__(137);
 var IconButton_1 = __webpack_require__(35);
-var keyboard_arrow_left_1 = __webpack_require__(245);
-var keyboard_arrow_right_1 = __webpack_require__(246);
+var keyboard_arrow_left_1 = __webpack_require__(248);
+var keyboard_arrow_right_1 = __webpack_require__(249);
 var React = __webpack_require__(1);
-var DateUtils_1 = __webpack_require__(175);
-var ToolbarWithProgress_1 = __webpack_require__(407);
+var DateUtils_1 = __webpack_require__(57);
+var ToolbarWithProgress_1 = __webpack_require__(409);
 var Toolbar = (function (_super) {
     __extends(Toolbar, _super);
     function Toolbar() {
@@ -1105,7 +1276,7 @@ exports.Toolbar = Toolbar;
 
 /***/ }),
 
-/***/ 794:
+/***/ 797:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1115,10 +1286,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var List_1 = __webpack_require__(221);
+var List_1 = __webpack_require__(225);
 var React = __webpack_require__(1);
-var DateUtils_1 = __webpack_require__(175);
-var KintaiUtils_1 = __webpack_require__(408);
+var DateUtils_1 = __webpack_require__(57);
+var KintaiUtils_1 = __webpack_require__(108);
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
@@ -1162,7 +1333,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 795:
+/***/ 798:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1172,8 +1343,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Dialog_1 = __webpack_require__(93);
-var Snackbar_1 = __webpack_require__(228);
+var Dialog_1 = __webpack_require__(94);
+var Snackbar_1 = __webpack_require__(231);
 var React = __webpack_require__(1);
 var SendStatus = (function (_super) {
     __extends(SendStatus, _super);
@@ -1199,7 +1370,7 @@ exports.SendStatus = SendStatus;
 
 /***/ }),
 
-/***/ 796:
+/***/ 799:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1209,8 +1380,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var RaisedButton_1 = __webpack_require__(226);
-var TextField_1 = __webpack_require__(52);
+var RaisedButton_1 = __webpack_require__(145);
+var TextField_1 = __webpack_require__(42);
 var React = __webpack_require__(1);
 var Main = (function (_super) {
     __extends(Main, _super);
@@ -1245,7 +1416,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 797:
+/***/ 800:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1258,13 +1429,18 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var actions = __webpack_require__(174);
-var redux_commons_1 = __webpack_require__(802);
-var DateUtils_1 = __webpack_require__(175);
-var KintaiUtils_1 = __webpack_require__(408);
+var actions = __webpack_require__(177);
+var redux_commons_1 = __webpack_require__(178);
+var DateUtils_1 = __webpack_require__(57);
+var KintaiUtils_1 = __webpack_require__(108);
 var initialState = {
     person: {
         email: "",
+        employeeNo: "",
+        lastName: "",
+        firstName: "",
+        departmentCode: "",
+        manageType: "",
     },
     days: {},
 };
@@ -1282,6 +1458,26 @@ exports.kintai = redux_commons_1.createReducer(initialState, function (handle) {
         var person = __assign({}, state.person, { email: email });
         return __assign({}, state, { person: person });
     });
+    handle(actions.InputEmployeeNoAction, function (state, employeeNo) {
+        var person = __assign({}, state.person, { employeeNo: employeeNo });
+        return __assign({}, state, { person: person });
+    });
+    handle(actions.InputLastNameAction, function (state, lastName) {
+        var person = __assign({}, state.person, { lastName: lastName });
+        return __assign({}, state, { person: person });
+    });
+    handle(actions.InputFirstNameAction, function (state, firstName) {
+        var person = __assign({}, state.person, { firstName: firstName });
+        return __assign({}, state, { person: person });
+    });
+    handle(actions.InputDepartmentCodeAction, function (state, departmentCode) {
+        var person = __assign({}, state.person, { departmentCode: departmentCode });
+        return __assign({}, state, { person: person });
+    });
+    handle(actions.InputManageTypeAction, function (state, manageType) {
+        var person = __assign({}, state.person, { manageType: manageType });
+        return __assign({}, state, { person: person });
+    });
 });
 function updateDayKintai(state, date, partialDayKintai) {
     var oldDayKintai = KintaiUtils_1.getDayKintai(state, date);
@@ -1294,7 +1490,7 @@ function updateDayKintai(state, date, partialDayKintai) {
 
 /***/ }),
 
-/***/ 798:
+/***/ 801:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1307,8 +1503,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var actions = __webpack_require__(174);
-var redux_commons_1 = __webpack_require__(802);
+var actions = __webpack_require__(177);
+var redux_commons_1 = __webpack_require__(178);
 var initialState = {
     currentDate: new Date(),
     password: "",
@@ -1343,28 +1539,30 @@ exports.view = redux_commons_1.createReducer(initialState, function (handle) {
 
 /***/ }),
 
-/***/ 800:
+/***/ 803:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var MuiThemeProvider_1 = __webpack_require__(177);
+var MuiThemeProvider_1 = __webpack_require__(181);
 var React = __webpack_require__(1);
 var ReactDOM = __webpack_require__(17);
-var react_redux_1 = __webpack_require__(109);
-var react_router_1 = __webpack_require__(85);
-var react_router_redux_1 = __webpack_require__(84);
-var injectTapEventPlugin = __webpack_require__(110);
-var DispatchActions_1 = __webpack_require__(411);
-var InputPage_1 = __webpack_require__(412);
-var ListPage_1 = __webpack_require__(413);
-var Root_1 = __webpack_require__(414);
-var SendPage_1 = __webpack_require__(415);
-var Store_1 = __webpack_require__(410);
+var react_redux_1 = __webpack_require__(111);
+var react_router_1 = __webpack_require__(86);
+var react_router_redux_1 = __webpack_require__(85);
+var injectTapEventPlugin = __webpack_require__(112);
+var DispatchActions_1 = __webpack_require__(412);
+var CommonPage_1 = __webpack_require__(413);
+var InputPage_1 = __webpack_require__(414);
+var ListPage_1 = __webpack_require__(415);
+var Root_1 = __webpack_require__(416);
+var SendPage_1 = __webpack_require__(417);
+var Store_1 = __webpack_require__(411);
 injectTapEventPlugin();
 var connector = react_redux_1.connect(function (store) { return ({ value: store }); }, function (dispatch) { return ({ actions: new DispatchActions_1.DispatchActions(dispatch) }); });
 var RootComponent = connector(Root_1.Root);
 var InputPageComponent = connector(InputPage_1.InputPage);
+var CommonPageComponent = connector(CommonPage_1.CommonPage);
 var ListPageComponent = connector(ListPage_1.ListPage);
 var SendPageComponent = connector(SendPage_1.SendPage);
 var history = react_router_redux_1.syncHistoryWithStore(react_router_1.hashHistory, Store_1.default);
@@ -1373,45 +1571,51 @@ ReactDOM.render(React.createElement(react_redux_1.Provider, { store: Store_1.def
         React.createElement(react_router_1.Router, { history: history },
             React.createElement(react_router_1.Route, { path: "/", component: RootComponent },
                 React.createElement(react_router_1.Route, { path: "/list", component: ListPageComponent }),
+                React.createElement(react_router_1.Route, { path: "/common", component: CommonPageComponent }),
                 React.createElement(react_router_1.Route, { path: "/send", component: SendPageComponent }),
                 React.createElement(react_router_1.IndexRoute, { component: InputPageComponent }))))), document.getElementById("app"));
 
 
 /***/ }),
 
-/***/ 802:
+/***/ 805:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-function action(type) {
-    return {
-        type: type,
-        create: function (payload) {
-            return {
-                type: type,
-                payload: payload,
-            };
-        },
-    };
-}
-exports.action = action;
-function createReducer(initialState, reducers) {
-    var reducerMap = {};
-    reducers(function (actionType, reduce) { return reducerMap[actionType.type] = reduce; });
-    return function (state, action) {
-        if (state === void 0) { state = initialState; }
-        var reducer = reducerMap[action.type];
-        if (reducer) {
-            return reducer(state, action.payload);
-        }
-        return state;
-    };
-}
-exports.createReducer = createReducer;
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(18);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(15);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SocialPerson = function SocialPerson(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z' })
+  );
+};
+SocialPerson = (0, _pure2.default)(SocialPerson);
+SocialPerson.displayName = 'SocialPerson';
+SocialPerson.muiName = 'SvgIcon';
+
+exports.default = SocialPerson;
 
 /***/ })
 
-},[800]);
+},[803]);
 //# sourceMappingURL=app.js.map

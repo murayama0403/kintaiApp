@@ -62,6 +62,10 @@ export class DispatchActions {
         hashHistory.push("/list")
     }
 
+    public showCommonPage() {
+        hashHistory.push("/common")
+    }
+
     public showSendPage() {
         hashHistory.push("/send")
     }
@@ -82,4 +86,26 @@ export class DispatchActions {
     public closeSendErrorMessage() {
         this.dispatch(actions.CloseSendErrorMessageAction.create(undefined))
     }
+
+    public inputEmployeeNo(employeeNumber: string) {
+        this.dispatch(actions.InputEmployeeNoAction.create(employeeNumber))
+    }
+
+    public inputLastName(lastName: string) {
+        this.dispatch(actions.InputLastNameAction.create(lastName))
+    }
+
+    public inputFirstName(firstName: string) {
+        // TODO 入力チェック？
+        this.dispatch(actions.InputFirstNameAction.create(firstName))
+    }
+
+    public inputDepartmentCode(departmentCode: string) {
+        this.dispatch(actions.InputDepartmentCodeAction.create(departmentCode))
+    }
+
+    public inputManageType(manageType: string) {
+        this.dispatch(actions.InputManageTypeAction.create(manageType))
+    }
+
 }

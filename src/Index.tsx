@@ -7,6 +7,7 @@ import {syncHistoryWithStore} from "react-router-redux"
 import * as injectTapEventPlugin from "react-tap-event-plugin"
 import {Dispatch} from "redux"
 import {DispatchActions} from "./actions/DispatchActions"
+import {CommonPage} from "./components/commonPage/CommonPage"
 import {InputPage} from "./components/inputPage/InputPage"
 import {ListPage} from "./components/listPage/ListPage"
 import {Root} from "./components/root/Root"
@@ -22,6 +23,7 @@ const connector = connect(
 
 const RootComponent = connector(Root)
 const InputPageComponent = connector(InputPage)
+const CommonPageComponent = connector(CommonPage)
 const ListPageComponent = connector(ListPage)
 const SendPageComponent = connector(SendPage)
 
@@ -33,6 +35,7 @@ ReactDOM.render(
             <Router history={history}>
                 <Route path="/" component={RootComponent}>
                     <Route path="/list" component={ListPageComponent} />
+                    <Route path="/common" component={CommonPageComponent} />
                     <Route path="/send" component={SendPageComponent} />
                     <IndexRoute component={InputPageComponent} />
                 </Route>

@@ -15,6 +15,10 @@ export interface Person {
     firstName: string
     departmentCode: string
     manageType: string
+    manager1: string
+    manager1Period: string
+    manager2: string
+    manager2Period: string
 }
 
 export interface DayKintai {

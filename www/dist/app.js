@@ -51,6 +51,10 @@ exports.InputLastNameAction = redux_commons_1.action("InputLastName");
 exports.InputFirstNameAction = redux_commons_1.action("InputFirstName");
 exports.InputDepartmentCodeAction = redux_commons_1.action("InputDepartmentCode");
 exports.InputManageTypeAction = redux_commons_1.action("InputManageType");
+exports.InputManager1Action = redux_commons_1.action("InputManager1");
+exports.InputManager1PeriodAction = redux_commons_1.action("InputManager1Period");
+exports.InputManager2Action = redux_commons_1.action("InputManager2");
+exports.InputManager2PeriodAction = redux_commons_1.action("InputManager2Period");
 
 
 /***/ }),
@@ -390,6 +394,18 @@ var DispatchActions = (function () {
     };
     DispatchActions.prototype.inputManageType = function (manageType) {
         this.dispatch(actions.InputManageTypeAction.create(manageType));
+    };
+    DispatchActions.prototype.inputManager1 = function (manager1) {
+        this.dispatch(actions.InputManager1Action.create(manager1));
+    };
+    DispatchActions.prototype.inputManager1Period = function (manager1Period) {
+        this.dispatch(actions.InputManager1PeriodAction.create(manager1Period));
+    };
+    DispatchActions.prototype.inputManager2 = function (manager2) {
+        this.dispatch(actions.InputManager2Action.create(manager2));
+    };
+    DispatchActions.prototype.inputManager2Period = function (manager2Period) {
+        this.dispatch(actions.InputManager2PeriodAction.create(manager2Period));
     };
     return DispatchActions;
 }());
@@ -916,10 +932,14 @@ function createBody(kintai, month, password) {
     return {
         year: month.getFullYear(),
         month: month.getMonth() + 1,
-        // TODO
         employeeNo: kintai.person.employeeNo,
         employeName: kintai.person.lastName + kintai.person.firstName,
         departmentCode: kintai.person.departmentCode,
+        manageType: kintai.person.manageType,
+        manager1: kintai.person.manager1,
+        manager1Period: kintai.person.manager1Period,
+        manager2: kintai.person.manager2,
+        manager2Period: kintai.person.manager2Period,
         sendMailAddr: kintai.person.email + "@caica.jp",
         password: password,
         workInfoList: workInfoList,
@@ -986,7 +1006,15 @@ var Main = (function (_super) {
                 React.createElement(MenuItem_1.default, { value: "1", primaryText: "1: M等級" }),
                 React.createElement(MenuItem_1.default, { value: "2", primaryText: "2: D等級、E等級の営業職" }),
                 React.createElement(MenuItem_1.default, { value: "3", primaryText: "3: 一部契約社員" }),
-                React.createElement(MenuItem_1.default, { value: "4", primaryText: "4: 一部契約社員" }))));
+                React.createElement(MenuItem_1.default, { value: "4", primaryText: "4: 一部契約社員" })),
+            React.createElement("br", null),
+            React.createElement(TextField_1.default, { hintText: "勤怠管理者1", value: this.props.value.kintai.person.manager1, onChange: function (_, value) { return _this.handleManager1Change(value); } }),
+            React.createElement("br", null),
+            React.createElement(TextField_1.default, { hintText: "期間1", value: this.props.value.kintai.person.manager1Period, onChange: function (_, value) { return _this.handleManager1PeriodChange(value); } }),
+            React.createElement("br", null),
+            React.createElement(TextField_1.default, { hintText: "勤怠管理者2", value: this.props.value.kintai.person.manager2, onChange: function (_, value) { return _this.handleManager2Change(value); } }),
+            React.createElement("br", null),
+            React.createElement(TextField_1.default, { hintText: "期間2", value: this.props.value.kintai.person.manager2Period, onChange: function (_, value) { return _this.handleManager2PeriodChange(value); } })));
     };
     Main.prototype.handleEmployeeNoChange = function (value) {
         this.props.actions.inputEmployeeNo(value);
@@ -1003,6 +1031,18 @@ var Main = (function (_super) {
     Main.prototype.handleManageTypeChange = function (event, value) {
         event.preventDefault();
         this.props.actions.inputManageType(value);
+    };
+    Main.prototype.handleManager1Change = function (value) {
+        this.props.actions.inputManager1(value);
+    };
+    Main.prototype.handleManager1PeriodChange = function (value) {
+        this.props.actions.inputManager1Period(value);
+    };
+    Main.prototype.handleManager2Change = function (value) {
+        this.props.actions.inputManager2(value);
+    };
+    Main.prototype.handleManager2PeriodChange = function (value) {
+        this.props.actions.inputManager2Period(value);
     };
     return Main;
 }(React.Component));
@@ -1441,6 +1481,10 @@ var initialState = {
         firstName: "",
         departmentCode: "",
         manageType: "",
+        manager1: "",
+        manager1Period: "1日～末日",
+        manager2: "",
+        manager2Period: "",
     },
     days: {},
 };
@@ -1476,6 +1520,22 @@ exports.kintai = redux_commons_1.createReducer(initialState, function (handle) {
     });
     handle(actions.InputManageTypeAction, function (state, manageType) {
         var person = __assign({}, state.person, { manageType: manageType });
+        return __assign({}, state, { person: person });
+    });
+    handle(actions.InputManager1Action, function (state, manager1) {
+        var person = __assign({}, state.person, { manager1: manager1 });
+        return __assign({}, state, { person: person });
+    });
+    handle(actions.InputManager1PeriodAction, function (state, manager1Period) {
+        var person = __assign({}, state.person, { manager1Period: manager1Period });
+        return __assign({}, state, { person: person });
+    });
+    handle(actions.InputManager2Action, function (state, manager2) {
+        var person = __assign({}, state.person, { manager2: manager2 });
+        return __assign({}, state, { person: person });
+    });
+    handle(actions.InputManager2PeriodAction, function (state, manager2Period) {
+        var person = __assign({}, state.person, { manager2Period: manager2Period });
         return __assign({}, state, { person: person });
     });
 });

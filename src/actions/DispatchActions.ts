@@ -108,4 +108,20 @@ export class DispatchActions {
         this.dispatch(actions.InputManageTypeAction.create(manageType))
     }
 
+    public inputManager1(manager1: string) {
+        this.dispatch(actions.InputManager1Action.create(manager1))
+    }
+
+    public inputManager1Period(manager1Period: string) {
+        this.dispatch(actions.InputManager1PeriodAction.create(manager1Period))
+    }
+
+    public inputManager2(manager2: string) {
+        this.dispatch(actions.InputManager2Action.create(manager2))
+    }
+
+    public inputManager2Period(manager2Period: string) {
+        this.dispatch(actions.InputManager2PeriodAction.create(manager2Period))
+    }
+
 }

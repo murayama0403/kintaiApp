@@ -39,6 +39,26 @@ export class Main extends React.Component<RootProps, {}> {
                     <MenuItem value={"3"} primaryText="3: 一部契約社員" />
                     <MenuItem value={"4"} primaryText="4: 一部契約社員" />
                 </SelectField>
+                <br />
+                <TextField
+                    hintText="勤怠管理者1"
+                    value={this.props.value.kintai.person.manager1}
+                    onChange={(_, value) => this.handleManager1Change(value)} />
+                <br />
+                <TextField
+                    hintText="期間1"
+                    value={this.props.value.kintai.person.manager1Period}
+                    onChange={(_, value) => this.handleManager1PeriodChange(value)} />
+                <br />
+                <TextField
+                    hintText="勤怠管理者2"
+                    value={this.props.value.kintai.person.manager2}
+                    onChange={(_, value) => this.handleManager2Change(value)} />
+                <br />
+                <TextField
+                    hintText="期間2"
+                    value={this.props.value.kintai.person.manager2Period}
+                    onChange={(_, value) => this.handleManager2PeriodChange(value)} />
             </div>
         )
     }
@@ -62,6 +82,22 @@ export class Main extends React.Component<RootProps, {}> {
     private handleManageTypeChange(event: TouchTapEvent, value: string) {
         event.preventDefault()
         this.props.actions.inputManageType(value)
+    }
+
+    private handleManager1Change(value: string) {
+        this.props.actions.inputManager1(value)
+    }
+
+    private handleManager1PeriodChange(value: string) {
+        this.props.actions.inputManager1Period(value)
+    }
+
+    private handleManager2Change(value: string) {
+        this.props.actions.inputManager2(value)
+    }
+
+    private handleManager2PeriodChange(value: string) {
+        this.props.actions.inputManager2Period(value)
     }
 
 }

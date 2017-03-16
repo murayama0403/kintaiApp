@@ -23,10 +23,14 @@ function createBody(kintai: KintaiState, month: Date, password: string) {
     return {
         year: month.getFullYear(),
         month: month.getMonth() + 1,
-        // TODO
         employeeNo: kintai.person.employeeNo,
         employeName: kintai.person.lastName + kintai.person.firstName,
         departmentCode: kintai.person.departmentCode,
+        manageType: kintai.person.manageType,
+        manager1: kintai.person.manager1,
+        manager1Period: kintai.person.manager1Period,
+        manager2: kintai.person.manager2,
+        manager2Period: kintai.person.manager2Period,
         sendMailAddr: kintai.person.email + "@caica.jp",
         password,
         workInfoList,

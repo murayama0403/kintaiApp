@@ -124,4 +124,11 @@ export class DispatchActions {
         this.dispatch(actions.InputManager2PeriodAction.create(manager2Period))
     }
 
+    public inputDefaultProjectNo(defaultProjectNo: string) {
+        this.dispatch(actions.InputDefaultProjectNoAction.create(defaultProjectNo))
+    }
+
+    public inputDefaultWorkCode(defaultWorkCode: string) {
+        this.dispatch(actions.InputDefaultWorkCodeAction.create(defaultWorkCode))
+    }
 }

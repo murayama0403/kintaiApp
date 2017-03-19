@@ -1,5 +1,5 @@
 import "whatwg-fetch"
-import { DayKintai, KintaiState } from "../states/States"
+import { DayKintai, KintaiState, Person } from "../states/States"
 import { getMonthDates } from "../utils/DateUtils"
 import { getDayKintai } from "../utils/KintaiUtils"
 
@@ -37,16 +37,23 @@ function createBody(kintai: KintaiState, month: Date, password: string) {
     }
 }
 
-function createWorkInfo(date: Date, KintaiState: KintaiState) {
-    const dayKintai = getDayKintai(KintaiState, date)
+function createWorkInfo(date: Date, kintai: KintaiState) {
+    const dayKintai = getDayKintai(kintai, date)
     if (!dayKintai) {
         return undefined
     }
 
-    return toWorkInfo(date, dayKintai)
+    return toWorkInfo(date, dayKintai, kintai.person)
 }
 
-function toWorkInfo(date: Date, dayKintai: DayKintai) {
+function toWorkInfo(date: Date, dayKintai: DayKintai, person: Person) {
+    let projectNo = person.defaultProjectNo
+    let workCode = person.defaultWorkCode
+    if (!dayKintai.inTime && !dayKintai.outTime) {
+        projectNo = ""
+        workCode = ""
+    }
+
     return {
         day: date.getDate(),
         startTime: dayKintai.inTime,
@@ -58,7 +65,7 @@ function toWorkInfo(date: Date, dayKintai: DayKintai) {
         break4: "",
         break5: "",
         break6: "",
-        pjNo: "",
-        wkCd: "F",
+        pjNo: projectNo,
+        wkCd: workCode,
     }
 }

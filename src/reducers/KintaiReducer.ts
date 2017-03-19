@@ -16,6 +16,8 @@ const initialState: KintaiState = {
         manager1Period: "1日～末日",
         manager2: "",
         manager2Period: "",
+        defaultProjectNo: "",
+        defaultWorkCode: "F",
     },
     days: {},
 }
@@ -68,6 +70,14 @@ export const kintai = createReducer(initialState, (handle) => {
     })
     handle(actions.InputManager2PeriodAction, (state, manager2Period) => {
         const person = { ...state.person, manager2Period }
+        return { ...state, person }
+    })
+    handle(actions.InputDefaultProjectNoAction, (state, defaultProjectNo) => {
+        const person = { ...state.person, defaultProjectNo }
+        return { ...state, person }
+    })
+    handle(actions.InputDefaultWorkCodeAction, (state, defaultWorkCode) => {
+        const person = { ...state.person, defaultWorkCode }
         return { ...state, person }
     })
 })

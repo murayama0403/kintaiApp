@@ -59,6 +59,16 @@ export class Main extends React.Component<RootProps, {}> {
                     hintText="期間2"
                     value={this.props.value.kintai.person.manager2Period}
                     onChange={(_, value) => this.handleManager2PeriodChange(value)} />
+                <br />
+                <TextField
+                    hintText="デフォルトプロジェクト番号"
+                    value={this.props.value.kintai.person.defaultProjectNo}
+                    onChange={(_, value) => this.handleDefaultProjectNoChange(value)} />
+                <br />
+                <TextField
+                    hintText="デフォルト作業コード"
+                    value={this.props.value.kintai.person.defaultWorkCode}
+                    onChange={(_, value) => this.handleDefaultWorkCodeChange(value)} />
             </div>
         )
     }
@@ -98,6 +108,14 @@ export class Main extends React.Component<RootProps, {}> {
 
     private handleManager2PeriodChange(value: string) {
         this.props.actions.inputManager2Period(value)
+    }
+
+    private handleDefaultProjectNoChange(value: string) {
+        this.props.actions.inputDefaultProjectNo(value)
+    }
+
+    private handleDefaultWorkCodeChange(value: string) {
+        this.props.actions.inputDefaultWorkCode(value)
     }
 
 }

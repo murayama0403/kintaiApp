@@ -19,6 +19,8 @@ export interface Person {
     manager1Period: string
     manager2: string
     manager2Period: string
+    defaultProjectNo: string
+    defaultWorkCode: string
 }
 
 export interface DayKintai {

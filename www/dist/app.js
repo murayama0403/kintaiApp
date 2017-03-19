@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 108:
+/***/ 109:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -55,6 +55,8 @@ exports.InputManager1Action = redux_commons_1.action("InputManager1");
 exports.InputManager1PeriodAction = redux_commons_1.action("InputManager1Period");
 exports.InputManager2Action = redux_commons_1.action("InputManager2");
 exports.InputManager2PeriodAction = redux_commons_1.action("InputManager2Period");
+exports.InputDefaultProjectNoAction = redux_commons_1.action("InputDefaultProjectNo");
+exports.InputDefaultWorkCodeAction = redux_commons_1.action("InputDefaultWorkCode");
 
 
 /***/ }),
@@ -108,52 +110,22 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-var AppBar_1 = __webpack_require__(137);
-var IconButton_1 = __webpack_require__(35);
-var keyboard_arrow_left_1 = __webpack_require__(248);
-var keyboard_arrow_right_1 = __webpack_require__(249);
+var LinearProgress_1 = __webpack_require__(224);
 var React = __webpack_require__(1);
-var DateUtils_1 = __webpack_require__(57);
-var ToolbarWithProgress_1 = __webpack_require__(409);
-var MonthToolbar = (function (_super) {
-    __extends(MonthToolbar, _super);
-    function MonthToolbar() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.buttons = React.createElement("div", null,
-            React.createElement(IconButton_1.default, { onTouchTap: function (event) { return _this.handleBefore(event); } },
-                React.createElement(keyboard_arrow_left_1.default, { color: "white" })),
-            React.createElement(IconButton_1.default, { onTouchTap: function (event) { return _this.handleAfter(event); } },
-                React.createElement(keyboard_arrow_right_1.default, { color: "white" })));
-        return _this;
+var ToolbarWithProgress = (function (_super) {
+    __extends(ToolbarWithProgress, _super);
+    function ToolbarWithProgress() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
-    MonthToolbar.prototype.render = function () {
-        return (React.createElement(ToolbarWithProgress_1.ToolbarWithProgress, __assign({}, this.props),
-            React.createElement(AppBar_1.default, { title: this.formatCurrentMonth(), showMenuIconButton: false, iconElementRight: this.buttons })));
+    ToolbarWithProgress.prototype.render = function () {
+        var progressVisibility = this.props.value.view.isSending ? "visible" : "hidden";
+        return (React.createElement("div", { className: "toolbar" },
+            this.props.children,
+            React.createElement(LinearProgress_1.default, { mode: "indeterminate", style: { visibility: progressVisibility } })));
     };
-    MonthToolbar.prototype.handleBefore = function (event) {
-        event.preventDefault();
-        var date = DateUtils_1.moveMonths(this.props.value.view.currentDate, -1);
-        this.props.actions.moveCurrentDate(date);
-    };
-    MonthToolbar.prototype.handleAfter = function (event) {
-        event.preventDefault();
-        var date = DateUtils_1.moveMonths(this.props.value.view.currentDate, 1);
-        this.props.actions.moveCurrentDate(date);
-    };
-    MonthToolbar.prototype.formatCurrentMonth = function () {
-        return DateUtils_1.formatMonth(this.props.value.view.currentDate);
-    };
-    return MonthToolbar;
+    return ToolbarWithProgress;
 }(React.Component));
-exports.MonthToolbar = MonthToolbar;
+exports.ToolbarWithProgress = ToolbarWithProgress;
 
 
 /***/ }),
@@ -172,7 +144,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(18);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
@@ -211,7 +183,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(18);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
@@ -246,22 +218,52 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var LinearProgress_1 = __webpack_require__(224);
-var React = __webpack_require__(1);
-var ToolbarWithProgress = (function (_super) {
-    __extends(ToolbarWithProgress, _super);
-    function ToolbarWithProgress() {
-        return _super !== null && _super.apply(this, arguments) || this;
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
     }
-    ToolbarWithProgress.prototype.render = function () {
-        var progressVisibility = this.props.value.view.isSending ? "visible" : "hidden";
-        return (React.createElement("div", { className: "toolbar" },
-            this.props.children,
-            React.createElement(LinearProgress_1.default, { mode: "indeterminate", style: { visibility: progressVisibility } })));
+    return t;
+};
+var AppBar_1 = __webpack_require__(95);
+var IconButton_1 = __webpack_require__(35);
+var keyboard_arrow_left_1 = __webpack_require__(248);
+var keyboard_arrow_right_1 = __webpack_require__(249);
+var React = __webpack_require__(1);
+var DateUtils_1 = __webpack_require__(57);
+var ToolbarWithProgress_1 = __webpack_require__(179);
+var MonthToolbar = (function (_super) {
+    __extends(MonthToolbar, _super);
+    function MonthToolbar() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.buttons = React.createElement("div", null,
+            React.createElement(IconButton_1.default, { onTouchTap: function (event) { return _this.handleBefore(event); } },
+                React.createElement(keyboard_arrow_left_1.default, { color: "white" })),
+            React.createElement(IconButton_1.default, { onTouchTap: function (event) { return _this.handleAfter(event); } },
+                React.createElement(keyboard_arrow_right_1.default, { color: "white" })));
+        return _this;
+    }
+    MonthToolbar.prototype.render = function () {
+        return (React.createElement(ToolbarWithProgress_1.ToolbarWithProgress, __assign({}, this.props),
+            React.createElement(AppBar_1.default, { title: this.formatCurrentMonth(), showMenuIconButton: false, iconElementRight: this.buttons })));
     };
-    return ToolbarWithProgress;
+    MonthToolbar.prototype.handleBefore = function (event) {
+        event.preventDefault();
+        var date = DateUtils_1.moveMonths(this.props.value.view.currentDate, -1);
+        this.props.actions.moveCurrentDate(date);
+    };
+    MonthToolbar.prototype.handleAfter = function (event) {
+        event.preventDefault();
+        var date = DateUtils_1.moveMonths(this.props.value.view.currentDate, 1);
+        this.props.actions.moveCurrentDate(date);
+    };
+    MonthToolbar.prototype.formatCurrentMonth = function () {
+        return DateUtils_1.formatMonth(this.props.value.view.currentDate);
+    };
+    return MonthToolbar;
 }(React.Component));
-exports.ToolbarWithProgress = ToolbarWithProgress;
+exports.MonthToolbar = MonthToolbar;
 
 
 /***/ }),
@@ -271,12 +273,12 @@ exports.ToolbarWithProgress = ToolbarWithProgress;
 
 "use strict";
 
-var react_router_redux_1 = __webpack_require__(85);
-var redux_1 = __webpack_require__(110);
+var react_router_redux_1 = __webpack_require__(86);
+var redux_1 = __webpack_require__(111);
 var createLogger = __webpack_require__(182);
 var redux_persist_1 = __webpack_require__(183);
-var KintaiReducer_1 = __webpack_require__(800);
-var ViewReducer_1 = __webpack_require__(801);
+var KintaiReducer_1 = __webpack_require__(801);
+var ViewReducer_1 = __webpack_require__(802);
 // weinreでConsoleデバッグができるようにredux-loggerがconsole.logを呼び出すように変更
 var logger = createLogger({
     level: "log",
@@ -307,9 +309,9 @@ exports.default = store;
 
 "use strict";
 
-var react_router_1 = __webpack_require__(86);
+var react_router_1 = __webpack_require__(87);
 var actions = __webpack_require__(177);
-var ApiClient_1 = __webpack_require__(791);
+var ApiClient_1 = __webpack_require__(792);
 var DispatchActions = (function () {
     function DispatchActions(dispatch) {
         this.dispatch = dispatch;
@@ -407,6 +409,12 @@ var DispatchActions = (function () {
     DispatchActions.prototype.inputManager2Period = function (manager2Period) {
         this.dispatch(actions.InputManager2PeriodAction.create(manager2Period));
     };
+    DispatchActions.prototype.inputDefaultProjectNo = function (defaultProjectNo) {
+        this.dispatch(actions.InputDefaultProjectNoAction.create(defaultProjectNo));
+    };
+    DispatchActions.prototype.inputDefaultWorkCode = function (defaultWorkCode) {
+        this.dispatch(actions.InputDefaultWorkCodeAction.create(defaultWorkCode));
+    };
     return DispatchActions;
 }());
 exports.DispatchActions = DispatchActions;
@@ -432,10 +440,10 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var AppBar_1 = __webpack_require__(137);
+var AppBar_1 = __webpack_require__(95);
 var React = __webpack_require__(1);
-var ToolbarWithProgress_1 = __webpack_require__(409);
-var Main_1 = __webpack_require__(792);
+var ToolbarWithProgress_1 = __webpack_require__(179);
+var Main_1 = __webpack_require__(793);
 var CommonPage = (function (_super) {
     __extends(CommonPage, _super);
     function CommonPage() {
@@ -473,8 +481,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var Main_1 = __webpack_require__(794);
-var Toolbar_1 = __webpack_require__(796);
+var Main_1 = __webpack_require__(795);
+var Toolbar_1 = __webpack_require__(797);
 var InputPage = (function (_super) {
     __extends(InputPage, _super);
     function InputPage() {
@@ -511,8 +519,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var MonthToolbar_1 = __webpack_require__(179);
-var Main_1 = __webpack_require__(797);
+var MonthToolbar_1 = __webpack_require__(409);
+var Main_1 = __webpack_require__(798);
 var ListPage = (function (_super) {
     __extends(ListPage, _super);
     function ListPage() {
@@ -549,8 +557,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var FooterTab_1 = __webpack_require__(793);
-var SendStatus_1 = __webpack_require__(798);
+var FooterTab_1 = __webpack_require__(794);
+var SendStatus_1 = __webpack_require__(799);
 var Root = (function (_super) {
     __extends(Root, _super);
     function Root() {
@@ -588,8 +596,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var MonthToolbar_1 = __webpack_require__(179);
-var Main_1 = __webpack_require__(799);
+var MonthToolbar_1 = __webpack_require__(409);
+var Main_1 = __webpack_require__(800);
 var SendPage = (function (_super) {
     __extends(SendPage, _super);
     function SendPage() {
@@ -613,7 +621,7 @@ exports.SendPage = SendPage;
 "use strict";
 
 var japanese_holidays_1 = __webpack_require__(180);
-var colors_1 = __webpack_require__(99);
+var colors_1 = __webpack_require__(100);
 var moment = __webpack_require__(2);
 __webpack_require__(151);
 moment.locale("ja");
@@ -725,7 +733,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(18);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
@@ -764,7 +772,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(18);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
@@ -803,7 +811,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(18);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
@@ -842,7 +850,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(18);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
@@ -881,7 +889,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(18);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
@@ -906,14 +914,53 @@ exports.default = ImageEdit;
 
 /***/ }),
 
-/***/ 791:
+/***/ 638:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(17);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(15);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SocialPerson = function SocialPerson(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z' })
+  );
+};
+SocialPerson = (0, _pure2.default)(SocialPerson);
+SocialPerson.displayName = 'SocialPerson';
+SocialPerson.muiName = 'SvgIcon';
+
+exports.default = SocialPerson;
+
+/***/ }),
+
+/***/ 792:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 __webpack_require__(184);
 var DateUtils_1 = __webpack_require__(57);
-var KintaiUtils_1 = __webpack_require__(108);
+var KintaiUtils_1 = __webpack_require__(109);
 function sendMonthKintai(kintai, month, password) {
     var body = createBody(kintai, month, password);
     return fetch("https://sleepy-ravine-40602.herokuapp.com/api/kinmu", {
@@ -945,14 +992,20 @@ function createBody(kintai, month, password) {
         workInfoList: workInfoList,
     };
 }
-function createWorkInfo(date, KintaiState) {
-    var dayKintai = KintaiUtils_1.getDayKintai(KintaiState, date);
+function createWorkInfo(date, kintai) {
+    var dayKintai = KintaiUtils_1.getDayKintai(kintai, date);
     if (!dayKintai) {
         return undefined;
     }
-    return toWorkInfo(date, dayKintai);
+    return toWorkInfo(date, dayKintai, kintai.person);
 }
-function toWorkInfo(date, dayKintai) {
+function toWorkInfo(date, dayKintai, person) {
+    var projectNo = person.defaultProjectNo;
+    var workCode = person.defaultWorkCode;
+    if (!dayKintai.inTime && !dayKintai.outTime) {
+        projectNo = "";
+        workCode = "";
+    }
     return {
         day: date.getDate(),
         startTime: dayKintai.inTime,
@@ -964,15 +1017,15 @@ function toWorkInfo(date, dayKintai) {
         break4: "",
         break5: "",
         break6: "",
-        pjNo: "",
-        wkCd: "F",
+        pjNo: projectNo,
+        wkCd: workCode,
     };
 }
 
 
 /***/ }),
 
-/***/ 792:
+/***/ 793:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -982,8 +1035,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var MenuItem_1 = __webpack_require__(96);
-var SelectField_1 = __webpack_require__(230);
+var MenuItem_1 = __webpack_require__(79);
+var SelectField_1 = __webpack_require__(145);
 var TextField_1 = __webpack_require__(42);
 var React = __webpack_require__(1);
 var Main = (function (_super) {
@@ -1014,7 +1067,11 @@ var Main = (function (_super) {
             React.createElement("br", null),
             React.createElement(TextField_1.default, { hintText: "勤怠管理者2", value: this.props.value.kintai.person.manager2, onChange: function (_, value) { return _this.handleManager2Change(value); } }),
             React.createElement("br", null),
-            React.createElement(TextField_1.default, { hintText: "期間2", value: this.props.value.kintai.person.manager2Period, onChange: function (_, value) { return _this.handleManager2PeriodChange(value); } })));
+            React.createElement(TextField_1.default, { hintText: "期間2", value: this.props.value.kintai.person.manager2Period, onChange: function (_, value) { return _this.handleManager2PeriodChange(value); } }),
+            React.createElement("br", null),
+            React.createElement(TextField_1.default, { hintText: "デフォルトプロジェクト番号", value: this.props.value.kintai.person.defaultProjectNo, onChange: function (_, value) { return _this.handleDefaultProjectNoChange(value); } }),
+            React.createElement("br", null),
+            React.createElement(TextField_1.default, { hintText: "デフォルト作業コード", value: this.props.value.kintai.person.defaultWorkCode, onChange: function (_, value) { return _this.handleDefaultWorkCodeChange(value); } })));
     };
     Main.prototype.handleEmployeeNoChange = function (value) {
         this.props.actions.inputEmployeeNo(value);
@@ -1044,6 +1101,12 @@ var Main = (function (_super) {
     Main.prototype.handleManager2PeriodChange = function (value) {
         this.props.actions.inputManager2Period(value);
     };
+    Main.prototype.handleDefaultProjectNoChange = function (value) {
+        this.props.actions.inputDefaultProjectNo(value);
+    };
+    Main.prototype.handleDefaultWorkCodeChange = function (value) {
+        this.props.actions.inputDefaultWorkCode(value);
+    };
     return Main;
 }(React.Component));
 exports.Main = Main;
@@ -1051,7 +1114,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 793:
+/***/ 794:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1066,7 +1129,7 @@ var Divider_1 = __webpack_require__(139);
 var list_1 = __webpack_require__(623);
 var send_1 = __webpack_require__(626);
 var edit_1 = __webpack_require__(629);
-var person_1 = __webpack_require__(805);
+var person_1 = __webpack_require__(638);
 var React = __webpack_require__(1);
 var FooterTab = (function (_super) {
     __extends(FooterTab, _super);
@@ -1119,7 +1182,7 @@ exports.FooterTab = FooterTab;
 
 /***/ }),
 
-/***/ 794:
+/***/ 795:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1131,8 +1194,8 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var TextField_1 = __webpack_require__(42);
 var React = __webpack_require__(1);
-var KintaiUtils_1 = __webpack_require__(108);
-var TimeInput_1 = __webpack_require__(795);
+var KintaiUtils_1 = __webpack_require__(109);
+var TimeInput_1 = __webpack_require__(796);
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
@@ -1162,7 +1225,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 795:
+/***/ 796:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1173,8 +1236,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var IconButton_1 = __webpack_require__(35);
-var MenuItem_1 = __webpack_require__(96);
-var SelectField_1 = __webpack_require__(230);
+var MenuItem_1 = __webpack_require__(79);
+var SelectField_1 = __webpack_require__(145);
 var schedule_1 = __webpack_require__(624);
 var update_1 = __webpack_require__(625);
 var React = __webpack_require__(1);
@@ -1245,7 +1308,7 @@ exports.TimeInput = TimeInput;
 
 /***/ }),
 
-/***/ 796:
+/***/ 797:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1263,13 +1326,13 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var AppBar_1 = __webpack_require__(137);
+var AppBar_1 = __webpack_require__(95);
 var IconButton_1 = __webpack_require__(35);
 var keyboard_arrow_left_1 = __webpack_require__(248);
 var keyboard_arrow_right_1 = __webpack_require__(249);
 var React = __webpack_require__(1);
 var DateUtils_1 = __webpack_require__(57);
-var ToolbarWithProgress_1 = __webpack_require__(409);
+var ToolbarWithProgress_1 = __webpack_require__(179);
 var Toolbar = (function (_super) {
     __extends(Toolbar, _super);
     function Toolbar() {
@@ -1316,7 +1379,7 @@ exports.Toolbar = Toolbar;
 
 /***/ }),
 
-/***/ 797:
+/***/ 798:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1329,7 +1392,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 var List_1 = __webpack_require__(225);
 var React = __webpack_require__(1);
 var DateUtils_1 = __webpack_require__(57);
-var KintaiUtils_1 = __webpack_require__(108);
+var KintaiUtils_1 = __webpack_require__(109);
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
@@ -1373,7 +1436,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 798:
+/***/ 799:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1383,7 +1446,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Dialog_1 = __webpack_require__(94);
+var Dialog_1 = __webpack_require__(96);
 var Snackbar_1 = __webpack_require__(231);
 var React = __webpack_require__(1);
 var SendStatus = (function (_super) {
@@ -1410,7 +1473,7 @@ exports.SendStatus = SendStatus;
 
 /***/ }),
 
-/***/ 799:
+/***/ 800:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1420,7 +1483,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var RaisedButton_1 = __webpack_require__(145);
+var RaisedButton_1 = __webpack_require__(230);
 var TextField_1 = __webpack_require__(42);
 var React = __webpack_require__(1);
 var Main = (function (_super) {
@@ -1456,7 +1519,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 800:
+/***/ 801:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1472,7 +1535,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 var actions = __webpack_require__(177);
 var redux_commons_1 = __webpack_require__(178);
 var DateUtils_1 = __webpack_require__(57);
-var KintaiUtils_1 = __webpack_require__(108);
+var KintaiUtils_1 = __webpack_require__(109);
 var initialState = {
     person: {
         email: "",
@@ -1485,6 +1548,8 @@ var initialState = {
         manager1Period: "1日～末日",
         manager2: "",
         manager2Period: "",
+        defaultProjectNo: "",
+        defaultWorkCode: "F",
     },
     days: {},
 };
@@ -1538,6 +1603,14 @@ exports.kintai = redux_commons_1.createReducer(initialState, function (handle) {
         var person = __assign({}, state.person, { manager2Period: manager2Period });
         return __assign({}, state, { person: person });
     });
+    handle(actions.InputDefaultProjectNoAction, function (state, defaultProjectNo) {
+        var person = __assign({}, state.person, { defaultProjectNo: defaultProjectNo });
+        return __assign({}, state, { person: person });
+    });
+    handle(actions.InputDefaultWorkCodeAction, function (state, defaultWorkCode) {
+        var person = __assign({}, state.person, { defaultWorkCode: defaultWorkCode });
+        return __assign({}, state, { person: person });
+    });
 });
 function updateDayKintai(state, date, partialDayKintai) {
     var oldDayKintai = KintaiUtils_1.getDayKintai(state, date);
@@ -1550,7 +1623,7 @@ function updateDayKintai(state, date, partialDayKintai) {
 
 /***/ }),
 
-/***/ 801:
+/***/ 802:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1599,18 +1672,18 @@ exports.view = redux_commons_1.createReducer(initialState, function (handle) {
 
 /***/ }),
 
-/***/ 803:
+/***/ 804:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var MuiThemeProvider_1 = __webpack_require__(181);
 var React = __webpack_require__(1);
-var ReactDOM = __webpack_require__(17);
-var react_redux_1 = __webpack_require__(111);
-var react_router_1 = __webpack_require__(86);
-var react_router_redux_1 = __webpack_require__(85);
-var injectTapEventPlugin = __webpack_require__(112);
+var ReactDOM = __webpack_require__(18);
+var react_redux_1 = __webpack_require__(112);
+var react_router_1 = __webpack_require__(87);
+var react_router_redux_1 = __webpack_require__(86);
+var injectTapEventPlugin = __webpack_require__(113);
 var DispatchActions_1 = __webpack_require__(412);
 var CommonPage_1 = __webpack_require__(413);
 var InputPage_1 = __webpack_require__(414);
@@ -1636,46 +1709,7 @@ ReactDOM.render(React.createElement(react_redux_1.Provider, { store: Store_1.def
                 React.createElement(react_router_1.IndexRoute, { component: InputPageComponent }))))), document.getElementById("app"));
 
 
-/***/ }),
-
-/***/ 805:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _pure = __webpack_require__(18);
-
-var _pure2 = _interopRequireDefault(_pure);
-
-var _SvgIcon = __webpack_require__(15);
-
-var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var SocialPerson = function SocialPerson(props) {
-  return _react2.default.createElement(
-    _SvgIcon2.default,
-    props,
-    _react2.default.createElement('path', { d: 'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z' })
-  );
-};
-SocialPerson = (0, _pure2.default)(SocialPerson);
-SocialPerson.displayName = 'SocialPerson';
-SocialPerson.muiName = 'SvgIcon';
-
-exports.default = SocialPerson;
-
 /***/ })
 
-},[803]);
+},[804]);
 //# sourceMappingURL=app.js.map

@@ -1,4 +1,5 @@
 import TextField from "material-ui/TextField"
+import RaisedButton from "material-ui/RaisedButton"
 import * as React from "react"
 import { RootProps } from "../../RootProps"
 import { getDayKintaiOrDefault } from "../../utils/KintaiUtils"
@@ -18,6 +19,34 @@ export class Main extends React.Component<RootProps, {}> {
                     type={OUT}
                     value={currentKintai.outTime}
                     onSelected={(event) => this.handleOutSelected(event)} />
+                <RaisedButton
+                    label={<div style={{textAlign:"center"}}>17:45<br />18:00</div>}
+                    primary={true}
+                    //onTouchTap={(event) => this.handleSend(event)}
+                    disabled={this.props.value.view.isSending} 
+                    style={{ height: "auto"}}/>
+                    &nbsp;
+                <RaisedButton
+                    label={<div style={{textAlign:"center"}}>18:45<br />19:00</div>}
+                    primary={true}
+                    //onTouchTap={(event) => this.handleSend(event)}
+                    disabled={this.props.value.view.isSending} 
+                    style={{ height: "auto"}}/>
+                    &nbsp;
+                <RaisedButton
+                    label={<div style={{textAlign:"center"}}>19:45<br />20:00</div>}
+                    primary={true}
+                    //onTouchTap={(event) => this.handleSend(event)}
+                    disabled={this.props.value.view.isSending} 
+                    style={{ height: "auto"}}/>
+                    &nbsp;
+                <RaisedButton
+                    label={<div style={{textAlign:"center"}}>20:45<br />21:00</div>}
+                    primary={true}
+                    //onTouchTap={(event) => this.handleSend(event)}
+                    disabled={this.props.value.view.isSending} 
+                    style={{ height: "auto"}}/>
+                    &nbsp;
                 <TextField
                     multiLine={true}
                     fullWidth={true}

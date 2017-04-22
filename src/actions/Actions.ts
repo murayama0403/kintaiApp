@@ -12,6 +12,8 @@ interface DateText {
 
 export const SelectInAction = action<SelectedTime>("SelectIn")
 export const SelectOutAction = action<SelectedTime>("SelectOut")
+export const ToggleRest2Action = action<Date>("ToggleRest2")
+export const ToggleRest3Action = action<Date>("ToggleRest3")
 export const MoveCurrentDateAction = action<Date>("MoveCurrentDate")
 export const InputMemoAction = action<DateText>("InputMemo")
 export const InputEmailAction = action<string>("InputEmail")

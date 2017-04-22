@@ -24,6 +24,14 @@ export class DispatchActions {
         }))
     }
 
+    public toggleRest2(date: Date) {
+        this.dispatch(actions.ToggleRest2Action.create(date))
+    }
+
+    public toggleRest3(date: Date) {
+        this.dispatch(actions.ToggleRest3Action.create(date))
+    }
+
     public moveCurrentDate(date: Date) {
         this.dispatch(actions.MoveCurrentDateAction.create(date))
     }

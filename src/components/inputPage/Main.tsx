@@ -2,9 +2,9 @@ import { TouchTapEvent } from "material-ui"
 import RaisedButton from "material-ui/RaisedButton"
 import CafeIcon from "material-ui/svg-icons/maps/local-cafe"
 import RestrantIcon from "material-ui/svg-icons/maps/restaurant-menu"
-import HomeIcon from "material-ui/svg-icons/maps/home"
-import SleepIcon from "material-ui/svg-icons/maps/airline_seat_flat"
-import MorningRunIcon from "material-ui/svg-icons/maps/directions_run"
+import HomeIcon from "material-ui/svg-icons/action/home"
+import SleepIcon from "material-ui/svg-icons/notification/airline-seat-flat"
+import MorningRunIcon from "material-ui/svg-icons/maps/directions-run"
 import WorkIcon from "material-ui/svg-icons/notification/airline-seat-recline-normal"
 import TextField from "material-ui/TextField"
 import * as React from "react"
@@ -48,19 +48,19 @@ export class Main extends React.Component<RootProps, {}> {
 						
                     <RaisedButton 
 					    label="22:30-23:00"
-						icon={<rest4Icon}
+						icon={rest4Icon}
 						secondary={currentKintai.noRest4}
                         onTouchTap={(event) => this.handleRest4Toggle(event)} />&nbsp;
 					
                     <RaisedButton 
 						label="2:30-3:00" 
-						icon={<rest5Icon}
+						icon={rest5Icon}
 						secondary={currentKintai.noRest5}
                         onTouchTap={(event) => this.handleRest5Toggle(event)} />&nbsp;
 						
                     <RaisedButton
 						label="8:30-9:00"
-						icon={<rest6Icon}
+						icon={rest6Icon}
 						secondary={currentKintai.noRest6}
                         onTouchTap={(event) => this.handleRest6Toggle(event)} />&nbsp;
                 </div>

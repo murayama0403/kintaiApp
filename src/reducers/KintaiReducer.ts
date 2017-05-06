@@ -39,17 +39,17 @@ export const kintai = createReducer(initialState, (handle) => {
         const oldNoRest3 = oldDayKintai ? oldDayKintai.noRest3 : false
         return updateDayKintai(state, date, { noRest3: !oldNoRest3})
     })
-	handle(actions.ToggleRest4Action, (state, date) => {
+    handle(actions.ToggleRest4Action, (state, date) => {
         const oldDayKintai = getDayKintai(state, date)
         const oldNoRest4 = oldDayKintai ? oldDayKintai.noRest4 : false
         return updateDayKintai(state, date, { noRest4: !oldNoRest4})
     })
-	handle(actions.ToggleRest5Action, (state, date) => {
+    handle(actions.ToggleRest5Action, (state, date) => {
         const oldDayKintai = getDayKintai(state, date)
         const oldNoRest5 = oldDayKintai ? oldDayKintai.noRest5 : false
         return updateDayKintai(state, date, { noRest5: !oldNoRest5})
     })
-	handle(actions.ToggleRest6Action, (state, date) => {
+    handle(actions.ToggleRest6Action, (state, date) => {
         const oldDayKintai = getDayKintai(state, date)
         const oldNoRest6 = oldDayKintai ? oldDayKintai.noRest6 : false
         return updateDayKintai(state, date, { noRest6: !oldNoRest6})

@@ -31,16 +31,16 @@ export class DispatchActions {
     public toggleRest3(date: Date) {
         this.dispatch(actions.ToggleRest3Action.create(date))
     }
-	
-	public toggleRest4(date: Date) {
+
+    public toggleRest4(date: Date) {
         this.dispatch(actions.ToggleRest4Action.create(date))
     }
-	
-	public toggleRest5(date: Date) {
+
+    public toggleRest5(date: Date) {
         this.dispatch(actions.ToggleRest5Action.create(date))
     }
-	
-	public toggleRest6(date: Date) {
+
+    public toggleRest6(date: Date) {
         this.dispatch(actions.ToggleRest6Action.create(date))
     }
 

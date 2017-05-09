@@ -131,4 +131,21 @@ export class DispatchActions {
     public inputDefaultWorkCode(defaultWorkCode: string) {
         this.dispatch(actions.InputDefaultWorkCodeAction.create(defaultWorkCode))
     }
+
+    public toggleRest1(date: Date) {
+        this.dispatch(actions.ToggleRest1Action.create(date))
+    }
+	
+	public toggleRest2(date: Date) {
+        this.dispatch(actions.ToggleRest2Action.create(date))
+    }
+	
+	public toggleRest3(date: Date) {
+        this.dispatch(actions.ToggleRest3Action.create(date))
+    }
+
+	public toggleRest4(date: Date) {
+        this.dispatch(actions.ToggleRest4Action.create(date))
+    }
+
 }

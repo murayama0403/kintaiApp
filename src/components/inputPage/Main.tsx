@@ -38,21 +38,18 @@ export class Main extends React.Component<RootProps, {}> {
                     secondary={currentKintai.noRest2}
                     onTouchTap={(event) => this.handleRest2Toggle(event)}
                     style={{ height: "auto", margin: 5}}/>
-                    &nbsp;
                 <RaisedButton
                     label={<div style={{textAlign:"center"}}>19:45<br />20:00</div>}
                     icon={rest3Icon}
                     secondary={currentKintai.noRest3}
                     onTouchTap={(event) => this.handleRest3Toggle(event)}
                     style={{ height: "auto", margin: 5}}/>
-                    &nbsp;
                 <RaisedButton
                     label={<div style={{textAlign:"center"}}>20:45<br />21:00</div>}
                     icon={rest4Icon}
                     secondary={currentKintai.noRest4}
                     onTouchTap={(event) => this.handleRest4Toggle(event)}
                     style={{ height: "auto", margin: 5}}/>
-                    &nbsp;
                 <TextField
                     multiLine={true}
                     fullWidth={true}

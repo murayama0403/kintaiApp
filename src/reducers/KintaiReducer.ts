@@ -2,7 +2,7 @@ import * as actions from "../actions/Actions"
 import { createReducer } from "../commons/redux-commons"
 import { DayKintai, KintaiState } from "../states/States"
 import { toDayString } from "../utils/DateUtils"
-import { getDayKintai } from "../utils/KintaiUtils"
+import { getDayKintaiOrDefault } from "../utils/KintaiUtils"
 
 const initialState: KintaiState = {
     person: {
@@ -83,7 +83,7 @@ export const kintai = createReducer(initialState, (handle) => {
 })
 
 function updateDayKintai(state: KintaiState, date: Date, partialDayKintai: Partial<DayKintai>) {
-    const oldDayKintai = getDayKintai(state, date)
+    const oldDayKintai = getDayKintaiOrDefault(state, date)
     const newDayState = { ...oldDayKintai, ...partialDayKintai }
     const newState = { ...state }
     newState.days[toDayString(date)] = newDayState

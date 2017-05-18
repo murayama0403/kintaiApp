@@ -13,8 +13,10 @@ import {ListPage} from "./components/listPage/ListPage"
 import {Root} from "./components/root/Root"
 import {SendPage} from "./components/sendPage/SendPage"
 import store from "./Store"
+import {forceTouchTapPreventDefault} from "./utils/FixReactTouchTap"
 
 injectTapEventPlugin()
+forceTouchTapPreventDefault()
 
 const connector = connect(
     (store: any) => ({ value: store }),

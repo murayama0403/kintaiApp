@@ -26,6 +26,8 @@ export interface Person {
 export interface DayKintai {
     inTime: string
     outTime: string
+    specialNote?: string
+    holiday?: number
     memo: string
 }
 

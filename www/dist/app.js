@@ -38,6 +38,8 @@ var redux_commons_1 = __webpack_require__(177);
 exports.SelectInAction = redux_commons_1.action("SelectIn");
 exports.SelectOutAction = redux_commons_1.action("SelectOut");
 exports.MoveCurrentDateAction = redux_commons_1.action("MoveCurrentDate");
+exports.InputSpecialNoteAction = redux_commons_1.action("InputSpecialNote");
+exports.SelectHolidayAction = redux_commons_1.action("SelectHoliday");
 exports.InputMemoAction = redux_commons_1.action("InputMemo");
 exports.InputEmailAction = redux_commons_1.action("InputEmail");
 exports.InputPasswordAction = redux_commons_1.action("InputPassword");
@@ -346,6 +348,18 @@ var DispatchActions = (function () {
         }).catch(function () {
             _this.dispatch(actions.SendErrorAction.create("ネットワークエラー"));
         });
+    };
+    DispatchActions.prototype.inputSpecialNote = function (date, value) {
+        this.dispatch(actions.InputSpecialNoteAction.create({
+            date: date,
+            text: value,
+        }));
+    };
+    DispatchActions.prototype.selectHoliday = function (date, holiday) {
+        this.dispatch(actions.SelectHolidayAction.create({
+            date: date,
+            value: holiday,
+        }));
     };
     DispatchActions.prototype.inputMemo = function (date, memo) {
         this.dispatch(actions.InputMemoAction.create({
@@ -1192,8 +1206,11 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+var MenuItem_1 = __webpack_require__(78);
+var SelectField_1 = __webpack_require__(143);
 var TextField_1 = __webpack_require__(42);
 var React = __webpack_require__(1);
+var Holidays_1 = __webpack_require__(824);
 var KintaiUtils_1 = __webpack_require__(109);
 var TimeInput_1 = __webpack_require__(814);
 var Main = (function (_super) {
@@ -1204,9 +1221,19 @@ var Main = (function (_super) {
     Main.prototype.render = function () {
         var _this = this;
         var currentKintai = KintaiUtils_1.getDayKintaiOrDefault(this.props.value.kintai, this.props.value.view.currentDate);
+        var holidayMenus = [];
+        holidayMenus.push(React.createElement(MenuItem_1.default, { key: "", value: undefined, primaryText: "" }));
+        for (var _i = 0, HOLIDAYS_1 = Holidays_1.HOLIDAYS; _i < HOLIDAYS_1.length; _i++) {
+            var holiday = HOLIDAYS_1[_i];
+            holidayMenus.push(React.createElement(MenuItem_1.default, { key: holiday.value, value: holiday.value, primaryText: holiday.value + ": " + holiday.text }));
+        }
         return (React.createElement("div", { className: "content" },
             React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.IN, value: currentKintai.inTime, onSelected: function (event) { return _this.handleInSelected(event); } }),
             React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.OUT, value: currentKintai.outTime, onSelected: function (event) { return _this.handleOutSelected(event); } }),
+            React.createElement(TextField_1.default, { multiLine: false, fullWidth: false, hintText: "特記事項", value: currentKintai.specialNote, onChange: function (_, value) { return _this.handleSpecialNoteChange(value); } }),
+            React.createElement("br", null),
+            React.createElement(SelectField_1.default, { hintText: "休暇", value: currentKintai.holiday, onChange: function (event, _, value) { return _this.handleHolidayChange(event, value); }, style: { width: "200px" }, labelStyle: { height: "48px" } }, holidayMenus),
+            React.createElement("br", null),
             React.createElement(TextField_1.default, { multiLine: true, fullWidth: true, hintText: "メモ（勤務表には反映されません）", value: currentKintai.memo, onChange: function (_, value) { return _this.handleMemoChange(value); } })));
     };
     Main.prototype.handleInSelected = function (value) {
@@ -1214,6 +1241,13 @@ var Main = (function (_super) {
     };
     Main.prototype.handleOutSelected = function (value) {
         this.props.actions.selectOut(this.props.value.view.currentDate, value);
+    };
+    Main.prototype.handleSpecialNoteChange = function (value) {
+        this.props.actions.inputSpecialNote(this.props.value.view.currentDate, value);
+    };
+    Main.prototype.handleHolidayChange = function (event, value) {
+        event.preventDefault();
+        this.props.actions.selectHoliday(this.props.value.view.currentDate, value);
     };
     Main.prototype.handleMemoChange = function (value) {
         this.props.actions.inputMemo(this.props.value.view.currentDate, value);
@@ -1389,8 +1423,18 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 var List_1 = __webpack_require__(230);
+var colors_1 = __webpack_require__(100);
 var React = __webpack_require__(1);
+var Holidays_1 = __webpack_require__(824);
 var DateUtils_1 = __webpack_require__(57);
 var KintaiUtils_1 = __webpack_require__(109);
 var Main = (function (_super) {
@@ -1410,24 +1454,25 @@ var Main = (function (_super) {
         var dayString = DateUtils_1.formatDateForListItem(date);
         var dayStyle = this.getDayStyle(date);
         return (React.createElement(List_1.ListItem, { key: date.getDate(), onTouchTap: function (event) { return _this.onSelectDate(event, date); } },
-            React.createElement("span", { style: dayStyle }, dayString),
-            " ",
-            kintai.inTime,
-            " ",
-            kintai.outTime));
+            React.createElement("div", { style: dayStyle }, dayString),
+            React.createElement("div", { style: { display: "inline-block", width: "48px" } }, kintai.inTime),
+            React.createElement("div", { style: { display: "inline-block", width: "48px" } }, kintai.outTime),
+            React.createElement("div", { style: { display: "inline-block", color: colors_1.red700 } },
+                kintai.specialNote,
+                " ",
+                Holidays_1.getHolidayText(kintai.holiday))));
     };
     Main.prototype.onSelectDate = function (event, date) {
         event.preventDefault();
         this.props.actions.showInputPage(date);
     };
     Main.prototype.getDayStyle = function (date) {
+        var defaultStyle = { display: "inline-block", width: "58px" };
         var color = DateUtils_1.getDayColor(date);
-        if (color) {
-            return {
-                color: color,
-            };
+        if (color === undefined) {
+            return defaultStyle;
         }
-        return {};
+        return __assign({}, defaultStyle, { color: color });
     };
     return Main;
 }(React.Component));
@@ -1559,6 +1604,12 @@ exports.kintai = redux_commons_1.createReducer(initialState, function (handle) {
     });
     handle(actions.SelectOutAction, function (state, selectedTime) {
         return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time });
+    });
+    handle(actions.InputSpecialNoteAction, function (state, specialNote) {
+        return updateDayKintai(state, specialNote.date, { specialNote: specialNote.text });
+    });
+    handle(actions.SelectHolidayAction, function (state, holiday) {
+        return updateDayKintai(state, holiday.date, { holiday: holiday.value });
     });
     handle(actions.InputMemoAction, function (state, memo) {
         return updateDayKintai(state, memo.date, { memo: memo.text });
@@ -1707,6 +1758,47 @@ ReactDOM.render(React.createElement(react_redux_1.Provider, { store: Store_1.def
                 React.createElement(react_router_1.Route, { path: "/common", component: CommonPageComponent }),
                 React.createElement(react_router_1.Route, { path: "/send", component: SendPageComponent }),
                 React.createElement(react_router_1.IndexRoute, { component: InputPageComponent }))))), document.getElementById("app"));
+
+
+/***/ }),
+
+/***/ 824:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.HOLIDAYS = [
+    { value: 1, text: "全日" },
+    { value: 2, text: "午前" },
+    { value: 3, text: "午後" },
+    { value: 4, text: "欠勤" },
+    { value: 5, text: "健診BC・再検査" },
+    { value: 6, text: "無給" },
+    { value: 7, text: "振休" },
+    { value: 8, text: "代休" },
+    { value: 9, text: "特別代休" },
+    { value: 10, text: "結婚忌引配出産" },
+    { value: 11, text: "SP5" },
+    { value: 12, text: "その他特休" },
+    { value: 13, text: "積立休暇" },
+    { value: 14, text: "休業" },
+    { value: 15, text: "教育訓練" },
+];
+function getHolidayFromValue(value) {
+    if (value === undefined) {
+        return undefined;
+    }
+    return exports.HOLIDAYS.find(function (h) { return h.value === value; });
+}
+exports.getHolidayFromValue = getHolidayFromValue;
+function getHolidayText(value) {
+    var holiday = getHolidayFromValue(value);
+    if (holiday === undefined) {
+        return "";
+    }
+    return holiday.text;
+}
+exports.getHolidayText = getHolidayText;
 
 
 /***/ })

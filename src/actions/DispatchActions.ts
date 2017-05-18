@@ -44,6 +44,20 @@ export class DispatchActions {
         })
     }
 
+    public inputSpecialNote(date: Date, value: string) {
+        this.dispatch(actions.InputSpecialNoteAction.create({
+            date,
+            text: value,
+        }))
+    }
+
+    public selectHoliday(date: Date, holiday?: number) {
+        this.dispatch(actions.SelectHolidayAction.create({
+            date,
+            value: holiday,
+        }))
+    }
+
     public inputMemo(date: Date, memo: string) {
         this.dispatch(actions.InputMemoAction.create({
             date,

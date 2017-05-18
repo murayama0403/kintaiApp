@@ -10,9 +10,16 @@ interface DateText {
     text: string
 }
 
+interface DateNumber {
+    date: Date
+    value?: number
+}
+
 export const SelectInAction = action<SelectedTime>("SelectIn")
 export const SelectOutAction = action<SelectedTime>("SelectOut")
 export const MoveCurrentDateAction = action<Date>("MoveCurrentDate")
+export const InputSpecialNoteAction = action<DateText>("InputSpecialNote")
+export const SelectHolidayAction = action<DateNumber>("SelectHoliday")
 export const InputMemoAction = action<DateText>("InputMemo")
 export const InputEmailAction = action<string>("InputEmail")
 export const InputPasswordAction = action<string>("InputPassword")

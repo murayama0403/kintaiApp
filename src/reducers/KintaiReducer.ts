@@ -29,6 +29,12 @@ export const kintai = createReducer(initialState, (handle) => {
     handle(actions.SelectOutAction, (state, selectedTime) => {
         return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time })
     })
+    handle(actions.InputSpecialNoteAction, (state, specialNote) => {
+        return updateDayKintai(state, specialNote.date, { specialNote: specialNote.text })
+    })
+    handle(actions.SelectHolidayAction, (state, holiday) => {
+        return updateDayKintai(state, holiday.date, { holiday: holiday.value })
+    })
     handle(actions.InputMemoAction, (state, memo) => {
         return updateDayKintai(state, memo.date, { memo: memo.text })
     })
@@ -87,5 +93,6 @@ function updateDayKintai(state: KintaiState, date: Date, partialDayKintai: Parti
     const newDayState = { ...oldDayKintai, ...partialDayKintai }
     const newState = { ...state }
     newState.days[toDayString(date)] = newDayState
+
     return newState
 }

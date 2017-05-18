@@ -1,6 +1,8 @@
 import { TouchTapEvent } from "material-ui"
 import { List, ListItem } from "material-ui/List"
+import { red700 } from "material-ui/styles/colors"
 import * as React from "react"
+import { getHolidayText } from "../../constants/Holidays"
 import { RootProps } from "../../RootProps"
 import { formatDateForListItem, getDayColor, getMonthDates } from "../../utils/DateUtils"
 import { getDayKintaiOrDefault } from "../../utils/KintaiUtils"
@@ -24,7 +26,12 @@ export class Main extends React.Component<RootProps, {}> {
         const dayStyle = this.getDayStyle(date)
         return (
             <ListItem key={date.getDate()} onTouchTap={(event) => this.onSelectDate(event, date)}>
-                <span style={dayStyle}>{dayString}</span> {kintai.inTime} {kintai.outTime}
+                <div style={dayStyle}>{dayString}</div>
+                <div style={{display: "inline-block", width: "48px"}} >{kintai.inTime}</div>
+                <div style={{display: "inline-block", width: "48px"}} >{kintai.outTime}</div>
+                <div style={{display: "inline-block", color: red700}}>
+                    {kintai.specialNote} {getHolidayText(kintai.holiday)}
+                </div>
             </ListItem>
         )
     }
@@ -35,13 +42,12 @@ export class Main extends React.Component<RootProps, {}> {
     }
 
     private getDayStyle(date: Date) {
+        const defaultStyle = { display: "inline-block", width: "58px"}
         const color = getDayColor(date)
-        if (color) {
-            return {
-                color,
-            }
+        if (color === undefined) {
+            return defaultStyle
         }
 
-        return {}
+        return {...defaultStyle, ...{ color }}
     }
 }

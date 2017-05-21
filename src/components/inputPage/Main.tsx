@@ -1,4 +1,3 @@
-import { TouchTapEvent } from "material-ui"
 import MenuItem from "material-ui/MenuItem"
 import SelectField from "material-ui/SelectField"
 import TextField from "material-ui/TextField"
@@ -44,7 +43,7 @@ export class Main extends React.Component<RootProps, {}> {
                 <SelectField
                     hintText="休暇"
                     value={currentKintai.holiday}
-                    onChange={(event, _, value) => this.handleHolidayChange(event, value)}
+                    onChange={(_, __, value) => this.handleHolidayChange(value)}
                     style={{ width: "200px" }}
                     labelStyle={{ height: "48px" }}
                 >
@@ -75,8 +74,7 @@ export class Main extends React.Component<RootProps, {}> {
         this.props.actions.inputSpecialNote(this.props.value.view.currentDate, value)
     }
 
-    private handleHolidayChange(event: TouchTapEvent, value?: number) {
-        event.preventDefault()
+    private handleHolidayChange(value?: number) {
         this.props.actions.selectHoliday(this.props.value.view.currentDate, value)
     }
 

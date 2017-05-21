@@ -1,4 +1,3 @@
-import { TouchTapEvent } from "material-ui"
 import RaisedButton from "material-ui/RaisedButton"
 import TextField from "material-ui/TextField"
 import * as React from "react"
@@ -24,7 +23,7 @@ export class Main extends React.Component<RootProps, {}> {
                 <RaisedButton
                     label={buttonLabel}
                     primary={true}
-                    onTouchTap={(event) => this.handleSend(event)}
+                    onTouchTap={() => this.handleSend()}
                     disabled={this.props.value.view.isSending} />
             </div>
         )
@@ -38,8 +37,7 @@ export class Main extends React.Component<RootProps, {}> {
         this.props.actions.inputPassword(value)
     }
 
-    private handleSend(event: TouchTapEvent) {
-        event.preventDefault()
+    private handleSend() {
         this.props.actions.sendMonth(
             this.props.value.kintai,
             this.props.value.view.currentDate,

@@ -1,4 +1,3 @@
-import { TouchTapEvent } from "material-ui"
 import AppBar from "material-ui/AppBar"
 import IconButton from "material-ui/IconButton"
 import ArrowLeft from "material-ui/svg-icons/hardware/keyboard-arrow-left"
@@ -10,10 +9,10 @@ import { ToolbarWithProgress } from "../common/ToolbarWithProgress"
 
 export class Toolbar extends React.Component<RootProps, {}> {
     private buttons = <div>
-        <IconButton onTouchTap={(event) => this.handleBefore(event)} >
+        <IconButton onTouchTap={() => this.handleBefore()} >
             <ArrowLeft color="white" />
         </IconButton>
-        <IconButton onTouchTap={(event) => this.handleAfter(event)}>
+        <IconButton onTouchTap={() => this.handleAfter()}>
             <ArrowRight color="white" />
         </IconButton>
     </div>
@@ -29,14 +28,12 @@ export class Toolbar extends React.Component<RootProps, {}> {
         )
     }
 
-    private handleBefore(event: TouchTapEvent) {
-        event.preventDefault()
+    private handleBefore() {
         const date = moveDates(this.props.value.view.currentDate, -1)
         this.props.actions.moveCurrentDate(date)
     }
 
-    private handleAfter(event: TouchTapEvent) {
-        event.preventDefault()
+    private handleAfter() {
         const date = moveDates(this.props.value.view.currentDate, 1)
         this.props.actions.moveCurrentDate(date)
     }

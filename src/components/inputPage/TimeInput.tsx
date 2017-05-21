@@ -1,4 +1,3 @@
-import { TouchTapEvent } from "material-ui"
 import IconButton from "material-ui/IconButton"
 import MenuItem from "material-ui/MenuItem"
 import SelectField from "material-ui/SelectField"
@@ -61,35 +60,32 @@ export class TimeInput extends React.Component<Props, {}> {
                 <SelectField
                     hintText={this.props.type.label}
                     value={this.props.value}
-                    onChange={(event, _, value) => this.handleChange(event, value)}
+                    onChange={(_, __, value) => this.handleChange(value)}
                     style={{ width: "200px" }}
                     labelStyle={{ height: "48px" }}
                 >
                     {this.props.type.menus}
                 </SelectField>
-                <IconButton onTouchTap={(event) => this.handleNow(event)}>
+                <IconButton onTouchTap={() => this.handleNow()}>
                     <ActionUpdate />
                 </IconButton>
-                <IconButton onTouchTap={(event) => this.handleRegular(event)}>
+                <IconButton onTouchTap={() => this.handleRegular()}>
                     <ActionSchedule />
                 </IconButton>
             </div>
         )
     }
 
-    private handleChange(_: TouchTapEvent, value: string) {
-//        event.preventDefault()
+    private handleChange(value: string) {
         this.props.onSelected(value)
     }
 
-    private handleNow(_: TouchTapEvent) {
-//        event.preventDefault()
+    private handleNow() {
         const time = this.props.type.adjustTime(new Date())
         this.props.onSelected(formatTime(time))
     }
 
-    private handleRegular(_: TouchTapEvent) {
-//        event.preventDefault()
+    private handleRegular() {
         this.props.onSelected(this.props.type.regularTime)
     }
 

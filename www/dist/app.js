@@ -29,12 +29,12 @@ exports.getDayKintaiOrDefault = getDayKintaiOrDefault;
 
 /***/ }),
 
-/***/ 176:
+/***/ 177:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var redux_commons_1 = __webpack_require__(177);
+var redux_commons_1 = __webpack_require__(178);
 exports.SelectInAction = redux_commons_1.action("SelectIn");
 exports.SelectOutAction = redux_commons_1.action("SelectOut");
 exports.MoveCurrentDateAction = redux_commons_1.action("MoveCurrentDate");
@@ -63,7 +63,7 @@ exports.InputDefaultWorkCodeAction = redux_commons_1.action("InputDefaultWorkCod
 
 /***/ }),
 
-/***/ 177:
+/***/ 178:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -102,7 +102,7 @@ exports.createReducer = createReducer;
 
 /***/ }),
 
-/***/ 178:
+/***/ 179:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -112,7 +112,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var LinearProgress_1 = __webpack_require__(229);
+var LinearProgress_1 = __webpack_require__(224);
 var React = __webpack_require__(1);
 var ToolbarWithProgress = (function (_super) {
     __extends(ToolbarWithProgress, _super);
@@ -132,7 +132,7 @@ exports.ToolbarWithProgress = ToolbarWithProgress;
 
 /***/ }),
 
-/***/ 259:
+/***/ 248:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -146,11 +146,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(18);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -171,7 +171,7 @@ exports.default = HardwareKeyboardArrowLeft;
 
 /***/ }),
 
-/***/ 260:
+/***/ 249:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -185,11 +185,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(18);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -210,7 +210,7 @@ exports.default = HardwareKeyboardArrowRight;
 
 /***/ }),
 
-/***/ 420:
+/***/ 409:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -230,19 +230,19 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 var AppBar_1 = __webpack_require__(96);
 var IconButton_1 = __webpack_require__(35);
-var keyboard_arrow_left_1 = __webpack_require__(259);
-var keyboard_arrow_right_1 = __webpack_require__(260);
+var keyboard_arrow_left_1 = __webpack_require__(248);
+var keyboard_arrow_right_1 = __webpack_require__(249);
 var React = __webpack_require__(1);
 var DateUtils_1 = __webpack_require__(57);
-var ToolbarWithProgress_1 = __webpack_require__(178);
+var ToolbarWithProgress_1 = __webpack_require__(179);
 var MonthToolbar = (function (_super) {
     __extends(MonthToolbar, _super);
     function MonthToolbar() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.buttons = React.createElement("div", null,
-            React.createElement(IconButton_1.default, { onTouchTap: function (event) { return _this.handleBefore(event); } },
+            React.createElement(IconButton_1.default, { onTouchTap: function () { return _this.handleBefore(); } },
                 React.createElement(keyboard_arrow_left_1.default, { color: "white" })),
-            React.createElement(IconButton_1.default, { onTouchTap: function (event) { return _this.handleAfter(event); } },
+            React.createElement(IconButton_1.default, { onTouchTap: function () { return _this.handleAfter(); } },
                 React.createElement(keyboard_arrow_right_1.default, { color: "white" })));
         return _this;
     }
@@ -250,13 +250,11 @@ var MonthToolbar = (function (_super) {
         return (React.createElement(ToolbarWithProgress_1.ToolbarWithProgress, __assign({}, this.props),
             React.createElement(AppBar_1.default, { title: this.formatCurrentMonth(), showMenuIconButton: false, iconElementRight: this.buttons })));
     };
-    MonthToolbar.prototype.handleBefore = function (event) {
-        event.preventDefault();
+    MonthToolbar.prototype.handleBefore = function () {
         var date = DateUtils_1.moveMonths(this.props.value.view.currentDate, -1);
         this.props.actions.moveCurrentDate(date);
     };
-    MonthToolbar.prototype.handleAfter = function (event) {
-        event.preventDefault();
+    MonthToolbar.prototype.handleAfter = function () {
         var date = DateUtils_1.moveMonths(this.props.value.view.currentDate, 1);
         this.props.actions.moveCurrentDate(date);
     };
@@ -270,7 +268,7 @@ exports.MonthToolbar = MonthToolbar;
 
 /***/ }),
 
-/***/ 421:
+/***/ 410:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -311,17 +309,17 @@ exports.getHolidayText = getHolidayText;
 
 /***/ }),
 
-/***/ 423:
+/***/ 412:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var react_router_redux_1 = __webpack_require__(88);
+var react_router_redux_1 = __webpack_require__(87);
 var redux_1 = __webpack_require__(112);
-var createLogger = __webpack_require__(181);
-var redux_persist_1 = __webpack_require__(182);
-var KintaiReducer_1 = __webpack_require__(821);
-var ViewReducer_1 = __webpack_require__(822);
+var createLogger = __webpack_require__(182);
+var redux_persist_1 = __webpack_require__(183);
+var KintaiReducer_1 = __webpack_require__(803);
+var ViewReducer_1 = __webpack_require__(804);
 // weinreでConsoleデバッグができるようにredux-loggerがconsole.logを呼び出すように変更
 var logger = createLogger({
     level: "log",
@@ -347,14 +345,14 @@ exports.default = store;
 
 /***/ }),
 
-/***/ 424:
+/***/ 413:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var react_router_1 = __webpack_require__(89);
-var actions = __webpack_require__(176);
-var ApiClient_1 = __webpack_require__(812);
+var react_router_1 = __webpack_require__(88);
+var actions = __webpack_require__(177);
+var ApiClient_1 = __webpack_require__(794);
 var DispatchActions = (function () {
     function DispatchActions(dispatch) {
         this.dispatch = dispatch;
@@ -477,7 +475,7 @@ exports.DispatchActions = DispatchActions;
 
 /***/ }),
 
-/***/ 425:
+/***/ 414:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -497,8 +495,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 var AppBar_1 = __webpack_require__(96);
 var React = __webpack_require__(1);
-var ToolbarWithProgress_1 = __webpack_require__(178);
-var Main_1 = __webpack_require__(813);
+var ToolbarWithProgress_1 = __webpack_require__(179);
+var Main_1 = __webpack_require__(795);
 var CommonPage = (function (_super) {
     __extends(CommonPage, _super);
     function CommonPage() {
@@ -517,7 +515,7 @@ exports.CommonPage = CommonPage;
 
 /***/ }),
 
-/***/ 426:
+/***/ 415:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -536,8 +534,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var Main_1 = __webpack_require__(815);
-var Toolbar_1 = __webpack_require__(817);
+var Main_1 = __webpack_require__(797);
+var Toolbar_1 = __webpack_require__(799);
 var InputPage = (function (_super) {
     __extends(InputPage, _super);
     function InputPage() {
@@ -555,7 +553,7 @@ exports.InputPage = InputPage;
 
 /***/ }),
 
-/***/ 427:
+/***/ 416:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -574,8 +572,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var MonthToolbar_1 = __webpack_require__(420);
-var Main_1 = __webpack_require__(818);
+var MonthToolbar_1 = __webpack_require__(409);
+var Main_1 = __webpack_require__(800);
 var ListPage = (function (_super) {
     __extends(ListPage, _super);
     function ListPage() {
@@ -593,7 +591,7 @@ exports.ListPage = ListPage;
 
 /***/ }),
 
-/***/ 428:
+/***/ 417:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -612,8 +610,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var FooterTab_1 = __webpack_require__(814);
-var SendStatus_1 = __webpack_require__(819);
+var FooterTab_1 = __webpack_require__(796);
+var SendStatus_1 = __webpack_require__(801);
 var Root = (function (_super) {
     __extends(Root, _super);
     function Root() {
@@ -632,7 +630,7 @@ exports.Root = Root;
 
 /***/ }),
 
-/***/ 429:
+/***/ 418:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -651,8 +649,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var MonthToolbar_1 = __webpack_require__(420);
-var Main_1 = __webpack_require__(820);
+var MonthToolbar_1 = __webpack_require__(409);
+var Main_1 = __webpack_require__(802);
 var SendPage = (function (_super) {
     __extends(SendPage, _super);
     function SendPage() {
@@ -670,7 +668,7 @@ exports.SendPage = SendPage;
 
 /***/ }),
 
-/***/ 430:
+/***/ 419:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -690,6 +688,8 @@ var React = __webpack_require__(1);
 function forceTouchTapPreventDefault() {
     var react = React;
     var orig = react.createElement;
+    // 型を厳密にするTypeScriptでthisの型を定義する時には先頭パラメータとしてthisを使う
+    // 参考: https://www.typescriptlang.org/docs/handbook/functions.html#this-parameters
     react.createElement = function (type, props) {
         var children = [];
         for (var _i = 2; _i < arguments.length; _i++) {
@@ -697,10 +697,13 @@ function forceTouchTapPreventDefault() {
         }
         // only wrap native elements (string-ish `type`) which have an onTouchTap prop
         if (typeof type === "string" && props && props.onTouchTap) {
-            var orig_1 = props.onTouchTap;
-            props = __assign({}, props, { onTouchTap: function (e) {
+            var onTouchTap_1 = props.onTouchTap;
+            props = __assign({}, props, { 
+                // thisによる型定義は変数名を変えられないので仕方ないのでtslintを無視設定する
+                // tslint:disable-next-line
+                onTouchTap: function (e) {
                     e.preventDefault();
-                    return orig_1.apply(this, arguments);
+                    return onTouchTap_1.apply(this, arguments);
                 } });
         }
         return orig.call.apply(orig, [this, type, props].concat(children));
@@ -716,10 +719,10 @@ exports.forceTouchTapPreventDefault = forceTouchTapPreventDefault;
 
 "use strict";
 
-var japanese_holidays_1 = __webpack_require__(179);
-var colors_1 = __webpack_require__(82);
-var moment = __webpack_require__(3);
-__webpack_require__(150);
+var japanese_holidays_1 = __webpack_require__(180);
+var colors_1 = __webpack_require__(81);
+var moment = __webpack_require__(2);
+__webpack_require__(151);
 moment.locale("ja");
 function toDayString(date) {
     return moment(date).format("YYYYMMDD");
@@ -815,7 +818,7 @@ exports.getDayColor = getDayColor;
 
 /***/ }),
 
-/***/ 640:
+/***/ 625:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -829,11 +832,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(18);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -854,7 +857,7 @@ exports.default = ActionList;
 
 /***/ }),
 
-/***/ 641:
+/***/ 626:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -868,11 +871,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(18);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -893,7 +896,7 @@ exports.default = ActionSchedule;
 
 /***/ }),
 
-/***/ 642:
+/***/ 627:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -907,11 +910,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(18);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -932,7 +935,7 @@ exports.default = ActionUpdate;
 
 /***/ }),
 
-/***/ 643:
+/***/ 628:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -946,11 +949,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(18);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -971,7 +974,7 @@ exports.default = ContentSend;
 
 /***/ }),
 
-/***/ 646:
+/***/ 631:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -985,11 +988,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(18);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -1010,7 +1013,7 @@ exports.default = ImageEdit;
 
 /***/ }),
 
-/***/ 655:
+/***/ 640:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1024,11 +1027,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(18);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -1049,12 +1052,12 @@ exports.default = SocialPerson;
 
 /***/ }),
 
-/***/ 812:
+/***/ 794:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-__webpack_require__(183);
+__webpack_require__(184);
 var DateUtils_1 = __webpack_require__(57);
 var KintaiUtils_1 = __webpack_require__(110);
 function sendMonthKintai(kintai, month, password) {
@@ -1121,7 +1124,7 @@ function toWorkInfo(date, dayKintai, person) {
 
 /***/ }),
 
-/***/ 813:
+/***/ 795:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1131,7 +1134,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var MenuItem_1 = __webpack_require__(64);
+var MenuItem_1 = __webpack_require__(65);
 var SelectField_1 = __webpack_require__(100);
 var TextField_1 = __webpack_require__(42);
 var React = __webpack_require__(1);
@@ -1150,7 +1153,7 @@ var Main = (function (_super) {
             React.createElement("br", null),
             React.createElement(TextField_1.default, { hintText: "名", value: this.props.value.kintai.person.firstName, onChange: function (_, value) { return _this.handleFirstNameChange(value); } }),
             React.createElement("br", null),
-            React.createElement(SelectField_1.default, { hintText: "管理識別", value: this.props.value.kintai.person.manageType, onChange: function (event, _, value) { return _this.handleManageTypeChange(event, value); }, labelStyle: { height: "48px" } },
+            React.createElement(SelectField_1.default, { hintText: "管理識別", value: this.props.value.kintai.person.manageType, onChange: function (_, __, value) { return _this.handleManageTypeChange(value); }, labelStyle: { height: "48px" } },
                 React.createElement(MenuItem_1.default, { value: "", primaryText: "" }),
                 React.createElement(MenuItem_1.default, { value: "1", primaryText: "1: M等級" }),
                 React.createElement(MenuItem_1.default, { value: "2", primaryText: "2: D等級、E等級の営業職" }),
@@ -1181,8 +1184,7 @@ var Main = (function (_super) {
     Main.prototype.handleDepartmentCodeChange = function (value) {
         this.props.actions.inputDepartmentCode(value);
     };
-    Main.prototype.handleManageTypeChange = function (event, value) {
-        event.preventDefault();
+    Main.prototype.handleManageTypeChange = function (value) {
         this.props.actions.inputManageType(value);
     };
     Main.prototype.handleManager1Change = function (value) {
@@ -1210,7 +1212,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 814:
+/***/ 796:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1220,12 +1222,12 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var BottomNavigation_1 = __webpack_require__(220);
-var Divider_1 = __webpack_require__(138);
-var list_1 = __webpack_require__(640);
-var send_1 = __webpack_require__(643);
-var edit_1 = __webpack_require__(646);
-var person_1 = __webpack_require__(655);
+var BottomNavigation_1 = __webpack_require__(215);
+var Divider_1 = __webpack_require__(140);
+var list_1 = __webpack_require__(625);
+var send_1 = __webpack_require__(628);
+var edit_1 = __webpack_require__(631);
+var person_1 = __webpack_require__(640);
 var React = __webpack_require__(1);
 var FooterTab = (function (_super) {
     __extends(FooterTab, _super);
@@ -1238,25 +1240,21 @@ var FooterTab = (function (_super) {
         return (React.createElement("div", { className: "footerTab" },
             React.createElement(Divider_1.default, null),
             React.createElement(BottomNavigation_1.BottomNavigation, { selectedIndex: selectedIndex },
-                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "入力", icon: React.createElement(edit_1.default, null), onTouchTap: function (event) { return _this.onInputSelected(event); } }),
-                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "一覧", icon: React.createElement(list_1.default, null), onTouchTap: function (event) { return _this.onListSelected(event); } }),
-                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "共通", icon: React.createElement(person_1.default, null), onTouchTap: function (event) { return _this.onCommonSelected(event); } }),
-                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "送信", icon: React.createElement(send_1.default, null), onTouchTap: function (event) { return _this.onSendSelected(event); } }))));
+                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "入力", icon: React.createElement(edit_1.default, null), onTouchTap: function () { return _this.onInputSelected(); } }),
+                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "一覧", icon: React.createElement(list_1.default, null), onTouchTap: function () { return _this.onListSelected(); } }),
+                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "共通", icon: React.createElement(person_1.default, null), onTouchTap: function () { return _this.onCommonSelected(); } }),
+                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "送信", icon: React.createElement(send_1.default, null), onTouchTap: function () { return _this.onSendSelected(); } }))));
     };
-    FooterTab.prototype.onInputSelected = function (event) {
-        event.preventDefault();
+    FooterTab.prototype.onInputSelected = function () {
         this.props.actions.showInputPage();
     };
-    FooterTab.prototype.onListSelected = function (event) {
-        event.preventDefault();
+    FooterTab.prototype.onListSelected = function () {
         this.props.actions.showListPage();
     };
-    FooterTab.prototype.onCommonSelected = function (event) {
-        event.preventDefault();
+    FooterTab.prototype.onCommonSelected = function () {
         this.props.actions.showCommonPage();
     };
-    FooterTab.prototype.onSendSelected = function (event) {
-        event.preventDefault();
+    FooterTab.prototype.onSendSelected = function () {
         this.props.actions.showSendPage();
     };
     FooterTab.prototype.getSelectedIndex = function () {
@@ -1278,7 +1276,7 @@ exports.FooterTab = FooterTab;
 
 /***/ }),
 
-/***/ 815:
+/***/ 797:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1288,13 +1286,13 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var MenuItem_1 = __webpack_require__(64);
+var MenuItem_1 = __webpack_require__(65);
 var SelectField_1 = __webpack_require__(100);
 var TextField_1 = __webpack_require__(42);
 var React = __webpack_require__(1);
-var Holidays_1 = __webpack_require__(421);
+var Holidays_1 = __webpack_require__(410);
 var KintaiUtils_1 = __webpack_require__(110);
-var TimeInput_1 = __webpack_require__(816);
+var TimeInput_1 = __webpack_require__(798);
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
@@ -1314,7 +1312,7 @@ var Main = (function (_super) {
             React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.OUT, value: currentKintai.outTime, onSelected: function (event) { return _this.handleOutSelected(event); } }),
             React.createElement(TextField_1.default, { multiLine: false, fullWidth: false, hintText: "特記事項", value: currentKintai.specialNote, onChange: function (_, value) { return _this.handleSpecialNoteChange(value); } }),
             React.createElement("br", null),
-            React.createElement(SelectField_1.default, { hintText: "休暇", value: currentKintai.holiday, onChange: function (event, _, value) { return _this.handleHolidayChange(event, value); }, style: { width: "200px" }, labelStyle: { height: "48px" } }, holidayMenus),
+            React.createElement(SelectField_1.default, { hintText: "休暇", value: currentKintai.holiday, onChange: function (_, __, value) { return _this.handleHolidayChange(value); }, style: { width: "200px" }, labelStyle: { height: "48px" } }, holidayMenus),
             React.createElement("br", null),
             React.createElement(TextField_1.default, { multiLine: true, fullWidth: true, hintText: "メモ（勤務表には反映されません）", value: currentKintai.memo, onChange: function (_, value) { return _this.handleMemoChange(value); } })));
     };
@@ -1327,8 +1325,7 @@ var Main = (function (_super) {
     Main.prototype.handleSpecialNoteChange = function (value) {
         this.props.actions.inputSpecialNote(this.props.value.view.currentDate, value);
     };
-    Main.prototype.handleHolidayChange = function (event, value) {
-        event.preventDefault();
+    Main.prototype.handleHolidayChange = function (value) {
         this.props.actions.selectHoliday(this.props.value.view.currentDate, value);
     };
     Main.prototype.handleMemoChange = function (value) {
@@ -1341,7 +1338,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 816:
+/***/ 798:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1352,10 +1349,10 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var IconButton_1 = __webpack_require__(35);
-var MenuItem_1 = __webpack_require__(64);
+var MenuItem_1 = __webpack_require__(65);
 var SelectField_1 = __webpack_require__(100);
-var schedule_1 = __webpack_require__(641);
-var update_1 = __webpack_require__(642);
+var schedule_1 = __webpack_require__(626);
+var update_1 = __webpack_require__(627);
 var React = __webpack_require__(1);
 var DateUtils_1 = __webpack_require__(57);
 var TIMES = [":00", ":15", ":30", ":45"];
@@ -1398,23 +1395,20 @@ var TimeInput = (function (_super) {
     TimeInput.prototype.render = function () {
         var _this = this;
         return (React.createElement("div", { style: { display: "flex" } },
-            React.createElement(SelectField_1.default, { hintText: this.props.type.label, value: this.props.value, onChange: function (event, _, value) { return _this.handleChange(event, value); }, style: { width: "200px" }, labelStyle: { height: "48px" } }, this.props.type.menus),
-            React.createElement(IconButton_1.default, { onTouchTap: function (event) { return _this.handleNow(event); } },
+            React.createElement(SelectField_1.default, { hintText: this.props.type.label, value: this.props.value, onChange: function (_, __, value) { return _this.handleChange(value); }, style: { width: "200px" }, labelStyle: { height: "48px" } }, this.props.type.menus),
+            React.createElement(IconButton_1.default, { onTouchTap: function () { return _this.handleNow(); } },
                 React.createElement(update_1.default, null)),
-            React.createElement(IconButton_1.default, { onTouchTap: function (event) { return _this.handleRegular(event); } },
+            React.createElement(IconButton_1.default, { onTouchTap: function () { return _this.handleRegular(); } },
                 React.createElement(schedule_1.default, null))));
     };
-    TimeInput.prototype.handleChange = function (_, value) {
-        //        event.preventDefault()
+    TimeInput.prototype.handleChange = function (value) {
         this.props.onSelected(value);
     };
-    TimeInput.prototype.handleNow = function (_) {
-        //        event.preventDefault()
+    TimeInput.prototype.handleNow = function () {
         var time = this.props.type.adjustTime(new Date());
         this.props.onSelected(DateUtils_1.formatTime(time));
     };
-    TimeInput.prototype.handleRegular = function (_) {
-        //        event.preventDefault()
+    TimeInput.prototype.handleRegular = function () {
         this.props.onSelected(this.props.type.regularTime);
     };
     return TimeInput;
@@ -1424,7 +1418,7 @@ exports.TimeInput = TimeInput;
 
 /***/ }),
 
-/***/ 817:
+/***/ 799:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1444,19 +1438,19 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 var AppBar_1 = __webpack_require__(96);
 var IconButton_1 = __webpack_require__(35);
-var keyboard_arrow_left_1 = __webpack_require__(259);
-var keyboard_arrow_right_1 = __webpack_require__(260);
+var keyboard_arrow_left_1 = __webpack_require__(248);
+var keyboard_arrow_right_1 = __webpack_require__(249);
 var React = __webpack_require__(1);
 var DateUtils_1 = __webpack_require__(57);
-var ToolbarWithProgress_1 = __webpack_require__(178);
+var ToolbarWithProgress_1 = __webpack_require__(179);
 var Toolbar = (function (_super) {
     __extends(Toolbar, _super);
     function Toolbar() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.buttons = React.createElement("div", null,
-            React.createElement(IconButton_1.default, { onTouchTap: function (event) { return _this.handleBefore(event); } },
+            React.createElement(IconButton_1.default, { onTouchTap: function () { return _this.handleBefore(); } },
                 React.createElement(keyboard_arrow_left_1.default, { color: "white" })),
-            React.createElement(IconButton_1.default, { onTouchTap: function (event) { return _this.handleAfter(event); } },
+            React.createElement(IconButton_1.default, { onTouchTap: function () { return _this.handleAfter(); } },
                 React.createElement(keyboard_arrow_right_1.default, { color: "white" })));
         return _this;
     }
@@ -1464,13 +1458,11 @@ var Toolbar = (function (_super) {
         return (React.createElement(ToolbarWithProgress_1.ToolbarWithProgress, __assign({}, this.props),
             React.createElement(AppBar_1.default, { title: this.createTitle(), showMenuIconButton: false, iconElementRight: this.buttons })));
     };
-    Toolbar.prototype.handleBefore = function (event) {
-        event.preventDefault();
+    Toolbar.prototype.handleBefore = function () {
         var date = DateUtils_1.moveDates(this.props.value.view.currentDate, -1);
         this.props.actions.moveCurrentDate(date);
     };
-    Toolbar.prototype.handleAfter = function (event) {
-        event.preventDefault();
+    Toolbar.prototype.handleAfter = function () {
         var date = DateUtils_1.moveDates(this.props.value.view.currentDate, 1);
         this.props.actions.moveCurrentDate(date);
     };
@@ -1495,7 +1487,7 @@ exports.Toolbar = Toolbar;
 
 /***/ }),
 
-/***/ 818:
+/***/ 800:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1513,10 +1505,10 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var List_1 = __webpack_require__(230);
-var colors_1 = __webpack_require__(82);
+var List_1 = __webpack_require__(225);
+var colors_1 = __webpack_require__(81);
 var React = __webpack_require__(1);
-var Holidays_1 = __webpack_require__(421);
+var Holidays_1 = __webpack_require__(410);
 var DateUtils_1 = __webpack_require__(57);
 var KintaiUtils_1 = __webpack_require__(110);
 var Main = (function (_super) {
@@ -1535,7 +1527,7 @@ var Main = (function (_super) {
         var kintai = KintaiUtils_1.getDayKintaiOrDefault(this.props.value.kintai, date);
         var dayString = DateUtils_1.formatDateForListItem(date);
         var dayStyle = this.getDayStyle(date);
-        return (React.createElement(List_1.ListItem, { key: date.getDate(), onTouchTap: function (event) { return _this.onSelectDate(event, date); } },
+        return (React.createElement(List_1.ListItem, { key: date.getDate(), onTouchTap: function () { return _this.onSelectDate(date); } },
             React.createElement("div", { style: dayStyle }, dayString),
             React.createElement("div", { style: { display: "inline-block", width: "48px" } }, kintai.inTime),
             React.createElement("div", { style: { display: "inline-block", width: "48px" } }, kintai.outTime),
@@ -1544,8 +1536,7 @@ var Main = (function (_super) {
                 " ",
                 Holidays_1.getHolidayText(kintai.holiday))));
     };
-    Main.prototype.onSelectDate = function (event, date) {
-        event.preventDefault();
+    Main.prototype.onSelectDate = function (date) {
         this.props.actions.showInputPage(date);
     };
     Main.prototype.getDayStyle = function (date) {
@@ -1563,7 +1554,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 819:
+/***/ 801:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1574,7 +1565,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Dialog_1 = __webpack_require__(97);
-var Snackbar_1 = __webpack_require__(236);
+var Snackbar_1 = __webpack_require__(231);
 var React = __webpack_require__(1);
 var SendStatus = (function (_super) {
     __extends(SendStatus, _super);
@@ -1600,7 +1591,7 @@ exports.SendStatus = SendStatus;
 
 /***/ }),
 
-/***/ 820:
+/***/ 802:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1610,7 +1601,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var RaisedButton_1 = __webpack_require__(235);
+var RaisedButton_1 = __webpack_require__(230);
 var TextField_1 = __webpack_require__(42);
 var React = __webpack_require__(1);
 var Main = (function (_super) {
@@ -1627,7 +1618,7 @@ var Main = (function (_super) {
             React.createElement("br", null),
             React.createElement(TextField_1.default, { hintText: "zipパスワード", type: "password", value: this.props.value.view.password, onChange: function (_, value) { return _this.handlePasswordChange(value); } }),
             React.createElement("br", null),
-            React.createElement(RaisedButton_1.default, { label: buttonLabel, primary: true, onTouchTap: function (event) { return _this.handleSend(event); }, disabled: this.props.value.view.isSending })));
+            React.createElement(RaisedButton_1.default, { label: buttonLabel, primary: true, onTouchTap: function () { return _this.handleSend(); }, disabled: this.props.value.view.isSending })));
     };
     Main.prototype.handleEmailChange = function (value) {
         this.props.actions.inputEmail(value);
@@ -1635,8 +1626,7 @@ var Main = (function (_super) {
     Main.prototype.handlePasswordChange = function (value) {
         this.props.actions.inputPassword(value);
     };
-    Main.prototype.handleSend = function (event) {
-        event.preventDefault();
+    Main.prototype.handleSend = function () {
         this.props.actions.sendMonth(this.props.value.kintai, this.props.value.view.currentDate, this.props.value.view.password);
     };
     return Main;
@@ -1646,7 +1636,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 821:
+/***/ 803:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1659,8 +1649,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var actions = __webpack_require__(176);
-var redux_commons_1 = __webpack_require__(177);
+var actions = __webpack_require__(177);
+var redux_commons_1 = __webpack_require__(178);
 var DateUtils_1 = __webpack_require__(57);
 var KintaiUtils_1 = __webpack_require__(110);
 var initialState = {
@@ -1756,7 +1746,7 @@ function updateDayKintai(state, date, partialDayKintai) {
 
 /***/ }),
 
-/***/ 822:
+/***/ 804:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1769,8 +1759,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var actions = __webpack_require__(176);
-var redux_commons_1 = __webpack_require__(177);
+var actions = __webpack_require__(177);
+var redux_commons_1 = __webpack_require__(178);
 var initialState = {
     currentDate: new Date(),
     password: "",
@@ -1805,26 +1795,26 @@ exports.view = redux_commons_1.createReducer(initialState, function (handle) {
 
 /***/ }),
 
-/***/ 824:
+/***/ 806:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var MuiThemeProvider_1 = __webpack_require__(180);
+var MuiThemeProvider_1 = __webpack_require__(181);
 var React = __webpack_require__(1);
-var ReactDOM = __webpack_require__(20);
+var ReactDOM = __webpack_require__(18);
 var react_redux_1 = __webpack_require__(113);
-var react_router_1 = __webpack_require__(89);
-var react_router_redux_1 = __webpack_require__(88);
+var react_router_1 = __webpack_require__(88);
+var react_router_redux_1 = __webpack_require__(87);
 var injectTapEventPlugin = __webpack_require__(114);
-var DispatchActions_1 = __webpack_require__(424);
-var CommonPage_1 = __webpack_require__(425);
-var InputPage_1 = __webpack_require__(426);
-var ListPage_1 = __webpack_require__(427);
-var Root_1 = __webpack_require__(428);
-var SendPage_1 = __webpack_require__(429);
-var Store_1 = __webpack_require__(423);
-var FixReactTouchTap_1 = __webpack_require__(430);
+var DispatchActions_1 = __webpack_require__(413);
+var CommonPage_1 = __webpack_require__(414);
+var InputPage_1 = __webpack_require__(415);
+var ListPage_1 = __webpack_require__(416);
+var Root_1 = __webpack_require__(417);
+var SendPage_1 = __webpack_require__(418);
+var Store_1 = __webpack_require__(412);
+var FixReactTouchTap_1 = __webpack_require__(419);
 injectTapEventPlugin();
 FixReactTouchTap_1.forceTouchTapPreventDefault();
 var connector = react_redux_1.connect(function (store) { return ({ value: store }); }, function (dispatch) { return ({ actions: new DispatchActions_1.DispatchActions(dispatch) }); });
@@ -1846,5 +1836,5 @@ ReactDOM.render(React.createElement(react_redux_1.Provider, { store: Store_1.def
 
 /***/ })
 
-},[824]);
+},[806]);
 //# sourceMappingURL=app.js.map

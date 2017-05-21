@@ -1,4 +1,3 @@
-import { TouchTapEvent } from "material-ui"
 import { BottomNavigation, BottomNavigationItem } from "material-ui/BottomNavigation"
 import Divider from "material-ui/Divider"
 import ListIcon from "material-ui/svg-icons/action/list"
@@ -19,42 +18,38 @@ export class FooterTab extends React.Component<RootProps, {}> {
                 <BottomNavigation selectedIndex={selectedIndex}>
                     <BottomNavigationItem label="入力"
                         icon={<EditIcon />}
-                        onTouchTap={(event) => this.onInputSelected(event)}
+                        onTouchTap={() => this.onInputSelected()}
                     />
                     <BottomNavigationItem label="一覧"
                         icon={<ListIcon />}
-                        onTouchTap={(event) => this.onListSelected(event)}
+                        onTouchTap={() => this.onListSelected()}
                     />
                     <BottomNavigationItem label="共通"
                         icon={<CommonIcon />}
-                        onTouchTap={(event) => this.onCommonSelected(event)}
+                        onTouchTap={() => this.onCommonSelected()}
                     />
                     <BottomNavigationItem label="送信"
                         icon={<SendIcon />}
-                        onTouchTap={(event) => this.onSendSelected(event)}
+                        onTouchTap={() => this.onSendSelected()}
                     />
                 </BottomNavigation>
             </div>
         )
     }
 
-    private onInputSelected(event: TouchTapEvent) {
-        event.preventDefault()
+    private onInputSelected() {
         this.props.actions.showInputPage()
     }
 
-    private onListSelected(event: TouchTapEvent) {
-        event.preventDefault()
+    private onListSelected() {
         this.props.actions.showListPage()
     }
 
-    private onCommonSelected(event: TouchTapEvent) {
-        event.preventDefault()
+    private onCommonSelected() {
         this.props.actions.showCommonPage()
     }
 
-    private onSendSelected(event: TouchTapEvent) {
-        event.preventDefault()
+    private onSendSelected() {
         this.props.actions.showSendPage()
     }
 

@@ -1,4 +1,3 @@
-import { TouchTapEvent } from "material-ui"
 import MenuItem from "material-ui/MenuItem"
 import SelectField from "material-ui/SelectField"
 import TextField from "material-ui/TextField"
@@ -31,7 +30,7 @@ export class Main extends React.Component<RootProps, {}> {
                 <SelectField
                     hintText="管理識別"
                     value={this.props.value.kintai.person.manageType}
-                    onChange={(event, _, value) => this.handleManageTypeChange(event, value)}
+                    onChange={(_, __, value) => this.handleManageTypeChange(value)}
                     labelStyle={{ height: "48px" }} >
                     <MenuItem value={""} primaryText="" />
                     <MenuItem value={"1"} primaryText="1: M等級" />
@@ -89,8 +88,7 @@ export class Main extends React.Component<RootProps, {}> {
         this.props.actions.inputDepartmentCode(value)
     }
 
-    private handleManageTypeChange(event: TouchTapEvent, value: string) {
-        event.preventDefault()
+    private handleManageTypeChange(value: string) {
         this.props.actions.inputManageType(value)
     }
 

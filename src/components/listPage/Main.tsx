@@ -1,4 +1,3 @@
-import { TouchTapEvent } from "material-ui"
 import { List, ListItem } from "material-ui/List"
 import { red700 } from "material-ui/styles/colors"
 import * as React from "react"
@@ -25,7 +24,7 @@ export class Main extends React.Component<RootProps, {}> {
         const dayString = formatDateForListItem(date)
         const dayStyle = this.getDayStyle(date)
         return (
-            <ListItem key={date.getDate()} onTouchTap={(event) => this.onSelectDate(event, date)}>
+            <ListItem key={date.getDate()} onTouchTap={() => this.onSelectDate(date)}>
                 <div style={dayStyle}>{dayString}</div>
                 <div style={{display: "inline-block", width: "48px"}} >{kintai.inTime}</div>
                 <div style={{display: "inline-block", width: "48px"}} >{kintai.outTime}</div>
@@ -36,8 +35,7 @@ export class Main extends React.Component<RootProps, {}> {
         )
     }
 
-    private onSelectDate(event: TouchTapEvent, date: Date) {
-        event.preventDefault()
+    private onSelectDate(date: Date) {
         this.props.actions.showInputPage(date)
     }
 

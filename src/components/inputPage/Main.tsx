@@ -88,27 +88,27 @@ export class Main extends React.Component<RootProps, {}> {
 
     private handleRest2Toggle(event: TouchTapEvent) {
         event.preventDefault()
-        this.props.actions.toggleRest2(this.props.value.view.currentDate)
+        this.props.actions.toggleRest(this.props.value.view.currentDate, 2)
     }
 
     private handleRest3Toggle(event: TouchTapEvent) {
         event.preventDefault()
-        this.props.actions.toggleRest3(this.props.value.view.currentDate)
+        this.props.actions.toggleRest(this.props.value.view.currentDate, 3)
     }
 
     private handleRest4Toggle(event: TouchTapEvent) {
         event.preventDefault()
-        this.props.actions.toggleRest4(this.props.value.view.currentDate)
+        this.props.actions.toggleRest(this.props.value.view.currentDate, 4)
     }
 
     private handleRest5Toggle(event: TouchTapEvent) {
         event.preventDefault()
-        this.props.actions.toggleRest5(this.props.value.view.currentDate)
+        this.props.actions.toggleRest(this.props.value.view.currentDate, 5)
     }
 
     private handleRest6Toggle(event: TouchTapEvent) {
         event.preventDefault()
-        this.props.actions.toggleRest6(this.props.value.view.currentDate)
+        this.props.actions.toggleRest(this.props.value.view.currentDate, 6)
     }
 
     private handleMemoChange(value: string) {

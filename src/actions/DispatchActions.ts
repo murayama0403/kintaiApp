@@ -23,7 +23,13 @@ export class DispatchActions {
             time,
         }))
     }
-
+	
+	public toggleRest(date: Date, buttonNumber: Number) {
+		if(buttonNumber >= 2 && buttonNumber <= 6) {
+			this.dispatch(actions[`ToggleRest${buttonNumber}Action`].create(date))
+		}
+	}
+	/*
     public toggleRest2(date: Date) {
         this.dispatch(actions.ToggleRest2Action.create(date))
     }
@@ -43,6 +49,7 @@ export class DispatchActions {
     public toggleRest6(date: Date) {
         this.dispatch(actions.ToggleRest6Action.create(date))
     }
+	*/
 
     public moveCurrentDate(date: Date) {
         this.dispatch(actions.MoveCurrentDateAction.create(date))

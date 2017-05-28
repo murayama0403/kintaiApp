@@ -12,5 +12,4 @@ export class InputPage extends React.Component<RootProps, {}> {
             </div>
         )
     }
-
 }

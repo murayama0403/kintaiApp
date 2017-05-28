@@ -4,10 +4,11 @@ import { toDayString } from "./DateUtils"
 const defaultDayKintai = {
     inTime: "",
     outTime: "",
-    noRest1: false,
     noRest2: false,
     noRest3: false,
     noRest4: false,
+    noRest5: false,
+    noRest6: false,
     memo: "",
 }
 

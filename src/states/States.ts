@@ -26,10 +26,11 @@ export interface Person {
 export interface DayKintai {
     inTime: string
     outTime: string
-    noRest1: boolean
     noRest2: boolean
     noRest3: boolean
     noRest4: boolean
+    noRest5: boolean
+    noRest6: boolean
     memo: string
 }
 

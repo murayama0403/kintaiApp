@@ -29,27 +29,6 @@ export class DispatchActions {
             this.dispatch(actions[`ToggleRest${buttonNumber}Action`].create(date))
         }
     }
-	/*
-    public toggleRest2(date: Date) {
-        this.dispatch(actions.ToggleRest2Action.create(date))
-    }
-
-    public toggleRest3(date: Date) {
-        this.dispatch(actions.ToggleRest3Action.create(date))
-    }
-
-    public toggleRest4(date: Date) {
-        this.dispatch(actions.ToggleRest4Action.create(date))
-    }
-
-    public toggleRest5(date: Date) {
-        this.dispatch(actions.ToggleRest5Action.create(date))
-    }
-
-    public toggleRest6(date: Date) {
-        this.dispatch(actions.ToggleRest6Action.create(date))
-    }
-	*/
 
     public moveCurrentDate(date: Date) {
         this.dispatch(actions.MoveCurrentDateAction.create(date))

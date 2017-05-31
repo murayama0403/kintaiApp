@@ -30,36 +30,46 @@ export class Main extends React.Component<RootProps, {}> {
                     type={OUT}
                     value={currentKintai.outTime}
                     onSelected={(value) => this.handleOutSelected(value)} />
-                <RaisedButton
-                    label={<div style={{ textAlign: "center" }}>17:45<br />18:00</div>}
-                    icon={rest2Icon}
-                    secondary={currentKintai.noRest2}
-                    onTouchTap={(event) => this.handleRestToggle(event, "2")}
-                    style={{ height: "70px", margin: 5 }} />
-                <RaisedButton
-                    label={<div style={{ textAlign: "center" }}>19:30<br />20:00</div>}
-                    icon={rest3Icon}
-                    secondary={currentKintai.noRest3}
-                    onTouchTap={(event) => this.handleRestToggle(event, "3")}
-                    style={{ height: "70px", margin: 5 }} />
-                <RaisedButton
-                    label={<div style={{ textAlign: "center" }}>22:30<br />23:00</div>}
-                    icon={rest4Icon}
-                    secondary={currentKintai.noRest4}
-                    onTouchTap={(event) => this.handleRestToggle(event, "4")}
-                    style={{ height: "70px", margin: 5 }} />
-                <RaisedButton
-                    label={<div style={{ textAlign: "center" }}>02:30<br />03:00</div>}
-                    icon={rest5Icon}
-                    secondary={currentKintai.noRest5}
-                    onTouchTap={(event) => this.handleRestToggle(event, "5")}
-                    style={{ height: "70px", margin: 5 }} />
-                <RaisedButton
-                    label={<div style={{ textAlign: "center" }}>08:30<br />09:00</div>}
-                    icon={rest6Icon}
-                    secondary={currentKintai.noRest6}
-                    onTouchTap={(event) => this.handleRestToggle(event, "6")}
-                    style={{ height: "70px", margin: 5 }} />
+                <span style={{ display: currentKintai.showRest2 ? "" : "none" }}>
+                    <RaisedButton
+                        label={<div style={{ textAlign: "center" }}>17:45<br />18:00</div>}
+                        icon={rest2Icon}
+                        secondary={currentKintai.noRest2}
+                        onTouchTap={(event) => this.handleRestToggle(event, "2")}
+                        style={{ height: "70px", margin: 5 }} />
+                </span>
+                <span style={{ display: currentKintai.showRest3 ? "" : "none" }}>
+                    <RaisedButton
+                        label={<div style={{ textAlign: "center" }}>19:30<br />20:00</div>}
+                        icon={rest3Icon}
+                        secondary={currentKintai.noRest3}
+                        onTouchTap={(event) => this.handleRestToggle(event, "3")}
+                        style={{ height: "70px", margin: 5 }} />
+                </span>
+                <span style={{ display: currentKintai.showRest4 ? "" : "none" }}>
+                    <RaisedButton
+                        label={<div style={{ textAlign: "center" }}>22:30<br />23:00</div>}
+                        icon={rest4Icon}
+                        secondary={currentKintai.noRest4}
+                        onTouchTap={(event) => this.handleRestToggle(event, "4")}
+                        style={{ height: "70px", margin: 5 }} />
+                </span>
+                <span style={{ display: currentKintai.showRest5 ? "" : "none" }}>
+                    <RaisedButton
+                        label={<div style={{ textAlign: "center" }}>02:30<br />03:00</div>}
+                        icon={rest5Icon}
+                        secondary={currentKintai.noRest5}
+                        onTouchTap={(event) => this.handleRestToggle(event, "5")}
+                        style={{ height: "70px", margin: 5 }} />
+                </span>
+                <span style={{ display: currentKintai.showRest6 ? "" : "none" }}>
+                    <RaisedButton
+                        label={<div style={{ textAlign: "center" }}>08:30<br />09:00</div>}
+                        icon={rest6Icon}
+                        secondary={currentKintai.noRest6}
+                        onTouchTap={(event) => this.handleRestToggle(event, "6")}
+                        style={{ height: "70px", margin: 5 }} />
+                </span>
                 <TextField
                     multiLine={true}
                     fullWidth={true}

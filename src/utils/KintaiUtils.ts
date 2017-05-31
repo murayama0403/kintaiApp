@@ -9,6 +9,11 @@ const defaultDayKintai = {
     noRest4: false,
     noRest5: false,
     noRest6: false,
+    showRest2: false,
+    showRest3: false,
+    showRest4: false,
+    showRest5: false,
+    showRest6: false,
     memo: "",
 }
 

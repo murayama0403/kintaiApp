@@ -40,31 +40,31 @@ export class Main extends React.Component<RootProps, {}> {
                         label={<div style = {{textAlign: "center"}}>17:45<br />18:00</div>}
                         icon={rest2Icon}
                         secondary={currentKintai.noRest2}
-                        onTouchTap={(event) => this.handleRest2Toggle(event)}
+                        onTouchTap={(event) => this.handleRestToggle(event,"2")}
                         style={restButtonStyle}/>
                    <RaisedButton
                         label={<div style = {{textAlign: "center"}}>19:30<br />20:00</div>}
                         icon={rest3Icon}
                         secondary={currentKintai.noRest3}
-                        onTouchTap={(event) => this.handleRest3Toggle(event)}
+                        onTouchTap={(event) => this.handleRestToggle(event, "3")}
                         style={restButtonStyle}/>
                     <RaisedButton
                         label={<div style = {{textAlign: "center"}}>22:30<br />23:00</div>}
                         icon={rest4Icon}
                         secondary={currentKintai.noRest4}
-                        onTouchTap={(event) => this.handleRest4Toggle(event)}
+                        onTouchTap={(event) => this.handleRestToggle(event, "4")}
                         style={restButtonStyle}/>
                     <RaisedButton
                         label={<div style = {{textAlign: "center"}}>02:30<br />03:00</div>}
                         icon={rest5Icon}
                         secondary={currentKintai.noRest5}
-                        onTouchTap={(event) => this.handleRest5Toggle(event)}
+                        onTouchTap={(event) => this.handleRestToggle(event, "5")}
                         style={restButtonStyle}/>
                     <RaisedButton
                         label={<div style = {{textAlign: "center"}}>8:30<br />9:00</div>}
                         icon={rest6Icon}
                         secondary={currentKintai.noRest6}
-                        onTouchTap={(event) => this.handleRest6Toggle(event)}
+                        onTouchTap={(event) => this.handleRestToggle(event, "6")}
                         style={restButtonStyle}/>
                 </div>
                         	
@@ -86,29 +86,33 @@ export class Main extends React.Component<RootProps, {}> {
         this.props.actions.selectOut(this.props.value.view.currentDate, value)
     }
 
-    private handleRest2Toggle(event: TouchTapEvent) {
+    private handleRestToggle(event: TouchTapEvent, restType: String) {
         event.preventDefault()
-        this.props.actions.toggleRest(this.props.value.view.currentDate, 2)
-    }
-
-    private handleRest3Toggle(event: TouchTapEvent) {
-        event.preventDefault()
-        this.props.actions.toggleRest(this.props.value.view.currentDate, 3)
-    }
-
-    private handleRest4Toggle(event: TouchTapEvent) {
-        event.preventDefault()
-        this.props.actions.toggleRest(this.props.value.view.currentDate, 4)
-    }
-
-    private handleRest5Toggle(event: TouchTapEvent) {
-        event.preventDefault()
-        this.props.actions.toggleRest(this.props.value.view.currentDate, 5)
-    }
-
-    private handleRest6Toggle(event: TouchTapEvent) {
-        event.preventDefault()
-        this.props.actions.toggleRest(this.props.value.view.currentDate, 6)
+        switch (restType) {
+            case "2": {
+                this.props.actions.toggleRest(this.props.value.view.currentDate,2)
+                break
+            }
+            case "3": {
+                this.props.actions.toggleRest(this.props.value.view.currentDate,3)
+                break
+            }
+            case "4": {
+                this.props.actions.toggleRest(this.props.value.view.currentDate,4)
+                break
+            }
+            case "5": {
+                this.props.actions.toggleRest(this.props.value.view.currentDate,5)
+                break
+            }
+            case "6": {
+                this.props.actions.toggleRest(this.props.value.view.currentDate,6)
+                break
+            }
+            default: {
+                break
+            }
+        }
     }
 
     private handleMemoChange(value: string) {

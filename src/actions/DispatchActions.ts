@@ -26,7 +26,7 @@ export class DispatchActions {
 
     public toggleRest(date: Date, buttonNumber: Number) {
         if (buttonNumber >= 2 && buttonNumber <= 6) {
-            this.dispatch(actions[`ToggleRest${buttonNumber}Action`].create(date))
+            this.dispatch(actions.ToggleRestAction.create(date))
         }
     }
 

@@ -1,14 +1,15 @@
-import IconButton from 'material-ui/IconButton'
-import IconMenu from 'material-ui/IconMenu'
+import IconButton from "material-ui/IconButton"
+import IconMenu from "material-ui/IconMenu"
 import MenuItem from "material-ui/MenuItem"
 import SelectField from "material-ui/SelectField"
-import TextField from "material-ui/TextField"
 import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert"
+import TextField from "material-ui/TextField"
 import * as React from "react"
 import { HOLIDAYS } from "../../constants/Holidays"
 import { SPECIAL_NOTES } from "../../constants/SpecialNotes"
 import { RootProps } from "../../RootProps"
 import { getDayKintaiOrDefault } from "../../utils/KintaiUtils"
+import { undefinedToEmpty } from "../../utils/Strings"
 import { IN, OUT, TimeInput } from "./TimeInput"
 
 export class Main extends React.Component<RootProps, {}> {
@@ -49,7 +50,7 @@ export class Main extends React.Component<RootProps, {}> {
                     multiLine={false}
                     fullWidth={false}
                     hintText="特記事項"
-                    value={currentKintai.specialNote}
+                    value={undefinedToEmpty(currentKintai.specialNote)}
                     onChange={(_, value) => this.handleSpecialNoteChange(value)} />
 
                 <IconMenu
@@ -100,7 +101,6 @@ export class Main extends React.Component<RootProps, {}> {
     }
 
     private handleHolidayChange(value?: number) {
-        // TODO 自動で時刻も更新
         this.props.actions.selectHoliday(this.props.value.view.currentDate, value)
     }
 

@@ -1,5 +1,6 @@
 import * as actions from "../actions/Actions"
 import { createReducer } from "../commons/redux-commons"
+import { getHolidayFromValue, HOLIDAY_TIME_VALUE } from "../constants/Holidays"
 import { DayKintai, KintaiState } from "../states/States"
 import { toDayString } from "../utils/DateUtils"
 import { getDayKintaiOrDefault } from "../utils/KintaiUtils"
@@ -32,8 +33,14 @@ export const kintai = createReducer(initialState, (handle) => {
     handle(actions.InputSpecialNoteAction, (state, specialNote) => {
         return updateDayKintai(state, specialNote.date, { specialNote: specialNote.text })
     })
-    handle(actions.SelectHolidayAction, (state, holiday) => {
-        return updateDayKintai(state, holiday.date, { holiday: holiday.value })
+    handle(actions.SelectHolidayAction, (state, selected) => {
+        const holiday = getHolidayFromValue(selected.value)
+        const updater: Partial<DayKintai> = { holiday: selected.value }
+        if (holiday !== undefined && holiday.isAllDayOff) {
+            updater.inTime = HOLIDAY_TIME_VALUE
+            updater.outTime = HOLIDAY_TIME_VALUE
+        }
+        return updateDayKintai(state, selected.date, updater)
     })
     handle(actions.InputMemoAction, (state, memo) => {
         return updateDayKintai(state, memo.date, { memo: memo.text })

@@ -4,6 +4,7 @@ import SelectField from "material-ui/SelectField"
 import ActionSchedule from "material-ui/svg-icons/action/schedule"
 import ActionUpdate from "material-ui/svg-icons/action/update"
 import * as React from "react"
+import { HOLIDAY_TIME_VALUE } from "../../constants/Holidays"
 import { ceil15Minutes, floor15Minutes, formatTime } from "../../utils/DateUtils"
 
 interface Props {
@@ -45,7 +46,10 @@ function createMenus(defaultValue: string): JSX.Element[] {
             const value = h + time
             if (value === defaultValue) {
                 menus.push(<MenuItem key="" value="" primaryText="" />)
-                menus.push(<MenuItem key="---" value="---" primaryText="---" />)
+                menus.push(<MenuItem
+                    key={HOLIDAY_TIME_VALUE}
+                    value={HOLIDAY_TIME_VALUE}
+                    primaryText={HOLIDAY_TIME_VALUE} />)
             }
             menus.push(<MenuItem key={value} value={value} primaryText={value} />)
         })

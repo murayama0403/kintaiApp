@@ -11,4 +11,3 @@ export const SPECIAL_NOTES: SpecialNote[] = [
     { text: "②出産休暇" },
     { text: "②再雇用RF休暇" },
 ]
-

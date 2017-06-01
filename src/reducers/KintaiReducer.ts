@@ -1,6 +1,7 @@
 import * as actions from "../actions/Actions"
 import { createReducer } from "../commons/redux-commons"
-import { getHolidayFromValue, HOLIDAY_TIME_VALUE } from "../constants/Holidays"
+import { getHolidayFromValue, getSpecialNoteHolidayFromText } from "../constants/Holidays"
+import { HOLIDAY_TIME_VALUE, UNPAID_HOLIDAY } from "../constants/Holidays"
 import { DayKintai, KintaiState } from "../states/States"
 import { toDayString } from "../utils/DateUtils"
 import { getDayKintaiOrDefault } from "../utils/KintaiUtils"
@@ -31,7 +32,18 @@ export const kintai = createReducer(initialState, (handle) => {
         return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time })
     })
     handle(actions.InputSpecialNoteAction, (state, specialNote) => {
-        return updateDayKintai(state, specialNote.date, { specialNote: specialNote.text })
+        const specialHoliday = getSpecialNoteHolidayFromText(specialNote.text)
+        const updater: Partial<DayKintai> = { specialNote: specialNote.text }
+        if (specialHoliday !== undefined) {
+            updater.inTime = HOLIDAY_TIME_VALUE
+            updater.outTime = HOLIDAY_TIME_VALUE
+            if (specialHoliday.requireInputUnpaid) {
+                updater.holiday = UNPAID_HOLIDAY.value
+            } else {
+                updater.holiday = undefined
+            }
+        }
+        return updateDayKintai(state, specialNote.date, updater)
     })
     handle(actions.SelectHolidayAction, (state, selected) => {
         const holiday = getHolidayFromValue(selected.value)

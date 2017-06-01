@@ -7,13 +7,14 @@ webpackJsonp([0],{
 
 // 休みの時に使う時刻の値
 exports.HOLIDAY_TIME_VALUE = "---";
+exports.UNPAID_HOLIDAY = { value: 6, text: "無給", isAllDayOff: true };
 exports.HOLIDAYS = [
     { value: 1, text: "全日", isAllDayOff: true },
     { value: 2, text: "午前", isAllDayOff: false },
     { value: 3, text: "午後", isAllDayOff: false },
     { value: 4, text: "欠勤", isAllDayOff: true },
     { value: 5, text: "健診BC・再検査", isAllDayOff: true },
-    { value: 6, text: "無給", isAllDayOff: true },
+    exports.UNPAID_HOLIDAY,
     { value: 7, text: "振休", isAllDayOff: true },
     { value: 8, text: "代休", isAllDayOff: true },
     { value: 9, text: "特別代休", isAllDayOff: true },
@@ -39,6 +40,22 @@ function getHolidayText(value) {
     return holiday.text;
 }
 exports.getHolidayText = getHolidayText;
+exports.SPECIAL_NOTES = [
+    { text: "①生理休暇", requireInputUnpaid: true },
+    { text: "①子の介護休暇", requireInputUnpaid: true },
+    { text: "①妊娠出産通院休暇", requireInputUnpaid: true },
+    { text: "①妊娠障害休暇", requireInputUnpaid: true },
+    { text: "②介護休暇", requireInputUnpaid: false },
+    { text: "②出産休暇", requireInputUnpaid: false },
+    { text: "②再雇用RF休暇", requireInputUnpaid: false },
+];
+function getSpecialNoteHolidayFromText(text) {
+    if (text === undefined) {
+        return undefined;
+    }
+    return exports.SPECIAL_NOTES.find(function (s) { return s.text === text; });
+}
+exports.getSpecialNoteHolidayFromText = getSpecialNoteHolidayFromText;
 
 
 /***/ }),
@@ -1335,7 +1352,6 @@ var more_vert_1 = __webpack_require__(655);
 var TextField_1 = __webpack_require__(42);
 var React = __webpack_require__(1);
 var Holidays_1 = __webpack_require__(110);
-var SpecialNotes_1 = __webpack_require__(822);
 var KintaiUtils_1 = __webpack_require__(111);
 var Strings_1 = __webpack_require__(828);
 var TimeInput_1 = __webpack_require__(817);
@@ -1349,7 +1365,7 @@ var Main = (function (_super) {
         var currentKintai = KintaiUtils_1.getDayKintaiOrDefault(this.props.value.kintai, this.props.value.view.currentDate);
         var specialNoteMenus = [];
         specialNoteMenus.push(React.createElement(MenuItem_1.default, { key: "", value: "", primaryText: "" }));
-        for (var _i = 0, SPECIAL_NOTES_1 = SpecialNotes_1.SPECIAL_NOTES; _i < SPECIAL_NOTES_1.length; _i++) {
+        for (var _i = 0, SPECIAL_NOTES_1 = Holidays_1.SPECIAL_NOTES; _i < SPECIAL_NOTES_1.length; _i++) {
             var specialNote = SPECIAL_NOTES_1[_i];
             specialNoteMenus.push(React.createElement(MenuItem_1.default, { key: specialNote.text, value: specialNote.text, primaryText: specialNote.text }));
         }
@@ -1364,7 +1380,7 @@ var Main = (function (_super) {
             React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.OUT, value: currentKintai.outTime, onSelected: function (event) { return _this.handleOutSelected(event); } }),
             React.createElement(TextField_1.default, { multiLine: false, fullWidth: false, hintText: "特記事項", value: Strings_1.undefinedToEmpty(currentKintai.specialNote), onChange: function (_, value) { return _this.handleSpecialNoteChange(value); } }),
             React.createElement(IconMenu_1.default, { iconButtonElement: React.createElement(IconButton_1.default, null,
-                    React.createElement(more_vert_1.default, null)), onChange: function (_, value) { return _this.handleSelectSpecialNote(value); } }, specialNoteMenus),
+                    React.createElement(more_vert_1.default, null)), onChange: function (_, value) { return _this.handleSpecialNoteChange(value); }, useLayerForClickAway: true }, specialNoteMenus),
             React.createElement("br", null),
             React.createElement(SelectField_1.default, { hintText: "休暇", value: currentKintai.holiday, onChange: function (_, __, value) { return _this.handleHolidayChange(value); }, style: { width: "200px" }, labelStyle: { height: "48px" } }, holidayMenus),
             React.createElement("br", null),
@@ -1375,10 +1391,6 @@ var Main = (function (_super) {
     };
     Main.prototype.handleOutSelected = function (value) {
         this.props.actions.selectOut(this.props.value.view.currentDate, value);
-    };
-    Main.prototype.handleSelectSpecialNote = function (value) {
-        // TODO 自動で休暇や時刻も更新
-        this.props.actions.inputSpecialNote(this.props.value.view.currentDate, value);
     };
     Main.prototype.handleSpecialNoteChange = function (value) {
         this.props.actions.inputSpecialNote(this.props.value.view.currentDate, value);
@@ -1695,24 +1707,6 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 822:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-exports.SPECIAL_NOTES = [
-    { text: "①生理休暇" },
-    { text: "①子の介護休暇" },
-    { text: "①妊娠出産通院休暇" },
-    { text: "①妊娠障害休暇" },
-    { text: "②介護休暇" },
-    { text: "②出産休暇" },
-    { text: "②再雇用RF休暇" },
-];
-
-
-/***/ }),
-
 /***/ 823:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1729,6 +1723,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 var actions = __webpack_require__(177);
 var redux_commons_1 = __webpack_require__(178);
 var Holidays_1 = __webpack_require__(110);
+var Holidays_2 = __webpack_require__(110);
 var DateUtils_1 = __webpack_require__(57);
 var KintaiUtils_1 = __webpack_require__(111);
 var initialState = {
@@ -1756,14 +1751,26 @@ exports.kintai = redux_commons_1.createReducer(initialState, function (handle) {
         return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time });
     });
     handle(actions.InputSpecialNoteAction, function (state, specialNote) {
-        return updateDayKintai(state, specialNote.date, { specialNote: specialNote.text });
+        var specialHoliday = Holidays_1.getSpecialNoteHolidayFromText(specialNote.text);
+        var updater = { specialNote: specialNote.text };
+        if (specialHoliday !== undefined) {
+            updater.inTime = Holidays_2.HOLIDAY_TIME_VALUE;
+            updater.outTime = Holidays_2.HOLIDAY_TIME_VALUE;
+            if (specialHoliday.requireInputUnpaid) {
+                updater.holiday = Holidays_2.UNPAID_HOLIDAY.value;
+            }
+            else {
+                updater.holiday = undefined;
+            }
+        }
+        return updateDayKintai(state, specialNote.date, updater);
     });
     handle(actions.SelectHolidayAction, function (state, selected) {
         var holiday = Holidays_1.getHolidayFromValue(selected.value);
         var updater = { holiday: selected.value };
         if (holiday !== undefined && holiday.isAllDayOff) {
-            updater.inTime = Holidays_1.HOLIDAY_TIME_VALUE;
-            updater.outTime = Holidays_1.HOLIDAY_TIME_VALUE;
+            updater.inTime = Holidays_2.HOLIDAY_TIME_VALUE;
+            updater.outTime = Holidays_2.HOLIDAY_TIME_VALUE;
         }
         return updateDayKintai(state, selected.date, updater);
     });

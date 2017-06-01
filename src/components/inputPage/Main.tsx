@@ -5,8 +5,7 @@ import SelectField from "material-ui/SelectField"
 import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert"
 import TextField from "material-ui/TextField"
 import * as React from "react"
-import { HOLIDAYS } from "../../constants/Holidays"
-import { SPECIAL_NOTES } from "../../constants/SpecialNotes"
+import { HOLIDAYS, SPECIAL_NOTES } from "../../constants/Holidays"
 import { RootProps } from "../../RootProps"
 import { getDayKintaiOrDefault } from "../../utils/KintaiUtils"
 import { undefinedToEmpty } from "../../utils/Strings"
@@ -55,7 +54,8 @@ export class Main extends React.Component<RootProps, {}> {
 
                 <IconMenu
                     iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                    onChange={(_, value) => this.handleSelectSpecialNote(value)}>
+                    onChange={(_, value) => this.handleSpecialNoteChange(value)}
+                    useLayerForClickAway={true} >
                     {specialNoteMenus}
                 </IconMenu>
 
@@ -89,11 +89,6 @@ export class Main extends React.Component<RootProps, {}> {
 
     private handleOutSelected(value: string) {
         this.props.actions.selectOut(this.props.value.view.currentDate, value)
-    }
-
-    private handleSelectSpecialNote(value: string) {
-        // TODO 自動で休暇や時刻も更新
-        this.props.actions.inputSpecialNote(this.props.value.view.currentDate, value)
     }
 
     private handleSpecialNoteChange(value: string) {

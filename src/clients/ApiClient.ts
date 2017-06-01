@@ -58,8 +58,7 @@ function toWorkInfo(date: Date, dayKintai: DayKintai, person: Person) {
         day: date.getDate(),
         startTime: dayKintai.inTime,
         clockOutTime: dayKintai.outTime,
-        // TODO
-        vacationType: "",
+        vacationType: dayKintai.holiday,
         break2: "",
         break3: "",
         break4: "",

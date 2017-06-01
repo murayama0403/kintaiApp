@@ -1,8 +1,12 @@
+import IconButton from 'material-ui/IconButton'
+import IconMenu from 'material-ui/IconMenu'
 import MenuItem from "material-ui/MenuItem"
 import SelectField from "material-ui/SelectField"
 import TextField from "material-ui/TextField"
+import MoreVertIcon from "material-ui/svg-icons/navigation/more-vert"
 import * as React from "react"
 import { HOLIDAYS } from "../../constants/Holidays"
+import { SPECIAL_NOTES } from "../../constants/SpecialNotes"
 import { RootProps } from "../../RootProps"
 import { getDayKintaiOrDefault } from "../../utils/KintaiUtils"
 import { IN, OUT, TimeInput } from "./TimeInput"
@@ -11,6 +15,15 @@ export class Main extends React.Component<RootProps, {}> {
 
     public render() {
         const currentKintai = getDayKintaiOrDefault(this.props.value.kintai, this.props.value.view.currentDate)
+
+        const specialNoteMenus = []
+        specialNoteMenus.push(<MenuItem key="" value="" primaryText="" />)
+        for (const specialNote of SPECIAL_NOTES) {
+            specialNoteMenus.push(<MenuItem
+                key={specialNote.text}
+                value={specialNote.text}
+                primaryText={specialNote.text} />)
+        }
 
         const holidayMenus = []
         holidayMenus.push(<MenuItem key="" value={undefined} primaryText="" />)
@@ -38,6 +51,13 @@ export class Main extends React.Component<RootProps, {}> {
                     hintText="特記事項"
                     value={currentKintai.specialNote}
                     onChange={(_, value) => this.handleSpecialNoteChange(value)} />
+
+                <IconMenu
+                    iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                    onChange={(_, value) => this.handleSelectSpecialNote(value)}>
+                    {specialNoteMenus}
+                </IconMenu>
+
                 <br />
 
                 <SelectField
@@ -70,11 +90,17 @@ export class Main extends React.Component<RootProps, {}> {
         this.props.actions.selectOut(this.props.value.view.currentDate, value)
     }
 
+    private handleSelectSpecialNote(value: string) {
+        // TODO 自動で休暇や時刻も更新
+        this.props.actions.inputSpecialNote(this.props.value.view.currentDate, value)
+    }
+
     private handleSpecialNoteChange(value: string) {
         this.props.actions.inputSpecialNote(this.props.value.view.currentDate, value)
     }
 
     private handleHolidayChange(value?: number) {
+        // TODO 自動で時刻も更新
         this.props.actions.selectHoliday(this.props.value.view.currentDate, value)
     }
 

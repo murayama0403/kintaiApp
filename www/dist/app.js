@@ -9,10 +9,16 @@ var DateUtils_1 = __webpack_require__(58);
 var defaultDayKintai = {
     inTime: "",
     outTime: "",
-    noRest1: false,
     noRest2: false,
     noRest3: false,
     noRest4: false,
+    noRest5: false,
+    noRest6: false,
+    showRest2: false,
+    showRest3: false,
+    showRest4: false,
+    showRest5: false,
+    showRest6: false,
     memo: "",
 };
 function getDayKintai(state, date) {
@@ -61,10 +67,11 @@ exports.InputManager2Action = redux_commons_1.action("InputManager2");
 exports.InputManager2PeriodAction = redux_commons_1.action("InputManager2Period");
 exports.InputDefaultProjectNoAction = redux_commons_1.action("InputDefaultProjectNo");
 exports.InputDefaultWorkCodeAction = redux_commons_1.action("InputDefaultWorkCode");
-exports.ToggleRest1Action = redux_commons_1.action("ToggleRest1");
 exports.ToggleRest2Action = redux_commons_1.action("ToggleRest2");
 exports.ToggleRest3Action = redux_commons_1.action("ToggleRest3");
 exports.ToggleRest4Action = redux_commons_1.action("ToggleRest4");
+exports.ToggleRest5Action = redux_commons_1.action("ToggleRest5");
+exports.ToggleRest6Action = redux_commons_1.action("ToggleRest6");
 
 
 /***/ }),
@@ -152,11 +159,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -191,11 +198,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -285,8 +292,8 @@ var react_router_redux_1 = __webpack_require__(86);
 var redux_1 = __webpack_require__(111);
 var createLogger = __webpack_require__(183);
 var redux_persist_1 = __webpack_require__(184);
-var KintaiReducer_1 = __webpack_require__(807);
-var ViewReducer_1 = __webpack_require__(808);
+var KintaiReducer_1 = __webpack_require__(815);
+var ViewReducer_1 = __webpack_require__(816);
 // weinreでConsoleデバッグができるようにredux-loggerがconsole.logを呼び出すように変更
 var logger = createLogger({
     level: "log",
@@ -319,7 +326,7 @@ exports.default = store;
 
 var react_router_1 = __webpack_require__(87);
 var actions = __webpack_require__(178);
-var ApiClient_1 = __webpack_require__(798);
+var ApiClient_1 = __webpack_require__(806);
 var DispatchActions = (function () {
     function DispatchActions(dispatch) {
         this.dispatch = dispatch;
@@ -423,9 +430,6 @@ var DispatchActions = (function () {
     DispatchActions.prototype.inputDefaultWorkCode = function (defaultWorkCode) {
         this.dispatch(actions.InputDefaultWorkCodeAction.create(defaultWorkCode));
     };
-    DispatchActions.prototype.toggleRest1 = function (date) {
-        this.dispatch(actions.ToggleRest1Action.create(date));
-    };
     DispatchActions.prototype.toggleRest2 = function (date) {
         this.dispatch(actions.ToggleRest2Action.create(date));
     };
@@ -434,6 +438,12 @@ var DispatchActions = (function () {
     };
     DispatchActions.prototype.toggleRest4 = function (date) {
         this.dispatch(actions.ToggleRest4Action.create(date));
+    };
+    DispatchActions.prototype.toggleRest5 = function (date) {
+        this.dispatch(actions.ToggleRest5Action.create(date));
+    };
+    DispatchActions.prototype.toggleRest6 = function (date) {
+        this.dispatch(actions.ToggleRest6Action.create(date));
     };
     return DispatchActions;
 }());
@@ -463,7 +473,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 var AppBar_1 = __webpack_require__(95);
 var React = __webpack_require__(1);
 var ToolbarWithProgress_1 = __webpack_require__(180);
-var Main_1 = __webpack_require__(800);
+var Main_1 = __webpack_require__(807);
 var CommonPage = (function (_super) {
     __extends(CommonPage, _super);
     function CommonPage() {
@@ -501,8 +511,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var Main_1 = __webpack_require__(801);
-var Toolbar_1 = __webpack_require__(803);
+var Main_1 = __webpack_require__(809);
+var Toolbar_1 = __webpack_require__(811);
 var InputPage = (function (_super) {
     __extends(InputPage, _super);
     function InputPage() {
@@ -540,7 +550,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 var React = __webpack_require__(1);
 var MonthToolbar_1 = __webpack_require__(410);
-var Main_1 = __webpack_require__(804);
+var Main_1 = __webpack_require__(812);
 var ListPage = (function (_super) {
     __extends(ListPage, _super);
     function ListPage() {
@@ -577,8 +587,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var FooterTab_1 = __webpack_require__(799);
-var SendStatus_1 = __webpack_require__(805);
+var FooterTab_1 = __webpack_require__(808);
+var SendStatus_1 = __webpack_require__(813);
 var Root = (function (_super) {
     __extends(Root, _super);
     function Root() {
@@ -617,7 +627,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 var React = __webpack_require__(1);
 var MonthToolbar_1 = __webpack_require__(410);
-var Main_1 = __webpack_require__(806);
+var Main_1 = __webpack_require__(814);
 var SendPage = (function (_super) {
     __extends(SendPage, _super);
     function SendPage() {
@@ -753,11 +763,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -792,11 +802,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -831,11 +841,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -870,11 +880,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -909,11 +919,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -934,7 +944,7 @@ exports.default = ImageEdit;
 
 /***/ }),
 
-/***/ 644:
+/***/ 636:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -948,11 +958,246 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ImageWbSunny = function ImageWbSunny(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z' })
+  );
+};
+ImageWbSunny = (0, _pure2.default)(ImageWbSunny);
+ImageWbSunny.displayName = 'ImageWbSunny';
+ImageWbSunny.muiName = 'SvgIcon';
+
+exports.default = ImageWbSunny;
+
+/***/ }),
+
+/***/ 637:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(16);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(14);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var MapsHotel = function MapsHotel(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z' })
+  );
+};
+MapsHotel = (0, _pure2.default)(MapsHotel);
+MapsHotel.displayName = 'MapsHotel';
+MapsHotel.muiName = 'SvgIcon';
+
+exports.default = MapsHotel;
+
+/***/ }),
+
+/***/ 638:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(16);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(14);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var MapsRestaurantMenu = function MapsRestaurantMenu(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z' })
+  );
+};
+MapsRestaurantMenu = (0, _pure2.default)(MapsRestaurantMenu);
+MapsRestaurantMenu.displayName = 'MapsRestaurantMenu';
+MapsRestaurantMenu.muiName = 'SvgIcon';
+
+exports.default = MapsRestaurantMenu;
+
+/***/ }),
+
+/***/ 647:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(16);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(14);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var NotificationAirlineSeatReclineNormal = function NotificationAirlineSeatReclineNormal(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M7.59 5.41c-.78-.78-.78-2.05 0-2.83.78-.78 2.05-.78 2.83 0 .78.78.78 2.05 0 2.83-.79.79-2.05.79-2.83 0zM6 16V7H4v9c0 2.76 2.24 5 5 5h6v-2H9c-1.66 0-3-1.34-3-3zm14 4.07L14.93 15H11.5v-3.68c1.4 1.15 3.6 2.16 5.5 2.16v-2.16c-1.66.02-3.61-.87-4.67-2.04l-1.4-1.55c-.19-.21-.43-.38-.69-.5-.29-.14-.62-.23-.96-.23h-.03C8.01 7 7 8.01 7 9.25V15c0 1.66 1.34 3 3 3h5.07l3.5 3.5L20 20.07z' })
+  );
+};
+NotificationAirlineSeatReclineNormal = (0, _pure2.default)(NotificationAirlineSeatReclineNormal);
+NotificationAirlineSeatReclineNormal.displayName = 'NotificationAirlineSeatReclineNormal';
+NotificationAirlineSeatReclineNormal.muiName = 'SvgIcon';
+
+exports.default = NotificationAirlineSeatReclineNormal;
+
+/***/ }),
+
+/***/ 648:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(16);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(14);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var PlacesFreeBreakfast = function PlacesFreeBreakfast(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.9 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z' })
+  );
+};
+PlacesFreeBreakfast = (0, _pure2.default)(PlacesFreeBreakfast);
+PlacesFreeBreakfast.displayName = 'PlacesFreeBreakfast';
+PlacesFreeBreakfast.muiName = 'SvgIcon';
+
+exports.default = PlacesFreeBreakfast;
+
+/***/ }),
+
+/***/ 649:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(16);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(14);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var PlacesHotTub = function PlacesHotTub(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('circle', { cx: '7', cy: '6', r: '2' }),
+    _react2.default.createElement('path', { d: 'M11.15 12c-.31-.22-.59-.46-.82-.72l-1.4-1.55c-.19-.21-.43-.38-.69-.5-.29-.14-.62-.23-.96-.23h-.03C6.01 9 5 10.01 5 11.25V12H2v8c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-8H11.15zM7 20H5v-6h2v6zm4 0H9v-6h2v6zm4 0h-2v-6h2v6zm4 0h-2v-6h2v6zm-.35-14.14l-.07-.07c-.57-.62-.82-1.41-.67-2.2L18 3h-1.89l-.06.43c-.2 1.36.27 2.71 1.3 3.72l.07.06c.57.62.82 1.41.67 2.2l-.11.59h1.91l.06-.43c.21-1.36-.27-2.71-1.3-3.71zm-4 0l-.07-.07c-.57-.62-.82-1.41-.67-2.2L14 3h-1.89l-.06.43c-.2 1.36.27 2.71 1.3 3.72l.07.06c.57.62.82 1.41.67 2.2l-.11.59h1.91l.06-.43c.21-1.36-.27-2.71-1.3-3.71z' })
+  );
+};
+PlacesHotTub = (0, _pure2.default)(PlacesHotTub);
+PlacesHotTub.displayName = 'PlacesHotTub';
+PlacesHotTub.muiName = 'SvgIcon';
+
+exports.default = PlacesHotTub;
+
+/***/ }),
+
+/***/ 650:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(16);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -973,7 +1218,7 @@ exports.default = SocialPerson;
 
 /***/ }),
 
-/***/ 798:
+/***/ 806:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1045,75 +1290,7 @@ function toWorkInfo(date, dayKintai, person) {
 
 /***/ }),
 
-/***/ 799:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var BottomNavigation_1 = __webpack_require__(217);
-var Divider_1 = __webpack_require__(139);
-var list_1 = __webpack_require__(629);
-var send_1 = __webpack_require__(632);
-var edit_1 = __webpack_require__(635);
-var person_1 = __webpack_require__(644);
-var React = __webpack_require__(1);
-var FooterTab = (function (_super) {
-    __extends(FooterTab, _super);
-    function FooterTab() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    FooterTab.prototype.render = function () {
-        var _this = this;
-        var selectedIndex = this.getSelectedIndex();
-        return (React.createElement("div", { className: "footerTab" },
-            React.createElement(Divider_1.default, null),
-            React.createElement(BottomNavigation_1.BottomNavigation, { selectedIndex: selectedIndex },
-                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "入力", icon: React.createElement(edit_1.default, null), onTouchTap: function (event) { return _this.onInputSelected(event); } }),
-                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "一覧", icon: React.createElement(list_1.default, null), onTouchTap: function (event) { return _this.onListSelected(event); } }),
-                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "共通", icon: React.createElement(person_1.default, null), onTouchTap: function (event) { return _this.onCommonSelected(event); } }),
-                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "送信", icon: React.createElement(send_1.default, null), onTouchTap: function (event) { return _this.onSendSelected(event); } }))));
-    };
-    FooterTab.prototype.onInputSelected = function (event) {
-        event.preventDefault();
-        this.props.actions.showInputPage();
-    };
-    FooterTab.prototype.onListSelected = function (event) {
-        event.preventDefault();
-        this.props.actions.showListPage();
-    };
-    FooterTab.prototype.onCommonSelected = function (event) {
-        event.preventDefault();
-        this.props.actions.showCommonPage();
-    };
-    FooterTab.prototype.onSendSelected = function (event) {
-        event.preventDefault();
-        this.props.actions.showSendPage();
-    };
-    FooterTab.prototype.getSelectedIndex = function () {
-        if (this.props.location.pathname === "/list") {
-            return 1;
-        }
-        if (this.props.location.pathname === "/common") {
-            return 2;
-        }
-        if (this.props.location.pathname === "/send") {
-            return 3;
-        }
-        return 0;
-    };
-    return FooterTab;
-}(React.Component));
-exports.FooterTab = FooterTab;
-
-
-/***/ }),
-
-/***/ 800:
+/***/ 807:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1125,7 +1302,7 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var MenuItem_1 = __webpack_require__(79);
 var SelectField_1 = __webpack_require__(146);
-var TextField_1 = __webpack_require__(43);
+var TextField_1 = __webpack_require__(42);
 var React = __webpack_require__(1);
 var Main = (function (_super) {
     __extends(Main, _super);
@@ -1202,7 +1379,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 801:
+/***/ 808:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1212,11 +1389,85 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var TextField_1 = __webpack_require__(43);
+var BottomNavigation_1 = __webpack_require__(217);
+var Divider_1 = __webpack_require__(139);
+var list_1 = __webpack_require__(629);
+var send_1 = __webpack_require__(632);
+var edit_1 = __webpack_require__(635);
+var person_1 = __webpack_require__(650);
+var React = __webpack_require__(1);
+var FooterTab = (function (_super) {
+    __extends(FooterTab, _super);
+    function FooterTab() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    FooterTab.prototype.render = function () {
+        var _this = this;
+        var selectedIndex = this.getSelectedIndex();
+        return (React.createElement("div", { className: "footerTab" },
+            React.createElement(Divider_1.default, null),
+            React.createElement(BottomNavigation_1.BottomNavigation, { selectedIndex: selectedIndex },
+                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "入力", icon: React.createElement(edit_1.default, null), onTouchTap: function (event) { return _this.onInputSelected(event); } }),
+                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "一覧", icon: React.createElement(list_1.default, null), onTouchTap: function (event) { return _this.onListSelected(event); } }),
+                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "共通", icon: React.createElement(person_1.default, null), onTouchTap: function (event) { return _this.onCommonSelected(event); } }),
+                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "送信", icon: React.createElement(send_1.default, null), onTouchTap: function (event) { return _this.onSendSelected(event); } }))));
+    };
+    FooterTab.prototype.onInputSelected = function (event) {
+        event.preventDefault();
+        this.props.actions.showInputPage();
+    };
+    FooterTab.prototype.onListSelected = function (event) {
+        event.preventDefault();
+        this.props.actions.showListPage();
+    };
+    FooterTab.prototype.onCommonSelected = function (event) {
+        event.preventDefault();
+        this.props.actions.showCommonPage();
+    };
+    FooterTab.prototype.onSendSelected = function (event) {
+        event.preventDefault();
+        this.props.actions.showSendPage();
+    };
+    FooterTab.prototype.getSelectedIndex = function () {
+        if (this.props.location.pathname === "/list") {
+            return 1;
+        }
+        if (this.props.location.pathname === "/common") {
+            return 2;
+        }
+        if (this.props.location.pathname === "/send") {
+            return 3;
+        }
+        return 0;
+    };
+    return FooterTab;
+}(React.Component));
+exports.FooterTab = FooterTab;
+
+
+/***/ }),
+
+/***/ 809:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+};
 var RaisedButton_1 = __webpack_require__(145);
+var wb_sunny_1 = __webpack_require__(636);
+var hotel_1 = __webpack_require__(637);
+var restaurant_menu_1 = __webpack_require__(638);
+var airline_seat_recline_normal_1 = __webpack_require__(647);
+var free_breakfast_1 = __webpack_require__(648);
+var hot_tub_1 = __webpack_require__(649);
+var TextField_1 = __webpack_require__(42);
 var React = __webpack_require__(1);
 var KintaiUtils_1 = __webpack_require__(109);
-var TimeInput_1 = __webpack_require__(802);
+var TimeInput_1 = __webpack_require__(810);
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
@@ -1225,28 +1476,39 @@ var Main = (function (_super) {
     Main.prototype.render = function () {
         var _this = this;
         var currentKintai = KintaiUtils_1.getDayKintaiOrDefault(this.props.value.kintai, this.props.value.view.currentDate);
+        var rest2Icon = currentKintai.noRest2 ? React.createElement(airline_seat_recline_normal_1.default, null) : React.createElement(free_breakfast_1.default, null);
+        var rest3Icon = currentKintai.noRest3 ? React.createElement(airline_seat_recline_normal_1.default, null) : React.createElement(restaurant_menu_1.default, null);
+        var rest4Icon = currentKintai.noRest4 ? React.createElement(airline_seat_recline_normal_1.default, null) : React.createElement(hot_tub_1.default, null);
+        var rest5Icon = currentKintai.noRest5 ? React.createElement(airline_seat_recline_normal_1.default, null) : React.createElement(hotel_1.default, null);
+        var rest6Icon = currentKintai.noRest6 ? React.createElement(airline_seat_recline_normal_1.default, null) : React.createElement(wb_sunny_1.default, null);
         return (React.createElement("div", { className: "content" },
-            React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.IN, value: currentKintai.inTime, onSelected: function (event) { return _this.handleInSelected(event); } }),
-            React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.OUT, value: currentKintai.outTime, onSelected: function (event) { return _this.handleOutSelected(event); } }),
-            React.createElement(RaisedButton_1.default, { label: React.createElement("div", { style: { textAlign: "center" } },
-                    "17:45",
-                    React.createElement("br", null),
-                    "18:00"), primary: true, onTouchTap: function (event) { return _this.handleRest1Toggle(event); }, style: { height: "auto", margin: 5 } }),
-            React.createElement(RaisedButton_1.default, { label: React.createElement("div", { style: { textAlign: "center" } },
-                    "18:45",
-                    React.createElement("br", null),
-                    "19:00"), primary: true, onTouchTap: function (event) { return _this.handleRest2Toggle(event); }, style: { height: "auto", margin: 5 } }),
-            "\u00A0",
-            React.createElement(RaisedButton_1.default, { label: React.createElement("div", { style: { textAlign: "center" } },
-                    "19:45",
-                    React.createElement("br", null),
-                    "20:00"), primary: true, onTouchTap: function (event) { return _this.handleRest3Toggle(event); }, style: { height: "auto", margin: 5 } }),
-            "\u00A0",
-            React.createElement(RaisedButton_1.default, { label: React.createElement("div", { style: { textAlign: "center" } },
-                    "20:45",
-                    React.createElement("br", null),
-                    "21:00"), primary: true, onTouchTap: function (event) { return _this.handleRest4Toggle(event); }, style: { height: "auto", margin: 5 } }),
-            "\u00A0",
+            React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.IN, value: currentKintai.inTime, onSelected: function (value) { return _this.handleInSelected(value); } }),
+            React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.OUT, value: currentKintai.outTime, onSelected: function (value) { return _this.handleOutSelected(value); } }),
+            React.createElement("span", { style: { display: currentKintai.showRest2 ? "" : "none" } },
+                React.createElement(RaisedButton_1.default, { label: React.createElement("div", { style: { textAlign: "center" } },
+                        "17:45",
+                        React.createElement("br", null),
+                        "18:00"), icon: rest2Icon, secondary: currentKintai.noRest2, onTouchTap: function (event) { return _this.handleRestToggle(event, "2"); }, style: { height: "70px", margin: 5 } })),
+            React.createElement("span", { style: { display: currentKintai.showRest3 ? "" : "none" } },
+                React.createElement(RaisedButton_1.default, { label: React.createElement("div", { style: { textAlign: "center" } },
+                        "19:30",
+                        React.createElement("br", null),
+                        "20:00"), icon: rest3Icon, secondary: currentKintai.noRest3, onTouchTap: function (event) { return _this.handleRestToggle(event, "3"); }, style: { height: "70px", margin: 5 } })),
+            React.createElement("span", { style: { display: currentKintai.showRest4 ? "" : "none" } },
+                React.createElement(RaisedButton_1.default, { label: React.createElement("div", { style: { textAlign: "center" } },
+                        "22:30",
+                        React.createElement("br", null),
+                        "23:00"), icon: rest4Icon, secondary: currentKintai.noRest4, onTouchTap: function (event) { return _this.handleRestToggle(event, "4"); }, style: { height: "70px", margin: 5 } })),
+            React.createElement("span", { style: { display: currentKintai.showRest5 ? "" : "none" } },
+                React.createElement(RaisedButton_1.default, { label: React.createElement("div", { style: { textAlign: "center" } },
+                        "02:30",
+                        React.createElement("br", null),
+                        "03:00"), icon: rest5Icon, secondary: currentKintai.noRest5, onTouchTap: function (event) { return _this.handleRestToggle(event, "5"); }, style: { height: "70px", margin: 5 } })),
+            React.createElement("span", { style: { display: currentKintai.showRest6 ? "" : "none" } },
+                React.createElement(RaisedButton_1.default, { label: React.createElement("div", { style: { textAlign: "center" } },
+                        "08:30",
+                        React.createElement("br", null),
+                        "09:00"), icon: rest6Icon, secondary: currentKintai.noRest6, onTouchTap: function (event) { return _this.handleRestToggle(event, "6"); }, style: { height: "70px", margin: 5 } })),
             React.createElement(TextField_1.default, { multiLine: true, fullWidth: true, hintText: "メモ（勤務表には反映されません）", value: currentKintai.memo, onChange: function (_, value) { return _this.handleMemoChange(value); } })));
     };
     Main.prototype.handleInSelected = function (value) {
@@ -1258,21 +1520,33 @@ var Main = (function (_super) {
     Main.prototype.handleMemoChange = function (value) {
         this.props.actions.inputMemo(this.props.value.view.currentDate, value);
     };
-    Main.prototype.handleRest1Toggle = function (event) {
+    Main.prototype.handleRestToggle = function (event, resttype) {
         event.preventDefault();
-        this.props.actions.toggleRest1(this.props.value.view.currentDate);
-    };
-    Main.prototype.handleRest2Toggle = function (event) {
-        event.preventDefault();
-        this.props.actions.toggleRest2(this.props.value.view.currentDate);
-    };
-    Main.prototype.handleRest3Toggle = function (event) {
-        event.preventDefault();
-        this.props.actions.toggleRest3(this.props.value.view.currentDate);
-    };
-    Main.prototype.handleRest4Toggle = function (event) {
-        event.preventDefault();
-        this.props.actions.toggleRest4(this.props.value.view.currentDate);
+        switch (resttype) {
+            case "2": {
+                this.props.actions.toggleRest2(this.props.value.view.currentDate);
+                break;
+            }
+            case "3": {
+                this.props.actions.toggleRest3(this.props.value.view.currentDate);
+                break;
+            }
+            case "4": {
+                this.props.actions.toggleRest4(this.props.value.view.currentDate);
+                break;
+            }
+            case "5": {
+                this.props.actions.toggleRest5(this.props.value.view.currentDate);
+                break;
+            }
+            case "6": {
+                this.props.actions.toggleRest6(this.props.value.view.currentDate);
+                break;
+            }
+            default: {
+                break;
+            }
+        }
     };
     return Main;
 }(React.Component));
@@ -1281,7 +1555,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 802:
+/***/ 810:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1364,7 +1638,7 @@ exports.TimeInput = TimeInput;
 
 /***/ }),
 
-/***/ 803:
+/***/ 811:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1435,7 +1709,7 @@ exports.Toolbar = Toolbar;
 
 /***/ }),
 
-/***/ 804:
+/***/ 812:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1492,7 +1766,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 805:
+/***/ 813:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1529,7 +1803,7 @@ exports.SendStatus = SendStatus;
 
 /***/ }),
 
-/***/ 806:
+/***/ 814:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1540,7 +1814,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var RaisedButton_1 = __webpack_require__(145);
-var TextField_1 = __webpack_require__(43);
+var TextField_1 = __webpack_require__(42);
 var React = __webpack_require__(1);
 var Main = (function (_super) {
     __extends(Main, _super);
@@ -1575,7 +1849,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 807:
+/***/ 815:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1614,7 +1888,31 @@ exports.kintai = redux_commons_1.createReducer(initialState, function (handle) {
         return updateDayKintai(state, selectedTime.date, { inTime: selectedTime.time });
     });
     handle(actions.SelectOutAction, function (state, selectedTime) {
-        return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time });
+        if (selectedTime.time >= "18:01" && selectedTime.time <= "20:00") {
+            return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
+                showRest2: true, showRest3: false, showRest4: false, showRest5: false, showRest6: false });
+        }
+        else if (selectedTime.time >= "20:01" && selectedTime.time <= "23:00") {
+            return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
+                showRest2: true, showRest3: true, showRest4: false, showRest5: false, showRest6: false });
+        }
+        else if (selectedTime.time >= "23:01" && selectedTime.time <= "23:59"
+            || selectedTime.time >= "0:00" && selectedTime.time <= "2:30") {
+            return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
+                showRest2: true, showRest3: true, showRest4: true, showRest5: false, showRest6: false });
+        }
+        else if (selectedTime.time > "2:31" && selectedTime.time <= "8:30") {
+            return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
+                showRest2: true, showRest3: true, showRest4: true, showRest5: true, showRest6: false });
+        }
+        else if (selectedTime.time > "8:31" && selectedTime.time <= "9:30") {
+            return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
+                showRest2: true, showRest3: true, showRest4: true, showRest5: true, showRest6: true });
+        }
+        else {
+            return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
+                showRest2: false, showRest3: false, showRest4: false, showRest5: false, showRest6: false });
+        }
     });
     handle(actions.InputMemoAction, function (state, memo) {
         return updateDayKintai(state, memo.date, { memo: memo.text });
@@ -1667,11 +1965,6 @@ exports.kintai = redux_commons_1.createReducer(initialState, function (handle) {
         var person = __assign({}, state.person, { defaultWorkCode: defaultWorkCode });
         return __assign({}, state, { person: person });
     });
-    handle(actions.ToggleRest1Action, function (state, date) {
-        var oldDayKintai = KintaiUtils_1.getDayKintai(state, date);
-        var oldNoRest1 = oldDayKintai ? oldDayKintai.noRest4 : false;
-        return updateDayKintai(state, date, { noRest1: !oldNoRest1 });
-    });
     handle(actions.ToggleRest2Action, function (state, date) {
         var oldDayKintai = KintaiUtils_1.getDayKintai(state, date);
         var oldNoRest2 = oldDayKintai ? oldDayKintai.noRest2 : false;
@@ -1687,6 +1980,16 @@ exports.kintai = redux_commons_1.createReducer(initialState, function (handle) {
         var oldNoRest4 = oldDayKintai ? oldDayKintai.noRest4 : false;
         return updateDayKintai(state, date, { noRest4: !oldNoRest4 });
     });
+    handle(actions.ToggleRest5Action, function (state, date) {
+        var oldDayKintai = KintaiUtils_1.getDayKintai(state, date);
+        var oldNoRest5 = oldDayKintai ? oldDayKintai.noRest5 : false;
+        return updateDayKintai(state, date, { noRest5: !oldNoRest5 });
+    });
+    handle(actions.ToggleRest6Action, function (state, date) {
+        var oldDayKintai = KintaiUtils_1.getDayKintai(state, date);
+        var oldNoRest6 = oldDayKintai ? oldDayKintai.noRest6 : false;
+        return updateDayKintai(state, date, { noRest6: !oldNoRest6 });
+    });
 });
 function updateDayKintai(state, date, partialDayKintai) {
     var oldDayKintai = KintaiUtils_1.getDayKintai(state, date);
@@ -1699,7 +2002,7 @@ function updateDayKintai(state, date, partialDayKintai) {
 
 /***/ }),
 
-/***/ 808:
+/***/ 816:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1748,7 +2051,7 @@ exports.view = redux_commons_1.createReducer(initialState, function (handle) {
 
 /***/ }),
 
-/***/ 810:
+/***/ 818:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1787,5 +2090,5 @@ ReactDOM.render(React.createElement(react_redux_1.Provider, { store: Store_1.def
 
 /***/ })
 
-},[810]);
+},[818]);
 //# sourceMappingURL=app.js.map

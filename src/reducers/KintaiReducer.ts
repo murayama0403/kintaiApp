@@ -33,13 +33,14 @@ export const kintai = createReducer(initialState, (handle) => {
         } else if (selectedTime.time >= "20:01" && selectedTime.time <= "23:00") {
             return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
                 showRest2: true, showRest3: true, showRest4: false, showRest5: false, showRest6: false })
-        } else if (selectedTime.time >= "23:01") {
+        } else if (selectedTime.time >= "23:01" && selectedTime.time <= "23:59"
+        || selectedTime.time >= "0:00" && selectedTime.time <= "2:30") {
             return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
                 showRest2: true, showRest3: true, showRest4: true, showRest5: false, showRest6: false })
         } else if (selectedTime.time > "2:31" && selectedTime.time <= "8:30") {
             return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
                 showRest2: true, showRest3: true, showRest4: true, showRest5: true, showRest6: false })
-        } else if (selectedTime.time > "8:31" && selectedTime.time <= "9:00") {
+        } else if (selectedTime.time > "8:31" && selectedTime.time <= "9:30") {
             return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
                 showRest2: true, showRest3: true, showRest4: true, showRest5: true, showRest6: true })
         } else {

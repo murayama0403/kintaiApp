@@ -27,26 +27,20 @@ export const kintai = createReducer(initialState, (handle) => {
         return updateDayKintai(state, selectedTime.date, { inTime: selectedTime.time })
     })
     handle(actions.SelectOutAction, (state, selectedTime) => {
-        if (selectedTime.time >= "18:01" && selectedTime.time <= "20:00") {
-            return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
-                showRest2: true, showRest3: false, showRest4: false, showRest5: false, showRest6: false })
-        } else if (selectedTime.time >= "20:01" && selectedTime.time <= "23:00") {
-            return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
-                showRest2: true, showRest3: true, showRest4: false, showRest5: false, showRest6: false })
-        } else if (selectedTime.time >= "23:01" && selectedTime.time <= "23:59"
-        || selectedTime.time >= "0:00" && selectedTime.time <= "2:30") {
-            return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
-                showRest2: true, showRest3: true, showRest4: true, showRest5: false, showRest6: false })
-        } else if (selectedTime.time > "2:31" && selectedTime.time <= "8:30") {
-            return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
-                showRest2: true, showRest3: true, showRest4: true, showRest5: true, showRest6: false })
-        } else if (selectedTime.time > "8:31" && selectedTime.time <= "9:30") {
-            return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
-                showRest2: true, showRest3: true, showRest4: true, showRest5: true, showRest6: true })
-        } else {
-            return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
-                showRest2: false, showRest3: false, showRest4: false, showRest5: false, showRest6: false })
+        // 時刻を比較しやすいように4桁なら先頭に0をつけて5桁にしておく
+        let time = selectedTime.time
+        if (time.length === 4) {
+            time = "0" + time
         }
+
+        const showRest2 = time > "17:45" || time <= "09:00"
+        const showRest3 = time > "19:30" || time <= "09:00"
+        const showRest4 = time > "22:00" || time <= "09:00"
+        const showRest5 = time > "02:30" && time <= "09:00"
+        const showRest6 = time > "08:30" && time <= "09:00"
+
+        return updateDayKintai(state, selectedTime.date, {outTime: selectedTime.time,
+            showRest2, showRest3, showRest4, showRest5, showRest6 })
     })
     handle(actions.InputMemoAction, (state, memo) => {
         return updateDayKintai(state, memo.date, { memo: memo.text })

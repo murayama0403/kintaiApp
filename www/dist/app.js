@@ -5,7 +5,7 @@ webpackJsonp([0],{
 
 "use strict";
 
-var DateUtils_1 = __webpack_require__(58);
+var DateUtils_1 = __webpack_require__(57);
 var defaultDayKintai = {
     inTime: "",
     outTime: "",
@@ -39,12 +39,12 @@ exports.getDayKintaiOrDefault = getDayKintaiOrDefault;
 
 /***/ }),
 
-/***/ 178:
+/***/ 177:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var redux_commons_1 = __webpack_require__(179);
+var redux_commons_1 = __webpack_require__(178);
 exports.SelectInAction = redux_commons_1.action("SelectIn");
 exports.SelectOutAction = redux_commons_1.action("SelectOut");
 exports.MoveCurrentDateAction = redux_commons_1.action("MoveCurrentDate");
@@ -76,7 +76,7 @@ exports.ToggleRest6Action = redux_commons_1.action("ToggleRest6");
 
 /***/ }),
 
-/***/ 179:
+/***/ 178:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -115,7 +115,7 @@ exports.createReducer = createReducer;
 
 /***/ }),
 
-/***/ 180:
+/***/ 179:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -125,7 +125,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var LinearProgress_1 = __webpack_require__(226);
+var LinearProgress_1 = __webpack_require__(230);
 var React = __webpack_require__(1);
 var ToolbarWithProgress = (function (_super) {
     __extends(ToolbarWithProgress, _super);
@@ -145,7 +145,7 @@ exports.ToolbarWithProgress = ToolbarWithProgress;
 
 /***/ }),
 
-/***/ 249:
+/***/ 259:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -159,11 +159,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(16);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(14);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -184,7 +184,7 @@ exports.default = HardwareKeyboardArrowLeft;
 
 /***/ }),
 
-/***/ 250:
+/***/ 260:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -198,11 +198,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(16);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(14);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -223,7 +223,7 @@ exports.default = HardwareKeyboardArrowRight;
 
 /***/ }),
 
-/***/ 410:
+/***/ 420:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -243,11 +243,11 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 var AppBar_1 = __webpack_require__(95);
 var IconButton_1 = __webpack_require__(35);
-var keyboard_arrow_left_1 = __webpack_require__(249);
-var keyboard_arrow_right_1 = __webpack_require__(250);
+var keyboard_arrow_left_1 = __webpack_require__(259);
+var keyboard_arrow_right_1 = __webpack_require__(260);
 var React = __webpack_require__(1);
-var DateUtils_1 = __webpack_require__(58);
-var ToolbarWithProgress_1 = __webpack_require__(180);
+var DateUtils_1 = __webpack_require__(57);
+var ToolbarWithProgress_1 = __webpack_require__(179);
 var MonthToolbar = (function (_super) {
     __extends(MonthToolbar, _super);
     function MonthToolbar() {
@@ -283,17 +283,17 @@ exports.MonthToolbar = MonthToolbar;
 
 /***/ }),
 
-/***/ 412:
+/***/ 422:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var react_router_redux_1 = __webpack_require__(86);
+var react_router_redux_1 = __webpack_require__(87);
 var redux_1 = __webpack_require__(111);
-var createLogger = __webpack_require__(183);
-var redux_persist_1 = __webpack_require__(184);
-var KintaiReducer_1 = __webpack_require__(815);
-var ViewReducer_1 = __webpack_require__(816);
+var createLogger = __webpack_require__(182);
+var redux_persist_1 = __webpack_require__(183);
+var KintaiReducer_1 = __webpack_require__(825);
+var ViewReducer_1 = __webpack_require__(826);
 // weinreでConsoleデバッグができるようにredux-loggerがconsole.logを呼び出すように変更
 var logger = createLogger({
     level: "log",
@@ -319,14 +319,14 @@ exports.default = store;
 
 /***/ }),
 
-/***/ 413:
+/***/ 423:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var react_router_1 = __webpack_require__(87);
-var actions = __webpack_require__(178);
-var ApiClient_1 = __webpack_require__(806);
+var react_router_1 = __webpack_require__(88);
+var actions = __webpack_require__(177);
+var ApiClient_1 = __webpack_require__(816);
 var DispatchActions = (function () {
     function DispatchActions(dispatch) {
         this.dispatch = dispatch;
@@ -452,7 +452,7 @@ exports.DispatchActions = DispatchActions;
 
 /***/ }),
 
-/***/ 414:
+/***/ 424:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -472,8 +472,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 var AppBar_1 = __webpack_require__(95);
 var React = __webpack_require__(1);
-var ToolbarWithProgress_1 = __webpack_require__(180);
-var Main_1 = __webpack_require__(807);
+var ToolbarWithProgress_1 = __webpack_require__(179);
+var Main_1 = __webpack_require__(817);
 var CommonPage = (function (_super) {
     __extends(CommonPage, _super);
     function CommonPage() {
@@ -492,7 +492,7 @@ exports.CommonPage = CommonPage;
 
 /***/ }),
 
-/***/ 415:
+/***/ 425:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -511,8 +511,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var Main_1 = __webpack_require__(809);
-var Toolbar_1 = __webpack_require__(811);
+var Main_1 = __webpack_require__(819);
+var Toolbar_1 = __webpack_require__(821);
 var InputPage = (function (_super) {
     __extends(InputPage, _super);
     function InputPage() {
@@ -530,7 +530,7 @@ exports.InputPage = InputPage;
 
 /***/ }),
 
-/***/ 416:
+/***/ 426:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -549,8 +549,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var MonthToolbar_1 = __webpack_require__(410);
-var Main_1 = __webpack_require__(812);
+var MonthToolbar_1 = __webpack_require__(420);
+var Main_1 = __webpack_require__(822);
 var ListPage = (function (_super) {
     __extends(ListPage, _super);
     function ListPage() {
@@ -568,7 +568,7 @@ exports.ListPage = ListPage;
 
 /***/ }),
 
-/***/ 417:
+/***/ 427:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -587,8 +587,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var FooterTab_1 = __webpack_require__(808);
-var SendStatus_1 = __webpack_require__(813);
+var FooterTab_1 = __webpack_require__(818);
+var SendStatus_1 = __webpack_require__(823);
 var Root = (function (_super) {
     __extends(Root, _super);
     function Root() {
@@ -607,7 +607,7 @@ exports.Root = Root;
 
 /***/ }),
 
-/***/ 418:
+/***/ 428:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -626,8 +626,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var MonthToolbar_1 = __webpack_require__(410);
-var Main_1 = __webpack_require__(814);
+var MonthToolbar_1 = __webpack_require__(420);
+var Main_1 = __webpack_require__(824);
 var SendPage = (function (_super) {
     __extends(SendPage, _super);
     function SendPage() {
@@ -645,15 +645,15 @@ exports.SendPage = SendPage;
 
 /***/ }),
 
-/***/ 58:
+/***/ 57:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var japanese_holidays_1 = __webpack_require__(181);
+var japanese_holidays_1 = __webpack_require__(180);
 var colors_1 = __webpack_require__(100);
-var moment = __webpack_require__(2);
-__webpack_require__(152);
+var moment = __webpack_require__(3);
+__webpack_require__(151);
 moment.locale("ja");
 function toDayString(date) {
     return moment(date).format("YYYYMMDD");
@@ -749,7 +749,7 @@ exports.getDayColor = getDayColor;
 
 /***/ }),
 
-/***/ 629:
+/***/ 638:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -763,11 +763,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(16);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(14);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -788,7 +788,7 @@ exports.default = ActionList;
 
 /***/ }),
 
-/***/ 630:
+/***/ 639:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -802,11 +802,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(16);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(14);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -827,7 +827,7 @@ exports.default = ActionSchedule;
 
 /***/ }),
 
-/***/ 631:
+/***/ 640:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -841,11 +841,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(16);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(14);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -866,7 +866,7 @@ exports.default = ActionUpdate;
 
 /***/ }),
 
-/***/ 632:
+/***/ 641:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -880,11 +880,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(16);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(14);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -905,7 +905,7 @@ exports.default = ContentSend;
 
 /***/ }),
 
-/***/ 635:
+/***/ 644:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -919,11 +919,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(16);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(14);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -944,7 +944,7 @@ exports.default = ImageEdit;
 
 /***/ }),
 
-/***/ 636:
+/***/ 645:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -958,11 +958,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(16);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(14);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -983,7 +983,7 @@ exports.default = ImageWbSunny;
 
 /***/ }),
 
-/***/ 637:
+/***/ 646:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -997,11 +997,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(16);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(14);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -1022,7 +1022,7 @@ exports.default = MapsHotel;
 
 /***/ }),
 
-/***/ 638:
+/***/ 647:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1036,11 +1036,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(16);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(14);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -1061,7 +1061,7 @@ exports.default = MapsRestaurantMenu;
 
 /***/ }),
 
-/***/ 647:
+/***/ 656:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1075,11 +1075,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(16);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(14);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -1100,7 +1100,7 @@ exports.default = NotificationAirlineSeatReclineNormal;
 
 /***/ }),
 
-/***/ 648:
+/***/ 657:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1114,11 +1114,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(16);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(14);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -1139,7 +1139,7 @@ exports.default = PlacesFreeBreakfast;
 
 /***/ }),
 
-/***/ 649:
+/***/ 658:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1153,11 +1153,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(16);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(14);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -1179,7 +1179,7 @@ exports.default = PlacesHotTub;
 
 /***/ }),
 
-/***/ 650:
+/***/ 659:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1193,11 +1193,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(16);
+var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(14);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -1218,13 +1218,13 @@ exports.default = SocialPerson;
 
 /***/ }),
 
-/***/ 806:
+/***/ 816:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-__webpack_require__(185);
-var DateUtils_1 = __webpack_require__(58);
+__webpack_require__(184);
+var DateUtils_1 = __webpack_require__(57);
 var KintaiUtils_1 = __webpack_require__(109);
 function sendMonthKintai(kintai, month, password) {
     var body = createBody(kintai, month, password);
@@ -1290,7 +1290,7 @@ function toWorkInfo(date, dayKintai, person) {
 
 /***/ }),
 
-/***/ 807:
+/***/ 817:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1300,8 +1300,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var MenuItem_1 = __webpack_require__(79);
-var SelectField_1 = __webpack_require__(146);
+var MenuItem_1 = __webpack_require__(78);
+var SelectField_1 = __webpack_require__(144);
 var TextField_1 = __webpack_require__(42);
 var React = __webpack_require__(1);
 var Main = (function (_super) {
@@ -1379,7 +1379,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 808:
+/***/ 818:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1389,12 +1389,12 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var BottomNavigation_1 = __webpack_require__(217);
-var Divider_1 = __webpack_require__(139);
-var list_1 = __webpack_require__(629);
-var send_1 = __webpack_require__(632);
-var edit_1 = __webpack_require__(635);
-var person_1 = __webpack_require__(650);
+var BottomNavigation_1 = __webpack_require__(221);
+var Divider_1 = __webpack_require__(137);
+var list_1 = __webpack_require__(638);
+var send_1 = __webpack_require__(641);
+var edit_1 = __webpack_require__(644);
+var person_1 = __webpack_require__(659);
 var React = __webpack_require__(1);
 var FooterTab = (function (_super) {
     __extends(FooterTab, _super);
@@ -1447,7 +1447,7 @@ exports.FooterTab = FooterTab;
 
 /***/ }),
 
-/***/ 809:
+/***/ 819:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1457,17 +1457,17 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var RaisedButton_1 = __webpack_require__(145);
-var wb_sunny_1 = __webpack_require__(636);
-var hotel_1 = __webpack_require__(637);
-var restaurant_menu_1 = __webpack_require__(638);
-var airline_seat_recline_normal_1 = __webpack_require__(647);
-var free_breakfast_1 = __webpack_require__(648);
-var hot_tub_1 = __webpack_require__(649);
+var RaisedButton_1 = __webpack_require__(143);
+var wb_sunny_1 = __webpack_require__(645);
+var hotel_1 = __webpack_require__(646);
+var restaurant_menu_1 = __webpack_require__(647);
+var airline_seat_recline_normal_1 = __webpack_require__(656);
+var free_breakfast_1 = __webpack_require__(657);
+var hot_tub_1 = __webpack_require__(658);
 var TextField_1 = __webpack_require__(42);
 var React = __webpack_require__(1);
 var KintaiUtils_1 = __webpack_require__(109);
-var TimeInput_1 = __webpack_require__(810);
+var TimeInput_1 = __webpack_require__(820);
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
@@ -1496,9 +1496,9 @@ var Main = (function (_super) {
                         "20:00"), icon: rest3Icon, secondary: currentKintai.noRest3, onTouchTap: function (event) { return _this.handleRestToggle(event, "3"); }, style: { height: "70px", margin: 5 } })),
             React.createElement("span", { style: { display: currentKintai.showRest4 ? "" : "none" } },
                 React.createElement(RaisedButton_1.default, { label: React.createElement("div", { style: { textAlign: "center" } },
-                        "22:30",
+                        "22:00",
                         React.createElement("br", null),
-                        "23:00"), icon: rest4Icon, secondary: currentKintai.noRest4, onTouchTap: function (event) { return _this.handleRestToggle(event, "4"); }, style: { height: "70px", margin: 5 } })),
+                        "22:15"), icon: rest4Icon, secondary: currentKintai.noRest4, onTouchTap: function (event) { return _this.handleRestToggle(event, "4"); }, style: { height: "70px", margin: 5 } })),
             React.createElement("span", { style: { display: currentKintai.showRest5 ? "" : "none" } },
                 React.createElement(RaisedButton_1.default, { label: React.createElement("div", { style: { textAlign: "center" } },
                         "02:30",
@@ -1555,7 +1555,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 810:
+/***/ 820:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1566,12 +1566,12 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var IconButton_1 = __webpack_require__(35);
-var MenuItem_1 = __webpack_require__(79);
-var SelectField_1 = __webpack_require__(146);
-var schedule_1 = __webpack_require__(630);
-var update_1 = __webpack_require__(631);
+var MenuItem_1 = __webpack_require__(78);
+var SelectField_1 = __webpack_require__(144);
+var schedule_1 = __webpack_require__(639);
+var update_1 = __webpack_require__(640);
 var React = __webpack_require__(1);
-var DateUtils_1 = __webpack_require__(58);
+var DateUtils_1 = __webpack_require__(57);
 var TIMES = [":00", ":15", ":30", ":45"];
 var REGULAR_TIME_IN = "9:00";
 var REGULAR_TIME_OUT = "17:45";
@@ -1638,7 +1638,7 @@ exports.TimeInput = TimeInput;
 
 /***/ }),
 
-/***/ 811:
+/***/ 821:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1658,11 +1658,11 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 var AppBar_1 = __webpack_require__(95);
 var IconButton_1 = __webpack_require__(35);
-var keyboard_arrow_left_1 = __webpack_require__(249);
-var keyboard_arrow_right_1 = __webpack_require__(250);
+var keyboard_arrow_left_1 = __webpack_require__(259);
+var keyboard_arrow_right_1 = __webpack_require__(260);
 var React = __webpack_require__(1);
-var DateUtils_1 = __webpack_require__(58);
-var ToolbarWithProgress_1 = __webpack_require__(180);
+var DateUtils_1 = __webpack_require__(57);
+var ToolbarWithProgress_1 = __webpack_require__(179);
 var Toolbar = (function (_super) {
     __extends(Toolbar, _super);
     function Toolbar() {
@@ -1709,7 +1709,7 @@ exports.Toolbar = Toolbar;
 
 /***/ }),
 
-/***/ 812:
+/***/ 822:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1719,9 +1719,9 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var List_1 = __webpack_require__(227);
+var List_1 = __webpack_require__(231);
 var React = __webpack_require__(1);
-var DateUtils_1 = __webpack_require__(58);
+var DateUtils_1 = __webpack_require__(57);
 var KintaiUtils_1 = __webpack_require__(109);
 var Main = (function (_super) {
     __extends(Main, _super);
@@ -1766,7 +1766,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 813:
+/***/ 823:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1777,7 +1777,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Dialog_1 = __webpack_require__(96);
-var Snackbar_1 = __webpack_require__(232);
+var Snackbar_1 = __webpack_require__(236);
 var React = __webpack_require__(1);
 var SendStatus = (function (_super) {
     __extends(SendStatus, _super);
@@ -1803,7 +1803,7 @@ exports.SendStatus = SendStatus;
 
 /***/ }),
 
-/***/ 814:
+/***/ 824:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1813,7 +1813,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var RaisedButton_1 = __webpack_require__(145);
+var RaisedButton_1 = __webpack_require__(143);
 var TextField_1 = __webpack_require__(42);
 var React = __webpack_require__(1);
 var Main = (function (_super) {
@@ -1849,7 +1849,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 815:
+/***/ 825:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1862,9 +1862,9 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var actions = __webpack_require__(178);
-var redux_commons_1 = __webpack_require__(179);
-var DateUtils_1 = __webpack_require__(58);
+var actions = __webpack_require__(177);
+var redux_commons_1 = __webpack_require__(178);
+var DateUtils_1 = __webpack_require__(57);
 var KintaiUtils_1 = __webpack_require__(109);
 var initialState = {
     person: {
@@ -1888,31 +1888,18 @@ exports.kintai = redux_commons_1.createReducer(initialState, function (handle) {
         return updateDayKintai(state, selectedTime.date, { inTime: selectedTime.time });
     });
     handle(actions.SelectOutAction, function (state, selectedTime) {
-        if (selectedTime.time >= "18:01" && selectedTime.time <= "20:00") {
-            return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
-                showRest2: true, showRest3: false, showRest4: false, showRest5: false, showRest6: false });
+        // 時刻を比較しやすいように4桁なら先頭に0をつけて5桁にしておく
+        var time = selectedTime.time;
+        if (time.length === 4) {
+            time = "0" + time;
         }
-        else if (selectedTime.time >= "20:01" && selectedTime.time <= "23:00") {
-            return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
-                showRest2: true, showRest3: true, showRest4: false, showRest5: false, showRest6: false });
-        }
-        else if (selectedTime.time >= "23:01" && selectedTime.time <= "23:59"
-            || selectedTime.time >= "0:00" && selectedTime.time <= "2:30") {
-            return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
-                showRest2: true, showRest3: true, showRest4: true, showRest5: false, showRest6: false });
-        }
-        else if (selectedTime.time > "2:31" && selectedTime.time <= "8:30") {
-            return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
-                showRest2: true, showRest3: true, showRest4: true, showRest5: true, showRest6: false });
-        }
-        else if (selectedTime.time > "8:31" && selectedTime.time <= "9:30") {
-            return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
-                showRest2: true, showRest3: true, showRest4: true, showRest5: true, showRest6: true });
-        }
-        else {
-            return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
-                showRest2: false, showRest3: false, showRest4: false, showRest5: false, showRest6: false });
-        }
+        var showRest2 = time > "17:45" || time <= "09:00";
+        var showRest3 = time > "19:30" || time <= "09:00";
+        var showRest4 = time > "22:00" || time <= "09:00";
+        var showRest5 = time > "02:30" && time <= "09:00";
+        var showRest6 = time > "08:30" && time <= "09:00";
+        return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
+            showRest2: showRest2, showRest3: showRest3, showRest4: showRest4, showRest5: showRest5, showRest6: showRest6 });
     });
     handle(actions.InputMemoAction, function (state, memo) {
         return updateDayKintai(state, memo.date, { memo: memo.text });
@@ -2002,7 +1989,7 @@ function updateDayKintai(state, date, partialDayKintai) {
 
 /***/ }),
 
-/***/ 816:
+/***/ 826:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2015,8 +2002,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var actions = __webpack_require__(178);
-var redux_commons_1 = __webpack_require__(179);
+var actions = __webpack_require__(177);
+var redux_commons_1 = __webpack_require__(178);
 var initialState = {
     currentDate: new Date(),
     password: "",
@@ -2051,25 +2038,25 @@ exports.view = redux_commons_1.createReducer(initialState, function (handle) {
 
 /***/ }),
 
-/***/ 818:
+/***/ 828:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var MuiThemeProvider_1 = __webpack_require__(182);
+var MuiThemeProvider_1 = __webpack_require__(181);
 var React = __webpack_require__(1);
-var ReactDOM = __webpack_require__(18);
+var ReactDOM = __webpack_require__(20);
 var react_redux_1 = __webpack_require__(112);
-var react_router_1 = __webpack_require__(87);
-var react_router_redux_1 = __webpack_require__(86);
+var react_router_1 = __webpack_require__(88);
+var react_router_redux_1 = __webpack_require__(87);
 var injectTapEventPlugin = __webpack_require__(113);
-var DispatchActions_1 = __webpack_require__(413);
-var CommonPage_1 = __webpack_require__(414);
-var InputPage_1 = __webpack_require__(415);
-var ListPage_1 = __webpack_require__(416);
-var Root_1 = __webpack_require__(417);
-var SendPage_1 = __webpack_require__(418);
-var Store_1 = __webpack_require__(412);
+var DispatchActions_1 = __webpack_require__(423);
+var CommonPage_1 = __webpack_require__(424);
+var InputPage_1 = __webpack_require__(425);
+var ListPage_1 = __webpack_require__(426);
+var Root_1 = __webpack_require__(427);
+var SendPage_1 = __webpack_require__(428);
+var Store_1 = __webpack_require__(422);
 injectTapEventPlugin();
 var connector = react_redux_1.connect(function (store) { return ({ value: store }); }, function (dispatch) { return ({ actions: new DispatchActions_1.DispatchActions(dispatch) }); });
 var RootComponent = connector(Root_1.Root);
@@ -2090,5 +2077,5 @@ ReactDOM.render(React.createElement(react_redux_1.Provider, { store: Store_1.def
 
 /***/ })
 
-},[818]);
+},[828]);
 //# sourceMappingURL=app.js.map

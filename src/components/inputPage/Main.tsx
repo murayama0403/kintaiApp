@@ -48,7 +48,7 @@ export class Main extends React.Component<RootProps, {}> {
                 </span>
                 <span style={{ display: currentKintai.showRest4 ? "" : "none" }}>
                     <RaisedButton
-                        label={<div style={{ textAlign: "center" }}>22:30<br />23:00</div>}
+                        label={<div style={{ textAlign: "center" }}>22:00<br />22:15</div>}
                         icon={rest4Icon}
                         secondary={currentKintai.noRest4}
                         onTouchTap={(event) => this.handleRestToggle(event, "4")}

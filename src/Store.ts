@@ -1,6 +1,6 @@
 import { routerReducer } from "react-router-redux"
 import { applyMiddleware, combineReducers, compose, createStore } from "redux"
-import * as createLogger from "redux-logger"
+import { createLogger } from "redux-logger"
 import { autoRehydrate, persistStore } from "redux-persist"
 import { kintai } from "./reducers/KintaiReducer"
 import { view } from "./reducers/ViewReducer"

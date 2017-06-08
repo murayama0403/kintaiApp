@@ -38,7 +38,7 @@ export class DispatchActions {
                 })
             }
             this.dispatch(actions.SendSuccessAction.create(undefined))
-            return response
+            return
         }).catch(() => {
             this.dispatch(actions.SendErrorAction.create("ネットワークエラー"))
         })

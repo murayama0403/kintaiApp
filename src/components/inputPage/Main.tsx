@@ -71,7 +71,7 @@ export class Main extends React.Component<RootProps, {}> {
                     {holidayMenus}
                 </SelectField>
                 <br />
-                
+
                 <TextField
                     multiLine={true}
                     fullWidth={true}

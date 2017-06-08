@@ -27,20 +27,7 @@ export const kintai = createReducer(initialState, (handle) => {
         return updateDayKintai(state, selectedTime.date, { inTime: selectedTime.time })
     })
     handle(actions.SelectOutAction, (state, selectedTime) => {
-        // 時刻を比較しやすいように4桁なら先頭に0をつけて5桁にしておく
-        let time = selectedTime.time
-        if (time.length === 4) {
-            time = "0" + time
-        }
-
-        const showRest2 = time > "17:45" || time <= "09:00"
-        const showRest3 = time > "19:30" || time <= "09:00"
-        const showRest4 = time > "22:00" || time <= "09:00"
-        const showRest5 = time > "02:30" && time <= "09:00"
-        const showRest6 = time > "08:30" && time <= "09:00"
-
-        return updateDayKintai(state, selectedTime.date, {outTime: selectedTime.time,
-            showRest2, showRest3, showRest4, showRest5, showRest6 })
+        return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time })
     })
     handle(actions.InputMemoAction, (state, memo) => {
         return updateDayKintai(state, memo.date, { memo: memo.text })
@@ -93,30 +80,27 @@ export const kintai = createReducer(initialState, (handle) => {
         const person = { ...state.person, defaultWorkCode }
         return { ...state, person }
     })
-    handle(actions.ToggleRest2Action, (state, date) => {
-        const oldDayKintai = getDayKintai(state, date)
-        const oldNoRest2 = oldDayKintai ? oldDayKintai.noRest2 : false
-        return updateDayKintai(state, date, { noRest2: !oldNoRest2 })
-    })
-    handle(actions.ToggleRest3Action, (state, date) => {
-        const oldDayKintai = getDayKintai(state, date)
-        const oldNoRest3 = oldDayKintai ? oldDayKintai.noRest3 : false
-        return updateDayKintai(state, date, { noRest3: !oldNoRest3 })
-    })
-    handle(actions.ToggleRest4Action, (state, date) => {
-        const oldDayKintai = getDayKintai(state, date)
-        const oldNoRest4 = oldDayKintai ? oldDayKintai.noRest4 : false
-        return updateDayKintai(state, date, { noRest4: !oldNoRest4 })
-    })
-    handle(actions.ToggleRest5Action, (state, date) => {
-        const oldDayKintai = getDayKintai(state, date)
-        const oldNoRest5 = oldDayKintai ? oldDayKintai.noRest5 : false
-        return updateDayKintai(state, date, { noRest5: !oldNoRest5 })
-    })
-    handle(actions.ToggleRest6Action, (state, date) => {
-        const oldDayKintai = getDayKintai(state, date)
-        const oldNoRest6 = oldDayKintai ? oldDayKintai.noRest6 : false
-        return updateDayKintai(state, date, { noRest6: !oldNoRest6 })
+    handle(actions.ToggleRestAction, (state, daterest) => {
+        const oldDayKintai = getDayKintai(state, daterest.date)
+        switch (daterest.resttype) {
+            case "2":
+                const oldNoRest2 = oldDayKintai ? oldDayKintai.noRest2 : false
+                return updateDayKintai(state, daterest.date, { noRest2: !oldNoRest2 })
+            case "3":
+                const oldNoRest3 = oldDayKintai ? oldDayKintai.noRest3 : false
+                return updateDayKintai(state, daterest.date, { noRest3: !oldNoRest3 })
+            case "4":
+                const oldNoRest4 = oldDayKintai ? oldDayKintai.noRest4 : false
+                return updateDayKintai(state, daterest.date, { noRest4: !oldNoRest4 })
+            case "5":
+                const oldNoRest5 = oldDayKintai ? oldDayKintai.noRest5 : false
+                return updateDayKintai(state, daterest.date, { noRest5: !oldNoRest5 })
+            case "6":
+                const oldNoRest6 = oldDayKintai ? oldDayKintai.noRest6 : false
+                return updateDayKintai(state, daterest.date, { noRest6: !oldNoRest6 })
+            default:
+                return updateDayKintai(state, daterest.date, {})
+        }
     })
 })
 

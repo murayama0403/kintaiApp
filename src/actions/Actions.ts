@@ -10,6 +10,11 @@ interface DateText {
     text: string
 }
 
+interface DateRestType {
+    date: Date
+    resttype: string
+}
+
 export const SelectInAction = action<SelectedTime>("SelectIn")
 export const SelectOutAction = action<SelectedTime>("SelectOut")
 export const MoveCurrentDateAction = action<Date>("MoveCurrentDate")
@@ -32,8 +37,4 @@ export const InputManager2Action = action<string>("InputManager2")
 export const InputManager2PeriodAction = action<string>("InputManager2Period")
 export const InputDefaultProjectNoAction = action<string>("InputDefaultProjectNo")
 export const InputDefaultWorkCodeAction = action<string>("InputDefaultWorkCode")
-export const ToggleRest2Action = action<Date>("ToggleRest2")
-export const ToggleRest3Action = action<Date>("ToggleRest3")
-export const ToggleRest4Action = action<Date>("ToggleRest4")
-export const ToggleRest5Action = action<Date>("ToggleRest5")
-export const ToggleRest6Action = action<Date>("ToggleRest6")
+export const ToggleRestAction = action<DateRestType>("ToggleRest")

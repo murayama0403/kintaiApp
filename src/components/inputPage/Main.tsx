@@ -20,6 +20,16 @@ export class Main extends React.Component<RootProps, {}> {
         const rest4Icon = currentKintai.noRest4 ? <WorkIcon /> : <PlacesHotTub />
         const rest5Icon = currentKintai.noRest5 ? <WorkIcon /> : <Hotel />
         const rest6Icon = currentKintai.noRest6 ? <WorkIcon /> : <Sunny />
+        let time = currentKintai.outTime
+        if (time.length === 4) {
+            time = "0" + time
+        }
+        const showRest2 = time > "17:45" || time <= "09:00" && time !== ""
+        const showRest3 = time > "19:30" || time <= "09:00" && time !== ""
+        const showRest4 = time > "22:00" || time <= "09:00" && time !== ""
+        const showRest5 = time > "02:30" && time <= "09:00"
+        const showRest6 = time > "08:30" && time <= "09:00"
+
         return (
             <div className="content">
                 <TimeInput
@@ -30,7 +40,7 @@ export class Main extends React.Component<RootProps, {}> {
                     type={OUT}
                     value={currentKintai.outTime}
                     onSelected={(value) => this.handleOutSelected(value)} />
-                <span style={{ display: currentKintai.showRest2 ? "" : "none" }}>
+                <span style={{ display: showRest2 ? "" : "none" }}>
                     <RaisedButton
                         label={<div style={{ textAlign: "center" }}>17:45<br />18:00</div>}
                         icon={rest2Icon}
@@ -38,7 +48,7 @@ export class Main extends React.Component<RootProps, {}> {
                         onTouchTap={(event) => this.handleRestToggle(event, "2")}
                         style={{ height: "70px", margin: 5 }} />
                 </span>
-                <span style={{ display: currentKintai.showRest3 ? "" : "none" }}>
+                <span style={{ display: showRest3 ? "" : "none" }}>
                     <RaisedButton
                         label={<div style={{ textAlign: "center" }}>19:30<br />20:00</div>}
                         icon={rest3Icon}
@@ -46,7 +56,7 @@ export class Main extends React.Component<RootProps, {}> {
                         onTouchTap={(event) => this.handleRestToggle(event, "3")}
                         style={{ height: "70px", margin: 5 }} />
                 </span>
-                <span style={{ display: currentKintai.showRest4 ? "" : "none" }}>
+                <span style={{ display: showRest4 ? "" : "none" }}>
                     <RaisedButton
                         label={<div style={{ textAlign: "center" }}>22:00<br />22:15</div>}
                         icon={rest4Icon}
@@ -54,7 +64,7 @@ export class Main extends React.Component<RootProps, {}> {
                         onTouchTap={(event) => this.handleRestToggle(event, "4")}
                         style={{ height: "70px", margin: 5 }} />
                 </span>
-                <span style={{ display: currentKintai.showRest5 ? "" : "none" }}>
+                <span style={{ display: showRest5 ? "" : "none" }}>
                     <RaisedButton
                         label={<div style={{ textAlign: "center" }}>02:30<br />03:00</div>}
                         icon={rest5Icon}
@@ -62,7 +72,7 @@ export class Main extends React.Component<RootProps, {}> {
                         onTouchTap={(event) => this.handleRestToggle(event, "5")}
                         style={{ height: "70px", margin: 5 }} />
                 </span>
-                <span style={{ display: currentKintai.showRest6 ? "" : "none" }}>
+                <span style={{ display: showRest6 ? "" : "none" }}>
                     <RaisedButton
                         label={<div style={{ textAlign: "center" }}>08:30<br />09:00</div>}
                         icon={rest6Icon}
@@ -94,30 +104,6 @@ export class Main extends React.Component<RootProps, {}> {
 
     private handleRestToggle(event: TouchTapEvent, resttype: string) {
         event.preventDefault()
-        switch (resttype) {
-            case "2": {
-                this.props.actions.toggleRest2(this.props.value.view.currentDate)
-                break
-            }
-            case "3": {
-                this.props.actions.toggleRest3(this.props.value.view.currentDate)
-                break
-            }
-            case "4": {
-                this.props.actions.toggleRest4(this.props.value.view.currentDate)
-                break
-            }
-            case "5": {
-                this.props.actions.toggleRest5(this.props.value.view.currentDate)
-                break
-            }
-            case "6": {
-                this.props.actions.toggleRest6(this.props.value.view.currentDate)
-                break
-            }
-            default: {
-                break
-            }
-        }
+        this.props.actions.toggleRest(this.props.value.view.currentDate, resttype)
     }
 }

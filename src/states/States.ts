@@ -31,11 +31,6 @@ export interface DayKintai {
     noRest4: boolean
     noRest5: boolean
     noRest6: boolean
-    showRest2: boolean
-    showRest3: boolean
-    showRest4: boolean
-    showRest5: boolean
-    showRest6: boolean
     memo: string
 }
 

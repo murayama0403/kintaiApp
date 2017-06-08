@@ -1,65 +1,5 @@
 webpackJsonp([0],{
 
-/***/ 110:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// 休みの時に使う時刻の値
-exports.HOLIDAY_TIME_VALUE = "---";
-exports.UNPAID_HOLIDAY = { value: 6, text: "無給", isAllDayOff: true };
-exports.HOLIDAYS = [
-    { value: 1, text: "全日", isAllDayOff: true },
-    { value: 2, text: "午前", isAllDayOff: false },
-    { value: 3, text: "午後", isAllDayOff: false },
-    { value: 4, text: "欠勤", isAllDayOff: true },
-    { value: 5, text: "健診BC・再検査", isAllDayOff: true },
-    exports.UNPAID_HOLIDAY,
-    { value: 7, text: "振休", isAllDayOff: true },
-    { value: 8, text: "代休", isAllDayOff: true },
-    { value: 9, text: "特別代休", isAllDayOff: true },
-    { value: 10, text: "結婚忌引配出産", isAllDayOff: true },
-    { value: 11, text: "SP5", isAllDayOff: true },
-    { value: 12, text: "その他特休", isAllDayOff: true },
-    { value: 13, text: "積立休暇", isAllDayOff: true },
-    { value: 14, text: "休業", isAllDayOff: true },
-    { value: 15, text: "教育訓練", isAllDayOff: true },
-];
-function getHolidayFromValue(value) {
-    if (value === undefined) {
-        return undefined;
-    }
-    return exports.HOLIDAYS.find(function (h) { return h.value === value; });
-}
-exports.getHolidayFromValue = getHolidayFromValue;
-function getHolidayText(value) {
-    var holiday = getHolidayFromValue(value);
-    if (holiday === undefined) {
-        return "";
-    }
-    return holiday.text;
-}
-exports.getHolidayText = getHolidayText;
-exports.SPECIAL_NOTES = [
-    { text: "①生理休暇", requireInputUnpaid: true },
-    { text: "①子の介護休暇", requireInputUnpaid: true },
-    { text: "①妊娠出産通院休暇", requireInputUnpaid: true },
-    { text: "①妊娠障害休暇", requireInputUnpaid: true },
-    { text: "②介護休暇", requireInputUnpaid: false },
-    { text: "②出産休暇", requireInputUnpaid: false },
-    { text: "②再雇用RF休暇", requireInputUnpaid: false },
-];
-function getSpecialNoteHolidayFromText(text) {
-    if (text === undefined) {
-        return undefined;
-    }
-    return exports.SPECIAL_NOTES.find(function (s) { return s.text === text; });
-}
-exports.getSpecialNoteHolidayFromText = getSpecialNoteHolidayFromText;
-
-
-/***/ }),
-
 /***/ 111:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -288,7 +228,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var AppBar_1 = __webpack_require__(96);
+var AppBar_1 = __webpack_require__(97);
 var IconButton_1 = __webpack_require__(33);
 var keyboard_arrow_left_1 = __webpack_require__(261);
 var keyboard_arrow_right_1 = __webpack_require__(262);
@@ -333,12 +273,12 @@ exports.MonthToolbar = MonthToolbar;
 
 "use strict";
 
-var react_router_redux_1 = __webpack_require__(88);
+var react_router_redux_1 = __webpack_require__(89);
 var redux_1 = __webpack_require__(113);
 var createLogger = __webpack_require__(182);
 var redux_persist_1 = __webpack_require__(183);
-var KintaiReducer_1 = __webpack_require__(823);
-var ViewReducer_1 = __webpack_require__(824);
+var KintaiReducer_1 = __webpack_require__(822);
+var ViewReducer_1 = __webpack_require__(823);
 // weinreでConsoleデバッグができるようにredux-loggerがconsole.logを呼び出すように変更
 var logger = createLogger({
     level: "log",
@@ -369,7 +309,7 @@ exports.default = store;
 
 "use strict";
 
-var react_router_1 = __webpack_require__(89);
+var react_router_1 = __webpack_require__(90);
 var actions = __webpack_require__(177);
 var ApiClient_1 = __webpack_require__(813);
 var DispatchActions = (function () {
@@ -512,7 +452,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var AppBar_1 = __webpack_require__(96);
+var AppBar_1 = __webpack_require__(97);
 var React = __webpack_require__(1);
 var ToolbarWithProgress_1 = __webpack_require__(179);
 var Main_1 = __webpack_require__(814);
@@ -1193,7 +1133,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var MenuItem_1 = __webpack_require__(64);
-var SelectField_1 = __webpack_require__(100);
+var SelectField_1 = __webpack_require__(101);
 var TextField_1 = __webpack_require__(42);
 var React = __webpack_require__(1);
 var Main = (function (_super) {
@@ -1205,6 +1145,7 @@ var Main = (function (_super) {
         var _this = this;
         return (React.createElement("div", { className: "content" },
             React.createElement(TextField_1.default, { hintText: "部署コード", value: this.props.value.kintai.person.departmentCode, onChange: function (_, value) { return _this.handleDepartmentCodeChange(value); } }),
+            React.createElement("br", null),
             React.createElement(TextField_1.default, { hintText: "社員番号", value: this.props.value.kintai.person.employeeNo, onChange: function (_, value) { return _this.handleEmployeeNoChange(value); } }),
             React.createElement("br", null),
             React.createElement(TextField_1.default, { hintText: "姓", value: this.props.value.kintai.person.lastName, onChange: function (_, value) { return _this.handleLastNameChange(value); } }),
@@ -1347,13 +1288,13 @@ var __extends = (this && this.__extends) || function (d, b) {
 var IconButton_1 = __webpack_require__(33);
 var IconMenu_1 = __webpack_require__(230);
 var MenuItem_1 = __webpack_require__(64);
-var SelectField_1 = __webpack_require__(100);
+var SelectField_1 = __webpack_require__(101);
 var more_vert_1 = __webpack_require__(655);
 var TextField_1 = __webpack_require__(42);
 var React = __webpack_require__(1);
-var Holidays_1 = __webpack_require__(110);
+var Holidays_1 = __webpack_require__(88);
 var KintaiUtils_1 = __webpack_require__(111);
-var Strings_1 = __webpack_require__(828);
+var Strings_1 = __webpack_require__(824);
 var TimeInput_1 = __webpack_require__(817);
 var Main = (function (_super) {
     __extends(Main, _super);
@@ -1420,11 +1361,11 @@ var __extends = (this && this.__extends) || function (d, b) {
 };
 var IconButton_1 = __webpack_require__(33);
 var MenuItem_1 = __webpack_require__(64);
-var SelectField_1 = __webpack_require__(100);
+var SelectField_1 = __webpack_require__(101);
 var schedule_1 = __webpack_require__(641);
 var update_1 = __webpack_require__(642);
 var React = __webpack_require__(1);
-var Holidays_1 = __webpack_require__(110);
+var Holidays_1 = __webpack_require__(88);
 var DateUtils_1 = __webpack_require__(57);
 var TIMES = [":00", ":15", ":30", ":45"];
 var REGULAR_TIME_IN = "9:00";
@@ -1507,7 +1448,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var AppBar_1 = __webpack_require__(96);
+var AppBar_1 = __webpack_require__(97);
 var IconButton_1 = __webpack_require__(33);
 var keyboard_arrow_left_1 = __webpack_require__(261);
 var keyboard_arrow_right_1 = __webpack_require__(262);
@@ -1579,7 +1520,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 var List_1 = __webpack_require__(232);
 var colors_1 = __webpack_require__(82);
 var React = __webpack_require__(1);
-var Holidays_1 = __webpack_require__(110);
+var Holidays_1 = __webpack_require__(88);
 var DateUtils_1 = __webpack_require__(57);
 var KintaiUtils_1 = __webpack_require__(111);
 var Main = (function (_super) {
@@ -1635,7 +1576,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Dialog_1 = __webpack_require__(97);
+var Dialog_1 = __webpack_require__(98);
 var Snackbar_1 = __webpack_require__(238);
 var React = __webpack_require__(1);
 var SendStatus = (function (_super) {
@@ -1707,7 +1648,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 823:
+/***/ 822:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1722,8 +1663,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 var actions = __webpack_require__(177);
 var redux_commons_1 = __webpack_require__(178);
-var Holidays_1 = __webpack_require__(110);
-var Holidays_2 = __webpack_require__(110);
+var Holidays_1 = __webpack_require__(88);
+var Holidays_2 = __webpack_require__(88);
 var DateUtils_1 = __webpack_require__(57);
 var KintaiUtils_1 = __webpack_require__(111);
 var initialState = {
@@ -1837,7 +1778,7 @@ function updateDayKintai(state, date, partialDayKintai) {
 
 /***/ }),
 
-/***/ 824:
+/***/ 823:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1886,6 +1827,22 @@ exports.view = redux_commons_1.createReducer(initialState, function (handle) {
 
 /***/ }),
 
+/***/ 824:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+function undefinedToEmpty(value) {
+    if (value !== undefined) {
+        return value;
+    }
+    return "";
+}
+exports.undefinedToEmpty = undefinedToEmpty;
+
+
+/***/ }),
+
 /***/ 826:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1895,8 +1852,8 @@ var MuiThemeProvider_1 = __webpack_require__(181);
 var React = __webpack_require__(1);
 var ReactDOM = __webpack_require__(20);
 var react_redux_1 = __webpack_require__(114);
-var react_router_1 = __webpack_require__(89);
-var react_router_redux_1 = __webpack_require__(88);
+var react_router_1 = __webpack_require__(90);
+var react_router_redux_1 = __webpack_require__(89);
 var injectTapEventPlugin = __webpack_require__(115);
 var DispatchActions_1 = __webpack_require__(425);
 var CommonPage_1 = __webpack_require__(426);
@@ -1927,18 +1884,62 @@ ReactDOM.render(React.createElement(react_redux_1.Provider, { store: Store_1.def
 
 /***/ }),
 
-/***/ 828:
+/***/ 88:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-function undefinedToEmpty(value) {
-    if (value !== undefined) {
-        return value;
+// 休みの時に使う時刻の値
+exports.HOLIDAY_TIME_VALUE = "---";
+exports.UNPAID_HOLIDAY = { value: 6, text: "無給", isAllDayOff: true };
+exports.HOLIDAYS = [
+    { value: 1, text: "全日", isAllDayOff: true },
+    { value: 2, text: "午前", isAllDayOff: false },
+    { value: 3, text: "午後", isAllDayOff: false },
+    { value: 4, text: "欠勤", isAllDayOff: true },
+    { value: 5, text: "健診BC・再検査", isAllDayOff: true },
+    exports.UNPAID_HOLIDAY,
+    { value: 7, text: "振休", isAllDayOff: true },
+    { value: 8, text: "代休", isAllDayOff: true },
+    { value: 9, text: "特別代休", isAllDayOff: true },
+    { value: 10, text: "結婚忌引配出産", isAllDayOff: true },
+    { value: 11, text: "SP5", isAllDayOff: true },
+    { value: 12, text: "その他特休", isAllDayOff: true },
+    { value: 13, text: "積立休暇", isAllDayOff: true },
+    { value: 14, text: "休業", isAllDayOff: true },
+    { value: 15, text: "教育訓練", isAllDayOff: true },
+];
+function getHolidayFromValue(value) {
+    if (value === undefined) {
+        return undefined;
     }
-    return "";
+    return exports.HOLIDAYS.find(function (h) { return h.value === value; });
 }
-exports.undefinedToEmpty = undefinedToEmpty;
+exports.getHolidayFromValue = getHolidayFromValue;
+function getHolidayText(value) {
+    var holiday = getHolidayFromValue(value);
+    if (holiday === undefined) {
+        return "";
+    }
+    return holiday.text;
+}
+exports.getHolidayText = getHolidayText;
+exports.SPECIAL_NOTES = [
+    { text: "①生理休暇", requireInputUnpaid: true },
+    { text: "①子の介護休暇", requireInputUnpaid: true },
+    { text: "①妊娠出産通院休暇", requireInputUnpaid: true },
+    { text: "①妊娠障害休暇", requireInputUnpaid: true },
+    { text: "②介護休暇", requireInputUnpaid: false },
+    { text: "②出産休暇", requireInputUnpaid: false },
+    { text: "②再雇用RF休暇", requireInputUnpaid: false },
+];
+function getSpecialNoteHolidayFromText(text) {
+    if (text === undefined) {
+        return undefined;
+    }
+    return exports.SPECIAL_NOTES.find(function (s) { return s.text === text; });
+}
+exports.getSpecialNoteHolidayFromText = getSpecialNoteHolidayFromText;
 
 
 /***/ })

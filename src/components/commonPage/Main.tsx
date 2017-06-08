@@ -12,6 +12,7 @@ export class Main extends React.Component<RootProps, {}> {
                     hintText="部署コード"
                     value={this.props.value.kintai.person.departmentCode}
                     onChange={(_, value) => this.handleDepartmentCodeChange(value)} />
+                <br />
                 <TextField
                     hintText="社員番号"
                     value={this.props.value.kintai.person.employeeNo}

@@ -5,7 +5,7 @@ webpackJsonp([0],{
 
 "use strict";
 
-var DateUtils_1 = __webpack_require__(57);
+var DateUtils_1 = __webpack_require__(58);
 var defaultDayKintai = {
     inTime: "",
     outTime: "",
@@ -14,11 +14,6 @@ var defaultDayKintai = {
     noRest4: false,
     noRest5: false,
     noRest6: false,
-    showRest2: false,
-    showRest3: false,
-    showRest4: false,
-    showRest5: false,
-    showRest6: false,
     memo: "",
 };
 function getDayKintai(state, date) {
@@ -35,16 +30,37 @@ function getDayKintaiOrDefault(state, date, defaultValue) {
     return defaultValue;
 }
 exports.getDayKintaiOrDefault = getDayKintaiOrDefault;
+function isRestAvailable(outTime, restNumber) {
+    // 退出時刻を入力していない場合はfalse
+    if (outTime === "") {
+        return false;
+    }
+    // 時刻を文字列で比較したいため、桁数を合わせる
+    // 例）"9:00"" -> "09:00"
+    var fixedTime = outTime;
+    if (outTime.length === 4) {
+        fixedTime = "0" + outTime;
+    }
+    switch (restNumber) {
+        case 2: return fixedTime > "17:45" || fixedTime <= "09:00";
+        case 3: return fixedTime > "19:30" || fixedTime <= "09:00";
+        case 4: return fixedTime > "22:00" || fixedTime <= "09:00";
+        case 5: return fixedTime > "02:30" && fixedTime <= "09:00";
+        case 6: return fixedTime > "08:30" && fixedTime <= "09:00";
+        default: return false;
+    }
+}
+exports.isRestAvailable = isRestAvailable;
 
 
 /***/ }),
 
-/***/ 177:
+/***/ 179:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var redux_commons_1 = __webpack_require__(178);
+var redux_commons_1 = __webpack_require__(180);
 exports.SelectInAction = redux_commons_1.action("SelectIn");
 exports.SelectOutAction = redux_commons_1.action("SelectOut");
 exports.MoveCurrentDateAction = redux_commons_1.action("MoveCurrentDate");
@@ -67,16 +83,12 @@ exports.InputManager2Action = redux_commons_1.action("InputManager2");
 exports.InputManager2PeriodAction = redux_commons_1.action("InputManager2Period");
 exports.InputDefaultProjectNoAction = redux_commons_1.action("InputDefaultProjectNo");
 exports.InputDefaultWorkCodeAction = redux_commons_1.action("InputDefaultWorkCode");
-exports.ToggleRest2Action = redux_commons_1.action("ToggleRest2");
-exports.ToggleRest3Action = redux_commons_1.action("ToggleRest3");
-exports.ToggleRest4Action = redux_commons_1.action("ToggleRest4");
-exports.ToggleRest5Action = redux_commons_1.action("ToggleRest5");
-exports.ToggleRest6Action = redux_commons_1.action("ToggleRest6");
+exports.ToggleRestAction = redux_commons_1.action("ToggleRest");
 
 
 /***/ }),
 
-/***/ 178:
+/***/ 180:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -115,7 +127,7 @@ exports.createReducer = createReducer;
 
 /***/ }),
 
-/***/ 179:
+/***/ 181:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -125,7 +137,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var LinearProgress_1 = __webpack_require__(230);
+var LinearProgress_1 = __webpack_require__(227);
 var React = __webpack_require__(1);
 var ToolbarWithProgress = (function (_super) {
     __extends(ToolbarWithProgress, _super);
@@ -145,7 +157,7 @@ exports.ToolbarWithProgress = ToolbarWithProgress;
 
 /***/ }),
 
-/***/ 259:
+/***/ 250:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -159,11 +171,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -184,7 +196,7 @@ exports.default = HardwareKeyboardArrowLeft;
 
 /***/ }),
 
-/***/ 260:
+/***/ 251:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -198,11 +210,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -223,7 +235,7 @@ exports.default = HardwareKeyboardArrowRight;
 
 /***/ }),
 
-/***/ 420:
+/***/ 410:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -243,11 +255,11 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 var AppBar_1 = __webpack_require__(95);
 var IconButton_1 = __webpack_require__(35);
-var keyboard_arrow_left_1 = __webpack_require__(259);
-var keyboard_arrow_right_1 = __webpack_require__(260);
+var keyboard_arrow_left_1 = __webpack_require__(250);
+var keyboard_arrow_right_1 = __webpack_require__(251);
 var React = __webpack_require__(1);
-var DateUtils_1 = __webpack_require__(57);
-var ToolbarWithProgress_1 = __webpack_require__(179);
+var DateUtils_1 = __webpack_require__(58);
+var ToolbarWithProgress_1 = __webpack_require__(181);
 var MonthToolbar = (function (_super) {
     __extends(MonthToolbar, _super);
     function MonthToolbar() {
@@ -283,17 +295,17 @@ exports.MonthToolbar = MonthToolbar;
 
 /***/ }),
 
-/***/ 422:
+/***/ 412:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var react_router_redux_1 = __webpack_require__(87);
+var react_router_redux_1 = __webpack_require__(86);
 var redux_1 = __webpack_require__(111);
-var createLogger = __webpack_require__(182);
-var redux_persist_1 = __webpack_require__(183);
-var KintaiReducer_1 = __webpack_require__(825);
-var ViewReducer_1 = __webpack_require__(826);
+var createLogger = __webpack_require__(184);
+var redux_persist_1 = __webpack_require__(185);
+var KintaiReducer_1 = __webpack_require__(815);
+var ViewReducer_1 = __webpack_require__(816);
 // weinreでConsoleデバッグができるようにredux-loggerがconsole.logを呼び出すように変更
 var logger = createLogger({
     level: "log",
@@ -319,14 +331,14 @@ exports.default = store;
 
 /***/ }),
 
-/***/ 423:
+/***/ 413:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var react_router_1 = __webpack_require__(88);
-var actions = __webpack_require__(177);
-var ApiClient_1 = __webpack_require__(816);
+var react_router_1 = __webpack_require__(87);
+var actions = __webpack_require__(179);
+var ApiClient_1 = __webpack_require__(806);
 var DispatchActions = (function () {
     function DispatchActions(dispatch) {
         this.dispatch = dispatch;
@@ -430,20 +442,11 @@ var DispatchActions = (function () {
     DispatchActions.prototype.inputDefaultWorkCode = function (defaultWorkCode) {
         this.dispatch(actions.InputDefaultWorkCodeAction.create(defaultWorkCode));
     };
-    DispatchActions.prototype.toggleRest2 = function (date) {
-        this.dispatch(actions.ToggleRest2Action.create(date));
-    };
-    DispatchActions.prototype.toggleRest3 = function (date) {
-        this.dispatch(actions.ToggleRest3Action.create(date));
-    };
-    DispatchActions.prototype.toggleRest4 = function (date) {
-        this.dispatch(actions.ToggleRest4Action.create(date));
-    };
-    DispatchActions.prototype.toggleRest5 = function (date) {
-        this.dispatch(actions.ToggleRest5Action.create(date));
-    };
-    DispatchActions.prototype.toggleRest6 = function (date) {
-        this.dispatch(actions.ToggleRest6Action.create(date));
+    DispatchActions.prototype.toggleRest = function (date, restNumber) {
+        this.dispatch(actions.ToggleRestAction.create({
+            date: date,
+            restNumber: restNumber,
+        }));
     };
     return DispatchActions;
 }());
@@ -452,7 +455,7 @@ exports.DispatchActions = DispatchActions;
 
 /***/ }),
 
-/***/ 424:
+/***/ 414:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -472,8 +475,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 var AppBar_1 = __webpack_require__(95);
 var React = __webpack_require__(1);
-var ToolbarWithProgress_1 = __webpack_require__(179);
-var Main_1 = __webpack_require__(817);
+var ToolbarWithProgress_1 = __webpack_require__(181);
+var Main_1 = __webpack_require__(807);
 var CommonPage = (function (_super) {
     __extends(CommonPage, _super);
     function CommonPage() {
@@ -492,7 +495,7 @@ exports.CommonPage = CommonPage;
 
 /***/ }),
 
-/***/ 425:
+/***/ 415:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -511,8 +514,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var Main_1 = __webpack_require__(819);
-var Toolbar_1 = __webpack_require__(821);
+var Main_1 = __webpack_require__(809);
+var Toolbar_1 = __webpack_require__(811);
 var InputPage = (function (_super) {
     __extends(InputPage, _super);
     function InputPage() {
@@ -530,7 +533,7 @@ exports.InputPage = InputPage;
 
 /***/ }),
 
-/***/ 426:
+/***/ 416:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -549,8 +552,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var MonthToolbar_1 = __webpack_require__(420);
-var Main_1 = __webpack_require__(822);
+var MonthToolbar_1 = __webpack_require__(410);
+var Main_1 = __webpack_require__(812);
 var ListPage = (function (_super) {
     __extends(ListPage, _super);
     function ListPage() {
@@ -568,7 +571,7 @@ exports.ListPage = ListPage;
 
 /***/ }),
 
-/***/ 427:
+/***/ 417:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -587,8 +590,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var FooterTab_1 = __webpack_require__(818);
-var SendStatus_1 = __webpack_require__(823);
+var FooterTab_1 = __webpack_require__(808);
+var SendStatus_1 = __webpack_require__(813);
 var Root = (function (_super) {
     __extends(Root, _super);
     function Root() {
@@ -607,7 +610,7 @@ exports.Root = Root;
 
 /***/ }),
 
-/***/ 428:
+/***/ 418:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -626,8 +629,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 var React = __webpack_require__(1);
-var MonthToolbar_1 = __webpack_require__(420);
-var Main_1 = __webpack_require__(824);
+var MonthToolbar_1 = __webpack_require__(410);
+var Main_1 = __webpack_require__(814);
 var SendPage = (function (_super) {
     __extends(SendPage, _super);
     function SendPage() {
@@ -645,15 +648,15 @@ exports.SendPage = SendPage;
 
 /***/ }),
 
-/***/ 57:
+/***/ 58:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var japanese_holidays_1 = __webpack_require__(180);
+var japanese_holidays_1 = __webpack_require__(182);
 var colors_1 = __webpack_require__(100);
-var moment = __webpack_require__(3);
-__webpack_require__(151);
+var moment = __webpack_require__(2);
+__webpack_require__(152);
 moment.locale("ja");
 function toDayString(date) {
     return moment(date).format("YYYYMMDD");
@@ -749,7 +752,7 @@ exports.getDayColor = getDayColor;
 
 /***/ }),
 
-/***/ 638:
+/***/ 629:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -763,11 +766,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -788,7 +791,7 @@ exports.default = ActionList;
 
 /***/ }),
 
-/***/ 639:
+/***/ 630:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -802,11 +805,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -827,7 +830,7 @@ exports.default = ActionSchedule;
 
 /***/ }),
 
-/***/ 640:
+/***/ 631:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -841,11 +844,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -866,7 +869,7 @@ exports.default = ActionUpdate;
 
 /***/ }),
 
-/***/ 641:
+/***/ 632:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -880,11 +883,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -905,7 +908,7 @@ exports.default = ContentSend;
 
 /***/ }),
 
-/***/ 644:
+/***/ 635:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -919,11 +922,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -944,7 +947,7 @@ exports.default = ImageEdit;
 
 /***/ }),
 
-/***/ 645:
+/***/ 636:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -958,11 +961,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -983,7 +986,7 @@ exports.default = ImageWbSunny;
 
 /***/ }),
 
-/***/ 646:
+/***/ 637:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -997,11 +1000,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -1022,7 +1025,7 @@ exports.default = MapsHotel;
 
 /***/ }),
 
-/***/ 647:
+/***/ 638:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1036,11 +1039,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -1061,7 +1064,7 @@ exports.default = MapsRestaurantMenu;
 
 /***/ }),
 
-/***/ 656:
+/***/ 647:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1075,11 +1078,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -1100,7 +1103,7 @@ exports.default = NotificationAirlineSeatReclineNormal;
 
 /***/ }),
 
-/***/ 657:
+/***/ 648:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1114,11 +1117,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -1139,7 +1142,7 @@ exports.default = PlacesFreeBreakfast;
 
 /***/ }),
 
-/***/ 658:
+/***/ 649:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1153,11 +1156,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -1179,7 +1182,7 @@ exports.default = PlacesHotTub;
 
 /***/ }),
 
-/***/ 659:
+/***/ 650:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1193,11 +1196,11 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _pure = __webpack_require__(17);
+var _pure = __webpack_require__(16);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(15);
+var _SvgIcon = __webpack_require__(14);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -1218,13 +1221,13 @@ exports.default = SocialPerson;
 
 /***/ }),
 
-/***/ 816:
+/***/ 806:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-__webpack_require__(184);
-var DateUtils_1 = __webpack_require__(57);
+__webpack_require__(186);
+var DateUtils_1 = __webpack_require__(58);
 var KintaiUtils_1 = __webpack_require__(109);
 function sendMonthKintai(kintai, month, password) {
     var body = createBody(kintai, month, password);
@@ -1290,7 +1293,7 @@ function toWorkInfo(date, dayKintai, person) {
 
 /***/ }),
 
-/***/ 817:
+/***/ 807:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1300,8 +1303,8 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var MenuItem_1 = __webpack_require__(78);
-var SelectField_1 = __webpack_require__(144);
+var MenuItem_1 = __webpack_require__(79);
+var SelectField_1 = __webpack_require__(146);
 var TextField_1 = __webpack_require__(42);
 var React = __webpack_require__(1);
 var Main = (function (_super) {
@@ -1379,7 +1382,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 818:
+/***/ 808:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1389,12 +1392,12 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var BottomNavigation_1 = __webpack_require__(221);
-var Divider_1 = __webpack_require__(137);
-var list_1 = __webpack_require__(638);
-var send_1 = __webpack_require__(641);
-var edit_1 = __webpack_require__(644);
-var person_1 = __webpack_require__(659);
+var BottomNavigation_1 = __webpack_require__(218);
+var Divider_1 = __webpack_require__(139);
+var list_1 = __webpack_require__(629);
+var send_1 = __webpack_require__(632);
+var edit_1 = __webpack_require__(635);
+var person_1 = __webpack_require__(650);
 var React = __webpack_require__(1);
 var FooterTab = (function (_super) {
     __extends(FooterTab, _super);
@@ -1447,7 +1450,7 @@ exports.FooterTab = FooterTab;
 
 /***/ }),
 
-/***/ 819:
+/***/ 809:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1457,17 +1460,17 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var RaisedButton_1 = __webpack_require__(143);
-var wb_sunny_1 = __webpack_require__(645);
-var hotel_1 = __webpack_require__(646);
-var restaurant_menu_1 = __webpack_require__(647);
-var airline_seat_recline_normal_1 = __webpack_require__(656);
-var free_breakfast_1 = __webpack_require__(657);
-var hot_tub_1 = __webpack_require__(658);
+var RaisedButton_1 = __webpack_require__(145);
+var wb_sunny_1 = __webpack_require__(636);
+var hotel_1 = __webpack_require__(637);
+var restaurant_menu_1 = __webpack_require__(638);
+var airline_seat_recline_normal_1 = __webpack_require__(647);
+var free_breakfast_1 = __webpack_require__(648);
+var hot_tub_1 = __webpack_require__(649);
 var TextField_1 = __webpack_require__(42);
 var React = __webpack_require__(1);
 var KintaiUtils_1 = __webpack_require__(109);
-var TimeInput_1 = __webpack_require__(820);
+var TimeInput_1 = __webpack_require__(810);
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
@@ -1481,34 +1484,39 @@ var Main = (function (_super) {
         var rest4Icon = currentKintai.noRest4 ? React.createElement(airline_seat_recline_normal_1.default, null) : React.createElement(hot_tub_1.default, null);
         var rest5Icon = currentKintai.noRest5 ? React.createElement(airline_seat_recline_normal_1.default, null) : React.createElement(hotel_1.default, null);
         var rest6Icon = currentKintai.noRest6 ? React.createElement(airline_seat_recline_normal_1.default, null) : React.createElement(wb_sunny_1.default, null);
+        var showRest2 = KintaiUtils_1.isRestAvailable(currentKintai.outTime, 2);
+        var showRest3 = KintaiUtils_1.isRestAvailable(currentKintai.outTime, 3);
+        var showRest4 = KintaiUtils_1.isRestAvailable(currentKintai.outTime, 4);
+        var showRest5 = KintaiUtils_1.isRestAvailable(currentKintai.outTime, 5);
+        var showRest6 = KintaiUtils_1.isRestAvailable(currentKintai.outTime, 6);
         return (React.createElement("div", { className: "content" },
             React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.IN, value: currentKintai.inTime, onSelected: function (value) { return _this.handleInSelected(value); } }),
             React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.OUT, value: currentKintai.outTime, onSelected: function (value) { return _this.handleOutSelected(value); } }),
-            React.createElement("span", { style: { display: currentKintai.showRest2 ? "" : "none" } },
+            React.createElement("span", { style: { display: showRest2 ? "" : "none" } },
                 React.createElement(RaisedButton_1.default, { label: React.createElement("div", { style: { textAlign: "center" } },
                         "17:45",
                         React.createElement("br", null),
-                        "18:00"), icon: rest2Icon, secondary: currentKintai.noRest2, onTouchTap: function (event) { return _this.handleRestToggle(event, "2"); }, style: { height: "70px", margin: 5 } })),
-            React.createElement("span", { style: { display: currentKintai.showRest3 ? "" : "none" } },
+                        "18:00"), icon: rest2Icon, secondary: currentKintai.noRest2, onTouchTap: function (event) { return _this.handleRestToggle(event, 2); }, style: { height: "70px", margin: 5 } })),
+            React.createElement("span", { style: { display: showRest3 ? "" : "none" } },
                 React.createElement(RaisedButton_1.default, { label: React.createElement("div", { style: { textAlign: "center" } },
                         "19:30",
                         React.createElement("br", null),
-                        "20:00"), icon: rest3Icon, secondary: currentKintai.noRest3, onTouchTap: function (event) { return _this.handleRestToggle(event, "3"); }, style: { height: "70px", margin: 5 } })),
-            React.createElement("span", { style: { display: currentKintai.showRest4 ? "" : "none" } },
+                        "20:00"), icon: rest3Icon, secondary: currentKintai.noRest3, onTouchTap: function (event) { return _this.handleRestToggle(event, 3); }, style: { height: "70px", margin: 5 } })),
+            React.createElement("span", { style: { display: showRest4 ? "" : "none" } },
                 React.createElement(RaisedButton_1.default, { label: React.createElement("div", { style: { textAlign: "center" } },
                         "22:00",
                         React.createElement("br", null),
-                        "22:15"), icon: rest4Icon, secondary: currentKintai.noRest4, onTouchTap: function (event) { return _this.handleRestToggle(event, "4"); }, style: { height: "70px", margin: 5 } })),
-            React.createElement("span", { style: { display: currentKintai.showRest5 ? "" : "none" } },
+                        "22:15"), icon: rest4Icon, secondary: currentKintai.noRest4, onTouchTap: function (event) { return _this.handleRestToggle(event, 4); }, style: { height: "70px", margin: 5 } })),
+            React.createElement("span", { style: { display: showRest5 ? "" : "none" } },
                 React.createElement(RaisedButton_1.default, { label: React.createElement("div", { style: { textAlign: "center" } },
                         "02:30",
                         React.createElement("br", null),
-                        "03:00"), icon: rest5Icon, secondary: currentKintai.noRest5, onTouchTap: function (event) { return _this.handleRestToggle(event, "5"); }, style: { height: "70px", margin: 5 } })),
-            React.createElement("span", { style: { display: currentKintai.showRest6 ? "" : "none" } },
+                        "03:00"), icon: rest5Icon, secondary: currentKintai.noRest5, onTouchTap: function (event) { return _this.handleRestToggle(event, 5); }, style: { height: "70px", margin: 5 } })),
+            React.createElement("span", { style: { display: showRest6 ? "" : "none" } },
                 React.createElement(RaisedButton_1.default, { label: React.createElement("div", { style: { textAlign: "center" } },
                         "08:30",
                         React.createElement("br", null),
-                        "09:00"), icon: rest6Icon, secondary: currentKintai.noRest6, onTouchTap: function (event) { return _this.handleRestToggle(event, "6"); }, style: { height: "70px", margin: 5 } })),
+                        "09:00"), icon: rest6Icon, secondary: currentKintai.noRest6, onTouchTap: function (event) { return _this.handleRestToggle(event, 6); }, style: { height: "70px", margin: 5 } })),
             React.createElement(TextField_1.default, { multiLine: true, fullWidth: true, hintText: "メモ（勤務表には反映されません）", value: currentKintai.memo, onChange: function (_, value) { return _this.handleMemoChange(value); } })));
     };
     Main.prototype.handleInSelected = function (value) {
@@ -1520,33 +1528,9 @@ var Main = (function (_super) {
     Main.prototype.handleMemoChange = function (value) {
         this.props.actions.inputMemo(this.props.value.view.currentDate, value);
     };
-    Main.prototype.handleRestToggle = function (event, resttype) {
+    Main.prototype.handleRestToggle = function (event, restNumber) {
         event.preventDefault();
-        switch (resttype) {
-            case "2": {
-                this.props.actions.toggleRest2(this.props.value.view.currentDate);
-                break;
-            }
-            case "3": {
-                this.props.actions.toggleRest3(this.props.value.view.currentDate);
-                break;
-            }
-            case "4": {
-                this.props.actions.toggleRest4(this.props.value.view.currentDate);
-                break;
-            }
-            case "5": {
-                this.props.actions.toggleRest5(this.props.value.view.currentDate);
-                break;
-            }
-            case "6": {
-                this.props.actions.toggleRest6(this.props.value.view.currentDate);
-                break;
-            }
-            default: {
-                break;
-            }
-        }
+        this.props.actions.toggleRest(this.props.value.view.currentDate, restNumber);
     };
     return Main;
 }(React.Component));
@@ -1555,7 +1539,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 820:
+/***/ 810:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1566,12 +1550,12 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var IconButton_1 = __webpack_require__(35);
-var MenuItem_1 = __webpack_require__(78);
-var SelectField_1 = __webpack_require__(144);
-var schedule_1 = __webpack_require__(639);
-var update_1 = __webpack_require__(640);
+var MenuItem_1 = __webpack_require__(79);
+var SelectField_1 = __webpack_require__(146);
+var schedule_1 = __webpack_require__(630);
+var update_1 = __webpack_require__(631);
 var React = __webpack_require__(1);
-var DateUtils_1 = __webpack_require__(57);
+var DateUtils_1 = __webpack_require__(58);
 var TIMES = [":00", ":15", ":30", ":45"];
 var REGULAR_TIME_IN = "9:00";
 var REGULAR_TIME_OUT = "17:45";
@@ -1638,7 +1622,7 @@ exports.TimeInput = TimeInput;
 
 /***/ }),
 
-/***/ 821:
+/***/ 811:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1658,11 +1642,11 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 var AppBar_1 = __webpack_require__(95);
 var IconButton_1 = __webpack_require__(35);
-var keyboard_arrow_left_1 = __webpack_require__(259);
-var keyboard_arrow_right_1 = __webpack_require__(260);
+var keyboard_arrow_left_1 = __webpack_require__(250);
+var keyboard_arrow_right_1 = __webpack_require__(251);
 var React = __webpack_require__(1);
-var DateUtils_1 = __webpack_require__(57);
-var ToolbarWithProgress_1 = __webpack_require__(179);
+var DateUtils_1 = __webpack_require__(58);
+var ToolbarWithProgress_1 = __webpack_require__(181);
 var Toolbar = (function (_super) {
     __extends(Toolbar, _super);
     function Toolbar() {
@@ -1709,7 +1693,7 @@ exports.Toolbar = Toolbar;
 
 /***/ }),
 
-/***/ 822:
+/***/ 812:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1719,9 +1703,9 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var List_1 = __webpack_require__(231);
+var List_1 = __webpack_require__(228);
 var React = __webpack_require__(1);
-var DateUtils_1 = __webpack_require__(57);
+var DateUtils_1 = __webpack_require__(58);
 var KintaiUtils_1 = __webpack_require__(109);
 var Main = (function (_super) {
     __extends(Main, _super);
@@ -1766,7 +1750,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 823:
+/***/ 813:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1777,7 +1761,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Dialog_1 = __webpack_require__(96);
-var Snackbar_1 = __webpack_require__(236);
+var Snackbar_1 = __webpack_require__(233);
 var React = __webpack_require__(1);
 var SendStatus = (function (_super) {
     __extends(SendStatus, _super);
@@ -1803,7 +1787,7 @@ exports.SendStatus = SendStatus;
 
 /***/ }),
 
-/***/ 824:
+/***/ 814:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1813,7 +1797,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var RaisedButton_1 = __webpack_require__(143);
+var RaisedButton_1 = __webpack_require__(145);
 var TextField_1 = __webpack_require__(42);
 var React = __webpack_require__(1);
 var Main = (function (_super) {
@@ -1849,7 +1833,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 825:
+/***/ 815:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1862,9 +1846,9 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var actions = __webpack_require__(177);
-var redux_commons_1 = __webpack_require__(178);
-var DateUtils_1 = __webpack_require__(57);
+var actions = __webpack_require__(179);
+var redux_commons_1 = __webpack_require__(180);
+var DateUtils_1 = __webpack_require__(58);
 var KintaiUtils_1 = __webpack_require__(109);
 var initialState = {
     person: {
@@ -1888,18 +1872,7 @@ exports.kintai = redux_commons_1.createReducer(initialState, function (handle) {
         return updateDayKintai(state, selectedTime.date, { inTime: selectedTime.time });
     });
     handle(actions.SelectOutAction, function (state, selectedTime) {
-        // 時刻を比較しやすいように4桁なら先頭に0をつけて5桁にしておく
-        var time = selectedTime.time;
-        if (time.length === 4) {
-            time = "0" + time;
-        }
-        var showRest2 = time > "17:45" || time <= "09:00";
-        var showRest3 = time > "19:30" || time <= "09:00";
-        var showRest4 = time > "22:00" || time <= "09:00";
-        var showRest5 = time > "02:30" && time <= "09:00";
-        var showRest6 = time > "08:30" && time <= "09:00";
-        return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time,
-            showRest2: showRest2, showRest3: showRest3, showRest4: showRest4, showRest5: showRest5, showRest6: showRest6 });
+        return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time });
     });
     handle(actions.InputMemoAction, function (state, memo) {
         return updateDayKintai(state, memo.date, { memo: memo.text });
@@ -1952,30 +1925,27 @@ exports.kintai = redux_commons_1.createReducer(initialState, function (handle) {
         var person = __assign({}, state.person, { defaultWorkCode: defaultWorkCode });
         return __assign({}, state, { person: person });
     });
-    handle(actions.ToggleRest2Action, function (state, date) {
-        var oldDayKintai = KintaiUtils_1.getDayKintai(state, date);
-        var oldNoRest2 = oldDayKintai ? oldDayKintai.noRest2 : false;
-        return updateDayKintai(state, date, { noRest2: !oldNoRest2 });
-    });
-    handle(actions.ToggleRest3Action, function (state, date) {
-        var oldDayKintai = KintaiUtils_1.getDayKintai(state, date);
-        var oldNoRest3 = oldDayKintai ? oldDayKintai.noRest3 : false;
-        return updateDayKintai(state, date, { noRest3: !oldNoRest3 });
-    });
-    handle(actions.ToggleRest4Action, function (state, date) {
-        var oldDayKintai = KintaiUtils_1.getDayKintai(state, date);
-        var oldNoRest4 = oldDayKintai ? oldDayKintai.noRest4 : false;
-        return updateDayKintai(state, date, { noRest4: !oldNoRest4 });
-    });
-    handle(actions.ToggleRest5Action, function (state, date) {
-        var oldDayKintai = KintaiUtils_1.getDayKintai(state, date);
-        var oldNoRest5 = oldDayKintai ? oldDayKintai.noRest5 : false;
-        return updateDayKintai(state, date, { noRest5: !oldNoRest5 });
-    });
-    handle(actions.ToggleRest6Action, function (state, date) {
-        var oldDayKintai = KintaiUtils_1.getDayKintai(state, date);
-        var oldNoRest6 = oldDayKintai ? oldDayKintai.noRest6 : false;
-        return updateDayKintai(state, date, { noRest6: !oldNoRest6 });
+    handle(actions.ToggleRestAction, function (state, dateRest) {
+        var oldDayKintai = KintaiUtils_1.getDayKintai(state, dateRest.date);
+        switch (dateRest.restNumber) {
+            case 2:
+                var oldNoRest2 = oldDayKintai ? oldDayKintai.noRest2 : false;
+                return updateDayKintai(state, dateRest.date, { noRest2: !oldNoRest2 });
+            case 3:
+                var oldNoRest3 = oldDayKintai ? oldDayKintai.noRest3 : false;
+                return updateDayKintai(state, dateRest.date, { noRest3: !oldNoRest3 });
+            case 4:
+                var oldNoRest4 = oldDayKintai ? oldDayKintai.noRest4 : false;
+                return updateDayKintai(state, dateRest.date, { noRest4: !oldNoRest4 });
+            case 5:
+                var oldNoRest5 = oldDayKintai ? oldDayKintai.noRest5 : false;
+                return updateDayKintai(state, dateRest.date, { noRest5: !oldNoRest5 });
+            case 6:
+                var oldNoRest6 = oldDayKintai ? oldDayKintai.noRest6 : false;
+                return updateDayKintai(state, dateRest.date, { noRest6: !oldNoRest6 });
+            default:
+                throw new Error("invalid restNumber: " + dateRest.restNumber);
+        }
     });
 });
 function updateDayKintai(state, date, partialDayKintai) {
@@ -1989,7 +1959,7 @@ function updateDayKintai(state, date, partialDayKintai) {
 
 /***/ }),
 
-/***/ 826:
+/***/ 816:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2002,8 +1972,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     }
     return t;
 };
-var actions = __webpack_require__(177);
-var redux_commons_1 = __webpack_require__(178);
+var actions = __webpack_require__(179);
+var redux_commons_1 = __webpack_require__(180);
 var initialState = {
     currentDate: new Date(),
     password: "",
@@ -2038,25 +2008,25 @@ exports.view = redux_commons_1.createReducer(initialState, function (handle) {
 
 /***/ }),
 
-/***/ 828:
+/***/ 818:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var MuiThemeProvider_1 = __webpack_require__(181);
+var MuiThemeProvider_1 = __webpack_require__(183);
 var React = __webpack_require__(1);
-var ReactDOM = __webpack_require__(20);
+var ReactDOM = __webpack_require__(18);
 var react_redux_1 = __webpack_require__(112);
-var react_router_1 = __webpack_require__(88);
-var react_router_redux_1 = __webpack_require__(87);
+var react_router_1 = __webpack_require__(87);
+var react_router_redux_1 = __webpack_require__(86);
 var injectTapEventPlugin = __webpack_require__(113);
-var DispatchActions_1 = __webpack_require__(423);
-var CommonPage_1 = __webpack_require__(424);
-var InputPage_1 = __webpack_require__(425);
-var ListPage_1 = __webpack_require__(426);
-var Root_1 = __webpack_require__(427);
-var SendPage_1 = __webpack_require__(428);
-var Store_1 = __webpack_require__(422);
+var DispatchActions_1 = __webpack_require__(413);
+var CommonPage_1 = __webpack_require__(414);
+var InputPage_1 = __webpack_require__(415);
+var ListPage_1 = __webpack_require__(416);
+var Root_1 = __webpack_require__(417);
+var SendPage_1 = __webpack_require__(418);
+var Store_1 = __webpack_require__(412);
 injectTapEventPlugin();
 var connector = react_redux_1.connect(function (store) { return ({ value: store }); }, function (dispatch) { return ({ actions: new DispatchActions_1.DispatchActions(dispatch) }); });
 var RootComponent = connector(Root_1.Root);
@@ -2077,5 +2047,5 @@ ReactDOM.render(React.createElement(react_redux_1.Provider, { store: Store_1.def
 
 /***/ })
 
-},[828]);
+},[818]);
 //# sourceMappingURL=app.js.map

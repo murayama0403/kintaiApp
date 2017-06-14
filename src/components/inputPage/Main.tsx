@@ -8,8 +8,9 @@ import PlacesFreeBreakfast from "material-ui/svg-icons/places/free-breakfast"
 import PlacesHotTub from "material-ui/svg-icons/places/hot-tub"
 import TextField from "material-ui/TextField"
 import * as React from "react"
+import { RestNumber } from "../../constants/KintaiConstants"
 import { RootProps } from "../../RootProps"
-import { getDayKintaiOrDefault } from "../../utils/KintaiUtils"
+import { getDayKintaiOrDefault, isRestAvailable } from "../../utils/KintaiUtils"
 import { IN, OUT, TimeInput } from "./TimeInput"
 
 export class Main extends React.Component<RootProps, {}> {
@@ -20,15 +21,11 @@ export class Main extends React.Component<RootProps, {}> {
         const rest4Icon = currentKintai.noRest4 ? <WorkIcon /> : <PlacesHotTub />
         const rest5Icon = currentKintai.noRest5 ? <WorkIcon /> : <Hotel />
         const rest6Icon = currentKintai.noRest6 ? <WorkIcon /> : <Sunny />
-        let time = currentKintai.outTime
-        if (time.length === 4) {
-            time = "0" + time
-        }
-        const showRest2 = time > "17:45" || time <= "09:00" && time !== ""
-        const showRest3 = time > "19:30" || time <= "09:00" && time !== ""
-        const showRest4 = time > "22:00" || time <= "09:00" && time !== ""
-        const showRest5 = time > "02:30" && time <= "09:00"
-        const showRest6 = time > "08:30" && time <= "09:00"
+        const showRest2 = isRestAvailable(currentKintai.outTime, 2)
+        const showRest3 = isRestAvailable(currentKintai.outTime, 3)
+        const showRest4 = isRestAvailable(currentKintai.outTime, 4)
+        const showRest5 = isRestAvailable(currentKintai.outTime, 5)
+        const showRest6 = isRestAvailable(currentKintai.outTime, 6)
 
         return (
             <div className="content">
@@ -45,7 +42,7 @@ export class Main extends React.Component<RootProps, {}> {
                         label={<div style={{ textAlign: "center" }}>17:45<br />18:00</div>}
                         icon={rest2Icon}
                         secondary={currentKintai.noRest2}
-                        onTouchTap={(event) => this.handleRestToggle(event, "2")}
+                        onTouchTap={(event) => this.handleRestToggle(event, 2)}
                         style={{ height: "70px", margin: 5 }} />
                 </span>
                 <span style={{ display: showRest3 ? "" : "none" }}>
@@ -53,7 +50,7 @@ export class Main extends React.Component<RootProps, {}> {
                         label={<div style={{ textAlign: "center" }}>19:30<br />20:00</div>}
                         icon={rest3Icon}
                         secondary={currentKintai.noRest3}
-                        onTouchTap={(event) => this.handleRestToggle(event, "3")}
+                        onTouchTap={(event) => this.handleRestToggle(event, 3)}
                         style={{ height: "70px", margin: 5 }} />
                 </span>
                 <span style={{ display: showRest4 ? "" : "none" }}>
@@ -61,7 +58,7 @@ export class Main extends React.Component<RootProps, {}> {
                         label={<div style={{ textAlign: "center" }}>22:00<br />22:15</div>}
                         icon={rest4Icon}
                         secondary={currentKintai.noRest4}
-                        onTouchTap={(event) => this.handleRestToggle(event, "4")}
+                        onTouchTap={(event) => this.handleRestToggle(event, 4)}
                         style={{ height: "70px", margin: 5 }} />
                 </span>
                 <span style={{ display: showRest5 ? "" : "none" }}>
@@ -69,7 +66,7 @@ export class Main extends React.Component<RootProps, {}> {
                         label={<div style={{ textAlign: "center" }}>02:30<br />03:00</div>}
                         icon={rest5Icon}
                         secondary={currentKintai.noRest5}
-                        onTouchTap={(event) => this.handleRestToggle(event, "5")}
+                        onTouchTap={(event) => this.handleRestToggle(event, 5)}
                         style={{ height: "70px", margin: 5 }} />
                 </span>
                 <span style={{ display: showRest6 ? "" : "none" }}>
@@ -77,7 +74,7 @@ export class Main extends React.Component<RootProps, {}> {
                         label={<div style={{ textAlign: "center" }}>08:30<br />09:00</div>}
                         icon={rest6Icon}
                         secondary={currentKintai.noRest6}
-                        onTouchTap={(event) => this.handleRestToggle(event, "6")}
+                        onTouchTap={(event) => this.handleRestToggle(event, 6)}
                         style={{ height: "70px", margin: 5 }} />
                 </span>
                 <TextField
@@ -102,8 +99,8 @@ export class Main extends React.Component<RootProps, {}> {
         this.props.actions.inputMemo(this.props.value.view.currentDate, value)
     }
 
-    private handleRestToggle(event: TouchTapEvent, resttype: string) {
+    private handleRestToggle(event: TouchTapEvent, restNumber: RestNumber) {
         event.preventDefault()
-        this.props.actions.toggleRest(this.props.value.view.currentDate, resttype)
+        this.props.actions.toggleRest(this.props.value.view.currentDate, restNumber)
     }
 }

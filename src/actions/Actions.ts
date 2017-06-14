@@ -1,4 +1,5 @@
 import { action } from "../commons/redux-commons"
+import { RestNumber } from "../constants/KintaiConstants"
 
 interface SelectedTime {
     date: Date
@@ -10,9 +11,9 @@ interface DateText {
     text: string
 }
 
-interface DateRestType {
+interface DateRestNumber {
     date: Date
-    resttype: string
+    restNumber: RestNumber
 }
 
 export const SelectInAction = action<SelectedTime>("SelectIn")
@@ -37,4 +38,4 @@ export const InputManager2Action = action<string>("InputManager2")
 export const InputManager2PeriodAction = action<string>("InputManager2Period")
 export const InputDefaultProjectNoAction = action<string>("InputDefaultProjectNo")
 export const InputDefaultWorkCodeAction = action<string>("InputDefaultWorkCode")
-export const ToggleRestAction = action<DateRestType>("ToggleRest")
+export const ToggleRestAction = action<DateRestNumber>("ToggleRest")

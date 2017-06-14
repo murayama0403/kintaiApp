@@ -2,6 +2,7 @@ import { hashHistory } from "react-router"
 import * as actions from "../actions/Actions"
 import { sendMonthKintai } from "../clients/ApiClient"
 import { Action } from "../commons/redux-commons"
+import { RestNumber } from "../constants/KintaiConstants"
 import { KintaiState } from "../states/States"
 
 export class DispatchActions {
@@ -132,10 +133,10 @@ export class DispatchActions {
         this.dispatch(actions.InputDefaultWorkCodeAction.create(defaultWorkCode))
     }
 
-    public toggleRest(date: Date, resttype: string) {
+    public toggleRest(date: Date, restNumber: RestNumber) {
         this.dispatch(actions.ToggleRestAction.create({
             date,
-            resttype,
+            restNumber,
         }))
     }
 

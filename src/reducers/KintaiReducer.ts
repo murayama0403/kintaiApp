@@ -80,26 +80,26 @@ export const kintai = createReducer(initialState, (handle) => {
         const person = { ...state.person, defaultWorkCode }
         return { ...state, person }
     })
-    handle(actions.ToggleRestAction, (state, daterest) => {
-        const oldDayKintai = getDayKintai(state, daterest.date)
-        switch (daterest.resttype) {
-            case "2":
+    handle(actions.ToggleRestAction, (state, dateRest) => {
+        const oldDayKintai = getDayKintai(state, dateRest.date)
+        switch (dateRest.restNumber) {
+            case 2:
                 const oldNoRest2 = oldDayKintai ? oldDayKintai.noRest2 : false
-                return updateDayKintai(state, daterest.date, { noRest2: !oldNoRest2 })
-            case "3":
+                return updateDayKintai(state, dateRest.date, { noRest2: !oldNoRest2 })
+            case 3:
                 const oldNoRest3 = oldDayKintai ? oldDayKintai.noRest3 : false
-                return updateDayKintai(state, daterest.date, { noRest3: !oldNoRest3 })
-            case "4":
+                return updateDayKintai(state, dateRest.date, { noRest3: !oldNoRest3 })
+            case 4:
                 const oldNoRest4 = oldDayKintai ? oldDayKintai.noRest4 : false
-                return updateDayKintai(state, daterest.date, { noRest4: !oldNoRest4 })
-            case "5":
+                return updateDayKintai(state, dateRest.date, { noRest4: !oldNoRest4 })
+            case 5:
                 const oldNoRest5 = oldDayKintai ? oldDayKintai.noRest5 : false
-                return updateDayKintai(state, daterest.date, { noRest5: !oldNoRest5 })
-            case "6":
+                return updateDayKintai(state, dateRest.date, { noRest5: !oldNoRest5 })
+            case 6:
                 const oldNoRest6 = oldDayKintai ? oldDayKintai.noRest6 : false
-                return updateDayKintai(state, daterest.date, { noRest6: !oldNoRest6 })
+                return updateDayKintai(state, dateRest.date, { noRest6: !oldNoRest6 })
             default:
-                return updateDayKintai(state, daterest.date, {})
+                throw new Error("invalid restNumber: " + dateRest.restNumber)
         }
     })
 })

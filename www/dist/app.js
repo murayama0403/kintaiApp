@@ -1,12 +1,12 @@
 webpackJsonp([0],{
 
-/***/ 111:
+/***/ 103:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var DateUtils_1 = __webpack_require__(55);
+var DateUtils_1 = __webpack_require__(52);
 var defaultDayKintai = {
     inTime: "",
     outTime: "",
@@ -30,13 +30,13 @@ exports.getDayKintaiOrDefault = getDayKintaiOrDefault;
 
 /***/ }),
 
-/***/ 175:
+/***/ 158:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var redux_commons_1 = __webpack_require__(176);
+var redux_commons_1 = __webpack_require__(159);
 exports.SelectInAction = redux_commons_1.action("SelectIn");
 exports.SelectOutAction = redux_commons_1.action("SelectOut");
 exports.MoveCurrentDateAction = redux_commons_1.action("MoveCurrentDate");
@@ -65,7 +65,7 @@ exports.InputDefaultWorkCodeAction = redux_commons_1.action("InputDefaultWorkCod
 
 /***/ }),
 
-/***/ 176:
+/***/ 159:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -105,7 +105,7 @@ exports.createReducer = createReducer;
 
 /***/ }),
 
-/***/ 177:
+/***/ 163:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -121,7 +121,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var LinearProgress_1 = __webpack_require__(229);
+var LinearProgress_1 = __webpack_require__(382);
 var React = __webpack_require__(1);
 var ToolbarWithProgress = (function (_super) {
     __extends(ToolbarWithProgress, _super);
@@ -141,7 +141,7 @@ exports.ToolbarWithProgress = ToolbarWithProgress;
 
 /***/ }),
 
-/***/ 258:
+/***/ 388:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -180,7 +180,7 @@ exports.default = HardwareKeyboardArrowLeft;
 
 /***/ }),
 
-/***/ 259:
+/***/ 389:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -219,7 +219,7 @@ exports.default = HardwareKeyboardArrowRight;
 
 /***/ }),
 
-/***/ 426:
+/***/ 390:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -243,13 +243,13 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var AppBar_1 = __webpack_require__(96);
-var IconButton_1 = __webpack_require__(33);
-var keyboard_arrow_left_1 = __webpack_require__(258);
-var keyboard_arrow_right_1 = __webpack_require__(259);
+var AppBar_1 = __webpack_require__(104);
+var IconButton_1 = __webpack_require__(35);
+var keyboard_arrow_left_1 = __webpack_require__(388);
+var keyboard_arrow_right_1 = __webpack_require__(389);
 var React = __webpack_require__(1);
-var DateUtils_1 = __webpack_require__(55);
-var ToolbarWithProgress_1 = __webpack_require__(177);
+var DateUtils_1 = __webpack_require__(52);
+var ToolbarWithProgress_1 = __webpack_require__(163);
 var MonthToolbar = (function (_super) {
     __extends(MonthToolbar, _super);
     function MonthToolbar() {
@@ -289,45 +289,156 @@ exports.MonthToolbar = MonthToolbar;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var react_router_redux_1 = __webpack_require__(88);
-var redux_1 = __webpack_require__(113);
-var redux_logger_1 = __webpack_require__(180);
-var redux_persist_1 = __webpack_require__(181);
-var KintaiReducer_1 = __webpack_require__(823);
-var ViewReducer_1 = __webpack_require__(824);
-// weinreでConsoleデバッグができるようにredux-loggerがconsole.logを呼び出すように変更
-var logger = redux_logger_1.createLogger({
-    level: "log",
-    logger: {
-        log: function () {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i] = arguments[_i];
-            }
-            console.log.apply(console, args);
-        },
-    },
-});
-var store = redux_1.createStore(redux_1.combineReducers({
-    kintai: KintaiReducer_1.kintai,
-    routing: react_router_redux_1.routerReducer,
-    view: ViewReducer_1.view,
-}), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), redux_1.compose(redux_persist_1.autoRehydrate(), redux_1.applyMiddleware(logger)));
-redux_persist_1.persistStore(store, { whitelist: ["kintai"] });
-exports.default = store;
+var MuiThemeProvider_1 = __webpack_require__(176);
+var React = __webpack_require__(1);
+var ReactDOM = __webpack_require__(20);
+var react_redux_1 = __webpack_require__(235);
+var react_router_1 = __webpack_require__(148);
+var react_router_redux_1 = __webpack_require__(157);
+var injectTapEventPlugin = __webpack_require__(257);
+var DispatchActions_1 = __webpack_require__(652);
+var CommonPage_1 = __webpack_require__(656);
+var InputPage_1 = __webpack_require__(713);
+var ListPage_1 = __webpack_require__(722);
+var Root_1 = __webpack_require__(724);
+var SendPage_1 = __webpack_require__(740);
+var Store_1 = __webpack_require__(743);
+var FixReactTouchTap_1 = __webpack_require__(751);
+injectTapEventPlugin();
+FixReactTouchTap_1.forceTouchTapPreventDefault();
+var connector = react_redux_1.connect(function (store) { return ({ value: store }); }, function (dispatch) { return ({ actions: new DispatchActions_1.DispatchActions(dispatch) }); });
+var RootComponent = connector(Root_1.Root);
+var InputPageComponent = connector(InputPage_1.InputPage);
+var CommonPageComponent = connector(CommonPage_1.CommonPage);
+var ListPageComponent = connector(ListPage_1.ListPage);
+var SendPageComponent = connector(SendPage_1.SendPage);
+var history = react_router_redux_1.syncHistoryWithStore(react_router_1.hashHistory, Store_1.default);
+ReactDOM.render(React.createElement(react_redux_1.Provider, { store: Store_1.default },
+    React.createElement(MuiThemeProvider_1.default, null,
+        React.createElement(react_router_1.Router, { history: history },
+            React.createElement(react_router_1.Route, { path: "/", component: RootComponent },
+                React.createElement(react_router_1.Route, { path: "/list", component: ListPageComponent }),
+                React.createElement(react_router_1.Route, { path: "/common", component: CommonPageComponent }),
+                React.createElement(react_router_1.Route, { path: "/send", component: SendPageComponent }),
+                React.createElement(react_router_1.IndexRoute, { component: InputPageComponent }))))), document.getElementById("app"));
 
 
 /***/ }),
 
-/***/ 429:
+/***/ 52:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var react_router_1 = __webpack_require__(89);
-var actions = __webpack_require__(175);
-var ApiClient_1 = __webpack_require__(814);
+var japanese_holidays_1 = __webpack_require__(259);
+var colors_1 = __webpack_require__(78);
+var moment = __webpack_require__(3);
+__webpack_require__(160);
+moment.locale("ja");
+function toDayString(date) {
+    return moment(date).format("YYYYMMDD");
+}
+exports.toDayString = toDayString;
+function formatDate(date) {
+    return moment(date).format("M/D(dd)");
+}
+exports.formatDate = formatDate;
+function formatDateForListItem(date) {
+    return moment(date).format("D(dd)");
+}
+exports.formatDateForListItem = formatDateForListItem;
+function formatMonth(date) {
+    return moment(date).format("YYYY/M");
+}
+exports.formatMonth = formatMonth;
+function ceil15Minutes(date) {
+    // 00分は繰り上げしたくないので14分足してから15分の切り捨てをする
+    var plus14 = moment(date).add(14, "minutes").toDate();
+    return floor15Minutes(plus14);
+}
+exports.ceil15Minutes = ceil15Minutes;
+function floor15Minutes(date) {
+    var minutes = Math.floor(date.getMinutes() / 15) * 15;
+    return moment(date).minute(minutes).toDate();
+}
+exports.floor15Minutes = floor15Minutes;
+function moveDates(date, amount) {
+    return moment(date).add(amount, "days").toDate();
+}
+exports.moveDates = moveDates;
+function moveMonths(date, amount) {
+    // 月移動する場合は日付は1日にリセットする
+    return moment(date).add(amount, "months").date(1).toDate();
+}
+exports.moveMonths = moveMonths;
+function formatTime(date) {
+    return moment(date).format("H:mm");
+}
+exports.formatTime = formatTime;
+function getMonthDates(month) {
+    var date = moment(month);
+    var count = date.daysInMonth();
+    var array = new Array(count);
+    for (var i = 0; i < count; i++) {
+        array[i] = date.date(i + 1).toDate();
+    }
+    return array;
+}
+exports.getMonthDates = getMonthDates;
+var DayType;
+(function (DayType) {
+    DayType[DayType["WEEKDAY"] = 0] = "WEEKDAY";
+    DayType[DayType["SATURDAY"] = 1] = "SATURDAY";
+    DayType[DayType["SUNDAY"] = 2] = "SUNDAY";
+    DayType[DayType["HOLIDAY"] = 3] = "HOLIDAY";
+})(DayType = exports.DayType || (exports.DayType = {}));
+// 就業規則で12/30-1/3は休み(1/1は元日なので設定不要)
+var COMPANY_HOLIDAYS = ["12/30", "12/31", "1/2", "1/3"];
+function getDayType(date) {
+    var holiday = japanese_holidays_1.isHoliday(date);
+    if (holiday) {
+        return DayType.HOLIDAY;
+    }
+    if (COMPANY_HOLIDAYS.indexOf(moment(date).format("M/D")) !== -1) {
+        return DayType.HOLIDAY;
+    }
+    var day = date.getDay();
+    if (day === 6) {
+        return DayType.SATURDAY;
+    }
+    if (day === 0) {
+        return DayType.SUNDAY;
+    }
+    return DayType.WEEKDAY;
+}
+exports.getDayType = getDayType;
+function getDayColor(date) {
+    var dayType = getDayType(date);
+    switch (dayType) {
+        case DayType.HOLIDAY:
+        case DayType.SUNDAY:
+            return colors_1.red700;
+        case DayType.SATURDAY:
+            return colors_1.indigo700;
+        default:
+            return undefined;
+    }
+}
+exports.getDayColor = getDayColor;
+
+
+/***/ }),
+
+/***/ 652:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var react_router_1 = __webpack_require__(148);
+var actions = __webpack_require__(158);
+var ApiClient_1 = __webpack_require__(653);
 var DispatchActions = (function () {
     function DispatchActions(dispatch) {
         this.dispatch = dispatch;
@@ -450,705 +561,15 @@ exports.DispatchActions = DispatchActions;
 
 /***/ }),
 
-/***/ 430:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var AppBar_1 = __webpack_require__(96);
-var React = __webpack_require__(1);
-var ToolbarWithProgress_1 = __webpack_require__(177);
-var Main_1 = __webpack_require__(815);
-var CommonPage = (function (_super) {
-    __extends(CommonPage, _super);
-    function CommonPage() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    CommonPage.prototype.render = function () {
-        return (React.createElement("div", null,
-            React.createElement(ToolbarWithProgress_1.ToolbarWithProgress, __assign({}, this.props),
-                React.createElement(AppBar_1.default, { title: "共通", showMenuIconButton: false })),
-            React.createElement(Main_1.Main, __assign({}, this.props))));
-    };
-    return CommonPage;
-}(React.Component));
-exports.CommonPage = CommonPage;
-
-
-/***/ }),
-
-/***/ 431:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(1);
-var Main_1 = __webpack_require__(817);
-var Toolbar_1 = __webpack_require__(819);
-var InputPage = (function (_super) {
-    __extends(InputPage, _super);
-    function InputPage() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    InputPage.prototype.render = function () {
-        return (React.createElement("div", null,
-            React.createElement(Toolbar_1.Toolbar, __assign({}, this.props)),
-            React.createElement(Main_1.Main, __assign({}, this.props))));
-    };
-    return InputPage;
-}(React.Component));
-exports.InputPage = InputPage;
-
-
-/***/ }),
-
-/***/ 432:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(1);
-var MonthToolbar_1 = __webpack_require__(426);
-var Main_1 = __webpack_require__(820);
-var ListPage = (function (_super) {
-    __extends(ListPage, _super);
-    function ListPage() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    ListPage.prototype.render = function () {
-        return (React.createElement("div", null,
-            React.createElement(MonthToolbar_1.MonthToolbar, __assign({}, this.props)),
-            React.createElement(Main_1.Main, __assign({}, this.props))));
-    };
-    return ListPage;
-}(React.Component));
-exports.ListPage = ListPage;
-
-
-/***/ }),
-
-/***/ 433:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(1);
-var FooterTab_1 = __webpack_require__(816);
-var SendStatus_1 = __webpack_require__(821);
-var Root = (function (_super) {
-    __extends(Root, _super);
-    function Root() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Root.prototype.render = function () {
-        return (React.createElement("div", null,
-            this.props.children,
-            React.createElement(SendStatus_1.SendStatus, __assign({}, this.props)),
-            React.createElement(FooterTab_1.FooterTab, __assign({}, this.props))));
-    };
-    return Root;
-}(React.Component));
-exports.Root = Root;
-
-
-/***/ }),
-
-/***/ 434:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(1);
-var MonthToolbar_1 = __webpack_require__(426);
-var Main_1 = __webpack_require__(822);
-var SendPage = (function (_super) {
-    __extends(SendPage, _super);
-    function SendPage() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    SendPage.prototype.render = function () {
-        return (React.createElement("div", null,
-            React.createElement(MonthToolbar_1.MonthToolbar, __assign({}, this.props)),
-            React.createElement(Main_1.Main, __assign({}, this.props))));
-    };
-    return SendPage;
-}(React.Component));
-exports.SendPage = SendPage;
-
-
-/***/ }),
-
-/***/ 435:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// TouchTapEventで２回クリックされたような動きを抑制するため、
-// 常にpreventDefaultを呼び出すための実装。
-// 参考: https://github.com/callemall/material-ui/issues/5070
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var React = __webpack_require__(1);
-function forceTouchTapPreventDefault() {
-    var react = React;
-    var orig = react.createElement;
-    // 型を厳密にするTypeScriptでthisの型を定義する時には先頭パラメータとしてthisを使う
-    // 参考: https://www.typescriptlang.org/docs/handbook/functions.html#this-parameters
-    react.createElement = function (type, props) {
-        var children = [];
-        for (var _i = 2; _i < arguments.length; _i++) {
-            children[_i - 2] = arguments[_i];
-        }
-        // only wrap native elements (string-ish `type`) which have an onTouchTap prop
-        if (typeof type === "string" && props && props.onTouchTap) {
-            var onTouchTap_1 = props.onTouchTap;
-            props = __assign({}, props, { 
-                // thisによる型定義は変数名を変えられないので仕方ないのでtslintを無視設定する
-                // tslint:disable-next-line
-                onTouchTap: function (e) {
-                    e.preventDefault();
-                    return onTouchTap_1.apply(this, arguments);
-                } });
-        }
-        return orig.call.apply(orig, [this, type, props].concat(children));
-    };
-}
-exports.forceTouchTapPreventDefault = forceTouchTapPreventDefault;
-
-
-/***/ }),
-
-/***/ 55:
+/***/ 653:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var japanese_holidays_1 = __webpack_require__(178);
-var colors_1 = __webpack_require__(82);
-var moment = __webpack_require__(3);
-__webpack_require__(151);
-moment.locale("ja");
-function toDayString(date) {
-    return moment(date).format("YYYYMMDD");
-}
-exports.toDayString = toDayString;
-function formatDate(date) {
-    return moment(date).format("M/D(dd)");
-}
-exports.formatDate = formatDate;
-function formatDateForListItem(date) {
-    return moment(date).format("D(dd)");
-}
-exports.formatDateForListItem = formatDateForListItem;
-function formatMonth(date) {
-    return moment(date).format("YYYY/M");
-}
-exports.formatMonth = formatMonth;
-function ceil15Minutes(date) {
-    // 00分は繰り上げしたくないので14分足してから15分の切り捨てをする
-    var plus14 = moment(date).add(14, "minutes").toDate();
-    return floor15Minutes(plus14);
-}
-exports.ceil15Minutes = ceil15Minutes;
-function floor15Minutes(date) {
-    var minutes = Math.floor(date.getMinutes() / 15) * 15;
-    return moment(date).minute(minutes).toDate();
-}
-exports.floor15Minutes = floor15Minutes;
-function moveDates(date, amount) {
-    return moment(date).add(amount, "days").toDate();
-}
-exports.moveDates = moveDates;
-function moveMonths(date, amount) {
-    // 月移動する場合は日付は1日にリセットする
-    return moment(date).add(amount, "months").date(1).toDate();
-}
-exports.moveMonths = moveMonths;
-function formatTime(date) {
-    return moment(date).format("H:mm");
-}
-exports.formatTime = formatTime;
-function getMonthDates(month) {
-    var date = moment(month);
-    var count = date.daysInMonth();
-    var array = new Array(count);
-    for (var i = 0; i < count; i++) {
-        array[i] = date.date(i + 1).toDate();
-    }
-    return array;
-}
-exports.getMonthDates = getMonthDates;
-var DayType;
-(function (DayType) {
-    DayType[DayType["WEEKDAY"] = 0] = "WEEKDAY";
-    DayType[DayType["SATURDAY"] = 1] = "SATURDAY";
-    DayType[DayType["SUNDAY"] = 2] = "SUNDAY";
-    DayType[DayType["HOLIDAY"] = 3] = "HOLIDAY";
-})(DayType = exports.DayType || (exports.DayType = {}));
-// 就業規則で12/30-1/3は休み(1/1は元日なので設定不要)
-var COMPANY_HOLIDAYS = ["12/30", "12/31", "1/2", "1/3"];
-function getDayType(date) {
-    var holiday = japanese_holidays_1.isHoliday(date);
-    if (holiday) {
-        return DayType.HOLIDAY;
-    }
-    if (COMPANY_HOLIDAYS.indexOf(moment(date).format("M/D")) !== -1) {
-        return DayType.HOLIDAY;
-    }
-    var day = date.getDay();
-    if (day === 6) {
-        return DayType.SATURDAY;
-    }
-    if (day === 0) {
-        return DayType.SUNDAY;
-    }
-    return DayType.WEEKDAY;
-}
-exports.getDayType = getDayType;
-function getDayColor(date) {
-    var dayType = getDayType(date);
-    switch (dayType) {
-        case DayType.HOLIDAY:
-        case DayType.SUNDAY:
-            return colors_1.red700;
-        case DayType.SATURDAY:
-            return colors_1.indigo700;
-        default:
-            return undefined;
-    }
-}
-exports.getDayColor = getDayColor;
-
-
-/***/ }),
-
-/***/ 645:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _pure = __webpack_require__(17);
-
-var _pure2 = _interopRequireDefault(_pure);
-
-var _SvgIcon = __webpack_require__(16);
-
-var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ActionList = function ActionList(props) {
-  return _react2.default.createElement(
-    _SvgIcon2.default,
-    props,
-    _react2.default.createElement('path', { d: 'M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z' })
-  );
-};
-ActionList = (0, _pure2.default)(ActionList);
-ActionList.displayName = 'ActionList';
-ActionList.muiName = 'SvgIcon';
-
-exports.default = ActionList;
-
-/***/ }),
-
-/***/ 646:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _pure = __webpack_require__(17);
-
-var _pure2 = _interopRequireDefault(_pure);
-
-var _SvgIcon = __webpack_require__(16);
-
-var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ActionSchedule = function ActionSchedule(props) {
-  return _react2.default.createElement(
-    _SvgIcon2.default,
-    props,
-    _react2.default.createElement('path', { d: 'M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z' })
-  );
-};
-ActionSchedule = (0, _pure2.default)(ActionSchedule);
-ActionSchedule.displayName = 'ActionSchedule';
-ActionSchedule.muiName = 'SvgIcon';
-
-exports.default = ActionSchedule;
-
-/***/ }),
-
-/***/ 647:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _pure = __webpack_require__(17);
-
-var _pure2 = _interopRequireDefault(_pure);
-
-var _SvgIcon = __webpack_require__(16);
-
-var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ActionUpdate = function ActionUpdate(props) {
-  return _react2.default.createElement(
-    _SvgIcon2.default,
-    props,
-    _react2.default.createElement('path', { d: 'M21 10.12h-6.78l2.74-2.82c-2.73-2.7-7.15-2.8-9.88-.1-2.73 2.71-2.73 7.08 0 9.79 2.73 2.71 7.15 2.71 9.88 0C18.32 15.65 19 14.08 19 12.1h2c0 1.98-.88 4.55-2.64 6.29-3.51 3.48-9.21 3.48-12.72 0-3.5-3.47-3.53-9.11-.02-12.58 3.51-3.47 9.14-3.47 12.65 0L21 3v7.12zM12.5 8v4.25l3.5 2.08-.72 1.21L11 13V8h1.5z' })
-  );
-};
-ActionUpdate = (0, _pure2.default)(ActionUpdate);
-ActionUpdate.displayName = 'ActionUpdate';
-ActionUpdate.muiName = 'SvgIcon';
-
-exports.default = ActionUpdate;
-
-/***/ }),
-
-/***/ 648:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _pure = __webpack_require__(17);
-
-var _pure2 = _interopRequireDefault(_pure);
-
-var _SvgIcon = __webpack_require__(16);
-
-var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ContentSend = function ContentSend(props) {
-  return _react2.default.createElement(
-    _SvgIcon2.default,
-    props,
-    _react2.default.createElement('path', { d: 'M2.01 21L23 12 2.01 3 2 10l15 2-15 2z' })
-  );
-};
-ContentSend = (0, _pure2.default)(ContentSend);
-ContentSend.displayName = 'ContentSend';
-ContentSend.muiName = 'SvgIcon';
-
-exports.default = ContentSend;
-
-/***/ }),
-
-/***/ 651:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _pure = __webpack_require__(17);
-
-var _pure2 = _interopRequireDefault(_pure);
-
-var _SvgIcon = __webpack_require__(16);
-
-var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ImageEdit = function ImageEdit(props) {
-  return _react2.default.createElement(
-    _SvgIcon2.default,
-    props,
-    _react2.default.createElement('path', { d: 'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z' })
-  );
-};
-ImageEdit = (0, _pure2.default)(ImageEdit);
-ImageEdit.displayName = 'ImageEdit';
-ImageEdit.muiName = 'SvgIcon';
-
-exports.default = ImageEdit;
-
-/***/ }),
-
-/***/ 660:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _pure = __webpack_require__(17);
-
-var _pure2 = _interopRequireDefault(_pure);
-
-var _SvgIcon = __webpack_require__(16);
-
-var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var NavigationMoreVert = function NavigationMoreVert(props) {
-  return _react2.default.createElement(
-    _SvgIcon2.default,
-    props,
-    _react2.default.createElement('path', { d: 'M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z' })
-  );
-};
-NavigationMoreVert = (0, _pure2.default)(NavigationMoreVert);
-NavigationMoreVert.displayName = 'NavigationMoreVert';
-NavigationMoreVert.muiName = 'SvgIcon';
-
-exports.default = NavigationMoreVert;
-
-/***/ }),
-
-/***/ 661:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _pure = __webpack_require__(17);
-
-var _pure2 = _interopRequireDefault(_pure);
-
-var _SvgIcon = __webpack_require__(16);
-
-var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var SocialPerson = function SocialPerson(props) {
-  return _react2.default.createElement(
-    _SvgIcon2.default,
-    props,
-    _react2.default.createElement('path', { d: 'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z' })
-  );
-};
-SocialPerson = (0, _pure2.default)(SocialPerson);
-SocialPerson.displayName = 'SocialPerson';
-SocialPerson.muiName = 'SvgIcon';
-
-exports.default = SocialPerson;
-
-/***/ }),
-
-/***/ 813:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var MuiThemeProvider_1 = __webpack_require__(179);
-var React = __webpack_require__(1);
-var ReactDOM = __webpack_require__(19);
-var react_redux_1 = __webpack_require__(114);
-var react_router_1 = __webpack_require__(89);
-var react_router_redux_1 = __webpack_require__(88);
-var injectTapEventPlugin = __webpack_require__(115);
-var DispatchActions_1 = __webpack_require__(429);
-var CommonPage_1 = __webpack_require__(430);
-var InputPage_1 = __webpack_require__(431);
-var ListPage_1 = __webpack_require__(432);
-var Root_1 = __webpack_require__(433);
-var SendPage_1 = __webpack_require__(434);
-var Store_1 = __webpack_require__(428);
-var FixReactTouchTap_1 = __webpack_require__(435);
-injectTapEventPlugin();
-FixReactTouchTap_1.forceTouchTapPreventDefault();
-var connector = react_redux_1.connect(function (store) { return ({ value: store }); }, function (dispatch) { return ({ actions: new DispatchActions_1.DispatchActions(dispatch) }); });
-var RootComponent = connector(Root_1.Root);
-var InputPageComponent = connector(InputPage_1.InputPage);
-var CommonPageComponent = connector(CommonPage_1.CommonPage);
-var ListPageComponent = connector(ListPage_1.ListPage);
-var SendPageComponent = connector(SendPage_1.SendPage);
-var history = react_router_redux_1.syncHistoryWithStore(react_router_1.hashHistory, Store_1.default);
-ReactDOM.render(React.createElement(react_redux_1.Provider, { store: Store_1.default },
-    React.createElement(MuiThemeProvider_1.default, null,
-        React.createElement(react_router_1.Router, { history: history },
-            React.createElement(react_router_1.Route, { path: "/", component: RootComponent },
-                React.createElement(react_router_1.Route, { path: "/list", component: ListPageComponent }),
-                React.createElement(react_router_1.Route, { path: "/common", component: CommonPageComponent }),
-                React.createElement(react_router_1.Route, { path: "/send", component: SendPageComponent }),
-                React.createElement(react_router_1.IndexRoute, { component: InputPageComponent }))))), document.getElementById("app"));
-
-
-/***/ }),
-
-/***/ 814:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-__webpack_require__(182);
-var DateUtils_1 = __webpack_require__(55);
-var KintaiUtils_1 = __webpack_require__(111);
+__webpack_require__(258);
+var DateUtils_1 = __webpack_require__(52);
+var KintaiUtils_1 = __webpack_require__(103);
 function sendMonthKintai(kintai, month, password) {
     var body = createBody(kintai, month, password);
     return fetch("https://sleepy-ravine-40602.herokuapp.com/api/kinmu", {
@@ -1213,7 +634,53 @@ function toWorkInfo(date, dayKintai, person) {
 
 /***/ }),
 
-/***/ 815:
+/***/ 656:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var AppBar_1 = __webpack_require__(104);
+var React = __webpack_require__(1);
+var ToolbarWithProgress_1 = __webpack_require__(163);
+var Main_1 = __webpack_require__(679);
+var CommonPage = (function (_super) {
+    __extends(CommonPage, _super);
+    function CommonPage() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    CommonPage.prototype.render = function () {
+        return (React.createElement("div", null,
+            React.createElement(ToolbarWithProgress_1.ToolbarWithProgress, __assign({}, this.props),
+                React.createElement(AppBar_1.default, { title: "共通", showMenuIconButton: false })),
+            React.createElement(Main_1.Main, __assign({}, this.props))));
+    };
+    return CommonPage;
+}(React.Component));
+exports.CommonPage = CommonPage;
+
+
+/***/ }),
+
+/***/ 679:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1229,9 +696,9 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var MenuItem_1 = __webpack_require__(62);
-var SelectField_1 = __webpack_require__(100);
-var TextField_1 = __webpack_require__(42);
+var MenuItem_1 = __webpack_require__(71);
+var SelectField_1 = __webpack_require__(107);
+var TextField_1 = __webpack_require__(45);
 var React = __webpack_require__(1);
 var Main = (function (_super) {
     __extends(Main, _super);
@@ -1308,7 +775,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 816:
+/***/ 713:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1323,62 +790,36 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var BottomNavigation_1 = __webpack_require__(219);
-var Divider_1 = __webpack_require__(139);
-var list_1 = __webpack_require__(645);
-var send_1 = __webpack_require__(648);
-var edit_1 = __webpack_require__(651);
-var person_1 = __webpack_require__(661);
 var React = __webpack_require__(1);
-var FooterTab = (function (_super) {
-    __extends(FooterTab, _super);
-    function FooterTab() {
+var Main_1 = __webpack_require__(714);
+var Toolbar_1 = __webpack_require__(721);
+var InputPage = (function (_super) {
+    __extends(InputPage, _super);
+    function InputPage() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    FooterTab.prototype.render = function () {
-        var _this = this;
-        var selectedIndex = this.getSelectedIndex();
-        return (React.createElement("div", { className: "footerTab" },
-            React.createElement(Divider_1.default, null),
-            React.createElement(BottomNavigation_1.BottomNavigation, { selectedIndex: selectedIndex },
-                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "入力", icon: React.createElement(edit_1.default, null), onTouchTap: function () { return _this.onInputSelected(); } }),
-                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "一覧", icon: React.createElement(list_1.default, null), onTouchTap: function () { return _this.onListSelected(); } }),
-                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "共通", icon: React.createElement(person_1.default, null), onTouchTap: function () { return _this.onCommonSelected(); } }),
-                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "送信", icon: React.createElement(send_1.default, null), onTouchTap: function () { return _this.onSendSelected(); } }))));
+    InputPage.prototype.render = function () {
+        return (React.createElement("div", null,
+            React.createElement(Toolbar_1.Toolbar, __assign({}, this.props)),
+            React.createElement(Main_1.Main, __assign({}, this.props))));
     };
-    FooterTab.prototype.onInputSelected = function () {
-        this.props.actions.showInputPage();
-    };
-    FooterTab.prototype.onListSelected = function () {
-        this.props.actions.showListPage();
-    };
-    FooterTab.prototype.onCommonSelected = function () {
-        this.props.actions.showCommonPage();
-    };
-    FooterTab.prototype.onSendSelected = function () {
-        this.props.actions.showSendPage();
-    };
-    FooterTab.prototype.getSelectedIndex = function () {
-        if (this.props.location.pathname === "/list") {
-            return 1;
-        }
-        if (this.props.location.pathname === "/common") {
-            return 2;
-        }
-        if (this.props.location.pathname === "/send") {
-            return 3;
-        }
-        return 0;
-    };
-    return FooterTab;
+    return InputPage;
 }(React.Component));
-exports.FooterTab = FooterTab;
+exports.InputPage = InputPage;
 
 
 /***/ }),
 
-/***/ 817:
+/***/ 714:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1394,17 +835,17 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var IconButton_1 = __webpack_require__(33);
-var IconMenu_1 = __webpack_require__(228);
-var MenuItem_1 = __webpack_require__(62);
-var SelectField_1 = __webpack_require__(100);
-var more_vert_1 = __webpack_require__(660);
-var TextField_1 = __webpack_require__(42);
+var IconButton_1 = __webpack_require__(35);
+var IconMenu_1 = __webpack_require__(387);
+var MenuItem_1 = __webpack_require__(71);
+var SelectField_1 = __webpack_require__(107);
+var more_vert_1 = __webpack_require__(716);
+var TextField_1 = __webpack_require__(45);
 var React = __webpack_require__(1);
-var Holidays_1 = __webpack_require__(87);
-var KintaiUtils_1 = __webpack_require__(111);
-var Strings_1 = __webpack_require__(825);
-var TimeInput_1 = __webpack_require__(818);
+var Holidays_1 = __webpack_require__(83);
+var KintaiUtils_1 = __webpack_require__(103);
+var Strings_1 = __webpack_require__(717);
+var TimeInput_1 = __webpack_require__(718);
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
@@ -1458,7 +899,63 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 818:
+/***/ 716:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(17);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(16);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var NavigationMoreVert = function NavigationMoreVert(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z' })
+  );
+};
+NavigationMoreVert = (0, _pure2.default)(NavigationMoreVert);
+NavigationMoreVert.displayName = 'NavigationMoreVert';
+NavigationMoreVert.muiName = 'SvgIcon';
+
+exports.default = NavigationMoreVert;
+
+/***/ }),
+
+/***/ 717:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+function undefinedToEmpty(value) {
+    if (value !== undefined) {
+        return value;
+    }
+    return "";
+}
+exports.undefinedToEmpty = undefinedToEmpty;
+
+
+/***/ }),
+
+/***/ 718:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1474,14 +971,14 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var IconButton_1 = __webpack_require__(33);
-var MenuItem_1 = __webpack_require__(62);
-var SelectField_1 = __webpack_require__(100);
-var schedule_1 = __webpack_require__(646);
-var update_1 = __webpack_require__(647);
+var IconButton_1 = __webpack_require__(35);
+var MenuItem_1 = __webpack_require__(71);
+var SelectField_1 = __webpack_require__(107);
+var schedule_1 = __webpack_require__(719);
+var update_1 = __webpack_require__(720);
 var React = __webpack_require__(1);
-var Holidays_1 = __webpack_require__(87);
-var DateUtils_1 = __webpack_require__(55);
+var Holidays_1 = __webpack_require__(83);
+var DateUtils_1 = __webpack_require__(52);
 var TIMES = [":00", ":15", ":30", ":45"];
 var REGULAR_TIME_IN = "9:00";
 var REGULAR_TIME_OUT = "17:45";
@@ -1545,7 +1042,85 @@ exports.TimeInput = TimeInput;
 
 /***/ }),
 
-/***/ 819:
+/***/ 719:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(17);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(16);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ActionSchedule = function ActionSchedule(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z' })
+  );
+};
+ActionSchedule = (0, _pure2.default)(ActionSchedule);
+ActionSchedule.displayName = 'ActionSchedule';
+ActionSchedule.muiName = 'SvgIcon';
+
+exports.default = ActionSchedule;
+
+/***/ }),
+
+/***/ 720:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(17);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(16);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ActionUpdate = function ActionUpdate(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M21 10.12h-6.78l2.74-2.82c-2.73-2.7-7.15-2.8-9.88-.1-2.73 2.71-2.73 7.08 0 9.79 2.73 2.71 7.15 2.71 9.88 0C18.32 15.65 19 14.08 19 12.1h2c0 1.98-.88 4.55-2.64 6.29-3.51 3.48-9.21 3.48-12.72 0-3.5-3.47-3.53-9.11-.02-12.58 3.51-3.47 9.14-3.47 12.65 0L21 3v7.12zM12.5 8v4.25l3.5 2.08-.72 1.21L11 13V8h1.5z' })
+  );
+};
+ActionUpdate = (0, _pure2.default)(ActionUpdate);
+ActionUpdate.displayName = 'ActionUpdate';
+ActionUpdate.muiName = 'SvgIcon';
+
+exports.default = ActionUpdate;
+
+/***/ }),
+
+/***/ 721:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1569,13 +1144,13 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var AppBar_1 = __webpack_require__(96);
-var IconButton_1 = __webpack_require__(33);
-var keyboard_arrow_left_1 = __webpack_require__(258);
-var keyboard_arrow_right_1 = __webpack_require__(259);
+var AppBar_1 = __webpack_require__(104);
+var IconButton_1 = __webpack_require__(35);
+var keyboard_arrow_left_1 = __webpack_require__(388);
+var keyboard_arrow_right_1 = __webpack_require__(389);
 var React = __webpack_require__(1);
-var DateUtils_1 = __webpack_require__(55);
-var ToolbarWithProgress_1 = __webpack_require__(177);
+var DateUtils_1 = __webpack_require__(52);
+var ToolbarWithProgress_1 = __webpack_require__(163);
 var Toolbar = (function (_super) {
     __extends(Toolbar, _super);
     function Toolbar() {
@@ -1620,7 +1195,7 @@ exports.Toolbar = Toolbar;
 
 /***/ }),
 
-/***/ 820:
+/***/ 722:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1644,12 +1219,56 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var List_1 = __webpack_require__(230);
-var colors_1 = __webpack_require__(82);
 var React = __webpack_require__(1);
-var Holidays_1 = __webpack_require__(87);
-var DateUtils_1 = __webpack_require__(55);
-var KintaiUtils_1 = __webpack_require__(111);
+var MonthToolbar_1 = __webpack_require__(390);
+var Main_1 = __webpack_require__(723);
+var ListPage = (function (_super) {
+    __extends(ListPage, _super);
+    function ListPage() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    ListPage.prototype.render = function () {
+        return (React.createElement("div", null,
+            React.createElement(MonthToolbar_1.MonthToolbar, __assign({}, this.props)),
+            React.createElement(Main_1.Main, __assign({}, this.props))));
+    };
+    return ListPage;
+}(React.Component));
+exports.ListPage = ListPage;
+
+
+/***/ }),
+
+/***/ 723:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var List_1 = __webpack_require__(391);
+var colors_1 = __webpack_require__(78);
+var React = __webpack_require__(1);
+var Holidays_1 = __webpack_require__(83);
+var DateUtils_1 = __webpack_require__(52);
+var KintaiUtils_1 = __webpack_require__(103);
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
@@ -1693,7 +1312,52 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 821:
+/***/ 724:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(1);
+var FooterTab_1 = __webpack_require__(725);
+var SendStatus_1 = __webpack_require__(732);
+var Root = (function (_super) {
+    __extends(Root, _super);
+    function Root() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Root.prototype.render = function () {
+        return (React.createElement("div", null,
+            this.props.children,
+            React.createElement(SendStatus_1.SendStatus, __assign({}, this.props)),
+            React.createElement(FooterTab_1.FooterTab, __assign({}, this.props))));
+    };
+    return Root;
+}(React.Component));
+exports.Root = Root;
+
+
+/***/ }),
+
+/***/ 725:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1709,8 +1373,234 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Dialog_1 = __webpack_require__(97);
-var Snackbar_1 = __webpack_require__(236);
+var BottomNavigation_1 = __webpack_require__(393);
+var Divider_1 = __webpack_require__(170);
+var list_1 = __webpack_require__(728);
+var send_1 = __webpack_require__(729);
+var edit_1 = __webpack_require__(730);
+var person_1 = __webpack_require__(731);
+var React = __webpack_require__(1);
+var FooterTab = (function (_super) {
+    __extends(FooterTab, _super);
+    function FooterTab() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    FooterTab.prototype.render = function () {
+        var _this = this;
+        var selectedIndex = this.getSelectedIndex();
+        return (React.createElement("div", { className: "footerTab" },
+            React.createElement(Divider_1.default, null),
+            React.createElement(BottomNavigation_1.BottomNavigation, { selectedIndex: selectedIndex },
+                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "入力", icon: React.createElement(edit_1.default, null), onTouchTap: function () { return _this.onInputSelected(); } }),
+                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "一覧", icon: React.createElement(list_1.default, null), onTouchTap: function () { return _this.onListSelected(); } }),
+                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "共通", icon: React.createElement(person_1.default, null), onTouchTap: function () { return _this.onCommonSelected(); } }),
+                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "送信", icon: React.createElement(send_1.default, null), onTouchTap: function () { return _this.onSendSelected(); } }))));
+    };
+    FooterTab.prototype.onInputSelected = function () {
+        this.props.actions.showInputPage();
+    };
+    FooterTab.prototype.onListSelected = function () {
+        this.props.actions.showListPage();
+    };
+    FooterTab.prototype.onCommonSelected = function () {
+        this.props.actions.showCommonPage();
+    };
+    FooterTab.prototype.onSendSelected = function () {
+        this.props.actions.showSendPage();
+    };
+    FooterTab.prototype.getSelectedIndex = function () {
+        if (this.props.location.pathname === "/list") {
+            return 1;
+        }
+        if (this.props.location.pathname === "/common") {
+            return 2;
+        }
+        if (this.props.location.pathname === "/send") {
+            return 3;
+        }
+        return 0;
+    };
+    return FooterTab;
+}(React.Component));
+exports.FooterTab = FooterTab;
+
+
+/***/ }),
+
+/***/ 728:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(17);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(16);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ActionList = function ActionList(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z' })
+  );
+};
+ActionList = (0, _pure2.default)(ActionList);
+ActionList.displayName = 'ActionList';
+ActionList.muiName = 'SvgIcon';
+
+exports.default = ActionList;
+
+/***/ }),
+
+/***/ 729:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(17);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(16);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ContentSend = function ContentSend(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M2.01 21L23 12 2.01 3 2 10l15 2-15 2z' })
+  );
+};
+ContentSend = (0, _pure2.default)(ContentSend);
+ContentSend.displayName = 'ContentSend';
+ContentSend.muiName = 'SvgIcon';
+
+exports.default = ContentSend;
+
+/***/ }),
+
+/***/ 730:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(17);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(16);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ImageEdit = function ImageEdit(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z' })
+  );
+};
+ImageEdit = (0, _pure2.default)(ImageEdit);
+ImageEdit.displayName = 'ImageEdit';
+ImageEdit.muiName = 'SvgIcon';
+
+exports.default = ImageEdit;
+
+/***/ }),
+
+/***/ 731:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(17);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(16);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SocialPerson = function SocialPerson(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z' })
+  );
+};
+SocialPerson = (0, _pure2.default)(SocialPerson);
+SocialPerson.displayName = 'SocialPerson';
+SocialPerson.muiName = 'SvgIcon';
+
+exports.default = SocialPerson;
+
+/***/ }),
+
+/***/ 732:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var Dialog_1 = __webpack_require__(108);
+var Snackbar_1 = __webpack_require__(396);
 var React = __webpack_require__(1);
 var SendStatus = (function (_super) {
     __extends(SendStatus, _super);
@@ -1736,7 +1626,51 @@ exports.SendStatus = SendStatus;
 
 /***/ }),
 
-/***/ 822:
+/***/ 740:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(1);
+var MonthToolbar_1 = __webpack_require__(390);
+var Main_1 = __webpack_require__(741);
+var SendPage = (function (_super) {
+    __extends(SendPage, _super);
+    function SendPage() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    SendPage.prototype.render = function () {
+        return (React.createElement("div", null,
+            React.createElement(MonthToolbar_1.MonthToolbar, __assign({}, this.props)),
+            React.createElement(Main_1.Main, __assign({}, this.props))));
+    };
+    return SendPage;
+}(React.Component));
+exports.SendPage = SendPage;
+
+
+/***/ }),
+
+/***/ 741:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1752,8 +1686,8 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var RaisedButton_1 = __webpack_require__(235);
-var TextField_1 = __webpack_require__(42);
+var RaisedButton_1 = __webpack_require__(397);
+var TextField_1 = __webpack_require__(45);
 var React = __webpack_require__(1);
 var Main = (function (_super) {
     __extends(Main, _super);
@@ -1787,7 +1721,43 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 823:
+/***/ 743:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var react_router_redux_1 = __webpack_require__(157);
+var redux_1 = __webpack_require__(146);
+var redux_logger_1 = __webpack_require__(398);
+var redux_persist_1 = __webpack_require__(399);
+var KintaiReducer_1 = __webpack_require__(749);
+var ViewReducer_1 = __webpack_require__(750);
+// weinreでConsoleデバッグができるようにredux-loggerがconsole.logを呼び出すように変更
+var logger = redux_logger_1.createLogger({
+    level: "log",
+    logger: {
+        log: function () {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            console.log.apply(console, args);
+        },
+    },
+});
+var store = redux_1.createStore(redux_1.combineReducers({
+    kintai: KintaiReducer_1.kintai,
+    routing: react_router_redux_1.routerReducer,
+    view: ViewReducer_1.view,
+}), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), redux_1.compose(redux_persist_1.autoRehydrate(), redux_1.applyMiddleware(logger)));
+redux_persist_1.persistStore(store, { whitelist: ["kintai"] });
+exports.default = store;
+
+
+/***/ }),
+
+/***/ 749:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1801,12 +1771,12 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var actions = __webpack_require__(175);
-var redux_commons_1 = __webpack_require__(176);
-var Holidays_1 = __webpack_require__(87);
-var Holidays_2 = __webpack_require__(87);
-var DateUtils_1 = __webpack_require__(55);
-var KintaiUtils_1 = __webpack_require__(111);
+var actions = __webpack_require__(158);
+var redux_commons_1 = __webpack_require__(159);
+var Holidays_1 = __webpack_require__(83);
+var Holidays_2 = __webpack_require__(83);
+var DateUtils_1 = __webpack_require__(52);
+var KintaiUtils_1 = __webpack_require__(103);
 var initialState = {
     person: {
         email: "",
@@ -1918,7 +1888,7 @@ function updateDayKintai(state, date, partialDayKintai) {
 
 /***/ }),
 
-/***/ 824:
+/***/ 750:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1932,8 +1902,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var actions = __webpack_require__(175);
-var redux_commons_1 = __webpack_require__(176);
+var actions = __webpack_require__(158);
+var redux_commons_1 = __webpack_require__(159);
 var initialState = {
     currentDate: new Date(),
     password: "",
@@ -1968,24 +1938,54 @@ exports.view = redux_commons_1.createReducer(initialState, function (handle) {
 
 /***/ }),
 
-/***/ 825:
+/***/ 751:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-function undefinedToEmpty(value) {
-    if (value !== undefined) {
-        return value;
+// TouchTapEventで２回クリックされたような動きを抑制するため、
+// 常にpreventDefaultを呼び出すための実装。
+// 参考: https://github.com/callemall/material-ui/issues/5070
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
     }
-    return "";
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(1);
+function forceTouchTapPreventDefault() {
+    var react = React;
+    var orig = react.createElement;
+    // 型を厳密にするTypeScriptでthisの型を定義する時には先頭パラメータとしてthisを使う
+    // 参考: https://www.typescriptlang.org/docs/handbook/functions.html#this-parameters
+    react.createElement = function (type, props) {
+        var children = [];
+        for (var _i = 2; _i < arguments.length; _i++) {
+            children[_i - 2] = arguments[_i];
+        }
+        // only wrap native elements (string-ish `type`) which have an onTouchTap prop
+        if (typeof type === "string" && props && props.onTouchTap) {
+            var onTouchTap_1 = props.onTouchTap;
+            props = __assign({}, props, { 
+                // thisによる型定義は変数名を変えられないので仕方ないのでtslintを無視設定する
+                // tslint:disable-next-line
+                onTouchTap: function (e) {
+                    e.preventDefault();
+                    return onTouchTap_1.apply(this, arguments);
+                } });
+        }
+        return orig.call.apply(orig, [this, type, props].concat(children));
+    };
 }
-exports.undefinedToEmpty = undefinedToEmpty;
+exports.forceTouchTapPreventDefault = forceTouchTapPreventDefault;
 
 
 /***/ }),
 
-/***/ 87:
+/***/ 83:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2046,5 +2046,5 @@ exports.getSpecialNoteHolidayFromText = getSpecialNoteHolidayFromText;
 
 /***/ })
 
-},[813]);
+},[428]);
 //# sourceMappingURL=app.js.map

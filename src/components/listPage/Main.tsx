@@ -36,7 +36,7 @@ export class Main extends React.Component<RootProps, {}> {
     }
 
     private onSelectDate(date: Date) {
-        this.props.actions.showInputPage(date)
+        this.props.actions.showInputPage(this.props.history, date)
     }
 
     private getDayStyle(date: Date) {

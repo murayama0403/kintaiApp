@@ -12,7 +12,7 @@ module.exports = {
       "react-dom",
       "react-redux",
       "react-router",
-      "react-router-redux",
+      "react-router-dom",
       "react-tap-event-plugin",
       "redux",
       "redux-logger",

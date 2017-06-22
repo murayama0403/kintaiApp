@@ -1,4 +1,3 @@
-import { routerReducer } from "react-router-redux"
 import { applyMiddleware, combineReducers, compose, createStore } from "redux"
 import { createLogger } from "redux-logger"
 import { autoRehydrate, persistStore } from "redux-persist"
@@ -19,7 +18,6 @@ const logger = createLogger({
 const store = createStore(
     combineReducers({
         kintai,
-        routing: routerReducer,
         view,
     }),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),

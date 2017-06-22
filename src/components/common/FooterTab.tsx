@@ -38,19 +38,19 @@ export class FooterTab extends React.Component<RootProps, {}> {
     }
 
     private onInputSelected() {
-        this.props.actions.showInputPage()
+        this.props.actions.showInputPage(this.props.history)
     }
 
     private onListSelected() {
-        this.props.actions.showListPage()
+        this.props.actions.showListPage(this.props.history)
     }
 
     private onCommonSelected() {
-        this.props.actions.showCommonPage()
+        this.props.actions.showCommonPage(this.props.history)
     }
 
     private onSendSelected() {
-        this.props.actions.showSendPage()
+        this.props.actions.showSendPage(this.props.history)
     }
 
     private getSelectedIndex(): number {

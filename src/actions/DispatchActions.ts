@@ -1,4 +1,4 @@
-import { hashHistory } from "react-router"
+import { History } from "history"
 import * as actions from "../actions/Actions"
 import { sendMonthKintai } from "../clients/ApiClient"
 import { Action } from "../commons/redux-commons"
@@ -65,23 +65,23 @@ export class DispatchActions {
         }))
     }
 
-    public showInputPage(date?: Date) {
+    public showInputPage(history: History, date?: Date) {
         if (!!date) {
             this.moveCurrentDate(date)
         }
-        hashHistory.push("/")
+        history.push("/")
     }
 
-    public showListPage() {
-        hashHistory.push("/list")
+    public showListPage(history: History) {
+        history.push("/list")
     }
 
-    public showCommonPage() {
-        hashHistory.push("/common")
+    public showCommonPage(history: History) {
+        history.push("/common")
     }
 
-    public showSendPage() {
-        hashHistory.push("/send")
+    public showSendPage(history: History) {
+        history.push("/send")
     }
 
     public inputEmail(email: string) {

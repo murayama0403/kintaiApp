@@ -26,6 +26,11 @@ export class Main extends React.Component<RootProps, {}> {
         const showRest4 = isRestAvailable(currentKintai.outTime, 4)
         const showRest5 = isRestAvailable(currentKintai.outTime, 5)
         const showRest6 = isRestAvailable(currentKintai.outTime, 6)
+        currentKintai.noRest2 = !showRest2 ? false : currentKintai.noRest2
+        currentKintai.noRest3 = !showRest3 ? false : currentKintai.noRest3
+        currentKintai.noRest4 = !showRest4 ? false : currentKintai.noRest4
+        currentKintai.noRest5 = !showRest5 ? false : currentKintai.noRest5
+        currentKintai.noRest6 = !showRest6 ? false : currentKintai.noRest6
 
         return (
             <div className="content">

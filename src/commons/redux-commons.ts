@@ -1,3 +1,5 @@
+import * as redux from "redux"
+
 export interface ActionType<T> {
     type: string
     create(payload: T): Action<T>
@@ -25,7 +27,7 @@ type Handle<S> = <T>(type: ActionType<T>, reducer: Reducer<S, T>) => void
 
 export function createReducer<S>(
     initialState: S,
-    reducers: (handle: Handle<S>) => void): (state: S, action: Action<any>) => S {
+    reducers: (handle: Handle<S>) => void): (state: S, action: redux.Action) => S {
     const reducerMap: { [key: string]: Reducer<S, any> } = {}
 
     reducers(<T>(actionType: ActionType<T>, reduce: Reducer<S, T>) => {

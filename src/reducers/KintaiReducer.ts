@@ -34,25 +34,14 @@ export const kintai = createReducer(initialState, (handle) => {
     handle(actions.InputSpecialNoteAction, (state, specialNote) => {
         const specialHoliday = getSpecialNoteHolidayFromText(specialNote.text)
         const updater: Partial<DayKintai> = { specialNote: specialNote.text }
-        if (specialHoliday !== undefined) {
-            updater.inTime = HOLIDAY_TIME_VALUE
-            updater.outTime = HOLIDAY_TIME_VALUE
-            if (specialHoliday.requireInputUnpaid) {
-                updater.holiday = UNPAID_HOLIDAY.value
-            } else {
-                updater.holiday = undefined
-            }
+        if (specialHoliday !== undefined && specialHoliday.requireInputUnpaid) {
+            updater.holiday = UNPAID_HOLIDAY.value
         }
-        return updateDayKintai(state, specialNote.date, updater)
+        return updateDayKintai(state, specialNote.date, updater, postUpdateHolidayInOut)
     })
     handle(actions.SelectHolidayAction, (state, selected) => {
-        const holiday = getHolidayFromValue(selected.value)
         const updater: Partial<DayKintai> = { holiday: selected.value }
-        if (holiday !== undefined && holiday.isAllDayOff) {
-            updater.inTime = HOLIDAY_TIME_VALUE
-            updater.outTime = HOLIDAY_TIME_VALUE
-        }
-        return updateDayKintai(state, selected.date, updater)
+        return updateDayKintai(state, selected.date, updater, postUpdateHolidayInOut)
     })
     handle(actions.InputMemoAction, (state, memo) => {
         return updateDayKintai(state, memo.date, { memo: memo.text })
@@ -107,11 +96,39 @@ export const kintai = createReducer(initialState, (handle) => {
     })
 })
 
-function updateDayKintai(state: KintaiState, date: Date, partialDayKintai: Partial<DayKintai>) {
+function updateDayKintai(state: KintaiState, date: Date, partialDayKintai: Partial<DayKintai>,
+                         postUpdater?: (dayKintai: DayKintai) => void) {
     const oldDayKintai = getDayKintaiOrDefault(state, date)
     const newDayState = { ...oldDayKintai, ...partialDayKintai }
     const newState = { ...state }
+    if (postUpdater !== undefined) {
+        postUpdater(newDayState)
+    }
     newState.days[toDayString(date)] = newDayState
 
     return newState
+}
+
+function postUpdateHolidayInOut(dayKintai: DayKintai) {
+    if (isAllDayOff(dayKintai)) {
+        dayKintai.inTime = HOLIDAY_TIME_VALUE
+        dayKintai.outTime = HOLIDAY_TIME_VALUE
+    } else if (dayKintai.inTime === HOLIDAY_TIME_VALUE) {
+        dayKintai.inTime = ""
+        dayKintai.outTime = ""
+    }
+}
+
+function isAllDayOff(dayKintai: DayKintai): boolean {
+    const holiday = getHolidayFromValue(dayKintai.holiday)
+    if (holiday !== undefined && holiday.isAllDayOff) {
+        return true
+    }
+
+    const specialHoliday = getSpecialNoteHolidayFromText(dayKintai.specialNote)
+    if (specialHoliday !== undefined) {
+        return true
+    }
+
+    return false
 }

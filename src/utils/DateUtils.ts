@@ -2,6 +2,7 @@ import { isHoliday } from "japanese-holidays"
 import { indigo700, red700 } from "material-ui/styles/colors"
 import * as moment from "moment"
 import "moment/locale/ja"
+import { HOLIDAY_TIME_VALUE } from "../constants/Holidays"
 
 moment.locale("ja")
 
@@ -43,6 +44,14 @@ export function moveMonths(date: Date, amount: number) {
 
 export function formatTime(date: Date): string {
     return moment(date).format("H:mm")
+}
+
+export function parseTime(value: string): Date | undefined {
+    if (value === "" || value === HOLIDAY_TIME_VALUE) {
+        return undefined
+    }
+
+    return moment(value, "H:mm").toDate()
 }
 
 export function getMonthDates(month: Date): Date[] {

@@ -159,7 +159,7 @@ exports.connect = connect;
 
 /***/ }),
 
-/***/ 236:
+/***/ 237:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -198,7 +198,7 @@ exports.default = HardwareKeyboardArrowLeft;
 
 /***/ }),
 
-/***/ 237:
+/***/ 238:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -237,7 +237,7 @@ exports.default = HardwareKeyboardArrowRight;
 
 /***/ }),
 
-/***/ 398:
+/***/ 399:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -263,8 +263,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var AppBar_1 = __webpack_require__(90);
 var IconButton_1 = __webpack_require__(33);
-var keyboard_arrow_left_1 = __webpack_require__(236);
-var keyboard_arrow_right_1 = __webpack_require__(237);
+var keyboard_arrow_left_1 = __webpack_require__(237);
+var keyboard_arrow_right_1 = __webpack_require__(238);
 var React = __webpack_require__(1);
 var DateUtils_1 = __webpack_require__(52);
 var ToolbarWithProgress_1 = __webpack_require__(166);
@@ -301,7 +301,7 @@ exports.MonthToolbar = MonthToolbar;
 
 /***/ }),
 
-/***/ 400:
+/***/ 401:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -335,7 +335,7 @@ exports.default = store;
 
 /***/ }),
 
-/***/ 401:
+/***/ 402:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -394,7 +394,7 @@ exports.Root = Root;
 
 /***/ }),
 
-/***/ 402:
+/***/ 403:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -451,6 +451,7 @@ var japanese_holidays_1 = __webpack_require__(167);
 var colors_1 = __webpack_require__(78);
 var moment = __webpack_require__(3);
 __webpack_require__(143);
+var Holidays_1 = __webpack_require__(82);
 moment.locale("ja");
 function toDayString(date) {
     return moment(date).format("YYYYMMDD");
@@ -492,6 +493,13 @@ function formatTime(date) {
     return moment(date).format("H:mm");
 }
 exports.formatTime = formatTime;
+function parseTime(value) {
+    if (value === "" || value === Holidays_1.HOLIDAY_TIME_VALUE) {
+        return undefined;
+    }
+    return moment(value, "H:mm").toDate();
+}
+exports.parseTime = parseTime;
 function getMonthDates(month) {
     var date = moment(month);
     var count = date.daysInMonth();
@@ -582,45 +590,6 @@ ActionList.displayName = 'ActionList';
 ActionList.muiName = 'SvgIcon';
 
 exports.default = ActionList;
-
-/***/ }),
-
-/***/ 606:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _pure = __webpack_require__(17);
-
-var _pure2 = _interopRequireDefault(_pure);
-
-var _SvgIcon = __webpack_require__(16);
-
-var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ActionSchedule = function ActionSchedule(props) {
-  return _react2.default.createElement(
-    _SvgIcon2.default,
-    props,
-    _react2.default.createElement('path', { d: 'M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z' })
-  );
-};
-ActionSchedule = (0, _pure2.default)(ActionSchedule);
-ActionSchedule.displayName = 'ActionSchedule';
-ActionSchedule.muiName = 'SvgIcon';
-
-exports.default = ActionSchedule;
 
 /***/ }),
 
@@ -831,10 +800,10 @@ var ReactDOM = __webpack_require__(18);
 var react_redux_1 = __webpack_require__(83);
 var react_router_dom_1 = __webpack_require__(84);
 var injectTapEventPlugin = __webpack_require__(108);
-var Root_1 = __webpack_require__(401);
-var Store_1 = __webpack_require__(400);
+var Root_1 = __webpack_require__(402);
+var Store_1 = __webpack_require__(401);
 var Connector_1 = __webpack_require__(171);
-var FixReactTouchTap_1 = __webpack_require__(402);
+var FixReactTouchTap_1 = __webpack_require__(403);
 injectTapEventPlugin();
 FixReactTouchTap_1.forceTouchTapPreventDefault();
 var RootComponent = Connector_1.connect(Root_1.Root);
@@ -1352,8 +1321,8 @@ var Main = (function (_super) {
             holidayMenus.push(React.createElement(MenuItem_1.default, { key: holiday.value, value: holiday.value, primaryText: holiday.value + ": " + holiday.text }));
         }
         return (React.createElement("div", { className: "content" },
-            React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.IN, value: currentKintai.inTime, onSelected: function (event) { return _this.handleInSelected(event); } }),
-            React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.OUT, value: currentKintai.outTime, onSelected: function (event) { return _this.handleOutSelected(event); } }),
+            React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.IN, value: currentKintai.inTime, onSelected: function (value) { return _this.handleInSelected(value); } }),
+            React.createElement(TimeInput_1.TimeInput, { type: TimeInput_1.OUT, value: currentKintai.outTime, onSelected: function (value) { return _this.handleOutSelected(value); } }),
             React.createElement(TextField_1.default, { multiLine: false, fullWidth: false, hintText: "特記事項", value: Strings_1.undefinedToEmpty(currentKintai.specialNote), onChange: function (_, value) { return _this.handleSpecialNoteChange(value); } }),
             React.createElement(IconMenu_1.default, { iconButtonElement: React.createElement(IconButton_1.default, null,
                     React.createElement(more_vert_1.default, null)), onChange: function (_, value) { return _this.handleSpecialNoteChange(value); }, useLayerForClickAway: true }, specialNoteMenus),
@@ -1401,45 +1370,25 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var IconButton_1 = __webpack_require__(33);
-var MenuItem_1 = __webpack_require__(59);
-var SelectField_1 = __webpack_require__(94);
-var schedule_1 = __webpack_require__(606);
 var update_1 = __webpack_require__(607);
+var clear_1 = __webpack_require__(795);
+var check_1 = __webpack_require__(614);
+var TimePicker_1 = __webpack_require__(229);
 var React = __webpack_require__(1);
 var Holidays_1 = __webpack_require__(82);
 var DateUtils_1 = __webpack_require__(52);
-var TIMES = [":00", ":15", ":30", ":45"];
 var REGULAR_TIME_IN = "9:00";
 var REGULAR_TIME_OUT = "17:45";
 exports.IN = {
     label: "出勤",
     regularTime: REGULAR_TIME_IN,
-    menus: createMenus(REGULAR_TIME_IN),
     adjustTime: DateUtils_1.ceil15Minutes,
 };
 exports.OUT = {
     label: "退勤",
     regularTime: REGULAR_TIME_OUT,
-    menus: createMenus(REGULAR_TIME_OUT),
     adjustTime: DateUtils_1.floor15Minutes,
 };
-function createMenus(defaultValue) {
-    var menus = [];
-    var _loop_1 = function (h) {
-        TIMES.forEach(function (time) {
-            var value = h + time;
-            if (value === defaultValue) {
-                menus.push(React.createElement(MenuItem_1.default, { key: "", value: "", primaryText: "" }));
-                menus.push(React.createElement(MenuItem_1.default, { key: Holidays_1.HOLIDAY_TIME_VALUE, value: Holidays_1.HOLIDAY_TIME_VALUE, primaryText: Holidays_1.HOLIDAY_TIME_VALUE }));
-            }
-            menus.push(React.createElement(MenuItem_1.default, { key: value, value: value, primaryText: value }));
-        });
-    };
-    for (var h = 0; h < 24; h++) {
-        _loop_1(h);
-    }
-    return menus;
-}
 var TimeInput = (function (_super) {
     __extends(TimeInput, _super);
     function TimeInput() {
@@ -1447,14 +1396,19 @@ var TimeInput = (function (_super) {
     }
     TimeInput.prototype.render = function () {
         var _this = this;
+        var dateValue = DateUtils_1.parseTime(this.props.value);
+        var disabled = this.props.value === Holidays_1.HOLIDAY_TIME_VALUE;
         return (React.createElement("div", { style: { display: "flex" } },
-            React.createElement(SelectField_1.default, { hintText: this.props.type.label, value: this.props.value, onChange: function (_, __, value) { return _this.handleChange(value); }, style: { width: "200px" }, labelStyle: { height: "48px" } }, this.props.type.menus),
-            React.createElement(IconButton_1.default, { onTouchTap: function () { return _this.handleNow(); } },
+            React.createElement(TimePicker_1.default, { hintText: this.props.type.label, format: "24hr", minutesStep: 15, value: dateValue, onChange: function (_, value) { return _this.handleChange(value); }, disabled: disabled, textFieldStyle: { width: "160px" } }),
+            React.createElement(IconButton_1.default, { onTouchTap: function () { return _this.handleNow(); }, disabled: disabled },
                 React.createElement(update_1.default, null)),
-            React.createElement(IconButton_1.default, { onTouchTap: function () { return _this.handleRegular(); } },
-                React.createElement(schedule_1.default, null))));
+            React.createElement(IconButton_1.default, { onTouchTap: function () { return _this.handleRegular(); }, disabled: disabled },
+                React.createElement(check_1.default, null)),
+            React.createElement(IconButton_1.default, { onTouchTap: function () { return _this.handleClear(); }, disabled: disabled },
+                React.createElement(clear_1.default, null))));
     };
-    TimeInput.prototype.handleChange = function (value) {
+    TimeInput.prototype.handleChange = function (date) {
+        var value = DateUtils_1.formatTime(date);
         this.props.onSelected(value);
     };
     TimeInput.prototype.handleNow = function () {
@@ -1463,6 +1417,9 @@ var TimeInput = (function (_super) {
     };
     TimeInput.prototype.handleRegular = function () {
         this.props.onSelected(this.props.type.regularTime);
+    };
+    TimeInput.prototype.handleClear = function () {
+        this.props.onSelected("");
     };
     return TimeInput;
 }(React.Component));
@@ -1497,8 +1454,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var AppBar_1 = __webpack_require__(90);
 var IconButton_1 = __webpack_require__(33);
-var keyboard_arrow_left_1 = __webpack_require__(236);
-var keyboard_arrow_right_1 = __webpack_require__(237);
+var keyboard_arrow_left_1 = __webpack_require__(237);
+var keyboard_arrow_right_1 = __webpack_require__(238);
 var React = __webpack_require__(1);
 var DateUtils_1 = __webpack_require__(52);
 var ToolbarWithProgress_1 = __webpack_require__(166);
@@ -1571,7 +1528,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var MonthToolbar_1 = __webpack_require__(398);
+var MonthToolbar_1 = __webpack_require__(399);
 var Main_1 = __webpack_require__(785);
 var ListPage = (function (_super) {
     __extends(ListPage, _super);
@@ -1782,7 +1739,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var MonthToolbar_1 = __webpack_require__(398);
+var MonthToolbar_1 = __webpack_require__(399);
 var Main_1 = __webpack_require__(787);
 var SendPage = (function (_super) {
     __extends(SendPage, _super);
@@ -1848,26 +1805,14 @@ exports.kintai = redux_commons_1.createReducer(initialState, function (handle) {
     handle(actions.InputSpecialNoteAction, function (state, specialNote) {
         var specialHoliday = Holidays_1.getSpecialNoteHolidayFromText(specialNote.text);
         var updater = { specialNote: specialNote.text };
-        if (specialHoliday !== undefined) {
-            updater.inTime = Holidays_2.HOLIDAY_TIME_VALUE;
-            updater.outTime = Holidays_2.HOLIDAY_TIME_VALUE;
-            if (specialHoliday.requireInputUnpaid) {
-                updater.holiday = Holidays_2.UNPAID_HOLIDAY.value;
-            }
-            else {
-                updater.holiday = undefined;
-            }
+        if (specialHoliday !== undefined && specialHoliday.requireInputUnpaid) {
+            updater.holiday = Holidays_2.UNPAID_HOLIDAY.value;
         }
-        return updateDayKintai(state, specialNote.date, updater);
+        return updateDayKintai(state, specialNote.date, updater, postUpdateHolidayInOut);
     });
     handle(actions.SelectHolidayAction, function (state, selected) {
-        var holiday = Holidays_1.getHolidayFromValue(selected.value);
         var updater = { holiday: selected.value };
-        if (holiday !== undefined && holiday.isAllDayOff) {
-            updater.inTime = Holidays_2.HOLIDAY_TIME_VALUE;
-            updater.outTime = Holidays_2.HOLIDAY_TIME_VALUE;
-        }
-        return updateDayKintai(state, selected.date, updater);
+        return updateDayKintai(state, selected.date, updater, postUpdateHolidayInOut);
     });
     handle(actions.InputMemoAction, function (state, memo) {
         return updateDayKintai(state, memo.date, { memo: memo.text });
@@ -1921,12 +1866,36 @@ exports.kintai = redux_commons_1.createReducer(initialState, function (handle) {
         return __assign({}, state, { person: person });
     });
 });
-function updateDayKintai(state, date, partialDayKintai) {
+function updateDayKintai(state, date, partialDayKintai, postUpdater) {
     var oldDayKintai = KintaiUtils_1.getDayKintaiOrDefault(state, date);
     var newDayState = __assign({}, oldDayKintai, partialDayKintai);
     var newState = __assign({}, state);
+    if (postUpdater !== undefined) {
+        postUpdater(newDayState);
+    }
     newState.days[DateUtils_1.toDayString(date)] = newDayState;
     return newState;
+}
+function postUpdateHolidayInOut(dayKintai) {
+    if (isAllDayOff(dayKintai)) {
+        dayKintai.inTime = Holidays_2.HOLIDAY_TIME_VALUE;
+        dayKintai.outTime = Holidays_2.HOLIDAY_TIME_VALUE;
+    }
+    else if (dayKintai.inTime === Holidays_2.HOLIDAY_TIME_VALUE) {
+        dayKintai.inTime = "";
+        dayKintai.outTime = "";
+    }
+}
+function isAllDayOff(dayKintai) {
+    var holiday = Holidays_1.getHolidayFromValue(dayKintai.holiday);
+    if (holiday !== undefined && holiday.isAllDayOff) {
+        return true;
+    }
+    var specialHoliday = Holidays_1.getSpecialNoteHolidayFromText(dayKintai.specialNote);
+    if (specialHoliday !== undefined) {
+        return true;
+    }
+    return false;
 }
 
 
@@ -1996,6 +1965,45 @@ function undefinedToEmpty(value) {
 }
 exports.undefinedToEmpty = undefinedToEmpty;
 
+
+/***/ }),
+
+/***/ 795:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(17);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(16);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ContentClear = function ContentClear(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z' })
+  );
+};
+ContentClear = (0, _pure2.default)(ContentClear);
+ContentClear.displayName = 'ContentClear';
+ContentClear.muiName = 'SvgIcon';
+
+exports.default = ContentClear;
 
 /***/ }),
 

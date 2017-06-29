@@ -39,11 +39,11 @@ export class Main extends React.Component<RootProps, {}> {
                 <TimeInput
                     type={IN}
                     value={currentKintai.inTime}
-                    onSelected={(event) => this.handleInSelected(event)} />
+                    onSelected={(value) => this.handleInSelected(value)} />
                 <TimeInput
                     type={OUT}
                     value={currentKintai.outTime}
-                    onSelected={(event) => this.handleOutSelected(event)} />
+                    onSelected={(value) => this.handleOutSelected(value)} />
 
                 <TextField
                     multiLine={false}

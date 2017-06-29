@@ -2,7 +2,7 @@ import * as actions from "../actions/Actions"
 import { createReducer } from "../commons/redux-commons"
 import { DayKintai, KintaiState } from "../states/States"
 import { toDayString } from "../utils/DateUtils"
-import { getDayKintai } from "../utils/KintaiUtils"
+import { getDayKintai, isRestAvailable } from "../utils/KintaiUtils"
 
 const initialState: KintaiState = {
     person: {
@@ -27,7 +27,23 @@ export const kintai = createReducer(initialState, (handle) => {
         return updateDayKintai(state, selectedTime.date, { inTime: selectedTime.time })
     })
     handle(actions.SelectOutAction, (state, selectedTime) => {
-        return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time })
+        const partialDayKintai: Partial<DayKintai> = { outTime: selectedTime.time }
+        if (!isRestAvailable(selectedTime.time, 2)) {
+            partialDayKintai.noRest2 = false
+        }
+        if (!isRestAvailable(selectedTime.time, 3)) {
+            partialDayKintai.noRest3 = false
+        }
+        if (!isRestAvailable(selectedTime.time, 4)) {
+            partialDayKintai.noRest4 = false
+        }
+        if (!isRestAvailable(selectedTime.time, 5)) {
+            partialDayKintai.noRest5 = false
+        }
+        if (!isRestAvailable(selectedTime.time, 6)) {
+            partialDayKintai.noRest6 = false
+        }
+        return updateDayKintai(state, selectedTime.date, partialDayKintai)
     })
     handle(actions.InputMemoAction, (state, memo) => {
         return updateDayKintai(state, memo.date, { memo: memo.text })

@@ -20,11 +20,16 @@ describe("isRestAvailable", () => {
     ["18:00", 4, false],
     ["18:00", 5, false],
     ["18:00", 6, false],
-    ["18:15", 2, true],
-    ["18:15", 3, false],
-    ["18:15", 4, false],
-    ["18:15", 5, false],
-    ["18:15", 6, false],
+    ["19:30", 2, true],
+    ["19:30", 3, false],
+    ["19:30", 4, false],
+    ["19:30", 5, false],
+    ["19:30", 6, false],
+    ["19:45", 2, true],
+    ["19:45", 3, true],
+    ["19:45", 4, false],
+    ["19:45", 5, false],
+    ["19:45", 6, false],
   ]
 
   fixtures.forEach(([outTime, restNumber, expected]) => {

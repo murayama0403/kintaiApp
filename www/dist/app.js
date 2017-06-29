@@ -1805,8 +1805,13 @@ exports.kintai = redux_commons_1.createReducer(initialState, function (handle) {
     handle(actions.InputSpecialNoteAction, function (state, specialNote) {
         var specialHoliday = Holidays_1.getSpecialNoteHolidayFromText(specialNote.text);
         var updater = { specialNote: specialNote.text };
-        if (specialHoliday !== undefined && specialHoliday.requireInputUnpaid) {
-            updater.holiday = Holidays_2.UNPAID_HOLIDAY.value;
+        if (specialHoliday !== undefined) {
+            if (specialHoliday.requireInputUnpaid) {
+                updater.holiday = Holidays_2.UNPAID_HOLIDAY.value;
+            }
+            else {
+                updater.holiday = undefined;
+            }
         }
         return updateDayKintai(state, specialNote.date, updater, postUpdateHolidayInOut);
     });

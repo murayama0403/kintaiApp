@@ -34,8 +34,12 @@ export const kintai = createReducer(initialState, (handle) => {
     handle(actions.InputSpecialNoteAction, (state, specialNote) => {
         const specialHoliday = getSpecialNoteHolidayFromText(specialNote.text)
         const updater: Partial<DayKintai> = { specialNote: specialNote.text }
-        if (specialHoliday !== undefined && specialHoliday.requireInputUnpaid) {
-            updater.holiday = UNPAID_HOLIDAY.value
+        if (specialHoliday !== undefined) {
+            if (specialHoliday.requireInputUnpaid) {
+                updater.holiday = UNPAID_HOLIDAY.value
+            } else {
+                updater.holiday = undefined
+            }
         }
         return updateDayKintai(state, specialNote.date, updater, postUpdateHolidayInOut)
     })

@@ -25,6 +25,10 @@ npmでライブラリのダウンロードなどを行う。
 
     npm install
 
+### 単体テスト実行
+
+    npm test
+
 ### ビルド＆実行
 
     npm start

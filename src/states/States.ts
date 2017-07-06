@@ -28,6 +28,11 @@ export interface DayKintai {
     outTime: string
     specialNote?: string
     holiday?: number
+    noRest2: boolean
+    noRest3: boolean
+    noRest4: boolean
+    noRest5: boolean
+    noRest6: boolean
     memo: string
 }
 

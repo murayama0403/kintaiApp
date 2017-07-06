@@ -4,7 +4,7 @@ import { getHolidayFromValue, getSpecialNoteHolidayFromText } from "../constants
 import { HOLIDAY_TIME_VALUE, UNPAID_HOLIDAY } from "../constants/Holidays"
 import { DayKintai, KintaiState } from "../states/States"
 import { toDayString } from "../utils/DateUtils"
-import { getDayKintaiOrDefault } from "../utils/KintaiUtils"
+import { getDayKintai, getDayKintaiOrDefault, isRestAvailable } from "../utils/KintaiUtils"
 
 const initialState: KintaiState = {
     person: {
@@ -29,7 +29,23 @@ export const kintai = createReducer(initialState, (handle) => {
         return updateDayKintai(state, selectedTime.date, { inTime: selectedTime.time })
     })
     handle(actions.SelectOutAction, (state, selectedTime) => {
-        return updateDayKintai(state, selectedTime.date, { outTime: selectedTime.time })
+        const partialDayKintai: Partial<DayKintai> = { outTime: selectedTime.time }
+        if (!isRestAvailable(selectedTime.time, 2)) {
+            partialDayKintai.noRest2 = false
+        }
+        if (!isRestAvailable(selectedTime.time, 3)) {
+            partialDayKintai.noRest3 = false
+        }
+        if (!isRestAvailable(selectedTime.time, 4)) {
+            partialDayKintai.noRest4 = false
+        }
+        if (!isRestAvailable(selectedTime.time, 5)) {
+            partialDayKintai.noRest5 = false
+        }
+        if (!isRestAvailable(selectedTime.time, 6)) {
+            partialDayKintai.noRest6 = false
+        }
+        return updateDayKintai(state, selectedTime.date, partialDayKintai)
     })
     handle(actions.InputSpecialNoteAction, (state, specialNote) => {
         const specialHoliday = getSpecialNoteHolidayFromText(specialNote.text)
@@ -97,6 +113,28 @@ export const kintai = createReducer(initialState, (handle) => {
     handle(actions.InputDefaultWorkCodeAction, (state, defaultWorkCode) => {
         const person = { ...state.person, defaultWorkCode }
         return { ...state, person }
+    })
+    handle(actions.ToggleRestAction, (state, dateRest) => {
+        const oldDayKintai = getDayKintai(state, dateRest.date)
+        switch (dateRest.restNumber) {
+            case 2:
+                const oldNoRest2 = oldDayKintai ? oldDayKintai.noRest2 : false
+                return updateDayKintai(state, dateRest.date, { noRest2: !oldNoRest2 })
+            case 3:
+                const oldNoRest3 = oldDayKintai ? oldDayKintai.noRest3 : false
+                return updateDayKintai(state, dateRest.date, { noRest3: !oldNoRest3 })
+            case 4:
+                const oldNoRest4 = oldDayKintai ? oldDayKintai.noRest4 : false
+                return updateDayKintai(state, dateRest.date, { noRest4: !oldNoRest4 })
+            case 5:
+                const oldNoRest5 = oldDayKintai ? oldDayKintai.noRest5 : false
+                return updateDayKintai(state, dateRest.date, { noRest5: !oldNoRest5 })
+            case 6:
+                const oldNoRest6 = oldDayKintai ? oldDayKintai.noRest6 : false
+                return updateDayKintai(state, dateRest.date, { noRest6: !oldNoRest6 })
+            default:
+                throw new Error("invalid restNumber: " + dateRest.restNumber)
+        }
     })
 })
 

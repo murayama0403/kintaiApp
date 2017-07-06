@@ -2,6 +2,7 @@ import { History } from "history"
 import * as actions from "../actions/Actions"
 import { sendMonthKintai } from "../clients/ApiClient"
 import { Action } from "../commons/redux-commons"
+import { RestNumber } from "../constants/KintaiConstants"
 import { KintaiState } from "../states/States"
 
 export class DispatchActions {
@@ -145,4 +146,12 @@ export class DispatchActions {
     public inputDefaultWorkCode(defaultWorkCode: string) {
         this.dispatch(actions.InputDefaultWorkCodeAction.create(defaultWorkCode))
     }
+
+    public toggleRest(date: Date, restNumber: RestNumber) {
+        this.dispatch(actions.ToggleRestAction.create({
+            date,
+            restNumber,
+        }))
+    }
+
 }

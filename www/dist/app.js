@@ -6,7 +6,8 @@ webpackJsonp([0],{
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var DateUtils_1 = __webpack_require__(52);
+var Holidays_1 = __webpack_require__(52);
+var DateUtils_1 = __webpack_require__(53);
 var defaultDayKintai = {
     inTime: "",
     outTime: "",
@@ -32,8 +33,8 @@ function getDayKintaiOrDefault(state, date, defaultValue) {
 }
 exports.getDayKintaiOrDefault = getDayKintaiOrDefault;
 function isRestAvailable(outTime, restNumber) {
-    // 退出時刻を入力していない場合はfalse
-    if (outTime === "") {
+    // 退出時刻が無効な場合はfalse
+    if (outTime === "" || outTime === Holidays_1.HOLIDAY_TIME_VALUE) {
         return false;
     }
     // 時刻を文字列で比較したいため、桁数を合わせる
@@ -293,7 +294,7 @@ var IconButton_1 = __webpack_require__(33);
 var keyboard_arrow_left_1 = __webpack_require__(237);
 var keyboard_arrow_right_1 = __webpack_require__(238);
 var React = __webpack_require__(1);
-var DateUtils_1 = __webpack_require__(52);
+var DateUtils_1 = __webpack_require__(53);
 var ToolbarWithProgress_1 = __webpack_require__(167);
 var MonthToolbar = (function (_super) {
     __extends(MonthToolbar, _super);
@@ -474,11 +475,72 @@ exports.forceTouchTapPreventDefault = forceTouchTapPreventDefault;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+// 休みの時に使う時刻の値
+exports.HOLIDAY_TIME_VALUE = "---";
+exports.UNPAID_HOLIDAY = { value: 6, text: "無給", isAllDayOff: true };
+exports.HOLIDAYS = [
+    { value: 1, text: "全日", isAllDayOff: true },
+    { value: 2, text: "午前", isAllDayOff: false },
+    { value: 3, text: "午後", isAllDayOff: false },
+    { value: 4, text: "欠勤", isAllDayOff: true },
+    { value: 5, text: "健診BC・再検査", isAllDayOff: true },
+    exports.UNPAID_HOLIDAY,
+    { value: 7, text: "振休", isAllDayOff: true },
+    { value: 8, text: "代休", isAllDayOff: true },
+    { value: 9, text: "特別代休", isAllDayOff: true },
+    { value: 10, text: "結婚忌引配出産", isAllDayOff: true },
+    { value: 11, text: "SP5", isAllDayOff: true },
+    { value: 12, text: "その他特休", isAllDayOff: true },
+    { value: 13, text: "積立休暇", isAllDayOff: true },
+    { value: 14, text: "休業", isAllDayOff: true },
+    { value: 15, text: "教育訓練", isAllDayOff: true },
+];
+function getHolidayFromValue(value) {
+    if (value === undefined) {
+        return undefined;
+    }
+    return exports.HOLIDAYS.find(function (h) { return h.value === value; });
+}
+exports.getHolidayFromValue = getHolidayFromValue;
+function getHolidayText(value) {
+    var holiday = getHolidayFromValue(value);
+    if (holiday === undefined) {
+        return "";
+    }
+    return holiday.text;
+}
+exports.getHolidayText = getHolidayText;
+exports.SPECIAL_NOTES = [
+    { text: "①生理休暇", requireInputUnpaid: true },
+    { text: "①子の介護休暇", requireInputUnpaid: true },
+    { text: "①妊娠出産通院休暇", requireInputUnpaid: true },
+    { text: "①妊娠障害休暇", requireInputUnpaid: true },
+    { text: "②介護休暇", requireInputUnpaid: false },
+    { text: "②出産休暇", requireInputUnpaid: false },
+    { text: "②再雇用RF休暇", requireInputUnpaid: false },
+];
+function getSpecialNoteHolidayFromText(text) {
+    if (text === undefined) {
+        return undefined;
+    }
+    return exports.SPECIAL_NOTES.find(function (s) { return s.text === text; });
+}
+exports.getSpecialNoteHolidayFromText = getSpecialNoteHolidayFromText;
+
+
+/***/ }),
+
+/***/ 53:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 var japanese_holidays_1 = __webpack_require__(168);
 var colors_1 = __webpack_require__(79);
 var moment = __webpack_require__(3);
 __webpack_require__(144);
-var Holidays_1 = __webpack_require__(67);
+var Holidays_1 = __webpack_require__(52);
 moment.locale("ja");
 function toDayString(date) {
     return moment(date).format("YYYYMMDD");
@@ -1089,67 +1151,6 @@ exports.default = SocialPerson;
 
 /***/ }),
 
-/***/ 67:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-// 休みの時に使う時刻の値
-exports.HOLIDAY_TIME_VALUE = "---";
-exports.UNPAID_HOLIDAY = { value: 6, text: "無給", isAllDayOff: true };
-exports.HOLIDAYS = [
-    { value: 1, text: "全日", isAllDayOff: true },
-    { value: 2, text: "午前", isAllDayOff: false },
-    { value: 3, text: "午後", isAllDayOff: false },
-    { value: 4, text: "欠勤", isAllDayOff: true },
-    { value: 5, text: "健診BC・再検査", isAllDayOff: true },
-    exports.UNPAID_HOLIDAY,
-    { value: 7, text: "振休", isAllDayOff: true },
-    { value: 8, text: "代休", isAllDayOff: true },
-    { value: 9, text: "特別代休", isAllDayOff: true },
-    { value: 10, text: "結婚忌引配出産", isAllDayOff: true },
-    { value: 11, text: "SP5", isAllDayOff: true },
-    { value: 12, text: "その他特休", isAllDayOff: true },
-    { value: 13, text: "積立休暇", isAllDayOff: true },
-    { value: 14, text: "休業", isAllDayOff: true },
-    { value: 15, text: "教育訓練", isAllDayOff: true },
-];
-function getHolidayFromValue(value) {
-    if (value === undefined) {
-        return undefined;
-    }
-    return exports.HOLIDAYS.find(function (h) { return h.value === value; });
-}
-exports.getHolidayFromValue = getHolidayFromValue;
-function getHolidayText(value) {
-    var holiday = getHolidayFromValue(value);
-    if (holiday === undefined) {
-        return "";
-    }
-    return holiday.text;
-}
-exports.getHolidayText = getHolidayText;
-exports.SPECIAL_NOTES = [
-    { text: "①生理休暇", requireInputUnpaid: true },
-    { text: "①子の介護休暇", requireInputUnpaid: true },
-    { text: "①妊娠出産通院休暇", requireInputUnpaid: true },
-    { text: "①妊娠障害休暇", requireInputUnpaid: true },
-    { text: "②介護休暇", requireInputUnpaid: false },
-    { text: "②出産休暇", requireInputUnpaid: false },
-    { text: "②再雇用RF休暇", requireInputUnpaid: false },
-];
-function getSpecialNoteHolidayFromText(text) {
-    if (text === undefined) {
-        return undefined;
-    }
-    return exports.SPECIAL_NOTES.find(function (s) { return s.text === text; });
-}
-exports.getSpecialNoteHolidayFromText = getSpecialNoteHolidayFromText;
-
-
-/***/ }),
-
 /***/ 780:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1320,7 +1321,7 @@ exports.DispatchActions = DispatchActions;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(173);
-var DateUtils_1 = __webpack_require__(52);
+var DateUtils_1 = __webpack_require__(53);
 var KintaiUtils_1 = __webpack_require__(104);
 function sendMonthKintai(kintai, month, password) {
     var body = createBody(kintai, month, password);
@@ -1671,7 +1672,7 @@ var free_breakfast_1 = __webpack_require__(626);
 var hot_tub_1 = __webpack_require__(627);
 var TextField_1 = __webpack_require__(41);
 var React = __webpack_require__(1);
-var Holidays_1 = __webpack_require__(67);
+var Holidays_1 = __webpack_require__(52);
 var KintaiUtils_1 = __webpack_require__(104);
 var Strings_1 = __webpack_require__(797);
 var TimeInput_1 = __webpack_require__(788);
@@ -1788,8 +1789,8 @@ var clear_1 = __webpack_require__(609);
 var check_1 = __webpack_require__(239);
 var TimePicker_1 = __webpack_require__(229);
 var React = __webpack_require__(1);
-var Holidays_1 = __webpack_require__(67);
-var DateUtils_1 = __webpack_require__(52);
+var Holidays_1 = __webpack_require__(52);
+var DateUtils_1 = __webpack_require__(53);
 var REGULAR_TIME_IN = "9:00";
 var REGULAR_TIME_OUT = "17:45";
 exports.IN = {
@@ -1870,7 +1871,7 @@ var IconButton_1 = __webpack_require__(33);
 var keyboard_arrow_left_1 = __webpack_require__(237);
 var keyboard_arrow_right_1 = __webpack_require__(238);
 var React = __webpack_require__(1);
-var DateUtils_1 = __webpack_require__(52);
+var DateUtils_1 = __webpack_require__(53);
 var ToolbarWithProgress_1 = __webpack_require__(167);
 var Toolbar = (function (_super) {
     __extends(Toolbar, _super);
@@ -1987,8 +1988,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var List_1 = __webpack_require__(214);
 var colors_1 = __webpack_require__(79);
 var React = __webpack_require__(1);
-var Holidays_1 = __webpack_require__(67);
-var DateUtils_1 = __webpack_require__(52);
+var Holidays_1 = __webpack_require__(52);
+var DateUtils_1 = __webpack_require__(53);
 var KintaiUtils_1 = __webpack_require__(104);
 var Main = (function (_super) {
     __extends(Main, _super);
@@ -2187,9 +2188,9 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var actions = __webpack_require__(165);
 var redux_commons_1 = __webpack_require__(166);
-var Holidays_1 = __webpack_require__(67);
-var Holidays_2 = __webpack_require__(67);
-var DateUtils_1 = __webpack_require__(52);
+var Holidays_1 = __webpack_require__(52);
+var Holidays_2 = __webpack_require__(52);
+var DateUtils_1 = __webpack_require__(53);
 var KintaiUtils_1 = __webpack_require__(104);
 var initialState = {
     person: {

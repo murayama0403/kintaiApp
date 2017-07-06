@@ -1,3 +1,4 @@
+import { HOLIDAY_TIME_VALUE } from "../constants/Holidays"
 import { RestNumber } from "../constants/KintaiConstants"
 import { DayKintai, KintaiState } from "../states/States"
 import { toDayString } from "./DateUtils"
@@ -28,8 +29,8 @@ export function getDayKintaiOrDefault(
 }
 
 export function isRestAvailable(outTime: string, restNumber: RestNumber) {
-    // 退出時刻を入力していない場合はfalse
-    if (outTime === "") {
+    // 退出時刻が無効な場合はfalse
+    if (outTime === "" || outTime === HOLIDAY_TIME_VALUE) {
         return false
     }
 

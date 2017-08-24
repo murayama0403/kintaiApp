@@ -24,7 +24,7 @@ export class Main extends React.Component<RootProps, {}> {
         const dayString = formatDateForListItem(date)
         const dayStyle = this.getDayStyle(date)
         return (
-            <ListItem key={date.getDate()} onTouchTap={() => this.onSelectDate(date)}>
+            <ListItem key={date.getDate()} onClick={() => this.onSelectDate(date)}>
                 <div style={dayStyle}>{dayString}</div>
                 <div style={{display: "inline-block", width: "48px"}} >{kintai.inTime}</div>
                 <div style={{display: "inline-block", width: "48px"}} >{kintai.outTime}</div>

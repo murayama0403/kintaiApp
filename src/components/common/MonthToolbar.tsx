@@ -9,10 +9,10 @@ import { ToolbarWithProgress } from "./ToolbarWithProgress"
 
 export class MonthToolbar extends React.Component<RootProps, {}> {
     private buttons = <div>
-        <IconButton onTouchTap={() => this.handleBefore()} >
+        <IconButton onClick={() => this.handleBefore()} >
             <ArrowLeftIcon color="white" />
         </IconButton>
-        <IconButton onTouchTap={() => this.handleAfter()}>
+        <IconButton onClick={() => this.handleAfter()}>
             <ArrowRightIcon color="white" />
         </IconButton>
     </div>

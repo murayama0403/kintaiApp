@@ -51,15 +51,15 @@ export class TimeInput extends React.Component<Props, {}> {
                     textFieldStyle={{ width: "160px" }}
                 />
 
-                <IconButton onTouchTap={() => this.handleNow()}
+                <IconButton onClick={() => this.handleNow()}
                     disabled={disabled} >
                     <ActionUpdate />
                 </IconButton>
-                <IconButton onTouchTap={() => this.handleRegular()}
+                <IconButton onClick={() => this.handleRegular()}
                     disabled={disabled} >
                     <NavigationCheck />
                 </IconButton>
-                <IconButton onTouchTap={() => this.handleClear()}
+                <IconButton onClick={() => this.handleClear()}
                     disabled={disabled} >
                     <ContentClear />
                 </IconButton>

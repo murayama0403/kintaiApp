@@ -23,7 +23,7 @@ export class Main extends React.Component<RootProps, {}> {
                 <RaisedButton
                     label={buttonLabel}
                     primary={true}
-                    onTouchTap={() => this.handleSend()}
+                    onClick={() => this.handleSend()}
                     disabled={this.props.value.view.isSending} />
             </div>
         )

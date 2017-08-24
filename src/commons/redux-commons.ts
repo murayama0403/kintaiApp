@@ -37,10 +37,10 @@ export function createReducer<S>(
         reducerMap[actionType.type] = reduce
     })
 
-    return (state: S = initialState, action: Action<any>) => {
-        const reducer = reducerMap[action.type]
+    return (state: S = initialState, act: Action<any>) => {
+        const reducer = reducerMap[act.type]
         if (reducer) {
-            return reducer(state, action.payload)
+            return reducer(state, act.payload)
         }
         return state
     }

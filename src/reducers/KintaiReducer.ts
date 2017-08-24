@@ -1,7 +1,7 @@
 import * as actions from "../actions/Actions"
 import { createReducer } from "../commons/redux-commons"
-import { getHolidayFromValue, getSpecialNoteHolidayFromText } from "../constants/Holidays"
-import { HOLIDAY_TIME_VALUE, UNPAID_HOLIDAY } from "../constants/Holidays"
+import { getHolidayFromValue, getSpecialNoteHolidayFromText,
+    HOLIDAY_TIME_VALUE, UNPAID_HOLIDAY } from "../constants/Holidays"
 import { DayKintai, KintaiState } from "../states/States"
 import { toDayString } from "../utils/DateUtils"
 import { getDayKintai, getDayKintaiOrDefault, isRestAvailable } from "../utils/KintaiUtils"

@@ -69,7 +69,7 @@ export class Main extends React.Component<RootProps, {}> {
                             label={<div style={{ textAlign: "center" }}>17:45<br />18:00</div>}
                             icon={rest2Icon}
                             secondary={currentKintai.noRest2}
-                            onTouchTap={() => this.handleRestToggle(2)}
+                            onClick={() => this.handleRestToggle(2)}
                             style={{ height: "70px", margin: 5 }} />
                     </span>
                     <span style={{ display: showRest3 ? "" : "none" }}>
@@ -77,7 +77,7 @@ export class Main extends React.Component<RootProps, {}> {
                             label={<div style={{ textAlign: "center" }}>19:30<br />20:00</div>}
                             icon={rest3Icon}
                             secondary={currentKintai.noRest3}
-                            onTouchTap={() => this.handleRestToggle(3)}
+                            onClick={() => this.handleRestToggle(3)}
                             style={{ height: "70px", margin: 5 }} />
                     </span>
                     <span style={{ display: showRest4 ? "" : "none" }}>
@@ -85,7 +85,7 @@ export class Main extends React.Component<RootProps, {}> {
                             label={<div style={{ textAlign: "center" }}>22:00<br />22:15</div>}
                             icon={rest4Icon}
                             secondary={currentKintai.noRest4}
-                            onTouchTap={() => this.handleRestToggle(4)}
+                            onClick={() => this.handleRestToggle(4)}
                             style={{ height: "70px", margin: 5 }} />
                     </span>
                     <span style={{ display: showRest5 ? "" : "none" }}>
@@ -93,7 +93,7 @@ export class Main extends React.Component<RootProps, {}> {
                             label={<div style={{ textAlign: "center" }}>02:30<br />03:00</div>}
                             icon={rest5Icon}
                             secondary={currentKintai.noRest5}
-                            onTouchTap={() => this.handleRestToggle(5)}
+                            onClick={() => this.handleRestToggle(5)}
                             style={{ height: "70px", margin: 5 }} />
                     </span>
                     <span style={{ display: showRest6 ? "" : "none" }}>
@@ -101,7 +101,7 @@ export class Main extends React.Component<RootProps, {}> {
                             label={<div style={{ textAlign: "center" }}>08:30<br />09:00</div>}
                             icon={rest6Icon}
                             secondary={currentKintai.noRest6}
-                            onTouchTap={() => this.handleRestToggle(6)}
+                            onClick={() => this.handleRestToggle(6)}
                             style={{ height: "70px", margin: 5 }} />
                     </span>
                 </div>

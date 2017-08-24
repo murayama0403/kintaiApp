@@ -18,19 +18,19 @@ export class FooterTab extends React.Component<RootProps, {}> {
                 <BottomNavigation selectedIndex={selectedIndex}>
                     <BottomNavigationItem label="入力"
                         icon={<EditIcon />}
-                        onTouchTap={() => this.onInputSelected()}
+                        onClick={() => this.onInputSelected()}
                     />
                     <BottomNavigationItem label="一覧"
                         icon={<ListIcon />}
-                        onTouchTap={() => this.onListSelected()}
+                        onClick={() => this.onListSelected()}
                     />
                     <BottomNavigationItem label="共通"
                         icon={<CommonIcon />}
-                        onTouchTap={() => this.onCommonSelected()}
+                        onClick={() => this.onCommonSelected()}
                     />
                     <BottomNavigationItem label="送信"
                         icon={<SendIcon />}
-                        onTouchTap={() => this.onSendSelected()}
+                        onClick={() => this.onSendSelected()}
                     />
                 </BottomNavigation>
             </div>

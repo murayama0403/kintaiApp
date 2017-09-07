@@ -1,12 +1,105 @@
 webpackJsonp([0],{
 
-/***/ 151:
+/***/ 100:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var redux_commons_1 = __webpack_require__(152);
+var Holidays_1 = __webpack_require__(64);
+var DateUtils_1 = __webpack_require__(50);
+var defaultDayKintai = {
+    inTime: "",
+    outTime: "",
+    noRest2: false,
+    noRest3: false,
+    noRest4: false,
+    noRest5: false,
+    noRest6: false,
+    memo: "",
+};
+function getDayKintai(state, date) {
+    var day = DateUtils_1.toDayString(date);
+    return state.days[day];
+}
+exports.getDayKintai = getDayKintai;
+function getDayKintaiOrDefault(state, date, defaultValue) {
+    if (defaultValue === void 0) { defaultValue = defaultDayKintai; }
+    var kintai = getDayKintai(state, date);
+    if (kintai) {
+        return kintai;
+    }
+    return defaultValue;
+}
+exports.getDayKintaiOrDefault = getDayKintaiOrDefault;
+function isRestAvailable(outTime, restNumber) {
+    // 退出時刻が無効な場合はfalse
+    if (outTime === "" || outTime === Holidays_1.HOLIDAY_TIME_VALUE) {
+        return false;
+    }
+    // 時刻を文字列で比較したいため、桁数を合わせる
+    // 例）"9:00"" -> "09:00"
+    var fixedTime = outTime;
+    if (outTime.length === 4) {
+        fixedTime = "0" + outTime;
+    }
+    switch (restNumber) {
+        case 2: return fixedTime > "17:45" || fixedTime <= "09:00";
+        case 3: return fixedTime > "19:30" || fixedTime <= "09:00";
+        case 4: return fixedTime > "22:00" || fixedTime <= "09:00";
+        case 5: return fixedTime > "02:30" && fixedTime <= "09:00";
+        case 6: return fixedTime > "08:30" && fixedTime <= "09:00";
+        default: return false;
+    }
+}
+exports.isRestAvailable = isRestAvailable;
+
+
+/***/ }),
+
+/***/ 102:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var LinearProgress_1 = __webpack_require__(369);
+var React = __webpack_require__(1);
+var ToolbarWithProgress = (function (_super) {
+    __extends(ToolbarWithProgress, _super);
+    function ToolbarWithProgress() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    ToolbarWithProgress.prototype.render = function () {
+        var progressVisibility = this.props.value.view.isSending ? "visible" : "hidden";
+        return (React.createElement("div", { className: "toolbar" },
+            this.props.children,
+            React.createElement(LinearProgress_1.default, { mode: "indeterminate", style: { visibility: progressVisibility } })));
+    };
+    return ToolbarWithProgress;
+}(React.Component));
+exports.ToolbarWithProgress = ToolbarWithProgress;
+
+
+/***/ }),
+
+/***/ 152:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var redux_commons_1 = __webpack_require__(153);
 exports.SelectInAction = redux_commons_1.action("SelectIn");
 exports.SelectOutAction = redux_commons_1.action("SelectOut");
 exports.MoveCurrentDateAction = redux_commons_1.action("MoveCurrentDate");
@@ -36,7 +129,7 @@ exports.ToggleRestAction = redux_commons_1.action("ToggleRest");
 
 /***/ }),
 
-/***/ 152:
+/***/ 153:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76,50 +169,14 @@ exports.createReducer = createReducer;
 
 /***/ }),
 
-/***/ 157:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
-Object.defineProperty(exports, "__esModule", { value: true });
-var LinearProgress_1 = __webpack_require__(369);
-var React = __webpack_require__(1);
-var ToolbarWithProgress = (function (_super) {
-    __extends(ToolbarWithProgress, _super);
-    function ToolbarWithProgress() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    ToolbarWithProgress.prototype.render = function () {
-        var progressVisibility = this.props.value.view.isSending ? "visible" : "hidden";
-        return (React.createElement("div", { className: "toolbar" },
-            this.props.children,
-            React.createElement(LinearProgress_1.default, { mode: "indeterminate", style: { visibility: progressVisibility } })));
-    };
-    return ToolbarWithProgress;
-}(React.Component));
-exports.ToolbarWithProgress = ToolbarWithProgress;
-
-
-/***/ }),
-
 /***/ 242:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var reactRedux = __webpack_require__(142);
-var react_router_dom_1 = __webpack_require__(145);
+var reactRedux = __webpack_require__(143);
+var react_router_dom_1 = __webpack_require__(146);
 var DispatchActions_1 = __webpack_require__(635);
 function connect(component) {
     var connected = reactRedux.connect(function (store) { return ({ value: store }); }, function (dispatch) { return ({ actions: new DispatchActions_1.DispatchActions(dispatch) }); })(component);
@@ -148,7 +205,7 @@ var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -187,7 +244,7 @@ var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -232,13 +289,13 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var AppBar_1 = __webpack_require__(101);
+var AppBar_1 = __webpack_require__(79);
 var IconButton_1 = __webpack_require__(35);
 var keyboard_arrow_left_1 = __webpack_require__(379);
 var keyboard_arrow_right_1 = __webpack_require__(380);
 var React = __webpack_require__(1);
 var DateUtils_1 = __webpack_require__(50);
-var ToolbarWithProgress_1 = __webpack_require__(157);
+var ToolbarWithProgress_1 = __webpack_require__(102);
 var MonthToolbar = (function (_super) {
     __extends(MonthToolbar, _super);
     function MonthToolbar() {
@@ -281,10 +338,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var MuiThemeProvider_1 = __webpack_require__(170);
 var React = __webpack_require__(1);
 var ReactDOM = __webpack_require__(20);
-var react_redux_1 = __webpack_require__(142);
-var react_router_dom_1 = __webpack_require__(145);
+var react_redux_1 = __webpack_require__(143);
+var react_router_dom_1 = __webpack_require__(146);
 var Root_1 = __webpack_require__(634);
-var Store_1 = __webpack_require__(729);
+var Store_1 = __webpack_require__(732);
 var Connector_1 = __webpack_require__(242);
 var RootComponent = Connector_1.connect(Root_1.Root);
 ReactDOM.render(React.createElement(react_redux_1.Provider, { store: Store_1.default },
@@ -304,7 +361,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var japanese_holidays_1 = __webpack_require__(244);
 var colors_1 = __webpack_require__(70);
 var moment = __webpack_require__(3);
-__webpack_require__(153);
+__webpack_require__(154);
 var Holidays_1 = __webpack_require__(64);
 moment.locale("ja");
 function toDayString(date) {
@@ -436,13 +493,15 @@ var React = __webpack_require__(1);
 var react_router_1 = __webpack_require__(241);
 var Connector_1 = __webpack_require__(242);
 var FooterTab_1 = __webpack_require__(639);
-var CommonPage_1 = __webpack_require__(662);
-var InputPage_1 = __webpack_require__(689);
-var ListPage_1 = __webpack_require__(721);
-var SendPage_1 = __webpack_require__(723);
-var SendStatus_1 = __webpack_require__(725);
+var CommonPage_1 = __webpack_require__(663);
+var InputPage_1 = __webpack_require__(690);
+var ListPage_1 = __webpack_require__(722);
+var ProjectPage_1 = __webpack_require__(724);
+var SendPage_1 = __webpack_require__(726);
+var SendStatus_1 = __webpack_require__(728);
 var ListPageComponent = Connector_1.connect(ListPage_1.ListPage);
 var CommonPageComponent = Connector_1.connect(CommonPage_1.CommonPage);
+var ProjectPageComponent = Connector_1.connect(ProjectPage_1.ProjectPage);
 var SendPageComponent = Connector_1.connect(SendPage_1.SendPage);
 var InputPageComponent = Connector_1.connect(InputPage_1.InputPage);
 var Root = (function (_super) {
@@ -455,6 +514,7 @@ var Root = (function (_super) {
             React.createElement(react_router_1.Switch, null,
                 React.createElement(react_router_1.Route, { path: "/list", component: ListPageComponent }),
                 React.createElement(react_router_1.Route, { path: "/common", component: CommonPageComponent }),
+                React.createElement(react_router_1.Route, { path: "/project", component: ProjectPageComponent }),
                 React.createElement(react_router_1.Route, { path: "/send", component: SendPageComponent }),
                 React.createElement(react_router_1.Route, { component: InputPageComponent })),
             React.createElement(SendStatus_1.SendStatus, __assign({}, this.props)),
@@ -473,7 +533,7 @@ exports.Root = Root;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var actions = __webpack_require__(151);
+var actions = __webpack_require__(152);
 var ApiClient_1 = __webpack_require__(636);
 var DispatchActions = (function () {
     function DispatchActions(dispatch) {
@@ -539,6 +599,9 @@ var DispatchActions = (function () {
     };
     DispatchActions.prototype.showCommonPage = function (history) {
         history.push("/common");
+    };
+    DispatchActions.prototype.showProjectPage = function (history) {
+        history.push("/project");
     };
     DispatchActions.prototype.showSendPage = function (history) {
         history.push("/send");
@@ -611,7 +674,7 @@ exports.DispatchActions = DispatchActions;
 Object.defineProperty(exports, "__esModule", { value: true });
 __webpack_require__(243);
 var DateUtils_1 = __webpack_require__(50);
-var KintaiUtils_1 = __webpack_require__(99);
+var KintaiUtils_1 = __webpack_require__(100);
 function sendMonthKintai(kintai, month, password) {
     var body = createBody(kintai, month, password);
     return fetch("https://sleepy-ravine-40602.herokuapp.com/api/kinmu", {
@@ -693,12 +756,16 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var BottomNavigation_1 = __webpack_require__(359);
-var Divider_1 = __webpack_require__(155);
-var list_1 = __webpack_require__(650);
-var send_1 = __webpack_require__(659);
-var edit_1 = __webpack_require__(660);
-var person_1 = __webpack_require__(661);
+var Divider_1 = __webpack_require__(156);
+var assignment_1 = __webpack_require__(650);
+var list_1 = __webpack_require__(659);
+var send_1 = __webpack_require__(660);
+var edit_1 = __webpack_require__(661);
+var person_1 = __webpack_require__(662);
 var React = __webpack_require__(1);
+var iconStyle = {
+    minWidth: "64px",
+};
 var FooterTab = (function (_super) {
     __extends(FooterTab, _super);
     function FooterTab() {
@@ -710,10 +777,11 @@ var FooterTab = (function (_super) {
         return (React.createElement("div", { className: "footerTab" },
             React.createElement(Divider_1.default, null),
             React.createElement(BottomNavigation_1.BottomNavigation, { selectedIndex: selectedIndex },
-                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "入力", icon: React.createElement(edit_1.default, null), onClick: function () { return _this.onInputSelected(); } }),
-                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "一覧", icon: React.createElement(list_1.default, null), onClick: function () { return _this.onListSelected(); } }),
-                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "共通", icon: React.createElement(person_1.default, null), onClick: function () { return _this.onCommonSelected(); } }),
-                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "送信", icon: React.createElement(send_1.default, null), onClick: function () { return _this.onSendSelected(); } }))));
+                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "入力", icon: React.createElement(edit_1.default, null), style: iconStyle, onClick: function () { return _this.onInputSelected(); } }),
+                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "一覧", icon: React.createElement(list_1.default, null), style: iconStyle, onClick: function () { return _this.onListSelected(); } }),
+                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "共通", icon: React.createElement(person_1.default, null), style: iconStyle, onClick: function () { return _this.onCommonSelected(); } }),
+                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "PRJ", icon: React.createElement(assignment_1.default, null), style: iconStyle, onClick: function () { return _this.onProjectSelected(); } }),
+                React.createElement(BottomNavigation_1.BottomNavigationItem, { label: "送信", icon: React.createElement(send_1.default, null), style: iconStyle, onClick: function () { return _this.onSendSelected(); } }))));
     };
     FooterTab.prototype.onInputSelected = function () {
         this.props.actions.showInputPage(this.props.history);
@@ -723,6 +791,9 @@ var FooterTab = (function (_super) {
     };
     FooterTab.prototype.onCommonSelected = function () {
         this.props.actions.showCommonPage(this.props.history);
+    };
+    FooterTab.prototype.onProjectSelected = function () {
+        this.props.actions.showProjectPage(this.props.history);
     };
     FooterTab.prototype.onSendSelected = function () {
         this.props.actions.showSendPage(this.props.history);
@@ -734,8 +805,11 @@ var FooterTab = (function (_super) {
         if (this.props.location.pathname === "/common") {
             return 2;
         }
-        if (this.props.location.pathname === "/send") {
+        if (this.props.location.pathname === "/project") {
             return 3;
+        }
+        if (this.props.location.pathname === "/send") {
+            return 4;
         }
         return 0;
     };
@@ -825,24 +899,24 @@ var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ActionList = function ActionList(props) {
+var ActionAssignment = function ActionAssignment(props) {
   return _react2.default.createElement(
     _SvgIcon2.default,
     props,
-    _react2.default.createElement('path', { d: 'M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z' })
+    _react2.default.createElement('path', { d: 'M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z' })
   );
 };
-ActionList = (0, _pure2.default)(ActionList);
-ActionList.displayName = 'ActionList';
-ActionList.muiName = 'SvgIcon';
+ActionAssignment = (0, _pure2.default)(ActionAssignment);
+ActionAssignment.displayName = 'ActionAssignment';
+ActionAssignment.muiName = 'SvgIcon';
 
-exports.default = ActionList;
+exports.default = ActionAssignment;
 
 /***/ }),
 
@@ -864,24 +938,24 @@ var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ContentSend = function ContentSend(props) {
+var ActionList = function ActionList(props) {
   return _react2.default.createElement(
     _SvgIcon2.default,
     props,
-    _react2.default.createElement('path', { d: 'M2.01 21L23 12 2.01 3 2 10l15 2-15 2z' })
+    _react2.default.createElement('path', { d: 'M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z' })
   );
 };
-ContentSend = (0, _pure2.default)(ContentSend);
-ContentSend.displayName = 'ContentSend';
-ContentSend.muiName = 'SvgIcon';
+ActionList = (0, _pure2.default)(ActionList);
+ActionList.displayName = 'ActionList';
+ActionList.muiName = 'SvgIcon';
 
-exports.default = ContentSend;
+exports.default = ActionList;
 
 /***/ }),
 
@@ -903,24 +977,24 @@ var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var ImageEdit = function ImageEdit(props) {
+var ContentSend = function ContentSend(props) {
   return _react2.default.createElement(
     _SvgIcon2.default,
     props,
-    _react2.default.createElement('path', { d: 'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z' })
+    _react2.default.createElement('path', { d: 'M2.01 21L23 12 2.01 3 2 10l15 2-15 2z' })
   );
 };
-ImageEdit = (0, _pure2.default)(ImageEdit);
-ImageEdit.displayName = 'ImageEdit';
-ImageEdit.muiName = 'SvgIcon';
+ContentSend = (0, _pure2.default)(ContentSend);
+ContentSend.displayName = 'ContentSend';
+ContentSend.muiName = 'SvgIcon';
 
-exports.default = ImageEdit;
+exports.default = ContentSend;
 
 /***/ }),
 
@@ -942,7 +1016,46 @@ var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ImageEdit = function ImageEdit(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z' })
+  );
+};
+ImageEdit = (0, _pure2.default)(ImageEdit);
+ImageEdit.displayName = 'ImageEdit';
+ImageEdit.muiName = 'SvgIcon';
+
+exports.default = ImageEdit;
+
+/***/ }),
+
+/***/ 662:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(17);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -963,7 +1076,7 @@ exports.default = SocialPerson;
 
 /***/ }),
 
-/***/ 662:
+/***/ 663:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -987,10 +1100,10 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var AppBar_1 = __webpack_require__(101);
+var AppBar_1 = __webpack_require__(79);
 var React = __webpack_require__(1);
-var ToolbarWithProgress_1 = __webpack_require__(157);
-var Main_1 = __webpack_require__(669);
+var ToolbarWithProgress_1 = __webpack_require__(102);
+var Main_1 = __webpack_require__(670);
 var CommonPage = (function (_super) {
     __extends(CommonPage, _super);
     function CommonPage() {
@@ -1009,7 +1122,7 @@ exports.CommonPage = CommonPage;
 
 /***/ }),
 
-/***/ 669:
+/***/ 670:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1025,7 +1138,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var MenuItem_1 = __webpack_require__(79);
+var MenuItem_1 = __webpack_require__(80);
 var SelectField_1 = __webpack_require__(162);
 var TextField_1 = __webpack_require__(43);
 var React = __webpack_require__(1);
@@ -1104,7 +1217,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 689:
+/***/ 690:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1129,8 +1242,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
-var Main_1 = __webpack_require__(690);
-var Toolbar_1 = __webpack_require__(720);
+var Main_1 = __webpack_require__(691);
+var Toolbar_1 = __webpack_require__(721);
 var InputPage = (function (_super) {
     __extends(InputPage, _super);
     function InputPage() {
@@ -1148,7 +1261,7 @@ exports.InputPage = InputPage;
 
 /***/ }),
 
-/***/ 690:
+/***/ 691:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1166,22 +1279,22 @@ var __extends = (this && this.__extends) || (function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var IconButton_1 = __webpack_require__(35);
 var IconMenu_1 = __webpack_require__(374);
-var MenuItem_1 = __webpack_require__(79);
+var MenuItem_1 = __webpack_require__(80);
 var RaisedButton_1 = __webpack_require__(164);
 var SelectField_1 = __webpack_require__(162);
-var wb_sunny_1 = __webpack_require__(693);
-var hotel_1 = __webpack_require__(694);
-var restaurant_menu_1 = __webpack_require__(695);
-var more_vert_1 = __webpack_require__(696);
-var airline_seat_recline_normal_1 = __webpack_require__(697);
-var free_breakfast_1 = __webpack_require__(698);
-var hot_tub_1 = __webpack_require__(699);
+var wb_sunny_1 = __webpack_require__(694);
+var hotel_1 = __webpack_require__(695);
+var restaurant_menu_1 = __webpack_require__(696);
+var more_vert_1 = __webpack_require__(697);
+var airline_seat_recline_normal_1 = __webpack_require__(698);
+var free_breakfast_1 = __webpack_require__(699);
+var hot_tub_1 = __webpack_require__(700);
 var TextField_1 = __webpack_require__(43);
 var React = __webpack_require__(1);
 var Holidays_1 = __webpack_require__(64);
-var KintaiUtils_1 = __webpack_require__(99);
-var Strings_1 = __webpack_require__(700);
-var TimeInput_1 = __webpack_require__(701);
+var KintaiUtils_1 = __webpack_require__(100);
+var Strings_1 = __webpack_require__(701);
+var TimeInput_1 = __webpack_require__(702);
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
@@ -1273,45 +1386,6 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 693:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _pure = __webpack_require__(17);
-
-var _pure2 = _interopRequireDefault(_pure);
-
-var _SvgIcon = __webpack_require__(16);
-
-var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ImageWbSunny = function ImageWbSunny(props) {
-  return _react2.default.createElement(
-    _SvgIcon2.default,
-    props,
-    _react2.default.createElement('path', { d: 'M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z' })
-  );
-};
-ImageWbSunny = (0, _pure2.default)(ImageWbSunny);
-ImageWbSunny.displayName = 'ImageWbSunny';
-ImageWbSunny.muiName = 'SvgIcon';
-
-exports.default = ImageWbSunny;
-
-/***/ }),
-
 /***/ 694:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1330,24 +1404,24 @@ var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var MapsHotel = function MapsHotel(props) {
+var ImageWbSunny = function ImageWbSunny(props) {
   return _react2.default.createElement(
     _SvgIcon2.default,
     props,
-    _react2.default.createElement('path', { d: 'M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z' })
+    _react2.default.createElement('path', { d: 'M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z' })
   );
 };
-MapsHotel = (0, _pure2.default)(MapsHotel);
-MapsHotel.displayName = 'MapsHotel';
-MapsHotel.muiName = 'SvgIcon';
+ImageWbSunny = (0, _pure2.default)(ImageWbSunny);
+ImageWbSunny.displayName = 'ImageWbSunny';
+ImageWbSunny.muiName = 'SvgIcon';
 
-exports.default = MapsHotel;
+exports.default = ImageWbSunny;
 
 /***/ }),
 
@@ -1369,24 +1443,24 @@ var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var MapsRestaurantMenu = function MapsRestaurantMenu(props) {
+var MapsHotel = function MapsHotel(props) {
   return _react2.default.createElement(
     _SvgIcon2.default,
     props,
-    _react2.default.createElement('path', { d: 'M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z' })
+    _react2.default.createElement('path', { d: 'M7 13c1.66 0 3-1.34 3-3S8.66 7 7 7s-3 1.34-3 3 1.34 3 3 3zm12-6h-8v7H3V5H1v15h2v-3h18v3h2v-9c0-2.21-1.79-4-4-4z' })
   );
 };
-MapsRestaurantMenu = (0, _pure2.default)(MapsRestaurantMenu);
-MapsRestaurantMenu.displayName = 'MapsRestaurantMenu';
-MapsRestaurantMenu.muiName = 'SvgIcon';
+MapsHotel = (0, _pure2.default)(MapsHotel);
+MapsHotel.displayName = 'MapsHotel';
+MapsHotel.muiName = 'SvgIcon';
 
-exports.default = MapsRestaurantMenu;
+exports.default = MapsHotel;
 
 /***/ }),
 
@@ -1408,24 +1482,24 @@ var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var NavigationMoreVert = function NavigationMoreVert(props) {
+var MapsRestaurantMenu = function MapsRestaurantMenu(props) {
   return _react2.default.createElement(
     _SvgIcon2.default,
     props,
-    _react2.default.createElement('path', { d: 'M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z' })
+    _react2.default.createElement('path', { d: 'M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z' })
   );
 };
-NavigationMoreVert = (0, _pure2.default)(NavigationMoreVert);
-NavigationMoreVert.displayName = 'NavigationMoreVert';
-NavigationMoreVert.muiName = 'SvgIcon';
+MapsRestaurantMenu = (0, _pure2.default)(MapsRestaurantMenu);
+MapsRestaurantMenu.displayName = 'MapsRestaurantMenu';
+MapsRestaurantMenu.muiName = 'SvgIcon';
 
-exports.default = NavigationMoreVert;
+exports.default = MapsRestaurantMenu;
 
 /***/ }),
 
@@ -1447,24 +1521,24 @@ var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var NotificationAirlineSeatReclineNormal = function NotificationAirlineSeatReclineNormal(props) {
+var NavigationMoreVert = function NavigationMoreVert(props) {
   return _react2.default.createElement(
     _SvgIcon2.default,
     props,
-    _react2.default.createElement('path', { d: 'M7.59 5.41c-.78-.78-.78-2.05 0-2.83.78-.78 2.05-.78 2.83 0 .78.78.78 2.05 0 2.83-.79.79-2.05.79-2.83 0zM6 16V7H4v9c0 2.76 2.24 5 5 5h6v-2H9c-1.66 0-3-1.34-3-3zm14 4.07L14.93 15H11.5v-3.68c1.4 1.15 3.6 2.16 5.5 2.16v-2.16c-1.66.02-3.61-.87-4.67-2.04l-1.4-1.55c-.19-.21-.43-.38-.69-.5-.29-.14-.62-.23-.96-.23h-.03C8.01 7 7 8.01 7 9.25V15c0 1.66 1.34 3 3 3h5.07l3.5 3.5L20 20.07z' })
+    _react2.default.createElement('path', { d: 'M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z' })
   );
 };
-NotificationAirlineSeatReclineNormal = (0, _pure2.default)(NotificationAirlineSeatReclineNormal);
-NotificationAirlineSeatReclineNormal.displayName = 'NotificationAirlineSeatReclineNormal';
-NotificationAirlineSeatReclineNormal.muiName = 'SvgIcon';
+NavigationMoreVert = (0, _pure2.default)(NavigationMoreVert);
+NavigationMoreVert.displayName = 'NavigationMoreVert';
+NavigationMoreVert.muiName = 'SvgIcon';
 
-exports.default = NotificationAirlineSeatReclineNormal;
+exports.default = NavigationMoreVert;
 
 /***/ }),
 
@@ -1486,24 +1560,24 @@ var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var PlacesFreeBreakfast = function PlacesFreeBreakfast(props) {
+var NotificationAirlineSeatReclineNormal = function NotificationAirlineSeatReclineNormal(props) {
   return _react2.default.createElement(
     _SvgIcon2.default,
     props,
-    _react2.default.createElement('path', { d: 'M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.9 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z' })
+    _react2.default.createElement('path', { d: 'M7.59 5.41c-.78-.78-.78-2.05 0-2.83.78-.78 2.05-.78 2.83 0 .78.78.78 2.05 0 2.83-.79.79-2.05.79-2.83 0zM6 16V7H4v9c0 2.76 2.24 5 5 5h6v-2H9c-1.66 0-3-1.34-3-3zm14 4.07L14.93 15H11.5v-3.68c1.4 1.15 3.6 2.16 5.5 2.16v-2.16c-1.66.02-3.61-.87-4.67-2.04l-1.4-1.55c-.19-.21-.43-.38-.69-.5-.29-.14-.62-.23-.96-.23h-.03C8.01 7 7 8.01 7 9.25V15c0 1.66 1.34 3 3 3h5.07l3.5 3.5L20 20.07z' })
   );
 };
-PlacesFreeBreakfast = (0, _pure2.default)(PlacesFreeBreakfast);
-PlacesFreeBreakfast.displayName = 'PlacesFreeBreakfast';
-PlacesFreeBreakfast.muiName = 'SvgIcon';
+NotificationAirlineSeatReclineNormal = (0, _pure2.default)(NotificationAirlineSeatReclineNormal);
+NotificationAirlineSeatReclineNormal.displayName = 'NotificationAirlineSeatReclineNormal';
+NotificationAirlineSeatReclineNormal.muiName = 'SvgIcon';
 
-exports.default = PlacesFreeBreakfast;
+exports.default = NotificationAirlineSeatReclineNormal;
 
 /***/ }),
 
@@ -1525,7 +1599,46 @@ var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var PlacesFreeBreakfast = function PlacesFreeBreakfast(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.11 0 2-.9 2-2V5c0-1.11-.89-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z' })
+  );
+};
+PlacesFreeBreakfast = (0, _pure2.default)(PlacesFreeBreakfast);
+PlacesFreeBreakfast.displayName = 'PlacesFreeBreakfast';
+PlacesFreeBreakfast.muiName = 'SvgIcon';
+
+exports.default = PlacesFreeBreakfast;
+
+/***/ }),
+
+/***/ 700:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(17);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -1547,7 +1660,7 @@ exports.default = PlacesHotTub;
 
 /***/ }),
 
-/***/ 700:
+/***/ 701:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1564,7 +1677,7 @@ exports.undefinedToEmpty = undefinedToEmpty;
 
 /***/ }),
 
-/***/ 701:
+/***/ 702:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1581,8 +1694,8 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var IconButton_1 = __webpack_require__(35);
-var update_1 = __webpack_require__(702);
-var clear_1 = __webpack_require__(703);
+var update_1 = __webpack_require__(703);
+var clear_1 = __webpack_require__(704);
 var check_1 = __webpack_require__(371);
 var TimePicker_1 = __webpack_require__(375);
 var React = __webpack_require__(1);
@@ -1639,7 +1752,7 @@ exports.TimeInput = TimeInput;
 
 /***/ }),
 
-/***/ 702:
+/***/ 703:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1657,7 +1770,7 @@ var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -1678,7 +1791,7 @@ exports.default = ActionUpdate;
 
 /***/ }),
 
-/***/ 703:
+/***/ 704:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1696,7 +1809,7 @@ var _pure = __webpack_require__(17);
 
 var _pure2 = _interopRequireDefault(_pure);
 
-var _SvgIcon = __webpack_require__(16);
+var _SvgIcon = __webpack_require__(15);
 
 var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 
@@ -1717,7 +1830,7 @@ exports.default = ContentClear;
 
 /***/ }),
 
-/***/ 720:
+/***/ 721:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1741,13 +1854,13 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var AppBar_1 = __webpack_require__(101);
+var AppBar_1 = __webpack_require__(79);
 var IconButton_1 = __webpack_require__(35);
 var keyboard_arrow_left_1 = __webpack_require__(379);
 var keyboard_arrow_right_1 = __webpack_require__(380);
 var React = __webpack_require__(1);
 var DateUtils_1 = __webpack_require__(50);
-var ToolbarWithProgress_1 = __webpack_require__(157);
+var ToolbarWithProgress_1 = __webpack_require__(102);
 var Toolbar = (function (_super) {
     __extends(Toolbar, _super);
     function Toolbar() {
@@ -1792,7 +1905,7 @@ exports.Toolbar = Toolbar;
 
 /***/ }),
 
-/***/ 721:
+/***/ 722:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1818,7 +1931,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
 var MonthToolbar_1 = __webpack_require__(381);
-var Main_1 = __webpack_require__(722);
+var Main_1 = __webpack_require__(723);
 var ListPage = (function (_super) {
     __extends(ListPage, _super);
     function ListPage() {
@@ -1836,7 +1949,7 @@ exports.ListPage = ListPage;
 
 /***/ }),
 
-/***/ 722:
+/***/ 723:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1865,7 +1978,7 @@ var colors_1 = __webpack_require__(70);
 var React = __webpack_require__(1);
 var Holidays_1 = __webpack_require__(64);
 var DateUtils_1 = __webpack_require__(50);
-var KintaiUtils_1 = __webpack_require__(99);
+var KintaiUtils_1 = __webpack_require__(100);
 var Main = (function (_super) {
     __extends(Main, _super);
     function Main() {
@@ -1909,7 +2022,85 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 723:
+/***/ 724:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var AppBar_1 = __webpack_require__(79);
+var React = __webpack_require__(1);
+var ToolbarWithProgress_1 = __webpack_require__(102);
+var Main_1 = __webpack_require__(725);
+var ProjectPage = (function (_super) {
+    __extends(ProjectPage, _super);
+    function ProjectPage() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    ProjectPage.prototype.render = function () {
+        return (React.createElement("div", null,
+            React.createElement(ToolbarWithProgress_1.ToolbarWithProgress, __assign({}, this.props),
+                React.createElement(AppBar_1.default, { title: "プロジェクト", showMenuIconButton: false })),
+            React.createElement(Main_1.Main, __assign({}, this.props))));
+    };
+    return ProjectPage;
+}(React.Component));
+exports.ProjectPage = ProjectPage;
+
+
+/***/ }),
+
+/***/ 725:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__(1);
+var Main = (function (_super) {
+    __extends(Main, _super);
+    function Main() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Main.prototype.render = function () {
+        return (React.createElement("div", { className: "content" }, "TODO"));
+    };
+    return Main;
+}(React.Component));
+exports.Main = Main;
+
+
+/***/ }),
+
+/***/ 726:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1935,7 +2126,7 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(1);
 var MonthToolbar_1 = __webpack_require__(381);
-var Main_1 = __webpack_require__(724);
+var Main_1 = __webpack_require__(727);
 var SendPage = (function (_super) {
     __extends(SendPage, _super);
     function SendPage() {
@@ -1953,7 +2144,7 @@ exports.SendPage = SendPage;
 
 /***/ }),
 
-/***/ 724:
+/***/ 727:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2004,7 +2195,7 @@ exports.Main = Main;
 
 /***/ }),
 
-/***/ 725:
+/***/ 728:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2020,7 +2211,7 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-var Dialog_1 = __webpack_require__(103);
+var Dialog_1 = __webpack_require__(104);
 var Snackbar_1 = __webpack_require__(384);
 var React = __webpack_require__(1);
 var SendStatus = (function (_super) {
@@ -2047,17 +2238,17 @@ exports.SendStatus = SendStatus;
 
 /***/ }),
 
-/***/ 729:
+/***/ 732:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var redux_1 = __webpack_require__(144);
+var redux_1 = __webpack_require__(145);
 var redux_logger_1 = __webpack_require__(385);
 var redux_persist_1 = __webpack_require__(386);
-var KintaiReducer_1 = __webpack_require__(735);
-var ViewReducer_1 = __webpack_require__(736);
+var KintaiReducer_1 = __webpack_require__(738);
+var ViewReducer_1 = __webpack_require__(739);
 // weinreでConsoleデバッグができるようにredux-loggerがconsole.logを呼び出すように変更
 var logger = redux_logger_1.createLogger({
     level: "log",
@@ -2081,7 +2272,7 @@ exports.default = store;
 
 /***/ }),
 
-/***/ 735:
+/***/ 738:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2095,11 +2286,11 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var actions = __webpack_require__(151);
-var redux_commons_1 = __webpack_require__(152);
+var actions = __webpack_require__(152);
+var redux_commons_1 = __webpack_require__(153);
 var Holidays_1 = __webpack_require__(64);
 var DateUtils_1 = __webpack_require__(50);
-var KintaiUtils_1 = __webpack_require__(99);
+var KintaiUtils_1 = __webpack_require__(100);
 var initialState = {
     person: {
         email: "",
@@ -2266,7 +2457,7 @@ function isAllDayOff(dayKintai) {
 
 /***/ }),
 
-/***/ 736:
+/***/ 739:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2280,8 +2471,8 @@ var __assign = (this && this.__assign) || Object.assign || function(t) {
     return t;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var actions = __webpack_require__(151);
-var redux_commons_1 = __webpack_require__(152);
+var actions = __webpack_require__(152);
+var redux_commons_1 = __webpack_require__(153);
 var initialState = {
     currentDate: new Date(),
     password: "",
@@ -2312,63 +2503,6 @@ exports.view = redux_commons_1.createReducer(initialState, function (handle) {
         return __assign({}, state, { sendErrorMessage: undefined });
     });
 });
-
-
-/***/ }),
-
-/***/ 99:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Holidays_1 = __webpack_require__(64);
-var DateUtils_1 = __webpack_require__(50);
-var defaultDayKintai = {
-    inTime: "",
-    outTime: "",
-    noRest2: false,
-    noRest3: false,
-    noRest4: false,
-    noRest5: false,
-    noRest6: false,
-    memo: "",
-};
-function getDayKintai(state, date) {
-    var day = DateUtils_1.toDayString(date);
-    return state.days[day];
-}
-exports.getDayKintai = getDayKintai;
-function getDayKintaiOrDefault(state, date, defaultValue) {
-    if (defaultValue === void 0) { defaultValue = defaultDayKintai; }
-    var kintai = getDayKintai(state, date);
-    if (kintai) {
-        return kintai;
-    }
-    return defaultValue;
-}
-exports.getDayKintaiOrDefault = getDayKintaiOrDefault;
-function isRestAvailable(outTime, restNumber) {
-    // 退出時刻が無効な場合はfalse
-    if (outTime === "" || outTime === Holidays_1.HOLIDAY_TIME_VALUE) {
-        return false;
-    }
-    // 時刻を文字列で比較したいため、桁数を合わせる
-    // 例）"9:00"" -> "09:00"
-    var fixedTime = outTime;
-    if (outTime.length === 4) {
-        fixedTime = "0" + outTime;
-    }
-    switch (restNumber) {
-        case 2: return fixedTime > "17:45" || fixedTime <= "09:00";
-        case 3: return fixedTime > "19:30" || fixedTime <= "09:00";
-        case 4: return fixedTime > "22:00" || fixedTime <= "09:00";
-        case 5: return fixedTime > "02:30" && fixedTime <= "09:00";
-        case 6: return fixedTime > "08:30" && fixedTime <= "09:00";
-        default: return false;
-    }
-}
-exports.isRestAvailable = isRestAvailable;
 
 
 /***/ })

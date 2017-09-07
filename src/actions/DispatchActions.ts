@@ -81,6 +81,10 @@ export class DispatchActions {
         history.push("/common")
     }
 
+    public showProjectPage(history: History) {
+        history.push("/project")
+    }
+
     public showSendPage(history: History) {
         history.push("/send")
     }
